@@ -32,6 +32,13 @@ func parse() -> Chart:
 	chart.events.push_back(CameraPan.new(time, int(not must_hit)))
 	
 	for section: Dictionary in data.notes:
+		if section.get('changeBPM', false) and section.get('bpm', -1.0) != bpm:
+			bpm = section.get('bpm', -1.0)
+			chart.events.push_back(BPMChange.new(time, bpm))
+		if section.mustHitSection != must_hit:
+			must_hit = section.mustHitSection
+			chart.events.push_back(CameraPan.new(time, int(not must_hit)))
+		var section_length: float = section.get("sectionBeats", 4.0);
 		var beat_delta: float = 60.0 / bpm
 		for note: Array in section.sectionNotes:
 			if int(note[1]) < 0:
@@ -53,15 +60,8 @@ func parse() -> Chart:
 			
 			chart.notes.push_back(note_data)
 		
-		if section.get('changeBPM', false) and section.get('bpm', -1.0) != bpm:
-			bpm = section.get('bpm', -1.0)
-			chart.events.push_back(BPMChange.new(time, bpm))
-		if section.mustHitSection != must_hit:
-			must_hit = section.mustHitSection
-			chart.events.push_back(CameraPan.new(time, int(not must_hit)))
-		
-		beat += 4.0
-		time += 4.0 * beat_delta
+		beat += section_length
+		time += section_length * beat_delta
 	
 	Chart.sort_chart_notes(chart)
 	var stacked_notes := Chart.remove_stacked_notes(chart)
