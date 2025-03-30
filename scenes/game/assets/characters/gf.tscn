@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_bbqcr"]
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_jrmk7"]
-[ext_resource type="Texture2D" uid="uid://d2c1hlp80sm2q" path="res://resources/images/game/assets/icons/gf.png" id="3_2glvu"]
+[ext_resource type="Texture2D" uid="uid://d2c1hlp80sm2q" path="res://assets/game/characters/gf/icon.png" id="3_2glvu"]
 [ext_resource type="Script" uid="uid://diqmdngjb60u2" path="res://addons/gdanimate/animate_symbol.gd" id="4_nbymw"]
 
 [sub_resource type="Resource" id="Resource_1qgms"]
@@ -478,7 +478,7 @@ dance_steps = Array[StringName]([&"dance_left", &"dance_right"])
 [node name="sprite" type="Node2D" parent="."]
 position = Vector2(-218, -341)
 script = ExtResource("4_nbymw")
-atlas = "res://resources/images/game/assets/characters/gf/sprites"
+atlas = "res://assets/game/characters/gf/default_spritemap/"
 symbol = "GF Dancing Beat"
 loop_mode = "Play Once"
 metadata/_custom_type_script = "uid://diqmdngjb60u2"

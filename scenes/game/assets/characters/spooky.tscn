@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_43mb2"]
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_pnq3w"]
-[ext_resource type="Texture2D" uid="uid://5ad1jmxs576c" path="res://resources/images/game/assets/icons/spooky.png" id="3_43mb2"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/characters/spooky/SpookyKids.res" id="4_ov5pa"]
+[ext_resource type="Texture2D" uid="uid://5ad1jmxs576c" path="res://assets/game/characters/spooky/icon.png" id="3_43mb2"]
+[ext_resource type="SpriteFrames" path="res://assets/game/characters/spooky/sprites.res" id="4_43mb2"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_nljr1"]
 
 [sub_resource type="Resource" id="Resource_pnq3w"]
@@ -454,7 +454,7 @@ sing_steps = 8.0
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-289, -542)
-sprite_frames = ExtResource("4_ov5pa")
+sprite_frames = ExtResource("4_43mb2")
 animation = &"Idle"
 centered = false
 script = ExtResource("5_nljr1")

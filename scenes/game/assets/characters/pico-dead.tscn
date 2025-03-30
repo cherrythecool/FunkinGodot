@@ -2,14 +2,14 @@
 
 [ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_uujnk"]
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_owvcu"]
-[ext_resource type="Texture2D" uid="uid://cbpmx024rn06u" path="res://resources/images/game/assets/icons/pico.png" id="3_motvc"]
-[ext_resource type="AudioStream" uid="uid://bi1dhrryvbsqv" path="res://resources/music/game/gameover_pico.ogg" id="4_7lbbw"]
-[ext_resource type="SpriteFrames" uid="uid://cooyp0j6rfav6" path="res://resources/images/game/assets/characters/pico/Pico_Death.res" id="4_owvcu"]
+[ext_resource type="Texture2D" uid="uid://cbpmx024rn06u" path="res://assets/game/characters/pico/icon.png" id="3_motvc"]
+[ext_resource type="AudioStream" uid="uid://bi1dhrryvbsqv" path="res://assets/game/gameover/pico/theme.ogg" id="4_7lbbw"]
+[ext_resource type="SpriteFrames" uid="uid://cooyp0j6rfav6" path="res://assets/game/characters/pico/Pico_Death.res" id="4_owvcu"]
 [ext_resource type="Script" uid="uid://be3817vx78fju" path="res://scenes/game/assets/characters/gameover_assets.gd" id="5_v21km"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_vu483"]
-[ext_resource type="AudioStream" uid="uid://lr8q86ep81uc" path="res://resources/sfx/game/gameover/on_death_pico.ogg" id="6_gr0sy"]
-[ext_resource type="SpriteFrames" uid="uid://climnd1xx70c1" path="res://resources/images/game/assets/characters/pico/Pico_Death_Retry.res" id="6_motvc"]
-[ext_resource type="AudioStream" uid="uid://dn6vwjcj701o1" path="res://resources/sfx/game/gameover/retry_pico.ogg" id="7_nvuhe"]
+[ext_resource type="AudioStream" uid="uid://lr8q86ep81uc" path="res://assets/game/gameover/pico/on_death.ogg" id="6_gr0sy"]
+[ext_resource type="SpriteFrames" uid="uid://climnd1xx70c1" path="res://assets/game/characters/pico/Pico_Death_Retry.res" id="6_motvc"]
+[ext_resource type="AudioStream" uid="uid://dn6vwjcj701o1" path="res://assets/game/gameover/pico/retry.ogg" id="7_nvuhe"]
 
 [sub_resource type="Resource" id="Resource_vmsim"]
 script = ExtResource("2_owvcu")

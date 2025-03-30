@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bx6f5ldidoswy"]
 
-[ext_resource type="Shader" uid="uid://cqme286ehx6n7" path="res://resources/shaders/note_splash.gdshader" id="1_1cbmv"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/skins/default/splashes.res" id="1_qpt8d"]
+[ext_resource type="Shader" uid="uid://cqme286ehx6n7" path="res://assets/shaders/note_splash.gdshader" id="1_1cbmv"]
+[ext_resource type="SpriteFrames" uid="uid://bw4etux81oui3" path="res://assets/game/skins/default/splashes.res" id="1_qpt8d"]
 [ext_resource type="Script" uid="uid://c82426ybmfu3c" path="res://scenes/game/notes/note_splash.gd" id="3_3s68y"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uaa61"]

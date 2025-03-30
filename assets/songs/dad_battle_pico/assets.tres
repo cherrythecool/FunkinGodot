@@ -1,0 +1,49 @@
+[gd_resource type="Resource" script_class="SongAssets" load_steps=21 format=3 uid="uid://dfr2n5hwdetfl"]
+
+[ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_b6y5e"]
+[ext_resource type="Texture2D" uid="uid://bfte1efl00hqd" path="res://assets/game/skins/default/ratings/bad.png" id="1_ohhdw"]
+[ext_resource type="AudioStream" uid="uid://cdx006xagoh7x" path="res://assets/menus/pause_menu/pico_theme.ogg" id="1_syfdj"]
+[ext_resource type="Texture2D" uid="uid://ds3g63uwcq4jw" path="res://assets/game/skins/default/combo.png" id="2_0a05e"]
+[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico-player.tscn" id="2_hm6ok"]
+[ext_resource type="AudioStream" uid="uid://vusu7c2ire01" path="res://assets/game/skins/default/countdown/3.ogg" id="3_77d0u"]
+[ext_resource type="PackedScene" uid="uid://s7la6mup6cwb" path="res://scenes/game/assets/characters/nene.tscn" id="3_syfdj"]
+[ext_resource type="PackedScene" uid="uid://8gvi1td3sh2t" path="res://scenes/game/assets/stages/stage_erect.tscn" id="4_1lud1"]
+[ext_resource type="AudioStream" uid="uid://dj08aj6avwys5" path="res://assets/game/skins/default/countdown/2.ogg" id="4_ikdmc"]
+[ext_resource type="AudioStream" uid="uid://cvne10g6br5tx" path="res://assets/game/skins/default/countdown/1.ogg" id="5_h1svb"]
+[ext_resource type="AudioStream" uid="uid://b2d2bpdv1aaa6" path="res://assets/game/skins/default/countdown/go.ogg" id="6_o6lob"]
+[ext_resource type="Texture2D" uid="uid://cd4erocsrgekg" path="res://assets/game/skins/default/countdown/ready.png" id="7_ec0c6"]
+[ext_resource type="Texture2D" uid="uid://c70k6xe0qbuac" path="res://assets/game/skins/default/countdown/set.png" id="8_ndkyx"]
+[ext_resource type="Texture2D" uid="uid://cgkt2ctlovm34" path="res://assets/game/skins/default/countdown/go.png" id="9_yprrn"]
+[ext_resource type="Texture2D" uid="uid://c48jhvhvs2fdc" path="res://assets/game/skins/default/ratings/good.png" id="10_a0iwj"]
+[ext_resource type="Texture2D" uid="uid://cn6fmp8et8ktw" path="res://assets/game/skins/default/ratings/marvelous.png" id="11_djd7o"]
+[ext_resource type="Script" uid="uid://bwjjpqxupvxcc" path="res://scripts/resources/hud_skin.gd" id="13_ym6es"]
+[ext_resource type="Texture2D" uid="uid://ccnsbyha7asga" path="res://assets/game/skins/default/ratings/shit.png" id="14_i0x73"]
+[ext_resource type="Texture2D" uid="uid://gn12nu6v7fgf" path="res://assets/game/skins/default/ratings/sick.png" id="15_h2fbj"]
+
+[sub_resource type="Resource" id="Resource_m21jl"]
+script = ExtResource("13_ym6es")
+marvelous = ExtResource("11_djd7o")
+sick = ExtResource("15_h2fbj")
+good = ExtResource("10_a0iwj")
+bad = ExtResource("1_ohhdw")
+shit = ExtResource("14_i0x73")
+rating_scale = Vector2(0.7, 0.7)
+rating_filter = 0
+combo_atlas = ExtResource("2_0a05e")
+combo_scale = Vector2(0.5, 0.5)
+combo_filter = 0
+countdown_textures = Array[Texture2D]([null, ExtResource("7_ec0c6"), ExtResource("8_ndkyx"), ExtResource("9_yprrn")])
+countdown_sounds = Array[AudioStream]([ExtResource("3_77d0u"), ExtResource("4_ikdmc"), ExtResource("5_h1svb"), ExtResource("6_o6lob")])
+countdown_scale = Vector2(0.7, 0.7)
+countdown_filter = 0
+pause_music = ExtResource("1_syfdj")
+metadata/_custom_type_script = "uid://bwjjpqxupvxcc"
+
+[resource]
+script = ExtResource("1_b6y5e")
+player = ExtResource("2_hm6ok")
+spectator = ExtResource("3_syfdj")
+stage = ExtResource("4_1lud1")
+hud_skin = SubResource("Resource_m21jl")
+scripts = Array[PackedScene]([])
+metadata/_custom_type_script = "uid://dk2lxfhv5lvf4"

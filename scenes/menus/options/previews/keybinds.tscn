@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://c54n5pwgvqym0"]
 
-[ext_resource type="SpriteFrames" path="res://resources/images/game/skins/default/receptors.res" id="1_dgmlx"]
-[ext_resource type="Script" path="res://scenes/menus/options/previews/keybinds.gd" id="1_ol6wa"]
-[ext_resource type="Script" path="res://scripts/animated_sprite.gd" id="2_d1c8h"]
-[ext_resource type="Script" path="res://scenes/interface/alphabet.gd" id="3_g24lb"]
+[ext_resource type="SpriteFrames" uid="uid://y8en4nx7mbuw" path="res://assets/game/skins/default/receptors.res" id="1_dgmlx"]
+[ext_resource type="Script" uid="uid://deu38koiq5osv" path="res://scenes/menus/options/previews/keybinds.gd" id="1_ol6wa"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="2_d1c8h"]
+[ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="3_g24lb"]
 
 [node name="keybinds" type="Node2D"]
 scale = Vector2(0.7, 0.7)

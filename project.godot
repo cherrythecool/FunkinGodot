@@ -18,11 +18,11 @@ run/main_scene="res://scenes/menus/title_screen.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
-config/icon="res://resources/images/icon.png"
+config/icon="res://assets/icon.png"
 
 [audio]
 
-buses/default_bus_layout="res://resources/default_bus_layout.tres"
+buses/default_bus_layout="res://assets/resources/default_bus_layout.tres"
 
 [autoload]
 
@@ -60,11 +60,10 @@ enabled=PackedStringArray("res://addons/gdanimate/plugin.cfg")
 
 folder_colors={
 "res://addons/": "gray",
+"res://assets/": "orange",
 "res://plans/": "yellow",
-"res://resources/": "orange",
 "res://scenes/": "blue",
-"res://scripts/": "pink",
-"res://songs/": "teal"
+"res://scripts/": "pink"
 }
 
 [gui]
@@ -247,10 +246,6 @@ pause_game={
 [input_devices]
 
 buffering/agile_event_flushing=true
-
-[internationalization]
-
-locale/translations=PackedStringArray("res://resources/locale/difficulties.en.translation")
 
 [rendering]
 

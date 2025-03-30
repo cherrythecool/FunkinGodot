@@ -50,7 +50,7 @@ func load_from_file(path:String):
 	atlas_xml = FileAccess.get_file_as_bytes(xml_p)
 	xml_path = xml_p
 	parse()
-	
+
 func parse() -> void:
 	if !is_instance_valid(atlas_tex):
 		printerr("INVALID TEXTURE\n")
@@ -59,7 +59,7 @@ func parse() -> void:
 	parser.open_buffer(atlas_xml)
 	sprite_frames = SpriteFrames.new()
 	sprite_frames.remove_animation("default")
-	
+
 	while parser.read() == OK:
 		var nodetype = parser.get_node_type()
 		if nodetype == XMLParser.NODE_ELEMENT:
@@ -70,19 +70,19 @@ func parse() -> void:
 				var frame_number = raw_name.replace(tname,"").to_int()
 				var pos = Vector2i(parser.get_named_attribute_value("x").to_int(),parser.get_named_attribute_value("y").to_int())
 				var size = Vector2i(parser.get_named_attribute_value("width").to_int(),parser.get_named_attribute_value("height").to_int())
-				
+
 				## atlas texture stuff
 				if !sprite_frames.has_animation(tname):
 					sprite_frames.add_animation(tname)
 
 				var tex:AtlasTexture = AtlasTexture.new()
-				
+
 				var xml_x = parser.get_named_attribute_value_safe("x").to_int()
 				var xml_y = parser.get_named_attribute_value_safe("y").to_int()
 				var xml_width = parser.get_named_attribute_value_safe("width").to_int()
 				var xml_height = parser.get_named_attribute_value_safe("height").to_int()
-				
-				
+
+
 				var xml_frame_height = parser.get_named_attribute_value_safe("frameHeight").to_int()
 				var xml_frame_width = parser.get_named_attribute_value_safe("frameWidth").to_int()
 				var xml_frame_x = parser.get_named_attribute_value_safe("frameX").to_int()
@@ -95,10 +95,9 @@ func parse() -> void:
 							xml_frame_width - xml_width,xml_frame_height - xml_height
 					)
 					tex.margin.size = tex.margin.size.max(abs(tex.margin.position))
-				
-				
-				
+
+
+
 				sprite_frames.add_frame(tname,tex)
 				sprite_frames.set_animation_speed(tname,24)
 				sprite_frames.set_animation_loop(tname,false)
-				

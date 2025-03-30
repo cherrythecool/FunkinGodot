@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dcnfp5cgg5ivb"]
+
+[ext_resource type="Shader" uid="uid://b425lohtbwupt" path="res://assets/shaders/pause_blur_high.gdshader" id="1_x7uiy"]
+
+[resource]
+shader = ExtResource("1_x7uiy")
+shader_parameter/lod = 1.0

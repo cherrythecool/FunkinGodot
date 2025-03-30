@@ -22,14 +22,14 @@ func _ready() -> void:
 		Conductor.tempo = 102.0
 		Conductor.target_audio = music_player
 	Conductor.beat_hit.connect(_on_beat_hit)
-	
+
 	change_selection()
 
 
 func _on_beat_hit(beat: int) -> void:
 	if not active:
 		return
-	
+
 	props.beat_hit()
 
 
@@ -52,12 +52,12 @@ func _input(event: InputEvent) -> void:
 	if event.is_action('ui_accept'):
 		active = false
 		_load_active_playlist()
-		
+
 		if _load_first_song():
 			GlobalAudio.get_player('MENU/CONFIRM').play()
 			if is_instance_valid(props.props[2]):
 				props.props[2].play_anim('confirm', true)
-				
+
 			SceneManager.switch_to('scenes/game/game.tscn')
 		else:
 			active = true
@@ -74,7 +74,7 @@ func _load_active_playlist() -> void:
 	Game.playlist = []
 	if selected_week.songs.size() == 1:
 		return
-	
+
 	var difficulty: String = difficulties.difficulties[difficulties.selected]
 	for i: int in range(1, selected_week.songs.size()):
 		var entry := GamePlaylistEntry.new()
@@ -88,13 +88,13 @@ func _load_first_song() -> bool:
 	var difficulty: String = difficulties.difficulties[difficulties.selected]
 	var song_name: String = selected_week.get_song_name(0, difficulty)
 	Game.chart = Chart.load_song(song_name, difficulty)
-	
+
 	if not is_instance_valid(Game.chart):
-		var json_path := 'res://songs/%s/charts/%s.json' % [song_name, difficulty.to_lower()]
+		var json_path := 'res://assets/songs/%s/charts/%s.json' % [song_name, difficulty.to_lower()]
 		printerr('Song at path %s doesn\'t exist!' % json_path)
 		GlobalAudio.get_player('MENU/CANCEL').play()
 		return false
-	
+
 	Game.song = song_name
 	Game.difficulty = difficulty.to_lower()
 	Game.mode = Game.PlayMode.STORY
@@ -103,24 +103,24 @@ func _load_first_song() -> bool:
 
 func change_selection(amount: int = 0) -> void:
 	weeks.selected = wrapi(weeks.selected + amount, 0, weeks.get_child_count())
-	
+
 	var selected_week = weeks.get_child(weeks.selected)
 	props.update_props(selected_week.props)
 	week_name.text = selected_week.display_name
 	difficulties.difficulties = selected_week.difficulties
 	difficulties.change_selection()
-	
+
 	var song_paths: PackedStringArray = selected_week.songs
 	var song_names: PackedStringArray = []
-	
+
 	for path: String in song_paths:
-		if ResourceLoader.exists('res://songs/%s/meta.tres' % path):
-			var meta: SongMetadata = load('res://songs/%s/meta.tres' % path)
+		if ResourceLoader.exists('res://assets/songs/%s/meta.tres' % path):
+			var meta: SongMetadata = load('res://assets/songs/%s/meta.tres' % path)
 			song_names.push_back(meta.display_name)
 		else:
 			song_names.push_back(path)
-	
+
 	songs_label.text = '\n'.join(song_names)
-	
+
 	if amount != 0:
 		GlobalAudio.get_player('MENU/SCROLL').play()

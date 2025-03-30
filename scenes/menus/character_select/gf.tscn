@@ -216,7 +216,7 @@ _data = {
 
 [node name="spectator" type="Node2D"]
 script = ExtResource("1_3bcht")
-atlas = "res://resources/images/menus/character_select/bf/spectator/"
+atlas = "res://assets/menus/character_select/bf/spectator"
 loop_mode = "Play Once"
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 

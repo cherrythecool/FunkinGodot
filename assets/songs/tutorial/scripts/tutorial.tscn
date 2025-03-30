@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://7b20rlie68yo"]
+
+[ext_resource type="Script" uid="uid://bu5rt58v1uns0" path="res://assets/songs/tutorial/scripts/tutorial.gd" id="1_iwyrr"]
+
+[node name="tutorial" type="Node"]
+script = ExtResource("1_iwyrr")

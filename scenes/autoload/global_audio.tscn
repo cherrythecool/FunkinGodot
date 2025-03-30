@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dt7vny7nmtw41"]
 
 [ext_resource type="Script" uid="uid://bgoj5fedfmju5" path="res://scenes/autoload/global_audio.gd" id="1_ete5d"]
-[ext_resource type="AudioStream" uid="uid://dergcpn8f5cju" path="res://resources/music/menus/main_theme.ogg" id="2_ew3pn"]
-[ext_resource type="AudioStream" uid="uid://bmt2cyc46u6om" path="res://resources/sfx/menus/scroll.ogg" id="4_2sg76"]
-[ext_resource type="AudioStream" uid="uid://cw4cxfwsg33fg" path="res://resources/sfx/menus/confirm.ogg" id="5_fbmua"]
-[ext_resource type="AudioStream" uid="uid://ks4syot2ec3p" path="res://resources/sfx/menus/cancel.ogg" id="6_i8ihw"]
+[ext_resource type="AudioStream" uid="uid://dergcpn8f5cju" path="res://assets/menus/main_theme.ogg" id="2_ew3pn"]
+[ext_resource type="AudioStream" uid="uid://bmt2cyc46u6om" path="res://assets/menus/sfx/scroll.ogg" id="4_2sg76"]
+[ext_resource type="AudioStream" uid="uid://cw4cxfwsg33fg" path="res://assets/menus/sfx/confirm.ogg" id="5_fbmua"]
+[ext_resource type="AudioStream" uid="uid://ks4syot2ec3p" path="res://assets/menus/sfx/cancel.ogg" id="6_i8ihw"]
 
 [node name="global_audio" type="Node"]
 script = ExtResource("1_ete5d")

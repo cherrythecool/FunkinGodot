@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_qpuwd"]
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_nvsa7"]
-[ext_resource type="Texture2D" uid="uid://dp4wr3woulw3y" path="res://resources/images/game/assets/icons/bf.png" id="3_a8h5q"]
-[ext_resource type="SpriteFrames" uid="uid://vwb0175wp7cl" path="res://resources/images/game/assets/characters/bf/sprites.res" id="4_n76qh"]
+[ext_resource type="Texture2D" uid="uid://dp4wr3woulw3y" path="res://assets/game/characters/bf/icon.png" id="3_a8h5q"]
+[ext_resource type="SpriteFrames" uid="uid://vwb0175wp7cl" path="res://assets/game/characters/bf/sprites.res" id="4_n76qh"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_cqlbl"]
 
 [sub_resource type="Resource" id="Resource_04pdi"]

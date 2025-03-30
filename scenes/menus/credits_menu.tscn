@@ -1,19 +1,20 @@
-[gd_scene load_steps=19 format=3 uid="uid://b6gvgi7qjy176"]
+[gd_scene load_steps=20 format=3 uid="uid://b6gvgi7qjy176"]
 
 [ext_resource type="Script" uid="uid://ck4pjp7k3k745" path="res://scenes/menus/credits_menu.gd" id="1_536xp"]
-[ext_resource type="Texture2D" uid="uid://coli0ye4bsyff" path="res://resources/images/menus/background.png" id="1_due5w"]
+[ext_resource type="Texture2D" uid="uid://coli0ye4bsyff" path="res://assets/menus/background.png" id="1_due5w"]
 [ext_resource type="Script" uid="uid://bable6fjbwgrq" path="res://scenes/interface/listed_alphabet.gd" id="3_xtkoc"]
-[ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://resources/fonts/vcr-jp.ttf" id="4_d74go"]
+[ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="4_d74go"]
 [ext_resource type="Script" uid="uid://xex6ryb2bo7" path="res://scenes/menus/credits/contributor.gd" id="4_wywfy"]
-[ext_resource type="Texture2D" uid="uid://b3ac3wi373b11" path="res://resources/images/menus/credits/cherry.svg" id="5_325oc"]
-[ext_resource type="Texture2D" uid="uid://bluenau7pkveo" path="res://resources/images/menus/credits/godot.svg" id="5_komaw"]
-[ext_resource type="Texture2D" uid="uid://6hlha56pn1t4" path="res://resources/images/icon.png" id="6_fq4y8"]
-[ext_resource type="Texture2D" uid="uid://dpcti4426mwej" path="res://resources/images/menus/credits/vortex.png" id="6_xc1f4"]
-[ext_resource type="Texture2D" uid="uid://sbaset6yggsb" path="res://resources/images/menus/credits/siwsi.png" id="7_jfhfx"]
-[ext_resource type="Texture2D" uid="uid://n5kg83c7euef" path="res://resources/images/menus/credits/maru.jpg" id="10_0pp4y"]
-[ext_resource type="Texture2D" uid="uid://2pifvfo3wo25" path="res://resources/images/menus/credits/suokarts3.jpg" id="11_b34ng"]
-[ext_resource type="Texture2D" uid="uid://5dlrqhx5jf3r" path="res://resources/images/skib.png" id="12_33ree"]
-[ext_resource type="AudioStream" uid="uid://cdx006xagoh7x" path="res://resources/music/menus/pause_menu_pico.ogg" id="13_b34ng"]
+[ext_resource type="Texture2D" uid="uid://b3ac3wi373b11" path="res://assets/menus/credits/cherry.svg" id="5_325oc"]
+[ext_resource type="Texture2D" uid="uid://bluenau7pkveo" path="res://assets/menus/credits/godot.svg" id="5_komaw"]
+[ext_resource type="Texture2D" uid="uid://6hlha56pn1t4" path="res://assets/icon.png" id="6_fq4y8"]
+[ext_resource type="Texture2D" uid="uid://dpcti4426mwej" path="res://assets/menus/credits/vortex.png" id="6_xc1f4"]
+[ext_resource type="Texture2D" uid="uid://sbaset6yggsb" path="res://assets/menus/credits/siwsi.png" id="7_jfhfx"]
+[ext_resource type="Texture2D" uid="uid://b4dt6w5nafr6p" path="res://assets/menus/credits/nebula.png" id="8_aave4"]
+[ext_resource type="Texture2D" uid="uid://n5kg83c7euef" path="res://assets/menus/credits/maru.jpg" id="10_0pp4y"]
+[ext_resource type="Texture2D" uid="uid://2pifvfo3wo25" path="res://assets/menus/credits/suokarts3.jpg" id="11_b34ng"]
+[ext_resource type="Texture2D" uid="uid://5dlrqhx5jf3r" path="res://assets/menus/credits/skib.png" id="12_33ree"]
+[ext_resource type="AudioStream" uid="uid://cdx006xagoh7x" path="res://assets/menus/pause_menu/pico_theme.ogg" id="13_b34ng"]
 
 [sub_resource type="Shader" id="Shader_33ree"]
 code = "shader_type canvas_item;
@@ -32,8 +33,6 @@ shader = SubResource("Shader_33ree")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtkoc"]
 bg_color = Color(0, 0, 0, 0.5)
-corner_radius_top_left = 10
-corner_radius_bottom_left = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_325oc"]
 font = ExtResource("4_d74go")
@@ -96,67 +95,79 @@ offset = Vector2(-480, 0)
 text = "siwsi"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
-[node name="spacer" type="Node2D" parent="list"]
-position = Vector2(0, 828)
-script = ExtResource("3_xtkoc")
+[node name="nebula" type="Node2D" parent="list"]
+position = Vector2(-480, 793)
+script = ExtResource("4_wywfy")
+link = "https://github.com/nebulazorua"
+role = "Contributor"
+texture = ExtResource("8_aave4")
 target_y = 3
+use_x = false
+offset = Vector2(-480, 0)
+text = "nebula"
+metadata/_custom_type_script = "uid://bable6fjbwgrq"
+
+[node name="spacer" type="Node2D" parent="list"]
+position = Vector2(0, 984)
+script = ExtResource("3_xtkoc")
+target_y = 4
 use_x = false
 centered = true
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="special_thanks" type="Node2D" parent="list"]
-position = Vector2(-480, 916.5)
+position = Vector2(-480, 1072.5)
 scale = Vector2(1.2, 1.2)
 script = ExtResource("3_xtkoc")
-target_y = 4
+target_y = 5
 use_x = false
 offset = Vector2(-480, -32)
 text = "special thanks"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="funkin_crew" type="Node2D" parent="list"]
-position = Vector2(-480, 1105)
+position = Vector2(-480, 1261)
 script = ExtResource("4_wywfy")
 link = "https://github.com/FunkinCrew"
 role = "Made original game"
 texture = ExtResource("6_fq4y8")
-target_y = 5
+target_y = 6
 use_x = false
 offset = Vector2(-480, 0)
 text = "the funkin crew"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="godot_devs" type="Node2D" parent="list"]
-position = Vector2(-480, 1260.5)
+position = Vector2(-480, 1416.5)
 script = ExtResource("4_wywfy")
 link = "https://github.com/godotengine/godot/graphs/contributors"
 role = "Made game engine"
 texture = ExtResource("5_komaw")
-target_y = 6
+target_y = 7
 use_x = false
 offset = Vector2(-480, 0)
 text = "godot developers"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="maru" type="Node2D" parent="list"]
-position = Vector2(-480, 1418)
+position = Vector2(-480, 1574)
 script = ExtResource("4_wywfy")
 link = "https://github.com/MaybeMaru"
 role = "Improved alphabet font"
 texture = ExtResource("10_0pp4y")
-target_y = 7
+target_y = 8
 use_x = false
 offset = Vector2(-480, 0)
 text = "maru"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="suokarts3" type="Node2D" parent="list"]
-position = Vector2(-480, 1573)
+position = Vector2(-480, 1729)
 script = ExtResource("4_wywfy")
 link = "https://twitter.com/SuokArts3"
 role = "Made the 'face' sprites"
 texture = ExtResource("11_b34ng")
-target_y = 8
+target_y = 9
 use_x = false
 offset = Vector2(-480, 0)
 text = "suokarts3"
@@ -164,12 +175,12 @@ metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="swordcube" type="Node2D" parent="list"]
 material = SubResource("ShaderMaterial_33ree")
-position = Vector2(-480, 1729)
+position = Vector2(-480, 1885)
 script = ExtResource("4_wywfy")
 link = "https://github.com/swordcube"
 role = "emotional support"
 texture = ExtResource("12_33ree")
-target_y = 9
+target_y = 10
 use_x = false
 offset = Vector2(-480, 0)
 text = "swordcube"

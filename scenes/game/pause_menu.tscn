@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bwmixxli8w6c0" path="res://scenes/game/pause_menu.gd" id="1_vrvda"]
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="2_1gnl8"]
 [ext_resource type="Script" uid="uid://bable6fjbwgrq" path="res://scenes/interface/listed_alphabet.gd" id="3_380tn"]
-[ext_resource type="AudioStream" uid="uid://cvhdcl07i6lt1" path="res://resources/music/menus/pause_theme.ogg" id="4_6wbaw"]
+[ext_resource type="AudioStream" uid="uid://cvhdcl07i6lt1" path="res://assets/menus/pause_menu/main_theme.ogg" id="4_6wbaw"]
 
 [node name="pause_menu" type="CanvasLayer"]
 process_mode = 3

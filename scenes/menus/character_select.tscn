@@ -1,33 +1,33 @@
 [gd_scene load_steps=41 format=3 uid="uid://62vvv8x8t7nm"]
 
-[ext_resource type="Texture2D" uid="uid://uy8oihb6pd4m" path="res://resources/images/menus/character_select/stage/bg.png" id="1_oablf"]
+[ext_resource type="Texture2D" uid="uid://uy8oihb6pd4m" path="res://assets/menus/character_select/stage/bg.png" id="1_oablf"]
 [ext_resource type="Script" uid="uid://p52omju8wqak" path="res://scenes/menus/character_select.gd" id="1_tjis5"]
 [ext_resource type="Script" uid="uid://diqmdngjb60u2" path="res://addons/gdanimate/animate_symbol.gd" id="2_rptr7"]
-[ext_resource type="AudioStream" uid="uid://dagd7ek6gmogr" path="res://resources/sfx/menus/character_select/scroll.ogg" id="2_twrlh"]
-[ext_resource type="AudioStream" uid="uid://b41lp4n5nd3dk" path="res://resources/sfx/menus/character_select/confirm.ogg" id="3_0awtx"]
-[ext_resource type="AudioStream" uid="uid://6wvkbito7xw2" path="res://resources/sfx/menus/character_select/cancel.ogg" id="4_1u4p0"]
+[ext_resource type="AudioStream" uid="uid://dagd7ek6gmogr" path="res://assets/menus/character_select/scroll.ogg" id="2_twrlh"]
+[ext_resource type="AudioStream" uid="uid://b41lp4n5nd3dk" path="res://assets/menus/character_select/confirm.ogg" id="3_0awtx"]
+[ext_resource type="AudioStream" uid="uid://6wvkbito7xw2" path="res://assets/menus/character_select/cancel.ogg" id="4_1u4p0"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_xae3q"]
-[ext_resource type="Texture2D" uid="uid://cavibbv2delc2" path="res://resources/images/menus/character_select/stage/curtains.png" id="5_xae3q"]
-[ext_resource type="Texture2D" uid="uid://dkhehc56csbb2" path="res://resources/images/menus/character_select/stage/character_light.png" id="6_u125y"]
-[ext_resource type="SpriteFrames" uid="uid://chgxlx7kxse4l" path="res://resources/images/menus/character_select/stage/stage.res" id="7_5ydai"]
+[ext_resource type="Texture2D" uid="uid://cavibbv2delc2" path="res://assets/menus/character_select/stage/curtains.png" id="5_xae3q"]
+[ext_resource type="Texture2D" uid="uid://dkhehc56csbb2" path="res://assets/menus/character_select/stage/character_light.png" id="6_u125y"]
+[ext_resource type="SpriteFrames" uid="uid://chgxlx7kxse4l" path="res://assets/menus/character_select/stage/stage.res" id="7_5ydai"]
 [ext_resource type="PackedScene" uid="uid://dh0j85o8ohuon" path="res://scenes/menus/character_select/gf.tscn" id="7_jblrn"]
 [ext_resource type="PackedScene" uid="uid://d3uuros7qs2p" path="res://scenes/menus/character_select/bf.tscn" id="8_okqu4"]
-[ext_resource type="Texture2D" uid="uid://4gefr8chrmni" path="res://resources/images/menus/character_select/stage/fg_blur.png" id="9_okqu4"]
-[ext_resource type="Shader" uid="uid://boal0d6xvnwul" path="res://resources/shaders/flixel_multiply.gdshader" id="9_sf7fi"]
-[ext_resource type="Texture2D" uid="uid://dshobl0rx8nhg" path="res://resources/images/menus/character_select/stage/choose_dark.png" id="12_rgimu"]
-[ext_resource type="Texture2D" uid="uid://c7u4qpyu0eogq" path="res://resources/images/menus/character_select/stage/choose_dipshit.png" id="13_3wfvo"]
-[ext_resource type="Shader" uid="uid://ctlwv54e12i3j" path="res://resources/shaders/mosaic_shader.gdshader" id="15_cggar"]
-[ext_resource type="Texture2D" uid="uid://86qag6byq5lj" path="res://resources/images/menus/character_select/bf/title.png" id="16_3ax17"]
-[ext_resource type="Shader" uid="uid://bgwusoh6kicj3" path="res://resources/shaders/adjust_hsv.gdshader" id="16_tshbu"]
-[ext_resource type="SpriteFrames" uid="uid://cdi8k0pr0dogl" path="res://resources/images/menus/character_select/stage/choose_blur.res" id="16_twrlh"]
-[ext_resource type="SpriteFrames" uid="uid://d0o5ptiv2s303" path="res://resources/images/menus/character_select/stage/choose_backing.res" id="17_0awtx"]
-[ext_resource type="Texture2D" uid="uid://cbiuoskvar8so" path="res://resources/images/menus/character_select/locked/icon.png" id="17_v1oy0"]
-[ext_resource type="SpriteFrames" path="res://resources/images/menus/character_select/pico/icon.res" id="18_q65u0"]
-[ext_resource type="Material" uid="uid://h6uy4lto3tyx" path="res://resources/materials/additive.tres" id="20_8pn6j"]
-[ext_resource type="Texture2D" uid="uid://rhym0vi414ug" path="res://resources/images/menus/character_select/selector/selector.png" id="21_pwyd4"]
+[ext_resource type="Texture2D" uid="uid://4gefr8chrmni" path="res://assets/menus/character_select/stage/fg_blur.png" id="9_okqu4"]
+[ext_resource type="Shader" uid="uid://boal0d6xvnwul" path="res://assets/shaders/flixel_multiply.gdshader" id="9_sf7fi"]
+[ext_resource type="Texture2D" uid="uid://dshobl0rx8nhg" path="res://assets/menus/character_select/stage/choose_dark.png" id="12_rgimu"]
+[ext_resource type="Texture2D" uid="uid://c7u4qpyu0eogq" path="res://assets/menus/character_select/stage/choose_dipshit.png" id="13_3wfvo"]
+[ext_resource type="Shader" uid="uid://ctlwv54e12i3j" path="res://assets/shaders/mosaic_shader.gdshader" id="15_cggar"]
+[ext_resource type="Texture2D" uid="uid://86qag6byq5lj" path="res://assets/menus/character_select/bf/title.png" id="16_3ax17"]
+[ext_resource type="Shader" uid="uid://bgwusoh6kicj3" path="res://assets/shaders/adjust_hsv.gdshader" id="16_tshbu"]
+[ext_resource type="SpriteFrames" uid="uid://cdi8k0pr0dogl" path="res://assets/menus/character_select/stage/choose_blur.res" id="16_twrlh"]
+[ext_resource type="SpriteFrames" uid="uid://d0o5ptiv2s303" path="res://assets/menus/character_select/stage/choose_backing.res" id="17_0awtx"]
+[ext_resource type="Texture2D" uid="uid://cbiuoskvar8so" path="res://assets/menus/character_select/locked/icon.png" id="17_v1oy0"]
+[ext_resource type="SpriteFrames" path="res://assets/menus/character_select/pico/icon.res" id="18_q65u0"]
+[ext_resource type="Material" uid="uid://h6uy4lto3tyx" path="res://assets/shaders/additive.tres" id="20_8pn6j"]
+[ext_resource type="Texture2D" uid="uid://rhym0vi414ug" path="res://assets/menus/character_select/selector/selector.png" id="21_pwyd4"]
 [ext_resource type="Script" uid="uid://crsaxs3qogjfq" path="res://scenes/menus/character_select/follower.gd" id="22_pwyd4"]
-[ext_resource type="SpriteFrames" path="res://resources/images/menus/character_select/bf/icon.res" id="22_twrlh"]
-[ext_resource type="SpriteFrames" uid="uid://cxstgenxhhdxm" path="res://resources/images/menus/character_select/selector/selector.tres" id="26_twrlh"]
+[ext_resource type="SpriteFrames" path="res://assets/menus/character_select/bf/icon.res" id="22_twrlh"]
+[ext_resource type="SpriteFrames" uid="uid://cxstgenxhhdxm" path="res://assets/menus/character_select/selector/selector.tres" id="26_twrlh"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xae3q"]
 blend_mode = 3
@@ -136,8 +136,8 @@ scroll_scale = Vector2(0.3, 0.3)
 [node name="sprite" type="Node2D" parent="crowd"]
 position = Vector2(-75, 209)
 script = ExtResource("2_rptr7")
-atlas = "res://resources/images/menus/character_select/stage/crowd/"
-frame = 7
+atlas = "res://assets/menus/character_select/stage/crowd"
+frame = 10
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -145,7 +145,7 @@ metadata/_custom_type_script = "uid://diqmdngjb60u2"
 position = Vector2(-40, 391)
 sprite_frames = ExtResource("7_5ydai")
 animation = &"stage full instance 1"
-frame_progress = 0.756842
+frame_progress = 0.354209
 centered = false
 script = ExtResource("4_xae3q")
 playing = true
@@ -166,7 +166,7 @@ scroll_scale = Vector2(0, 0)
 material = SubResource("CanvasItemMaterial_xae3q")
 position = Vector2(0, 55)
 script = ExtResource("2_rptr7")
-atlas = "res://resources/images/menus/character_select/stage/bar/"
+atlas = "res://assets/menus/character_select/stage/bar"
 frame = 1
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
@@ -196,7 +196,7 @@ scroll_scale = Vector2(1.8, 1.8)
 [node name="sprite" type="Node2D" parent="speakers"]
 position = Vector2(-73, 421)
 script = ExtResource("2_rptr7")
-atlas = "res://resources/images/menus/character_select/stage/speakers/"
+atlas = "res://assets/menus/character_select/stage/speakers"
 loop_mode = "Play Once"
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 

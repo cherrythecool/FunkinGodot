@@ -76,7 +76,7 @@ static func find_tracks(song: StringName, path: String) -> AudioStream:
 ## and places them into this Node as separate [AudioStreamPlayerEX]s.
 func load_tracks(song: StringName, song_path: String = '') -> void:
 	if song_path.is_empty():
-		song_path = 'res://songs'
+		song_path = 'res://assets/songs'
 
 	# Shouldn't be an issue but just to be sure.
 	if song_path.ends_with('/'):

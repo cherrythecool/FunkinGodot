@@ -118,10 +118,10 @@ func _start_intro() -> void:
 	introing = true
 	intro_animation.play(&'intro')
 
-	var lines: String = FileAccess.get_file_as_string('res://resources/intro_messages.txt')
+	var lines: String = FileAccess.get_file_as_string('uid://bcdqlk404scmd')
 	lines = lines.strip_edges()
 	var lines_array := lines.split('\n', false)
-	var index: int = randi_range(0, lines_array.size() - 1)
+	var index: int = randi_range(0, maxi(lines_array.size() - 1, 0))
 	random_lines = Array(lines_array[index].split('--'))
 
 

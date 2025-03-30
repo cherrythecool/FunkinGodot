@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmvbodmvsglsw"]
 
-[ext_resource type="SpriteFrames" path="res://resources/images/game/skins/default/receptors.res" id="1_6ywi1"]
-[ext_resource type="Script" path="res://scenes/game/note_fields/receptor.gd" id="2_xkwj4"]
+[ext_resource type="SpriteFrames" uid="uid://y8en4nx7mbuw" path="res://assets/game/skins/default/receptors.res" id="1_6ywi1"]
+[ext_resource type="Script" uid="uid://cu1v66ru6dp6y" path="res://scenes/game/note_fields/receptor.gd" id="2_xkwj4"]
 
 [node name="receptor" type="Node2D"]
 script = ExtResource("2_xkwj4")

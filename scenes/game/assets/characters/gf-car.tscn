@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_rq38n"]
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_whhv5"]
-[ext_resource type="Texture2D" uid="uid://d2c1hlp80sm2q" path="res://resources/images/game/assets/icons/gf.png" id="3_27rml"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/characters/gf/speakers.res" id="4_uloin"]
+[ext_resource type="Texture2D" uid="uid://d2c1hlp80sm2q" path="res://assets/game/characters/gf/icon.png" id="3_27rml"]
+[ext_resource type="SpriteFrames" path="res://assets/game/characters/gf/speakers.res" id="4_uloin"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_4ddhu"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/characters/gf/car_sprites.res" id="6_j7cp1"]
+[ext_resource type="SpriteFrames" path="res://assets/game/characters/gf/car_sprites.res" id="6_j7cp1"]
 
 [sub_resource type="Resource" id="Resource_1qgms"]
 script = ExtResource("2_whhv5")

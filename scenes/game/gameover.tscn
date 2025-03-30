@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://c05dah5aarqg8"]
 
 [ext_resource type="Script" uid="uid://dxe2rk2ymwaek" path="res://scenes/game/gameover.gd" id="1_drfcy"]
-[ext_resource type="AudioStream" uid="uid://dj3krjnstguwg" path="res://resources/music/game/gameover_theme.ogg" id="2_rrri4"]
-[ext_resource type="AudioStream" uid="uid://m36stqbwyc5k" path="res://resources/sfx/game/gameover/on_death.ogg" id="3_3j1mk"]
-[ext_resource type="AudioStream" uid="uid://cglpk5tuq0rha" path="res://resources/sfx/game/gameover/retry.ogg" id="3_x0mbf"]
+[ext_resource type="AudioStream" uid="uid://dj3krjnstguwg" path="res://assets/game/gameover/bf/theme.ogg" id="2_rrri4"]
+[ext_resource type="AudioStream" uid="uid://m36stqbwyc5k" path="res://assets/game/gameover/bf/on_death.ogg" id="3_3j1mk"]
+[ext_resource type="AudioStream" uid="uid://cglpk5tuq0rha" path="res://assets/game/gameover/bf/retry.ogg" id="3_x0mbf"]
 
 [node name="gameover" type="Node2D"]
 script = ExtResource("1_drfcy")

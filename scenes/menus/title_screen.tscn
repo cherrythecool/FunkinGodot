@@ -1,13 +1,13 @@
 [gd_scene load_steps=20 format=3 uid="uid://cxk008iuw4n7u"]
 
 [ext_resource type="Script" uid="uid://dno3ea8v3s7gx" path="res://scenes/menus/title_screen.gd" id="1_0m8ln"]
-[ext_resource type="SpriteFrames" uid="uid://dkgusfub7fbij" path="res://resources/images/menus/title/gf.res" id="1_ii0wr"]
-[ext_resource type="Material" uid="uid://bo61teq831cd6" path="res://resources/materials/title_screen.tres" id="2_grdy1"]
+[ext_resource type="SpriteFrames" uid="uid://dkgusfub7fbij" path="res://assets/menus/title/gf.res" id="1_ii0wr"]
+[ext_resource type="Material" uid="uid://bo61teq831cd6" path="res://assets/shaders/title_screen.tres" id="2_grdy1"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="3_s2rvo"]
-[ext_resource type="SpriteFrames" uid="uid://srbxpow67jf1" path="res://resources/images/menus/title/logo.res" id="5_nv456"]
-[ext_resource type="SpriteFrames" uid="uid://diaqnypewr3ov" path="res://resources/images/menus/title/enter.res" id="6_hraot"]
+[ext_resource type="SpriteFrames" uid="uid://srbxpow67jf1" path="res://assets/menus/title/logo.res" id="5_nv456"]
+[ext_resource type="SpriteFrames" uid="uid://diaqnypewr3ov" path="res://assets/menus/title/enter.res" id="6_hraot"]
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="7_al1xt"]
-[ext_resource type="Texture2D" uid="uid://d1ovx7oy0v4qy" path="res://resources/images/menus/title/newgrounds_logo.png" id="7_fhw6b"]
+[ext_resource type="Texture2D" uid="uid://d1ovx7oy0v4qy" path="res://assets/menus/title/newgrounds_logo.png" id="7_fhw6b"]
 
 [sub_resource type="Animation" id="Animation_6rots"]
 length = 0.001

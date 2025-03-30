@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-@export var icons: Array[Texture2D] = [preload('res://resources/images/icons/headphones.svg')]
+@export var icons: Array[Texture2D] = [preload('uid://04chxwlihb7f')]
 
 @onready var panel: Panel = $root/panel
 @onready var bar: ProgressBar = $root/panel/bar
@@ -13,9 +13,9 @@ var tween: Tween
 var target_bus: StringName = &'Master'
 var volume: float = 0.5:
 	set(value):
-		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(target_bus), 
+		AudioServer.set_bus_volume_db(AudioServer.get_bus_index(target_bus),
 				linear_to_db(value))
-		
+
 		var buses: Dictionary = Config.get_value('sound', 'buses')
 		buses[target_bus] = value * 100.0
 		Config.set_value('sound', 'buses', buses)
@@ -27,12 +27,12 @@ var volume: float = 0.5:
 func _ready() -> void:
 	visible = false
 	var buses: Dictionary = Config.get_value('sound', 'buses')
-	
+
 	for bus: String in buses.keys():
 		var bus_index: int = AudioServer.get_bus_index(bus)
 		if bus_index < 0:
 			continue
-		
+
 		AudioServer.set_bus_volume_db(bus_index, \
 				linear_to_db(buses.get(bus, 100.0) * 0.01))
 
@@ -42,23 +42,23 @@ func _input(event: InputEvent) -> void:
 		return
 	if not (event.is_action('volume_down') or event.is_action('volume_up')):
 		return
-	
+
 	var direction: int = Input.get_axis('volume_down', 'volume_up')
 	if direction == 0:
 		return
-	
+
 	if is_instance_valid(tween) and tween.is_running():
 		tween.kill()
-	
+
 	tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	tween.tween_property(panel, 'size:y', 92, 0.5)
 	tween.tween_property(panel, 'size:y', 0, 0.5).set_delay(1.0)
 	tween.tween_property(self, 'visible', false, 0.0)
 	visible = true
-	
+
 	var modifier: int = Input.get_axis('alt', 'shift')
 	var bus_index: int = AudioServer.get_bus_index(target_bus)
-	
+
 	match modifier:
 		0:
 			volume = clampf(volume + 0.05 * direction, 0.0, 1.0)
@@ -67,7 +67,7 @@ func _input(event: InputEvent) -> void:
 			target_bus = AudioServer.get_bus_name(bus_index)
 		1:
 			volume = clampf(volume + 0.01 * direction, 0.0, 1.0)
-	
+
 	bar.value = volume * 100.0
 	volume_label.text = '%d%% Volume' % [roundi(volume * 100.0)]
 	icon_label.text = target_bus

@@ -3,7 +3,7 @@ extends Stage
 
 func hue_sprite(sprite: CanvasItem, hue: float, sat: float, cont: float, bright: float) -> void:
 	sprite.material = ShaderMaterial.new()
-	sprite.material.shader = load('res://resources/shaders/adjust_hsv.gdshader')
+	sprite.material.shader = load('uid://bgwusoh6kicj3')
 	sprite.material.set_shader_parameter('hue', hue)
 	sprite.material.set_shader_parameter('saturation', sat)
 	sprite.material.set_shader_parameter('contrast', cont)

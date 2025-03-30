@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="SongAssets" load_steps=7 format=3 uid="uid://cht6iq8f10ycv"]
+
+[ext_resource type="PackedScene" uid="uid://cu5jbgds82nl" path="res://scenes/game/assets/characters/face.tscn" id="1_82sss"]
+[ext_resource type="Script" uid="uid://dfdr435gif8gk" path="res://scripts/resources/note_skin.gd" id="2_2tbrs"]
+[ext_resource type="SpriteFrames" uid="uid://k4nxchq8jovk" path="res://assets/game/skins/pixel/arrows.res" id="3_loein"]
+[ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="3_x8t8d"]
+[ext_resource type="SpriteFrames" uid="uid://bw4etux81oui3" path="res://assets/game/skins/default/splashes.res" id="4_5fpd7"]
+
+[sub_resource type="Resource" id="Resource_tnf44"]
+script = ExtResource("2_2tbrs")
+strum_frames = ExtResource("3_loein")
+strum_filter = 1
+strum_scale = Vector2(6, 6)
+note_frames = ExtResource("3_loein")
+note_filter = 1
+note_scale = Vector2(6, 6)
+splash_frames = ExtResource("4_5fpd7")
+splash_filter = 1
+splash_scale = Vector2(1, 1)
+metadata/_custom_type_script = ExtResource("2_2tbrs")
+
+[resource]
+script = ExtResource("3_x8t8d")
+opponent = ExtResource("1_82sss")
+opponent_skin = SubResource("Resource_tnf44")
+scripts = Array[PackedScene]([])

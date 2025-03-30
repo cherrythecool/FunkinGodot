@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dltbn2kviddy8"]
 
-[ext_resource type="Script" path="res://scenes/menus/story_menu/props/story_menu_prop.gd" id="1_1u1t2"]
-[ext_resource type="SpriteFrames" path="res://resources/images/menus/story_menu/props/gf.res" id="2_dtvga"]
-[ext_resource type="Script" path="res://scripts/animated_sprite.gd" id="3_g1g7m"]
+[ext_resource type="Script" uid="uid://ca2370vvlh2g8" path="res://scenes/menus/story_menu/props/story_menu_prop.gd" id="1_1u1t2"]
+[ext_resource type="SpriteFrames" uid="uid://862incuu5i1y" path="res://assets/menus/story_menu/props/gf.res" id="2_dtvga"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="3_g1g7m"]
 
 [sub_resource type="Animation" id="Animation_mynvx"]
 length = 0.001
@@ -163,9 +163,9 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2nnyj"]
 _data = {
-"RESET": SubResource("Animation_mynvx"),
-"dance_left": SubResource("Animation_gufny"),
-"dance_right": SubResource("Animation_su6wc")
+&"RESET": SubResource("Animation_mynvx"),
+&"dance_left": SubResource("Animation_gufny"),
+&"dance_right": SubResource("Animation_su6wc")
 }
 
 [node name="gf" type="Node2D"]
@@ -182,5 +182,5 @@ script = ExtResource("3_g1g7m")
 [node name="animation_player" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_2nnyj")
+&"": SubResource("AnimationLibrary_2nnyj")
 }

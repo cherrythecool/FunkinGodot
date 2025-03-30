@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cbvhb58xsq20k" path="res://scenes/game/assets/characters/nene.gd" id="1_wgx2l"]
 [ext_resource type="Script" uid="uid://diqmdngjb60u2" path="res://addons/gdanimate/animate_symbol.gd" id="2_7sfqk"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/characters/nene/abot/visualizer.res" id="3_hhb55"]
+[ext_resource type="SpriteFrames" uid="uid://t7blpt6jvqhd" path="res://assets/game/characters/nene/abot/visualizer.res" id="3_hhb55"]
 [ext_resource type="Script" uid="uid://cn4vvfu6y4fwp" path="res://scenes/game/assets/characters/nene_visualizer.gd" id="3_wgx2l"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/characters/nene/character.res" id="4_7sfqk"]
+[ext_resource type="SpriteFrames" uid="uid://njidx3wsvcgj" path="res://assets/game/characters/nene/character.res" id="4_7sfqk"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_fff1a"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wgx2l"]
@@ -259,10 +259,9 @@ offset_bottom = -45.0
 [node name="eyes" type="Node2D" parent="."]
 position = Vector2(-356, -98)
 script = ExtResource("2_7sfqk")
-atlas = "res://resources/images/game/assets/characters/nene/abot/eyes"
-frame = 13
+atlas = "res://assets/game/characters/nene/abot/eyes"
 loop_mode = "Play Once"
-metadata/_custom_type_script = ExtResource("2_7sfqk")
+metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
 [node name="background" type="ColorRect" parent="."]
 offset_left = -230.0
@@ -282,7 +281,7 @@ sprite_frames = ExtResource("3_hhb55")
 animation = &"viz1"
 frame = 5
 script = ExtResource("5_fff1a")
-metadata/_custom_type_script = ExtResource("5_fff1a")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="2" type="AnimatedSprite2D" parent="visualizer"]
 material = SubResource("CanvasItemMaterial_wgx2l")
@@ -292,7 +291,7 @@ animation = &"viz2"
 frame = 5
 frame_progress = 1.0
 script = ExtResource("5_fff1a")
-metadata/_custom_type_script = ExtResource("5_fff1a")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="3" type="AnimatedSprite2D" parent="visualizer"]
 material = SubResource("CanvasItemMaterial_wgx2l")
@@ -302,7 +301,7 @@ animation = &"viz3"
 frame = 5
 frame_progress = 1.0
 script = ExtResource("5_fff1a")
-metadata/_custom_type_script = ExtResource("5_fff1a")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="4" type="AnimatedSprite2D" parent="visualizer"]
 material = SubResource("CanvasItemMaterial_wgx2l")
@@ -312,7 +311,7 @@ animation = &"viz4"
 frame = 5
 frame_progress = 1.0
 script = ExtResource("5_fff1a")
-metadata/_custom_type_script = ExtResource("5_fff1a")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="5" type="AnimatedSprite2D" parent="visualizer"]
 material = SubResource("CanvasItemMaterial_wgx2l")
@@ -322,7 +321,7 @@ animation = &"viz5"
 frame = 5
 frame_progress = 1.0
 script = ExtResource("5_fff1a")
-metadata/_custom_type_script = ExtResource("5_fff1a")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="6" type="AnimatedSprite2D" parent="visualizer"]
 material = SubResource("CanvasItemMaterial_wgx2l")
@@ -332,7 +331,7 @@ animation = &"viz6"
 frame = 5
 frame_progress = 1.0
 script = ExtResource("5_fff1a")
-metadata/_custom_type_script = ExtResource("5_fff1a")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="7" type="AnimatedSprite2D" parent="visualizer"]
 material = SubResource("CanvasItemMaterial_wgx2l")
@@ -342,14 +341,14 @@ animation = &"viz7"
 frame = 5
 frame_progress = 1.0
 script = ExtResource("5_fff1a")
-metadata/_custom_type_script = ExtResource("5_fff1a")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="speakers" type="Node2D" parent="."]
 position = Vector2(-413, -337)
 script = ExtResource("2_7sfqk")
-atlas = "res://resources/images/game/assets/characters/nene/abot/speaker"
+atlas = "res://assets/game/characters/nene/abot/speaker"
 loop_mode = "Play Once"
-metadata/_custom_type_script = ExtResource("2_7sfqk")
+metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-284, -649)

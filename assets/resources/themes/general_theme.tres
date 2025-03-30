@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://o8lle0eu7wkh"]
+
+[ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="1_alhoq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cfcyd"]
+bg_color = Color(0, 0, 0, 0.501961)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[resource]
+default_font = ExtResource("1_alhoq")
+default_font_size = 12
+Panel/styles/panel = SubResource("StyleBoxFlat_cfcyd")

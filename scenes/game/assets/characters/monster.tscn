@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_q7vog"]
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_cgiuh"]
-[ext_resource type="Texture2D" uid="uid://cyns8uj2h4erl" path="res://resources/images/game/assets/icons/monster.png" id="3_cgiuh"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/characters/monster/monster.res" id="4_pdwe3"]
+[ext_resource type="Texture2D" uid="uid://cyns8uj2h4erl" path="res://assets/game/characters/monster/icon.png" id="3_cgiuh"]
+[ext_resource type="SpriteFrames" path="res://assets/game/characters/monster/sprites.res" id="4_cgiuh"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_aw77d"]
 
 [sub_resource type="Resource" id="Resource_aw77d"]
@@ -417,7 +417,7 @@ icon = SubResource("Resource_aw77d")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-283, -636)
-sprite_frames = ExtResource("4_pdwe3")
+sprite_frames = ExtResource("4_cgiuh")
 animation = &"monster idle"
 centered = false
 script = ExtResource("5_aw77d")

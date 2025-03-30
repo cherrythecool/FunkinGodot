@@ -101,6 +101,8 @@ func _input(event: InputEvent) -> void:
 
 				icon.playing = true
 				await confirm.finished
+				FreeplayMenu.index = 0
+				FreeplayMenu.difficulty_index = 0
 				MainMenu.freeplay_scene = 'res://scenes/menus/freeplay_menu.tscn'
 				SceneManager.switch_to(MainMenu.freeplay_scene)
 			'pico':
@@ -111,6 +113,8 @@ func _input(event: InputEvent) -> void:
 
 				icon.playing = true
 				await confirm.finished
+				FreeplayMenu.index = 0
+				FreeplayMenu.difficulty_index = 0
 				MainMenu.freeplay_scene = 'res://scenes/menus/freeplay_menu_pico.tscn'
 				SceneManager.switch_to(MainMenu.freeplay_scene)
 			_:

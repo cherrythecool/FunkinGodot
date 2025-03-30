@@ -8,10 +8,10 @@ var state: SongLabelState = SongLabelState.WAITING_DOWN
 
 func _tick() -> void:
 	var line_count: int = text.strip_edges().count('\n')
-	
+
 	if line_count <= max_lines_visible:
 		return
-	
+
 	match state:
 		SongLabelState.WAITING_DOWN:
 			state = SongLabelState.DOWN

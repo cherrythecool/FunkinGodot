@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://be43de6mqy3ia"]
 
 [ext_resource type="Script" uid="uid://c45gdx8wrc4ga" path="res://scenes/game/assets/stages/spooky.gd" id="1_ouhng"]
-[ext_resource type="AudioStream" uid="uid://kxlvlo6t0jou" path="res://resources/sfx/game/stages/spooky/thunder_1.ogg" id="2_di0st"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/stages/spooky/bg.res" id="2_wmj7i"]
+[ext_resource type="AudioStream" uid="uid://kxlvlo6t0jou" path="res://assets/game/stages/spooky/thunder_1.ogg" id="2_di0st"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/spooky/bg.res" id="2_wmj7i"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="3_jds1s"]
-[ext_resource type="AudioStream" uid="uid://dmak0jirhk2pj" path="res://resources/sfx/game/stages/spooky/thunder_2.ogg" id="3_tyw1g"]
+[ext_resource type="AudioStream" uid="uid://dmak0jirhk2pj" path="res://assets/game/stages/spooky/thunder_2.ogg" id="3_tyw1g"]
 [ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/assets/stages/character_preview.gd" id="5_m434m"]
 
 [node name="spooky" type="Node2D"]

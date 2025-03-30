@@ -113,8 +113,8 @@ func _ready() -> void:
 
 	scroll_speed_changed.emit()
 
-	if ResourceLoader.exists('res://songs/%s/events.tres' % song):
-		var events: SongEvents = load('res://songs/%s/events.tres' % song)
+	if ResourceLoader.exists('res://assets/songs/%s/events.tres' % song):
+		var events: SongEvents = load('res://assets/songs/%s/events.tres' % song)
 		chart.events.append_array(events.events)
 
 	Chart.sort_chart_notes(chart)
@@ -134,23 +134,23 @@ func _ready() -> void:
 
 		note_types.types[type] = load(path)
 
-	if ResourceLoader.exists('res://songs/%s/meta.tres' % song):
-		metadata = load('res://songs/%s/meta.tres' % song)
+	if ResourceLoader.exists('res://assets/songs/%s/meta.tres' % song):
+		metadata = load('res://assets/songs/%s/meta.tres' % song)
 
-	if ResourceLoader.exists('res://songs/%s/assets.tres' % song):
+	if ResourceLoader.exists('res://assets/songs/%s/assets.tres' % song):
 		# Load SongAssets tres.
-		assets = load('res://songs/%s/assets.tres' % song)
+		assets = load('res://assets/songs/%s/assets.tres' % song)
 
 		if not is_instance_valid(assets.player):
-			assets.player = load('res://scenes/game/assets/characters/bf.tscn')
+			assets.player = load('uid://bu44d2he2dxm3')
 		if not is_instance_valid(assets.opponent):
-			assets.opponent = load('res://scenes/game/assets/characters/dad.tscn')
+			assets.opponent = load('uid://cdlt4jc7j8122')
 		if not is_instance_valid(assets.spectator):
-			assets.spectator = load('res://scenes/game/assets/characters/gf.tscn')
+			assets.spectator = load('uid://bragoy3tisav2')
 		if not is_instance_valid(assets.stage):
-			assets.stage = load('res://scenes/game/assets/stages/stage.tscn')
+			assets.stage = load('uid://0ih6j18ov417')
 		if not is_instance_valid(assets.hud_skin):
-			assets.hud_skin = load('res://resources/hud_skins/default.tres')
+			assets.hud_skin = load('uid://oxo327xfxemo')
 
 		# Instantiate the PackedScene(s) and add them to the scene.
 		player = assets.player.instantiate()
@@ -206,7 +206,7 @@ func _ready() -> void:
 		# the references around
 		assets = null
 	else:
-		skin = load('res://resources/hud_skins/default.tres')
+		skin = load('uid://oxo327xfxemo')
 
 	_player_field._note_types = note_types
 	_opponent_field._note_types = note_types
@@ -407,7 +407,7 @@ func _song_finished(force: bool = false) -> void:
 		chart = Chart.load_song(new_song, new_difficulty)
 
 		if not is_instance_valid(chart):
-			var json_path := 'res://songs/%s/charts/%s.json' % [new_song, new_difficulty.to_lower()]
+			var json_path := 'res://assets/songs/%s/charts/%s.json' % [new_song, new_difficulty.to_lower()]
 			printerr('Song at path %s doesn\'t exist!' % json_path)
 			GlobalAudio.get_player('MENU/CANCEL').play()
 			SceneManager.switch_to('scenes/menus/main_menu.tscn')

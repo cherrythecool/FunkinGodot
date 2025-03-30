@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_attca"]
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_ie687"]
-[ext_resource type="Texture2D" uid="uid://cbpmx024rn06u" path="res://resources/images/game/assets/icons/pico.png" id="3_attca"]
-[ext_resource type="SpriteFrames" path="res://resources/images/game/assets/characters/pico/sprites.res" id="4_attca"]
+[ext_resource type="Texture2D" uid="uid://cbpmx024rn06u" path="res://assets/game/characters/pico/icon.png" id="3_attca"]
+[ext_resource type="SpriteFrames" uid="uid://8xrjsua01uc6" path="res://assets/game/characters/pico/sprites.res" id="4_attca"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_ap5co"]
 
 [sub_resource type="Resource" id="Resource_vmsim"]

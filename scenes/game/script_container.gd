@@ -3,7 +3,7 @@ class_name ScriptContainer extends Node
 
 func load_scripts(song: StringName, song_path: String = '') -> void:
 	if song_path.is_empty():
-		song_path = 'res://songs'
+		song_path = 'res://assets/songs'
 	
 	# Shouldn't be an issue but just to be sure.
 	if song_path.ends_with('/'):

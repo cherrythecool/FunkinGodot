@@ -16,7 +16,7 @@ static func load_song(name: StringName, difficulty: StringName) -> Chart:
 	difficulty = difficulty.to_lower()
 	
 	var chart: Chart = null
-	var base_path: String = 'res://songs/%s' % name
+	var base_path: String = 'res://assets/songs/%s' % name
 	
 	chart = _try_legacy(base_path, difficulty)
 	if is_instance_valid(chart):

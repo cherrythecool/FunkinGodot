@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://0ih6j18ov417"]
 
 [ext_resource type="Script" uid="uid://bn5n82vuwrrl8" path="res://scenes/game/assets/stages/stage.gd" id="1_j6jli"]
-[ext_resource type="Texture2D" uid="uid://c57ymqk8sdl5u" path="res://resources/images/game/assets/stages/stage/backdrop.png" id="3_xw3u5"]
-[ext_resource type="Texture2D" uid="uid://86bapobu21kd" path="res://resources/images/game/assets/stages/stage/front.png" id="4_l4wy2"]
-[ext_resource type="Texture2D" uid="uid://d3kftbmmrheuw" path="res://resources/images/game/assets/stages/stage/curtains.png" id="5_lk1og"]
+[ext_resource type="Texture2D" uid="uid://c57ymqk8sdl5u" path="res://assets/game/stages/stage/backdrop.png" id="3_xw3u5"]
+[ext_resource type="Texture2D" uid="uid://86bapobu21kd" path="res://assets/game/stages/stage/front.png" id="4_l4wy2"]
+[ext_resource type="Texture2D" uid="uid://d3kftbmmrheuw" path="res://assets/game/stages/stage/curtains.png" id="5_lk1og"]
 [ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/assets/stages/character_preview.gd" id="5_wl1cv"]
 
 [node name="stage" type="Node2D"]

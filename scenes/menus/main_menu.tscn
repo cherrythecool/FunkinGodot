@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://b7fwxsepnt38j"]
 
 [ext_resource type="Script" uid="uid://blahra5leclk" path="res://scenes/menus/main_menu.gd" id="1_mwtkx"]
-[ext_resource type="Texture2D" uid="uid://ltkynwwp1o8s" path="res://resources/images/menus/main_menu/background.png" id="1_wymee"]
-[ext_resource type="Texture2D" uid="uid://bcq8cfghjibg1" path="res://resources/images/menus/main_menu/background_pink.png" id="2_dbg3w"]
+[ext_resource type="Texture2D" uid="uid://ltkynwwp1o8s" path="res://assets/menus/main_menu/background.png" id="1_wymee"]
+[ext_resource type="Texture2D" uid="uid://bcq8cfghjibg1" path="res://assets/menus/main_menu/background_pink.png" id="2_dbg3w"]
 [ext_resource type="Script" uid="uid://xx5djqhvae85" path="res://scripts/menus/scene_main_menu_button.gd" id="4_4uv5u"]
-[ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://resources/fonts/vcr-jp.ttf" id="4_7kxsk"]
-[ext_resource type="SpriteFrames" uid="uid://f3lhnid62rym" path="res://resources/images/menus/main_menu/buttons.res" id="4_c5hes"]
+[ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="4_7kxsk"]
+[ext_resource type="SpriteFrames" uid="uid://f3lhnid62rym" path="res://assets/menus/main_menu/buttons.res" id="4_c5hes"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_emyfo"]
 [ext_resource type="Script" uid="uid://c1hs6aw4yq5p" path="res://scripts/menus/freeplay_main_menu_button.gd" id="7_1hnlc"]
 

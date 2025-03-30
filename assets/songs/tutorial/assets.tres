@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SongAssets" load_steps=4 format=3 uid="uid://dq1qmytcseh7s"]
+
+[ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_kpb18"]
+[ext_resource type="PackedScene" uid="uid://l1dqw6ovt7lg" path="res://scenes/game/assets/characters/null.tscn" id="1_x1u0m"]
+[ext_resource type="PackedScene" uid="uid://7b20rlie68yo" path="res://assets/songs/tutorial/scripts/tutorial.tscn" id="3_qi6he"]
+
+[resource]
+script = ExtResource("1_kpb18")
+opponent = ExtResource("1_x1u0m")
+scripts = Array[PackedScene]([ExtResource("3_qi6he")])

@@ -186,7 +186,7 @@ _data = {
 
 [node name="player" type="Node2D"]
 script = ExtResource("1_bdv53")
-atlas = "res://resources/images/menus/character_select/pico/player/"
+atlas = "res://assets/menus/character_select/pico/player"
 loop_mode = "Play Once"
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 

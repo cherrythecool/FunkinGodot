@@ -3,7 +3,7 @@ class_name Alphabet extends Node2D
 
 
 @export var no_casing: bool = true
-@export var frames: SpriteFrames = preload('res://resources/fonts/alphabet/alphabet.res')
+@export var frames: SpriteFrames = preload('uid://dqo7xiv07wfyc')
 @export var suffix: String = ' bold'
 
 @export_multiline var text: String = '':

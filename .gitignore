@@ -1,18 +1,19 @@
-# Godot 4+ specific ignores
+# godot (4.0+) specific ignores
 .godot/
 ~**
 **.tmp
+
+# annoying ass shit from deleting files idk
 .fuse_hidden**
 
-# Godot export ignores
+# my export folder lol
 bin/
 
-# Repository owner specific ignores
+# my secret plans muahahahaha
 plans/
-addons/script-ide/
 
-# Custom songs
-songs/extra/
+# custom songs i keep off main repo cuz bloat lmao
+assets/songs/extra/
 
-# Backup files
+# backup files
 **~

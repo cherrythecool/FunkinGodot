@@ -137,7 +137,7 @@ func select_song() -> void:
 
 	Game.chart = Chart.load_song(current_song, difficulty)
 	if not is_instance_valid(Game.chart):
-		var json_path := 'res://songs/%s/charts/%s.json' % [current_song, difficulty.to_lower()]
+		var json_path := 'res://assets/songs/%s/charts/%s.json' % [current_song, difficulty.to_lower()]
 		active = true
 		printerr('Song at path %s doesn\'t exist!' % json_path)
 		return
@@ -156,7 +156,7 @@ func _load_song(i: int) -> void:
 		return
 
 	var song_name := _get_song_name(song, song.song_difficulties[0])
-	var meta_path: String = 'res://songs/%s/meta.tres' % song_name
+	var meta_path: String = 'res://assets/songs/%s/meta.tres' % song_name
 	var meta_exists := ResourceLoader.exists(meta_path)
 
 	if not meta_exists:
@@ -196,13 +196,13 @@ func _load_song(i: int) -> void:
 
 
 func _load_tracks() -> void:
-	if not Tracks.tracks_exist(current_song, 'res://songs'):
+	if not Tracks.tracks_exist(current_song, 'res://assets/songs'):
 		return
 
 	GlobalAudio.music.stop()
 	Conductor.reset()
 	Conductor.target_audio = tracks.player
-	tracks.load_tracks(current_song, 'res://songs')
+	tracks.load_tracks(current_song, 'res://assets/songs')
 	tracks.play()
 
 

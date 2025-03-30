@@ -1,10 +1,10 @@
 [gd_scene load_steps=9 format=3 uid="uid://bhbryleu1jjq0"]
 
 [ext_resource type="Script" uid="uid://d3gp8t7bd34mv" path="res://scenes/autoload/mixer_control.gd" id="1_fobyb"]
-[ext_resource type="Theme" uid="uid://o8lle0eu7wkh" path="res://resources/themes/general_theme.tres" id="2_baism"]
-[ext_resource type="Texture2D" uid="uid://bdyx2m586qlte" path="res://resources/images/icons/music_note.svg" id="3_d0bi8"]
-[ext_resource type="Texture2D" uid="uid://04chxwlihb7f" path="res://resources/images/icons/headphones.svg" id="3_f6m6h"]
-[ext_resource type="Texture2D" uid="uid://4qant1okv1gk" path="res://resources/images/icons/piano.svg" id="4_rgfc6"]
+[ext_resource type="Theme" uid="uid://o8lle0eu7wkh" path="res://assets/resources/themes/general_theme.tres" id="2_baism"]
+[ext_resource type="Texture2D" uid="uid://bdyx2m586qlte" path="res://assets/music_note.svg" id="3_d0bi8"]
+[ext_resource type="Texture2D" uid="uid://04chxwlihb7f" path="res://assets/headphones.svg" id="3_f6m6h"]
+[ext_resource type="Texture2D" uid="uid://4qant1okv1gk" path="res://assets/piano.svg" id="4_rgfc6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upr3n"]
 bg_color = Color(0, 0, 0, 0.5)

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="2_getyr"]
 [ext_resource type="Script" uid="uid://baxbvvuf4ol2f" path="res://scenes/menus/options/preview_option.gd" id="3_uqgqk"]
 [ext_resource type="Script" uid="uid://1xupndy1w5yk" path="res://scenes/menus/options/checkbox_option.gd" id="4_2w5sj"]
-[ext_resource type="SpriteFrames" uid="uid://dfv5k6fikmo5r" path="res://resources/images/menus/options/checkbox.res" id="5_pu18o"]
+[ext_resource type="SpriteFrames" uid="uid://dfv5k6fikmo5r" path="res://assets/menus/options/checkbox.res" id="5_pu18o"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="6_ubeli"]
 [ext_resource type="Script" uid="uid://dpnfmug35vwfs" path="res://scenes/menus/options/number_option.gd" id="7_gp12a"]
 [ext_resource type="Script" uid="uid://be4ehaog85mta" path="res://scenes/menus/options/offset_option.gd" id="7_wvbcq"]

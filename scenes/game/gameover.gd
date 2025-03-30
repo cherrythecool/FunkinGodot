@@ -27,7 +27,6 @@ func _ready() -> void:
 		secret.get_node(^'player').play()
 		return
 	else:
-		print('You failed the roll! Rolled a %d.' % value)
 		secret.queue_free()
 
 	Conductor.reset()
@@ -45,7 +44,6 @@ func _ready() -> void:
 
 	if is_instance_valid(character.gameover_assets):
 		var assets := character.gameover_assets
-
 		if is_instance_valid(assets.on_death):
 			on_death.stream = assets.on_death
 		if is_instance_valid(assets.looping_music):
@@ -72,20 +70,21 @@ func _input(event: InputEvent) -> void:
 	if not event.is_pressed():
 		return
 	if not active:
+		# prevent f5'ing during the easter egg
 		if event.is_action('menu_reload'):
 			get_viewport().set_input_as_handled()
-
 		return
 
 	if event.is_action('ui_cancel'):
 		active = false
 		GlobalAudio.get_player('MENU/CANCEL').play()
-
 		match Game.mode:
 			Game.PlayMode.FREEPLAY:
-				SceneManager.switch_to('scenes/menus/freeplay_menu.tscn')
+				SceneManager.switch_to(MainMenu.freeplay_scene)
+			Game.PlayMode.STORY:
+				SceneManager.switch_to('uid://dcf86iwg6mn3d')
 			_:
-				SceneManager.switch_to('scenes/menus/title_screen.tscn')
+				SceneManager.switch_to('uid://cxk008iuw4n7u')
 	if event.is_action('ui_accept'):
 		active = false
 		character.play_anim(&'retry')
@@ -95,7 +94,7 @@ func _input(event: InputEvent) -> void:
 			var tween := create_tween()
 			tween.tween_property(self, 'modulate:a', 0.0, 2.0)
 			tween.tween_callback(func():
-				SceneManager.switch_to('scenes/game/game.tscn')
+				SceneManager.switch_to('uid://da8mu3oqto3qq')
 			)
 		)
 
