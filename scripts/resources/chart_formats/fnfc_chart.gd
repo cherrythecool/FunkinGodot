@@ -7,7 +7,6 @@ var json_meta: Dictionary
 
 func parse(difficulty: StringName) -> Chart:
 	var chart := Chart.new()
-
 	if not json_chart.notes.has(difficulty):
 		printerr('Chart did not have difficulty of "%s"!' % difficulty)
 		return null
@@ -25,6 +24,10 @@ func parse(difficulty: StringName) -> Chart:
 			else:
 				chart.events.push_back(DynamicEvent.new(event.get('e'),
 						event.get('t') / 1000.0, event.get('v')))
+
+	# sucky fix but this happens more than once so
+	if not chart.events.is_empty() and chart.events[0] is CameraPan:
+		chart.events[0].time = floorf(chart.events[0].time)
 
 	for note: Dictionary in json_chart.notes.get(difficulty):
 		var note_data := NoteData.new()

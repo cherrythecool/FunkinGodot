@@ -3,7 +3,7 @@ class_name Alphabet extends Node2D
 
 
 @export var no_casing: bool = true
-@export var frames: SpriteFrames = preload('uid://dqo7xiv07wfyc')
+@export var frames: SpriteFrames = null
 @export var suffix: String = ' bold'
 
 @export_multiline var text: String = '':
@@ -80,7 +80,6 @@ func _create_characters() -> void:
 
 		var line_dict := lines[line_index]
 		line_dict.get('characters', []).push_back(character_data[0])
-
 		var line_size: Vector2i = line_dict.get('size', Vector2i.ZERO)
 
 		# x should basically be always true lol
@@ -116,11 +115,13 @@ func _create_characters() -> void:
 
 func _create_character(x: float, y: float, character: String) -> Array:
 	var animation_data := _character_to_animation(character)
-
 	var node: AnimatedSprite2D = AnimatedSprite2D.new()
 	node.use_parent_material = true
 	node.centered = false
-	node.sprite_frames = frames
+	if is_instance_valid(frames):
+		node.sprite_frames = frames
+	else:
+		node.sprite_frames = load('uid://dqo7xiv07wfyc')
 	node.position = Vector2(x, y)
 	node.animation = animation_data.name + suffix
 	node.offset = animation_data.offset
@@ -130,7 +131,6 @@ func _create_character(x: float, y: float, character: String) -> Array:
 	if node.sprite_frames.has_animation(node.animation):
 		var frame_texture := node.sprite_frames.get_frame_texture(node.animation, 0)
 		character_size = frame_texture.get_size()
-
 	node.offset.y -= (character_size.y - 65.0) / 2.0
 	return [node, character_size]
 

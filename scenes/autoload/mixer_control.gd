@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-@export var icons: Array[Texture2D] = [preload('uid://04chxwlihb7f')]
+@export var icons: Array[Texture2D] = []
 
 @onready var panel: Panel = $root/panel
 @onready var bar: ProgressBar = $root/panel/bar

@@ -13,14 +13,9 @@ class_name AnimateSymbol extends Node2D
 		atlas = v
 		load_atlas(atlas)
 
+@export_tool_button('Cache Atlas', 'Save') var cache_atlas := _cache_atlas
 
-## The current frame of the animation.
-## [br][br][b]Note[/b]: This automatically redraws the entire
-## atlas when changed.
-@export var frame: int = 0:
-	set(v):
-		frame = v
-		queue_redraw()
+@export_group('Animation')
 
 ## The current symbol used by the animation. Empty uses the timeline symbol.
 ## [br][br][b]Note[/b]: This automatically sets [member frame] to 0 when
@@ -32,14 +27,22 @@ class_name AnimateSymbol extends Node2D
 		frame = 0
 		_timer = 0.0
 
-## Keeps track of whether or not the sprite is being animated automatically.
-@export var playing: bool = false
+## The current frame of the animation.
+## [br][br][b]Note[/b]: This automatically redraws the entire
+## atlas when changed.
+@export var frame: int = 0:
+	set(v):
+		frame = v
+		queue_redraw()
 
 ## Defines what happens when the end of the animation is reached.
 ## [br][br]Loop loops the animation forever and Play Once just stops.
 @export_enum('Loop', 'Play Once') var loop_mode: String = 'Loop'
 
-@export_tool_button('Cache Atlas', 'Save') var cache_atlas := _cache_atlas
+@export_range(0.0, 10.0, 0.01, 'or_greater') var speed: float = 1.0
+
+## Keeps track of whether or not the sprite is being animated automatically.
+@export var playing: bool = false
 
 var _timeline:
 	get:
@@ -64,7 +67,7 @@ func _process(delta: float) -> void:
 	if not playing:
 		return
 
-	_timer += delta
+	_timer += delta * speed
 	while _timer >= 1.0 / _animation.framerate:
 		frame += 1
 		_timer -= 1.0 / _animation.framerate

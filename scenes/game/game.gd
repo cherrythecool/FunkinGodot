@@ -103,14 +103,13 @@ func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	GlobalAudio.music.stop()
 	tracks.load_tracks(song)
-	tracks.finished.connect(_song_finished)
+	tracks.finished.connect(_song_finished.bind(false, false))
 
 	match Config.get_value('gameplay', 'scroll_speed_method'):
 		'chart':
 			scroll_speed *= Config.get_value('gameplay', 'custom_scroll_speed')
 		'constant':
 			scroll_speed = Config.get_value('gameplay', 'custom_scroll_speed')
-
 	scroll_speed_changed.emit()
 
 	if ResourceLoader.exists('res://assets/songs/%s/events.tres' % song):
@@ -376,7 +375,7 @@ func _on_note_hit(note: Note) -> void:
 	combo += 1
 
 
-func _song_finished(force: bool = false) -> void:
+func _song_finished(force: bool = false, sound: bool = true) -> void:
 	if not playing:
 		return
 
@@ -392,7 +391,6 @@ func _song_finished(force: bool = false) -> void:
 	playing = false
 	if save_score:
 		var current_score := Scores.get_score(song, difficulty)
-
 		if str(current_score.get('score', 'N/A')) == 'N/A' or score > current_score.get('score'):
 			Scores.set_score(song, difficulty, {
 				'score': score,
@@ -423,7 +421,8 @@ func _song_finished(force: bool = false) -> void:
 	chart = null
 	playlist.clear()
 	camera_position = Vector2.INF
-	GlobalAudio.get_player('MENU/CANCEL').play()
+	if sound:
+		GlobalAudio.get_player('MENU/CANCEL').play()
 
 	if not exit_scene.is_empty():
 		SceneManager.switch_to(exit_scene)

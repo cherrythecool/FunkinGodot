@@ -1,6 +1,8 @@
 @tool
-class_name XmlAnimatedSprite extends AnimatedSprite
-class AnimationData:
+class_name XMLSprite extends AnimatedSprite
+
+
+class AnimationData extends RefCounted:
 	var prefix:String
 	var xml:String
 	var fps:int
@@ -12,6 +14,7 @@ class AnimationData:
 		self.fps = _fps
 		self.loop = _loop
 		self.offset = _offset
+
 @export_file('*.xml', '*.png') var xml_path:String:
 	set(v):
 		xml_path = v

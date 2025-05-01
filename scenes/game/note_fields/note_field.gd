@@ -65,7 +65,6 @@ func _process(delta: float) -> void:
 		_try_spawning()
 
 	var receptor_y: float = _receptors[0].position.y
-
 	for note: Note in _notes.get_children():
 		var receptor: Receptor = null
 

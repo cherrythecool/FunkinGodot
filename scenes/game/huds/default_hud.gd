@@ -296,6 +296,8 @@ func _set_centered_receptors(value: bool) -> void:
 func _preload_splash(scene: PackedScene) -> void:
 	if not is_instance_valid(scene):
 		return
+	if not is_instance_valid(preloading_viewport):
+		return
 
 	var node: Node = scene.instantiate()
 	if node is Node2D:

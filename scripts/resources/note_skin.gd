@@ -1,7 +1,7 @@
 class_name NoteSkin extends Resource
 
 
-@export var strum_frames: SpriteFrames = preload('uid://y8en4nx7mbuw')
+@export var strum_frames: SpriteFrames = load('uid://y8en4nx7mbuw')
 @export_enum(
 		'Inherit', 'Nearest', 'Linear',
 		'Nearest Mipmap', 'Linear Mipmap',
@@ -9,7 +9,8 @@ class_name NoteSkin extends Resource
 ) var strum_filter: int = 0
 @export var strum_scale: Vector2 = Vector2.ONE * 0.7
 
-@export var note_frames: SpriteFrames = null#preload('res://assets/game/skins/default/notes.res')
+# this not being a uid pisses me off but i can't get a uid from the notes for some reason so
+@export var note_frames: SpriteFrames = load('res://assets/game/skins/default/notes.res')
 @export_enum(
 		'Inherit', 'Nearest', 'Linear',
 		'Nearest Mipmap', 'Linear Mipmap',
@@ -18,7 +19,7 @@ class_name NoteSkin extends Resource
 @export var note_scale: Vector2 = Vector2.ONE * 0.7
 @export_range(0.0, 1.0, 0.001) var sustain_alpha: float = 0.7
 
-@export var splash_frames: SpriteFrames = preload('uid://bw4etux81oui3')
+@export var splash_frames: SpriteFrames = load('uid://bw4etux81oui3')
 @export_enum(
 		'Inherit', 'Nearest', 'Linear',
 		'Nearest Mipmap', 'Linear Mipmap',

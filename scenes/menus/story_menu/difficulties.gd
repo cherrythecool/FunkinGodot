@@ -11,6 +11,15 @@ extends Control
 static var selected: int = 1
 var difficulties: PackedStringArray = []
 var tween: Tween = null
+var target_score: int = 0
+var lerp_score: float = 0.0:
+	set(v):
+		lerp_score = v
+		high_score.text = 'High Score: %d' % [roundi(lerp_score)]
+
+
+func _process(delta: float) -> void:
+	lerp_score = lerpf(lerp_score, float(target_score), delta * 6.0)
 
 
 func _input(event: InputEvent) -> void:
@@ -61,17 +70,14 @@ func _tween_difficulty_sprite() -> void:
 
 
 func _calculate_high_score() -> void:
-	var score: int = 0
 	var difficulty: String = difficulties[selected]
 	var week: StoryWeekNode = weeks.get_child(StoryModeWeeks.selected_static)
 	var suffix: String = week.difficulty_suffixes.mapping.get(difficulty, '')
+	target_score = 0
 
 	for raw_song in week.songs:
 		var song := raw_song + suffix
 		if not Scores.has_score(song, difficulty):
 			high_score.text = 'High Score: N/A'
 			break
-
-		score += Scores.get_score(song, difficulty).get('score', 0)
-
-	high_score.text = 'High Score: %d' % score
+		target_score += Scores.get_score(song, difficulty).get('score', 0)

@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbebj8xwc2gfm"
-path.bptc="res://.godot/imported/spritemap1.png-3bdd5b6aa9bae124599aa311772032e0.bptc.ctex"
-path.astc="res://.godot/imported/spritemap1.png-3bdd5b6aa9bae124599aa311772032e0.astc.ctex"
+path="res://.godot/imported/spritemap1.png-3bdd5b6aa9bae124599aa311772032e0.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/characters/gf/default_spritemap/spritemap1.png"
-dest_files=["res://.godot/imported/spritemap1.png-3bdd5b6aa9bae124599aa311772032e0.bptc.ctex", "res://.godot/imported/spritemap1.png-3bdd5b6aa9bae124599aa311772032e0.astc.ctex"]
+dest_files=["res://.godot/imported/spritemap1.png-3bdd5b6aa9bae124599aa311772032e0.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
