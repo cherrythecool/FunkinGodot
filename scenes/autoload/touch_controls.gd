@@ -10,8 +10,8 @@ extends CanvasLayer
 @onready var up: ColorRect = %up
 @onready var right: ColorRect = %right
 
-@onready var rects: Array[ColorRect] = [left, down, up, right,]
-var states: Array[bool] = [false, false, false, false,]
+@onready var rects: Array[ColorRect] = [left, down, up, right]
+var states: Array[bool] = [false, false, false, false]
 
 
 func _ready() -> void:
@@ -32,7 +32,10 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	for i: int in states.size():
-		rects[i].color.a = lerpf(rects[i].color.a, 0.5 * float(states[i]), delta * 6.0)
+		if states[i]:
+			rects[i].color.a = 0.3
+		else:
+			rects[i].color.a = lerpf(rects[i].color.a, 0.0, delta * 6.0)
 
 	var tree: SceneTree = get_tree()
 	if (not is_instance_valid(tree)) or not is_instance_valid(tree.current_scene):
@@ -47,48 +50,18 @@ func _process(delta: float) -> void:
 	game.visible = not menus.visible
 
 
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_WM_GO_BACK_REQUEST:
+		if game.visible:
+			fake_input('pause_game')
+			fake_input('pause_game', false)
+		else:
+			fake_input('ui_cancel')
+			fake_input('ui_cancel', false)
+
+
 func fake_input(action: String, press: bool = true) -> void:
 	var ev: InputEventAction = InputEventAction.new()
 	ev.action = action
 	ev.pressed = press
 	Input.parse_input_event(ev)
-
-
-func _on_left_pressed() -> void:
-	fake_input('ui_left')
-	fake_input('ui_left', false)
-
-
-func _on_down_pressed() -> void:
-	fake_input('ui_down')
-	fake_input('ui_down', false)
-
-
-func _on_up_pressed() -> void:
-	fake_input('ui_up')
-	fake_input('ui_up', false)
-
-
-func _on_right_pressed() -> void:
-	fake_input('ui_right')
-	fake_input('ui_right', false)
-
-
-func _on_cancel_pressed() -> void:
-	fake_input('ui_cancel')
-	fake_input('ui_cancel', false)
-
-
-func _on_accept_pressed() -> void:
-	fake_input('ui_accept')
-	fake_input('ui_accept', false)
-
-
-func _on_shift_pressed() -> void:
-	fake_input('freeplay_open_characters')
-	fake_input('freeplay_open_characters', false)
-
-
-func _on_pause_pressed() -> void:
-	fake_input('pause_game')
-	fake_input('pause_game', false)

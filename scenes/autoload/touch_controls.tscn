@@ -1,9 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://dln7pilk4eccf"]
+[gd_scene load_steps=13 format=3 uid="uid://dln7pilk4eccf"]
 
 [ext_resource type="Script" uid="uid://chr6gh7537dwm" path="res://scenes/autoload/touch_controls.gd" id="1_wcbf3"]
+[ext_resource type="Texture2D" uid="uid://ciiyghjt8ttyu" path="res://assets/touch/arrow_base.png" id="2_dn4ts"]
+[ext_resource type="Texture2D" uid="uid://byw58vkvv3dw4" path="res://assets/touch/pause_base.png" id="2_mq6jc"]
+[ext_resource type="Texture2D" uid="uid://c5li7ue0ore5r" path="res://assets/touch/pause_press.png" id="3_4ikyy"]
+[ext_resource type="Texture2D" uid="uid://bjc80phtl0g5n" path="res://assets/touch/arrow_press.png" id="3_8o8lk"]
+[ext_resource type="Texture2D" uid="uid://byerpgwxncrr4" path="res://assets/touch/accept_base.png" id="4_uejki"]
+[ext_resource type="Texture2D" uid="uid://hmftqpu0e0vi" path="res://assets/touch/accept_press.png" id="5_8dfaf"]
+[ext_resource type="Texture2D" uid="uid://d4b76ad3txqoh" path="res://assets/touch/shift_base.png" id="6_kk16y"]
+[ext_resource type="Texture2D" uid="uid://covxb2rqpqkc6" path="res://assets/touch/shift_press.png" id="7_d347s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uejki"]
+radius = 28.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wcbf3"]
 size = Vector2(320, 720)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wcbf3"]
+radius = 28.0
 
 [node name="touch_controls" type="CanvasLayer"]
 process_mode = 3
@@ -12,7 +26,6 @@ script = ExtResource("1_wcbf3")
 
 [node name="menus" type="Control" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,89 +35,69 @@ grow_vertical = 2
 mouse_filter = 1
 metadata/_edit_lock_ = true
 
-[node name="left" type="Button" parent="menus"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 64.0
-offset_top = -224.0
-offset_right = 160.0
-offset_bottom = -128.0
-grow_vertical = 0
-focus_mode = 0
-text = "<"
+[node name="left" type="TouchScreenButton" parent="menus"]
+position = Vector2(66, 590)
+rotation = -1.5708
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("2_dn4ts")
+texture_pressed = ExtResource("3_8o8lk")
+shape = SubResource("CircleShape2D_uejki")
+passby_press = true
+action = "ui_left"
+visibility_mode = 1
 
-[node name="down" type="Button" parent="menus"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = -128.0
-offset_right = 256.0
-offset_bottom = -32.0
-grow_vertical = 0
-focus_mode = 0
-text = "v"
+[node name="down" type="TouchScreenButton" parent="menus"]
+position = Vector2(253, 686)
+rotation = 3.14159
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("2_dn4ts")
+texture_pressed = ExtResource("3_8o8lk")
+shape = SubResource("CircleShape2D_uejki")
+passby_press = true
+action = "ui_down"
+visibility_mode = 1
 
-[node name="up" type="Button" parent="menus"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = -320.0
-offset_right = 256.0
-offset_bottom = -224.0
-grow_vertical = 0
-focus_mode = 0
-text = "^"
+[node name="up" type="TouchScreenButton" parent="menus"]
+position = Vector2(162, 403)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("2_dn4ts")
+texture_pressed = ExtResource("3_8o8lk")
+shape = SubResource("CircleShape2D_uejki")
+passby_press = true
+action = "ui_up"
+visibility_mode = 1
 
-[node name="right" type="Button" parent="menus"]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 256.0
-offset_top = -224.0
-offset_right = 352.0
-offset_bottom = -128.0
-grow_vertical = 0
-focus_mode = 0
-text = ">"
+[node name="right" type="TouchScreenButton" parent="menus"]
+position = Vector2(349, 499)
+rotation = 1.5708
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("2_dn4ts")
+texture_pressed = ExtResource("3_8o8lk")
+shape = SubResource("CircleShape2D_uejki")
+passby_press = true
+action = "ui_right"
+visibility_mode = 1
 
-[node name="cancel" type="Button" parent="menus"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -256.0
-offset_top = -128.0
-offset_right = -160.0
-offset_bottom = -32.0
-grow_horizontal = 0
-grow_vertical = 0
-focus_mode = 0
-text = "C"
+[node name="cancel" type="TouchScreenButton" parent="menus"]
+position = Vector2(1034, 688)
+rotation = -1.5708
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("2_dn4ts")
+texture_pressed = ExtResource("3_8o8lk")
+shape = SubResource("CircleShape2D_uejki")
+passby_press = true
+action = "ui_cancel"
+visibility_mode = 1
 
-[node name="accept" type="Button" parent="menus"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -128.0
-offset_top = -128.0
-offset_right = -32.0
-offset_bottom = -32.0
-grow_horizontal = 0
-grow_vertical = 0
-focus_mode = 0
-text = "A"
+[node name="accept" type="TouchScreenButton" parent="menus"]
+position = Vector2(1157, 597)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("4_uejki")
+texture_pressed = ExtResource("5_8dfaf")
+shape = SubResource("CircleShape2D_uejki")
+passby_press = true
+action = "ui_accept"
+visibility_mode = 1
 
 [node name="freeplay" type="Control" parent="menus"]
 unique_name_in_owner = true
@@ -118,24 +111,19 @@ grow_vertical = 2
 mouse_filter = 2
 metadata/_edit_lock_ = true
 
-[node name="shift" type="Button" parent="menus/freeplay"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -48.0
-offset_top = -128.0
-offset_right = 48.0
-offset_bottom = -32.0
-grow_horizontal = 2
-grow_vertical = 0
-focus_mode = 0
-text = "SHIFT"
+[node name="switch" type="TouchScreenButton" parent="menus/freeplay"]
+position = Vector2(594, 597)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("6_kk16y")
+texture_pressed = ExtResource("7_d347s")
+shape = SubResource("CircleShape2D_uejki")
+passby_press = true
+action = "freeplay_open_characters"
+visibility_mode = 1
 
 [node name="game" type="Control" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -158,6 +146,7 @@ position = Vector2(160, 360)
 shape = SubResource("RectangleShape2D_wcbf3")
 passby_press = true
 action = "input_left"
+visibility_mode = 1
 
 [node name="down" type="ColorRect" parent="game"]
 unique_name_in_owner = true
@@ -173,6 +162,7 @@ position = Vector2(160, 360)
 shape = SubResource("RectangleShape2D_wcbf3")
 passby_press = true
 action = "input_down"
+visibility_mode = 1
 
 [node name="up" type="ColorRect" parent="game"]
 unique_name_in_owner = true
@@ -188,6 +178,7 @@ position = Vector2(160, 360)
 shape = SubResource("RectangleShape2D_wcbf3")
 passby_press = true
 action = "input_up"
+visibility_mode = 1
 
 [node name="right" type="ColorRect" parent="game"]
 unique_name_in_owner = true
@@ -203,25 +194,18 @@ position = Vector2(160, 360)
 shape = SubResource("RectangleShape2D_wcbf3")
 passby_press = true
 action = "input_right"
+visibility_mode = 1
 
-[node name="pause" type="Button" parent="game"]
-layout_mode = 1
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 128.0
-offset_bottom = 128.0
-focus_mode = 0
-text = "Pause"
+[node name="pause" type="TouchScreenButton" parent="game"]
+position = Vector2(32, 32)
+scale = Vector2(1.75, 1.75)
+texture_normal = ExtResource("2_mq6jc")
+texture_pressed = ExtResource("3_4ikyy")
+shape = SubResource("CircleShape2D_wcbf3")
+action = "pause_game"
+visibility_mode = 1
 
-[connection signal="pressed" from="menus/left" to="." method="_on_left_pressed"]
-[connection signal="pressed" from="menus/down" to="." method="_on_down_pressed"]
-[connection signal="pressed" from="menus/up" to="." method="_on_up_pressed"]
-[connection signal="pressed" from="menus/right" to="." method="_on_right_pressed"]
-[connection signal="pressed" from="menus/cancel" to="." method="_on_cancel_pressed"]
-[connection signal="pressed" from="menus/accept" to="." method="_on_accept_pressed"]
-[connection signal="pressed" from="menus/freeplay/shift" to="." method="_on_shift_pressed"]
 [connection signal="gui_input" from="game/left" to="." method="_on_left_gui_input"]
 [connection signal="gui_input" from="game/down" to="." method="_on_down_gui_input"]
 [connection signal="gui_input" from="game/up" to="." method="_on_up_gui_input"]
 [connection signal="gui_input" from="game/right" to="." method="_on_right_gui_input"]
-[connection signal="pressed" from="game/pause" to="." method="_on_pause_pressed"]
