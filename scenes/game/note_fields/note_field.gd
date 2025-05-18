@@ -48,8 +48,6 @@ func _ready() -> void:
 		receptor.play_anim(&'static')
 		receptor.takes_input = takes_input
 		receptor._automatically_play_static = not takes_input
-		receptor.on_hit_note.connect(_on_hit_note)
-		receptor.on_miss_note.connect(miss_note)
 
 	reload_skin()
 
@@ -85,7 +83,7 @@ func _process(_delta: float) -> void:
 		return
 
 	for receptor: Receptor in _receptors:
-		if not receptor._pressed:
+		if not receptor.pressed:
 			continue
 
 		_default_character._sing_timer = 0.0
@@ -101,7 +99,73 @@ func _auto_input() -> void:
 		var receptor: Receptor = _receptors[note.lane]
 		if receptor.play_confirm:
 			receptor.play_anim(&'confirm', true)
-		receptor.on_hit_note.emit(note)
+		_on_hit_note(note)
+
+
+func _input(event: InputEvent) -> void:
+	if not takes_input:
+		return
+	if event.is_echo():
+		return
+	var receptor: Receptor = null
+	for selected: Receptor in _receptors:
+		if event.is_action(&'input_%s' % selected.direction):
+			receptor = selected
+			break
+	if not is_instance_valid(receptor):
+		return
+
+	var pressed: bool = event.is_pressed()
+	if not pressed:
+		_receptor_release(receptor)
+		return
+
+	_receptor_press(receptor)
+
+
+func _receptor_press(receptor: Receptor) -> void:
+	receptor.pressed = true
+	receptor.play_anim(&'press')
+	receptor._automatically_play_static = false
+
+	for note: Note in _notes.get_children():
+		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
+		if before_zone:
+			break
+		if note._hit:
+			continue
+		if note.lane != receptor.lane:
+			continue
+
+		var after_zone: bool = Conductor.time > note.data.time + Receptor.input_zone
+		if not (before_zone or after_zone):
+			receptor.hit_note(note)
+			_on_hit_note(note)
+			break
+		break
+
+
+func _receptor_release(receptor: Receptor) -> void:
+	receptor.pressed = false
+	receptor.play_anim(&'static')
+
+	for note: Note in _notes.get_children():
+		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
+		if before_zone:
+			break
+		if not note._hit:
+			continue
+		if note.lane != receptor.lane:
+			continue
+
+		var lee_way: float = maxf(Conductor.beat_delta / 4.0, 0.1)
+		# give a bit of lee-way
+		if note.length < lee_way:
+			# we do this because the animations get funky sometimes lol
+			receptor._automatically_play_static = true
+			continue
+
+		miss_note(note)
 
 
 func _on_hit_note(note: Note) -> void:

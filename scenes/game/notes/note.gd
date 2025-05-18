@@ -68,6 +68,7 @@ func _process(delta: float) -> void:
 			# Because of how this is coded this will simply play
 			# the press animation over and over rather than
 			# actually trying to hit the same note multiple times.
+			_field._on_hit_note(self)
 			_field.get_receptor_from_lane(lane).hit_note(self)
 
 		_previous_step = step

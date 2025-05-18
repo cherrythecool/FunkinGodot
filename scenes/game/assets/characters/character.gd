@@ -14,7 +14,7 @@ var _dance_step: int = 0
 @export_file('*.tscn') var death_character: String = 'res://scenes/game/assets/characters/bf-dead.tscn'
 @export var gameover_assets: GameoverAssets
 
-@warning_ignore("unused_private_class_variable")
+@warning_ignore('unused_private_class_variable')
 @onready var _camera_offset: Node2D = $camera_offset
 @onready var _animation_player: AnimationPlayer = $animation_player
 
