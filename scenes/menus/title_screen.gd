@@ -34,7 +34,7 @@ func _ready() -> void:
 	enter_animation.play('loop')
 
 	Conductor.tempo = 102.0
-	var music_player := GlobalAudio.music
+	var music_player: AudioStreamPlayer = GlobalAudio.music
 	if not music_player.playing:
 		Conductor.reset()
 		music_player.play()
@@ -53,15 +53,6 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	# kinda hacky fix for loops, just kinda how it
-	# has to work to make sure we don't go back in
-	# time in regular gameplay with Conductor.time
-	var current_time := GlobalAudio.music.get_playback_position()
-	if current_time < last_music_time:
-		Conductor.reset()
-		Conductor.target_audio = GlobalAudio.music
-	last_music_time = current_time
-
 	if not is_instance_valid(swag_material):
 		return
 
@@ -120,7 +111,7 @@ func _start_intro() -> void:
 
 	var lines: String = FileAccess.get_file_as_string('uid://bcdqlk404scmd')
 	lines = lines.strip_edges()
-	var lines_array := lines.split('\n', false)
+	var lines_array: PackedStringArray = lines.split('\n', false)
 	var index: int = randi_range(0, maxi(lines_array.size() - 1, 0))
 	random_lines = Array(lines_array[index].split('--'))
 

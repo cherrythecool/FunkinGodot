@@ -56,11 +56,11 @@ func _process(delta: float) -> void:
 	if not active:
 		return
 
+	var mix_delta: float = AudioServer.get_time_since_last_mix()
 	if _resync_latency:
-		var mix_time: float = AudioServer.get_time_since_last_mix()
-		if mix_time < _last_mix:
+		if mix_delta < _last_mix:
 			reset_offset()
-		_last_mix = mix_time
+		_last_mix = mix_delta
 
 	var last_step: int = floori(step)
 	var last_beat: int = floori(beat)
@@ -71,8 +71,7 @@ func _process(delta: float) -> void:
 		if not target_audio.playing:
 			return
 
-		var audio_position: float = target_audio.get_playback_position() \
-				+ AudioServer.get_time_since_last_mix()
+		var audio_position: float = target_audio.get_playback_position()
 		if audio_position >= target_length:
 			# stoopid looping fix :3
 			raw_time = 0.0
@@ -81,8 +80,8 @@ func _process(delta: float) -> void:
 			return
 
 		var last_time: float = raw_time
-		var desync: float = absf(raw_time - audio_position)
-		if audio_position >= raw_time or desync > MAX_DESYNC:
+		var desync: float = absf(raw_time - (audio_position + mix_delta))
+		if desync >= MAX_DESYNC:
 			raw_time = audio_position
 			time = raw_time + offset
 			beat += (raw_time - last_time) / beat_delta
@@ -95,13 +94,13 @@ func _process(delta: float) -> void:
 		beat += delta * rate / beat_delta
 
 	if floori(step) > last_step:
-		for step_value in range(last_step + 1, floori(step) + 1):
+		for step_value: int in range(last_step + 1, floori(step) + 1):
 			step_hit.emit(step_value)
 	if floori(beat) > last_beat:
-		for beat_value in range(last_beat + 1, floori(beat) + 1):
+		for beat_value: int in range(last_beat + 1, floori(beat) + 1):
 			beat_hit.emit(beat_value)
 	if floori(measure) > last_measure:
-		for measure_value in range(last_measure + 1, floori(measure) + 1):
+		for measure_value: int in range(last_measure + 1, floori(measure) + 1):
 			measure_hit.emit(measure_value)
 
 

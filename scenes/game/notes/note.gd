@@ -7,7 +7,10 @@ class_name Note extends Node2D
 
 var data: NoteData
 var lane: int = 0
-var length: float = 0.0
+var length: float = 0.0:
+	set(v):
+		length = v
+		_update_sustain()
 
 const directions: PackedStringArray = ['left', 'down', 'up', 'right']
 
@@ -41,19 +44,17 @@ func _ready() -> void:
 			sustain.z_index -= 1
 		_update_sustain()
 	else:
-		clip_rect.queue_free()
+		clip_rect.free()
 
 
 func _process(delta: float) -> void:
-	_update_sustain()
-
 	if not _hit:
 		return
 
 	if length <= 0.0:
 		if is_instance_valid(_character):
 			_character.sing(self, true)
-		queue_free()
+		free()
 		return
 
 	sprite.visible = false
@@ -76,44 +77,45 @@ func _update_sustain() -> void:
 	if not is_instance_valid(_field):
 		return
 
-	if data.length >= 0.0 and is_instance_valid(sustain):
-		sustain.size.y = data.length * 1000.0 * 0.45 * (_field._scroll_speed * absf(_field._scroll_speed_modifier)) \
-				/ scale.y - tail.size.y
-		clip_rect.size.y = sustain.size.y + tail.size.y + 256.0
+	if data.length < 0.0 or not is_instance_valid(sustain):
+		return
 
-		var clip_target: float = _field._receptors[lane].position.y
+	sustain.size.y = data.length * 1000.0 * 0.45 * (_field._scroll_speed * absf(_field._scroll_speed_modifier)) \
+			/ scale.y - tail.size.y
+	clip_rect.size.y = sustain.size.y + tail.size.y + 256.0
 
-		# I forgot the scale.y so many times but this works
-		# as longg as the clip rect is big enough to fill the
-		# whole screen (which it is rn because -1280 is more
-		# than enough at 0.7 scale, which is the default)
-		if _field._scroll_speed_modifier < 0.0:
-			tail.pivot_offset.y = 0.0
-			tail.position.y = -tail.size.y
-			tail.flip_h = true
-			tail.flip_v = true
+	var clip_target: float = _field._receptors[lane].position.y
+	# I forgot the scale.y so many times but this works
+	# as longg as the clip rect is big enough to fill the
+	# whole screen (which it is rn because -1280 is more
+	# than enough at 0.7 scale, which is the default)
+	if _field._scroll_speed_modifier < 0.0:
+		tail.pivot_offset.y = 0.0
+		tail.position.y = -tail.size.y
+		tail.flip_h = true
+		tail.flip_v = true
 
-			clip_rect.position.y = -clip_rect.size.y
-			sustain.position.y = clip_rect.size.y - sustain.size.y
+		clip_rect.position.y = -clip_rect.size.y
+		sustain.position.y = clip_rect.size.y - sustain.size.y
 
-			if _hit:
-				clip_rect.position.y += clip_target - (position.y / scale.y)
-				sustain.position.y += position.y / scale.y
+		if _hit:
+			clip_rect.position.y += clip_target - (position.y / scale.y)
+			sustain.position.y += position.y / scale.y
+	else:
+		tail.pivot_offset.y = tail.size.y
+		tail.position.y = sustain.size.y
+		tail.flip_h = false
+		tail.flip_v = false
+
+		if _hit:
+			clip_rect.position.y = clip_target - position.y / scale.y
+			sustain.position.y = position.y / scale.y
 		else:
-			tail.pivot_offset.y = tail.size.y
-			tail.position.y = sustain.size.y
-			tail.flip_h = false
-			tail.flip_v = false
+			clip_rect.position.y = 0.0
+			sustain.position.y = 0.0
 
-			if _hit:
-				clip_rect.position.y = clip_target - position.y / scale.y
-				sustain.position.y = position.y / scale.y
-			else:
-				clip_rect.position.y = 0.0
-				sustain.position.y = 0.0
-
-		sustain.position.y += (_sustain_offset / scale.y) * 1000.0 * 0.45 * \
-				(_field._scroll_speed * absf(_field._scroll_speed_modifier))
+	sustain.position.y += (_sustain_offset / scale.y) * 1000.0 * 0.45 * \
+			(_field._scroll_speed * absf(_field._scroll_speed_modifier))
 
 
 func reload_sustain_sprites() -> void:

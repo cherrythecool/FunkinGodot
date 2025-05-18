@@ -8,8 +8,10 @@ var hovering: int = -1
 
 func _ready() -> void:
 	var binds: Dictionary = Config.get_value('gameplay', 'binds')
-	
-	keys = keys.filter(func(node): return node is AnimatedSprite)
+
+	keys = keys.filter(func(node: Node) -> bool:
+		return node is AnimatedSprite
+	)
 	for key: Node in keys:
 		key.get_node('key').text = Alphabet.keycode_to_character(binds[key.name])
 		key.modulate.a = 0.6
@@ -33,17 +35,17 @@ func _input(event: InputEvent) -> void:
 		_handle_key(event)
 
 
-func _handle_key(event: InputEventKey):
+func _handle_key(event: InputEventKey) -> void:
 	# set display
-	var key := keys[selected]
+	var key: Node = keys[selected]
 	key.get_node('key').text = Alphabet.keycode_to_character(event.keycode)
 	key.editor_description = '0.6'
-	
+
 	# set config
 	var binds: Dictionary = Config.get_value('gameplay', 'binds').duplicate()
 	binds[key.name] = event.keycode
 	Config.set_value('gameplay', 'binds', binds)
-	
+
 	# reset selected
 	selected = -1
 	GlobalAudio.get_player(^'MENU/CONFIRM').play()
@@ -52,7 +54,7 @@ func _handle_key(event: InputEventKey):
 func _handle_motion(event: InputEventMouseMotion) -> void:
 	if selected != -1:
 		return
-	
+
 	hovering = -1
 	for i: int in keys.size():
 		var key: Node2D = keys[i]
@@ -71,7 +73,7 @@ func _handle_button(event: InputEventMouseButton) -> void:
 		return
 	if not event.pressed:
 		return
-	
+
 	selected = hovering
 	keys[selected].get_node('key').text = '_'
 	GlobalAudio.get_player(^'MENU/CONFIRM').play()

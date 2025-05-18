@@ -1,11 +1,10 @@
-extends Node
+extends Control
 
 
 @export var parent: Node2D
 
 @onready var song_label: Label = $song_label
 @onready var difficulty_label: Label = $difficulty_label
-@onready var score_label: Label = $score_label
 @onready var score_panel: Panel = %score_panel
 @onready var reset_panel: Panel = %reset_panel
 
@@ -25,6 +24,11 @@ func _ready() -> void:
 	parent.difficulty_changed.connect(_on_difficulty_changed)
 
 
+func _process(_delta: float) -> void:
+	score_panel.position.y = size.y + 24.0
+	reset_panel.position.y = score_panel.position.y + score_panel.size.y + 16.0
+
+
 func _on_song_changed(index: int) -> void:
 	song_index = index
 	song_node = parent.song_nodes[song_index]
@@ -32,11 +36,14 @@ func _on_song_changed(index: int) -> void:
 
 
 func _on_difficulty_changed(new_difficulty: StringName) -> void:
-	var remap := song_node.song.difficulty_remap
+	var difficulty_map: DifficultyMap = song_node.song.difficulty_remap
 	difficulty = new_difficulty
 
-	if is_instance_valid(remap) and remap.mapping.has(difficulty):
-		song = remap.mapping.get(difficulty)
+	if (
+		is_instance_valid(difficulty_map)
+		and difficulty_map.mapping.has(difficulty)
+	):
+		song = difficulty_map.mapping.get(difficulty)
 	else:
 		song = song_node.song.song_name
 
@@ -48,6 +55,8 @@ func _on_difficulty_changed(new_difficulty: StringName) -> void:
 
 	if difficulty_count > 1:
 		difficulty_label.text = '< %s >' % tr(difficulty.to_lower()).to_upper()
+		difficulty_label.visible = true
+		size.y = 45.0
 	else:
-		difficulty_label.text = '%s' % tr(difficulty.to_lower()).to_upper()
-	score_label.text = '%s [SHIFT]' % score_data.get('score')
+		difficulty_label.visible = false
+		size.y = 24.0

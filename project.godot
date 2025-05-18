@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Friday Night Funkin'"
 config/description="Friday Night Funkin' remade in Godot for performance and stability."
-config/version="1.1.0"
+config/version="2.0.0-hud-rewrite"
 config/tags=PackedStringArray("2d", "modding", "rhythm")
 run/main_scene="res://scenes/menus/title_screen.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
@@ -36,6 +36,11 @@ MixerControl="*res://scenes/autoload/mixer_control.tscn"
 SceneManager="*res://scenes/autoload/scene_manager.tscn"
 Conductor="*res://scripts/autoload/conductor.gd"
 TouchControls="*res://scenes/autoload/touch_controls.tscn"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/inferred_declaration=1
 
 [display]
 

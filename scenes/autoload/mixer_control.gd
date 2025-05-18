@@ -43,7 +43,7 @@ func _input(event: InputEvent) -> void:
 	if not (event.is_action('volume_down') or event.is_action('volume_up')):
 		return
 
-	var direction: int = Input.get_axis('volume_down', 'volume_up')
+	var direction: int = roundi(Input.get_axis('volume_down', 'volume_up'))
 	if direction == 0:
 		return
 
@@ -56,7 +56,7 @@ func _input(event: InputEvent) -> void:
 	tween.tween_property(self, 'visible', false, 0.0)
 	visible = true
 
-	var modifier: int = Input.get_axis('alt', 'shift')
+	var modifier: int = roundi(Input.get_axis('alt', 'shift'))
 	var bus_index: int = AudioServer.get_bus_index(target_bus)
 
 	match modifier:

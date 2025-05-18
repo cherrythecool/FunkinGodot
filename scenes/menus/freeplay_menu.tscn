@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://3rua2gpac5p8"]
+[gd_scene load_steps=51 format=3 uid="uid://3rua2gpac5p8"]
 
 [ext_resource type="Texture2D" uid="uid://coli0ye4bsyff" path="res://assets/menus/background.png" id="1_2q4rq"]
 [ext_resource type="Script" uid="uid://buarre8s3ld28" path="res://scenes/menus/freeplay_menu.gd" id="1_p2lt6"]
@@ -243,10 +243,6 @@ font = ExtResource("4_7yg7l")
 font = ExtResource("4_7yg7l")
 font_size = 14
 
-[sub_resource type="LabelSettings" id="LabelSettings_v78yk"]
-font = ExtResource("4_7yg7l")
-font_size = 12
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7glp"]
 bg_color = Color(0, 0, 0, 0.5)
 corner_radius_top_left = 10
@@ -301,14 +297,14 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -256.0
-offset_bottom = 64.0
+offset_bottom = 45.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_h4xxx")
 script = ExtResource("4_5dymk")
 parent = NodePath("../..")
 
 [node name="song_label" type="Label" parent="root_control/info_panel"]
-layout_mode = 2
+layout_mode = 1
 offset_top = 7.0
 offset_right = 256.0
 offset_bottom = 23.0
@@ -319,24 +315,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="difficulty_label" type="Label" parent="root_control/info_panel"]
-layout_mode = 2
+layout_mode = 1
 offset_top = 29.0
 offset_right = 256.0
 offset_bottom = 45.0
 size_flags_vertical = 3
 text = "< NORMAL >"
 label_settings = SubResource("LabelSettings_1ivw4")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="score_label" type="Label" parent="root_control/info_panel"]
-layout_mode = 2
-offset_top = 51.0
-offset_right = 256.0
-offset_bottom = 64.0
-size_flags_vertical = 8
-text = "N/A [SHIFT]"
-label_settings = SubResource("LabelSettings_v78yk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -347,6 +332,7 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -264.0
 offset_top = 80.0
 offset_bottom = 176.0
 grow_horizontal = 0
@@ -440,6 +426,7 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -264.0
 offset_top = 184.0
 offset_bottom = 280.0
 grow_horizontal = 0

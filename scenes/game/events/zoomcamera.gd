@@ -10,21 +10,21 @@ func _on_event_hit(event: EventData) -> void:
 
 	var data: Dictionary = event.data[0]
 	var steps: int = data.get('duration', 32)
-	var ease: String = data.get('ease', 'expoOut')
+	var ease_string: String = data.get('ease', 'expoOut')
 	var zoom: float = data.get('zoom', 1.05)
-	if ease == 'INSTANT':
-		for tween in tweens:
+	if ease_string == 'INSTANT':
+		for tween: Tween in tweens:
 			tween.kill()
 		tweens.clear()
 
 		game.target_camera_zoom = Vector2(zoom, zoom)
 		return
 
-	var tween := create_tween()
+	var tween: Tween = create_tween()
 	tweens.push_back(tween)
 	tween.finished.connect(tweens.erase.bind(tween))
 
-	_apply_ease(tween, ease)
+	_apply_ease(tween, ease_string)
 	tween.tween_property(game, ^'target_camera_zoom', Vector2(zoom, zoom),
 			Conductor.beat_delta / 4.0 * float(steps))
 

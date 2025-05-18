@@ -13,9 +13,11 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vjxi"]
 bg_color = Color(0.529412, 0.545098, 0.545098, 1)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sakno"]
 bg_color = Color(0.905882, 0.92549, 0.933333, 1)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wblnk"]
 bg_color = Color(0, 0, 0, 0)
@@ -32,23 +34,22 @@ expand_margin_left = 4.0
 expand_margin_top = 4.0
 expand_margin_right = 4.0
 expand_margin_bottom = 4.0
+anti_aliasing = false
 
 [sub_resource type="LabelSettings" id="LabelSettings_ku58i"]
 font = ExtResource("5_gpwne")
-font_size = 14
-outline_size = 8
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_6egcm"]
 font = ExtResource("8_in2av")
-font_size = 48
+font_size = 64
 outline_size = 18
-outline_color = Color(0.1, 0.1, 0.1, 0.75)
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_odcbh"]
 font = ExtResource("5_gpwne")
-font_size = 14
-outline_size = 8
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Resource" id="Resource_ybh81"]
@@ -86,27 +87,34 @@ timing = 22.5
 score = 350
 health = 1.15
 
-[node name="hud" type="Node2D"]
-position = Vector2(640, 360)
+[node name="hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(640, 360)
+mouse_filter = 2
 script = ExtResource("1_hv0yb")
+metadata/_edit_lock_ = true
 
 [node name="note_fields" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, -248)
 
 [node name="opponent" parent="note_fields" instance=ExtResource("2_0rw2j")]
-position = Vector2(-300, 0)
+position = Vector2(320, 100)
 default_note_splash = ExtResource("3_1ubyb")
 
 [node name="player" parent="note_fields" instance=ExtResource("2_0rw2j")]
-position = Vector2(300, 0)
+position = Vector2(960, 100)
 takes_input = true
 side = 1
 default_note_splash = ExtResource("3_1ubyb")
 
 [node name="health_bar" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 285)
+position = Vector2(640, 640)
 script = ExtResource("4_spp67")
 
 [node name="bar" type="ProgressBar" parent="health_bar"]
@@ -144,84 +152,73 @@ anchor_right = 1.0
 offset_left = -640.0
 offset_top = 32.0
 offset_right = 640.0
-offset_bottom = 96.0
+offset_bottom = 67.0
 grow_horizontal = 2
+pivot_offset = Vector2(640, 17.5)
 text = "Score:0 • Misses:0 • Accuracy:N/A (N/A)
 "
 label_settings = SubResource("LabelSettings_ku58i")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="rating_container" type="Node2D" parent="."]
 unique_name_in_owner = true
-visible = false
-position = Vector2(0, -32)
+position = Vector2(640, 328)
 
 [node name="rating" type="Sprite2D" parent="rating_container"]
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("6_mktee")
 
 [node name="combo" type="Node2D" parent="rating_container"]
-position = Vector2(-45, 75)
+position = Vector2(0, 75)
 scale = Vector2(0.5, 0.5)
 
 [node name="1" type="Sprite2D" parent="rating_container/combo"]
 texture = ExtResource("7_7svf3")
 hframes = 10
 
-[node name="2" type="Sprite2D" parent="rating_container/combo"]
-position = Vector2(85, 0)
-texture = ExtResource("7_7svf3")
-hframes = 10
-
-[node name="3" type="Sprite2D" parent="rating_container/combo"]
-position = Vector2(170, 0)
-texture = ExtResource("7_7svf3")
-hframes = 10
-
-[node name="4" type="Sprite2D" parent="rating_container/combo"]
-visible = false
-position = Vector2(255, 0)
-texture = ExtResource("7_7svf3")
-hframes = 10
-
-[node name="5" type="Sprite2D" parent="rating_container/combo"]
-visible = false
-position = Vector2(340, 0)
-texture = ExtResource("7_7svf3")
-hframes = 10
-
 [node name="difference_label" type="Label" parent="rating_container"]
-offset_left = -150.0
+offset_left = -640.0
 offset_top = 106.0
-offset_right = 150.0
-offset_bottom = 131.0
+offset_right = 640.0
+offset_bottom = 143.0
+pivot_offset = Vector2(640, 24.5)
 text = "0ms"
 label_settings = SubResource("LabelSettings_6egcm")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="countdown_container" type="Node2D" parent="."]
+[node name="countdown_container" type="Marker2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(640, 360)
 
 [node name="song_label" type="Label" parent="."]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.74902)
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -640.0
-offset_top = -352.0
-offset_right = 640.0
-offset_bottom = -288.0
-grow_horizontal = 2
-grow_vertical = 0
+layout_mode = 1
+offset_top = 16.0
+offset_right = 1280.0
+offset_bottom = 32.0
+pivot_offset = Vector2(640, 8)
 text = "Test • [NORMAL]"
 label_settings = SubResource("LabelSettings_odcbh")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ratings_calculator" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("9_xshlu")
 ratings = Array[ExtResource("10_vo01y")]([SubResource("Resource_ybh81"), SubResource("Resource_2xl48"), SubResource("Resource_u7x50"), SubResource("Resource_jbop4"), SubResource("Resource_aj00i")])
+
+[node name="sub_viewport_container" type="SubViewportContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 512.0
+offset_bottom = 512.0
+
+[node name="preloading_viewport" type="SubViewport" parent="sub_viewport_container"]
+unique_name_in_owner = true
+handle_input_locally = false
+gui_disable_input = true
+render_target_update_mode = 0

@@ -38,7 +38,7 @@ func _input(event: InputEvent) -> void:
 		active = false
 		_press_animation()
 
-		var item := items.get_child(selected) as MainMenuButton
+		var item: MainMenuButton = items.get_child(selected) as MainMenuButton
 		item.press()
 		timer.start(0.0)
 
@@ -60,7 +60,7 @@ func _on_press(item: MainMenuButton) -> void:
 func _press_animation() -> void:
 	if Config.get_value('accessibility', 'flashing_lights'):
 		background_animations.play(&'loop')
-	var tween := create_tween().set_trans(Tween.TRANS_SINE)\
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_SINE)\
 			.set_ease(Tween.EASE_OUT).set_parallel()
 
 	for i: int in items.get_child_count():
@@ -74,7 +74,7 @@ func _cancel_animation() -> void:
 	background_animations.seek(0.0, true)
 	background_animations.stop()
 
-	var tween := create_tween().set_trans(Tween.TRANS_SINE)\
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_SINE)\
 			.set_ease(Tween.EASE_OUT).set_parallel()
 
 	for i: int in items.get_child_count():

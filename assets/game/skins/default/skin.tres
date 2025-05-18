@@ -26,6 +26,7 @@ rating_scale = Vector2(0.7, 0.7)
 rating_filter = 0
 combo_atlas = ExtResource("2_nfcec")
 combo_scale = Vector2(0.5, 0.5)
+combo_spacing = 90.0
 combo_filter = 0
 countdown_textures = Array[Texture2D]([null, ExtResource("7_smc0y"), ExtResource("8_gs3vn"), ExtResource("9_hvo5u")])
 countdown_sounds = Array[AudioStream]([ExtResource("3_0jb8h"), ExtResource("4_y1cy4"), ExtResource("5_siv11"), ExtResource("6_1ctyo")])

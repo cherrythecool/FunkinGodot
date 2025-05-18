@@ -22,7 +22,8 @@ func _ready() -> void:
 	_change_selection()
 
 	root.modulate.a = 0.5
-	var tween := create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT)\
+			.set_trans(Tween.TRANS_SINE)
 	tween.tween_property(root, 'modulate:a', 1.0, 0.5)
 
 	var blur_amount: float = Config.get_value('interface', 'pause_blur') / 150.0
@@ -41,12 +42,12 @@ func _ready() -> void:
 		# to what i want, is very costly :>
 		if simple:
 			# this is kind of cursed but it works ig
-			var image := get_viewport().get_texture().get_image()
+			var image: Image = get_viewport().get_texture().get_image()
 			if is_instance_valid(image):
 				if not image.has_mipmaps():
 					image.generate_mipmaps()
 
-				var texture := ImageTexture.create_from_image(image)
+				var texture: ImageTexture = ImageTexture.create_from_image(image)
 				blur.material.set_shader_parameter('SCREEN_TEXTURE', texture)
 			else:
 				printerr('Failed to get viewport texture image, oops!')
@@ -81,9 +82,9 @@ func _input(event: InputEvent) -> void:
 	if event.is_echo():
 		return
 
-	if event.is_action('ui_down') or event.is_action('ui_up'):
-		_change_selection(Input.get_axis('ui_up', 'ui_down'))
-	if event.is_action('ui_accept'):
+	if event.is_action(&'ui_down') or event.is_action(&'ui_up'):
+		_change_selection(roundi(Input.get_axis('ui_up', 'ui_down')))
+	if event.is_action(&'ui_accept'):
 		for option: ListedAlphabet in options.get_children():
 			if option.target_y != 0:
 				continue
@@ -114,7 +115,7 @@ func _change_selection(amount: int = 0) -> void:
 	if amount != 0:
 		GlobalAudio.get_player('MENU/SCROLL').play()
 	for i: int in options.get_child_count():
-		var option := options.get_child(i)
+		var option: ListedAlphabet = options.get_child(i)
 		option.target_y = i - selected
 		option.modulate.a = 1.0 if option.target_y == 0 else 0.6
 
@@ -124,11 +125,6 @@ func _close() -> void:
 	get_viewport().set_input_as_handled()
 	active = false
 	visible = false
-
-	if not is_instance_valid(Game.instance):
-		return
-	if Game.instance.song_started:
-		Game.instance.tracks.check_sync(true)
 
 
 func _exit_tree() -> void:

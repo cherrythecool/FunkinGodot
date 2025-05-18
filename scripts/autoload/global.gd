@@ -8,7 +8,8 @@ var fullscreened: bool = false:
 		fullscreened = value
 
 var game_size: Vector2:
-	get: return get_viewport().get_visible_rect().size
+	get:
+		return get_viewport().get_visible_rect().size
 
 var was_paused: bool = false
 var main_window: Window = null
@@ -46,7 +47,7 @@ func _on_focus_exit() -> void:
 	if not Config.get_value('performance', 'auto_pause'):
 		return
 
-	var tree := get_tree()
+	var tree: SceneTree = get_tree()
 	was_paused = tree.paused
 	tree.paused = true
 
@@ -60,9 +61,7 @@ func _unhandled_key_input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 		fullscreened = not fullscreened
 		return
-	if not OS.is_debug_build():
-		return
-	var tree := get_tree()
+	var tree: SceneTree = get_tree()
 	if event.is_action('menu_reload') and is_instance_valid(tree) \
 			and is_instance_valid(tree.current_scene):
 		tree.reload_current_scene()
@@ -73,21 +72,21 @@ func _unhandled_key_input(event: InputEvent) -> void:
 func _on_value_changed(section: String, key: String, value: Variant) -> void:
 	if value == null:
 		return
-
-	if section == 'performance':
-		match key:
-			'fps_cap':
-				Engine.max_fps = value
-			'vsync_mode':
-				match value:
-					'enabled':
-						DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-					'adaptive':
-						DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ADAPTIVE)
-					'mailbox':
-						DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_MAILBOX)
-					_:
-						DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	if section != 'performance':
+		return
+	match key:
+		'fps_cap':
+			Engine.max_fps = value
+		'vsync_mode':
+			match value:
+				'enabled':
+					DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+				'adaptive':
+					DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ADAPTIVE)
+				'mailbox':
+					DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_MAILBOX)
+				_:
+					DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 
 
 func _on_config_loaded() -> void:
@@ -97,8 +96,19 @@ func _on_config_loaded() -> void:
 			Config.get_value('performance', 'vsync_mode'))
 
 
-static func free_children_from(node: Node, immediate: bool = false) -> void:
+func free_children_from(node: Node, immediate: bool = false) -> void:
 	for child: Node in node.get_children():
+		if immediate:
+			child.free()
+		else:
+			child.queue_free()
+
+
+func free_from_array(nodes: Array[Node], immediate: bool = false) -> void:
+	for child: Node in nodes:
+		if not is_instance_valid(child):
+			continue
+
 		if immediate:
 			child.free()
 		else:
@@ -108,8 +118,8 @@ static func free_children_from(node: Node, immediate: bool = false) -> void:
 # NOTE: this method is VERY hacky and likely to stop working
 # at some point but i don't know of a better method rn? maybe
 # i should make a godot pr :p
-static func get_rendering_api() -> String:
-	var version := RenderingServer.get_video_adapter_api_version()
+func get_rendering_api() -> String:
+	var version: String = RenderingServer.get_video_adapter_api_version()
 	if version.begins_with('12'):
 		return 'D3D12'
 	if version.begins_with('3'):

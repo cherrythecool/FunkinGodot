@@ -43,7 +43,7 @@ func _input(event: InputEvent) -> void:
 	super(event)
 
 	if event.is_action(&'ui_up') or event.is_action(&'ui_down'):
-		change_selection(Input.get_axis(&'ui_up', &'ui_down'))
+		change_selection(roundi(Input.get_axis(&'ui_up', &'ui_down')))
 	if event.is_action(&'ui_accept'):
 		get_viewport().set_input_as_handled()
 		selected_option._select()

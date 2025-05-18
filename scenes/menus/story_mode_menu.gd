@@ -15,7 +15,7 @@ var active: bool = true
 
 
 func _ready() -> void:
-	var music_player := GlobalAudio.music
+	var music_player: AudioStreamPlayer = GlobalAudio.music
 	if not music_player.playing:
 		Conductor.reset()
 		music_player.play()
@@ -26,7 +26,7 @@ func _ready() -> void:
 	change_selection()
 
 
-func _on_beat_hit(beat: int) -> void:
+func _on_beat_hit(_beat: int) -> void:
 	if not active:
 		return
 
@@ -70,27 +70,30 @@ func _input(event: InputEvent) -> void:
 
 
 func _load_active_playlist() -> void:
-	var selected_week = weeks.get_child(weeks.selected)
+	var selected_week: StoryWeekNode = weeks.get_child(weeks.selected)
 	Game.playlist = []
 	if selected_week.songs.size() == 1:
 		return
 
 	var difficulty: String = difficulties.difficulties[difficulties.selected]
 	for i: int in range(1, selected_week.songs.size()):
-		var entry := GamePlaylistEntry.new()
+		var entry: GamePlaylistEntry = GamePlaylistEntry.new()
 		entry.name = selected_week.get_song_name(i, difficulty)
 		entry.difficulty = difficulty
 		Game.playlist.push_back(entry)
 
 
 func _load_first_song() -> bool:
-	var selected_week = weeks.get_child(weeks.selected)
+	var selected_week: StoryWeekNode = weeks.get_child(weeks.selected)
 	var difficulty: String = difficulties.difficulties[difficulties.selected]
 	var song_name: String = selected_week.get_song_name(0, difficulty)
 	Game.chart = Chart.load_song(song_name, difficulty)
 
 	if not is_instance_valid(Game.chart):
-		var json_path := 'res://assets/songs/%s/charts/%s.json' % [song_name, difficulty.to_lower()]
+		var json_path: String = (
+			'res://assets/songs/%s/charts/%s.json'
+			% [song_name, difficulty.to_lower()]
+		)
 		printerr('Song at path %s doesn\'t exist!' % json_path)
 		GlobalAudio.get_player('MENU/CANCEL').play()
 		return false
@@ -104,7 +107,7 @@ func _load_first_song() -> bool:
 func change_selection(amount: int = 0) -> void:
 	weeks.selected = wrapi(weeks.selected + amount, 0, weeks.get_child_count())
 
-	var selected_week = weeks.get_child(weeks.selected)
+	var selected_week: StoryWeekNode = weeks.get_child(weeks.selected)
 	props.update_props(selected_week.props)
 	week_name.text = selected_week.display_name
 	difficulties.difficulties = selected_week.difficulties

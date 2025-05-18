@@ -37,7 +37,7 @@ func strike(beat: int, play_sound: bool = true) -> void:
 	lightning_offset = randi_range(8, 24)
 
 	if play_sound:
-		var player := AudioStreamPlayer.new()
+		var player: AudioStreamPlayer = AudioStreamPlayer.new()
 		player.stream = sounds.pick_random()
 		add_child(player)
 

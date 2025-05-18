@@ -20,7 +20,7 @@ static var camera_position: Vector2 = Vector2.INF
 @onready var camera: Camera2D = $camera
 
 @onready var hud_layer: CanvasLayer = %hud_layer
-@onready var hud: HUD = %hud
+@onready var hud: Node = %hud
 @onready var _player_field: NoteField = hud.player_field
 @onready var _opponent_field: NoteField = hud.opponent_field
 
@@ -39,7 +39,7 @@ var _first_frame: bool = true
 @onready var _characters: Node2D = $characters
 
 ## Each note type is stored here for use in any note field.
-var note_types := NoteTypes.new()
+var note_types: NoteTypes = NoteTypes.new()
 
 var playing: bool = true
 
@@ -69,7 +69,7 @@ var rank: String:
 		return 'N/A'
 
 var skin: HUDSkin
-@onready var _default_note := load('res://scenes/game/notes/note.tscn')
+@onready var _default_note: PackedScene = load('uid://f75xq2p53bpl')
 var _event: int = 0
 
 signal hud_setup
@@ -122,12 +122,12 @@ func _ready() -> void:
 	note_types.types['default'] = _default_note
 
 	# loading external types :3
-	for note in chart.notes:
-		var type: String = note.type.to_lower()
+	for note: NoteData in chart.notes:
+		var type: StringName = note.type.to_lower()
 		if note_types.types.has(type):
 			continue
 
-		var path := 'res://scenes/game/notes/%s.tscn' % type
+		var path: String = 'res://scenes/game/notes/%s.tscn' % type
 		if not ResourceLoader.exists(path):
 			continue
 
@@ -138,7 +138,12 @@ func _ready() -> void:
 
 	if ResourceLoader.exists('res://assets/songs/%s/assets.tres' % song):
 		# Load SongAssets tres.
-		assets = load('res://assets/songs/%s/assets.tres' % song)
+		var path: String = 'res://assets/songs/%s/assets.tres' % song
+		# Multithreaded loading code that seems to cause gpu memory leaks
+		# leaving it out for now just in case, sorry :[
+		#ResourceLoader.load_threaded_request(path, '', true)
+		#assets = ResourceLoader.load_threaded_get(path)
+		assets = load(path)
 
 		if not is_instance_valid(assets.player):
 			assets.player = load('uid://bu44d2he2dxm3')
@@ -211,8 +216,9 @@ func _ready() -> void:
 	_opponent_field._note_types = note_types
 	_player_field.note_miss.connect(_on_note_miss)
 	_player_field.note_hit.connect(_on_note_hit)
-	_opponent_field.note_hit.connect(func(note: Note):
-		camera_bumps = true)
+	_opponent_field.note_hit.connect(func(_note: Note) -> void:
+		camera_bumps = true
+	)
 
 	hud.setup()
 	hud_setup.emit()
@@ -228,7 +234,7 @@ func _ready() -> void:
 		# it also means you have to manually check for event names
 		# but it's fine :p
 		var exceptions: Array[StringName] = []
-		for event in chart.events:
+		for event: EventData in chart.events:
 			var event_name: StringName = event.name.to_lower()
 			if exceptions.has(event_name):
 				continue
@@ -242,7 +248,7 @@ func _ready() -> void:
 			var node: Node = scene.instantiate()
 			scripts.add_child(node)
 
-		for event in chart.events:
+		for event: EventData in chart.events:
 			event_prepare.emit(event)
 
 		# we do int(time * 1000.0) because if it's less than 1 ms
@@ -256,12 +262,6 @@ func _ready() -> void:
 	Conductor.time = (-4.0 * Conductor.beat_delta) + Conductor.offset
 	Conductor.beat = -4.0
 	Conductor.beat_hit.emit(Conductor.beat)
-
-	var window := get_tree().get_root()
-	window.size_changed.connect(func():
-		if song_started:
-			tracks.check_sync(true)
-	)
 
 	if camera_position != Vector2.INF:
 		camera.position = camera_position
@@ -297,7 +297,7 @@ func _process(delta: float) -> void:
 
 	while _event < chart.events.size() and \
 			Conductor.time >= chart.events[_event].time:
-		var event := chart.events[_event]
+		var event: EventData = chart.events[_event]
 		_on_event_hit(event)
 		_event += 1
 
@@ -343,7 +343,7 @@ func _input(event: InputEvent) -> void:
 				hud.song_label.text = hud.song_label.text.replace(' [BOT]', '')
 
 
-func _on_beat_hit(beat: int) -> void:
+func _on_beat_hit(_beat: int) -> void:
 	if is_instance_valid(player):
 		player.dance()
 	if is_instance_valid(opponent):
@@ -352,7 +352,7 @@ func _on_beat_hit(beat: int) -> void:
 		spectator.dance()
 
 
-func _on_measure_hit(measure: int) -> void:
+func _on_measure_hit(_measure: int) -> void:
 	if not camera_bumps:
 		return
 
@@ -363,7 +363,7 @@ func _on_event_hit(event: EventData) -> void:
 	event_hit.emit(event)
 
 
-func _on_note_miss(note: Note) -> void:
+func _on_note_miss(_note: Note) -> void:
 	accuracy_calculator.record_hit(Receptor.input_zone)
 	health = clampf(health - 2.0, 0.0, 100.0)
 	misses += 1
@@ -371,7 +371,7 @@ func _on_note_miss(note: Note) -> void:
 	combo = 0
 
 
-func _on_note_hit(note: Note) -> void:
+func _on_note_hit(_note: Note) -> void:
 	combo += 1
 
 
@@ -390,7 +390,7 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 
 	playing = false
 	if save_score:
-		var current_score := Scores.get_score(song, difficulty)
+		var current_score: Dictionary = Scores.get_score(song, difficulty)
 		if str(current_score.get('score', 'N/A')) == 'N/A' or score > current_score.get('score'):
 			Scores.set_score(song, difficulty, {
 				'score': score,
@@ -405,7 +405,10 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 		chart = Chart.load_song(new_song, new_difficulty)
 
 		if not is_instance_valid(chart):
-			var json_path := 'res://assets/songs/%s/charts/%s.json' % [new_song, new_difficulty.to_lower()]
+			var json_path: String = (
+				'res://assets/songs/%s/charts/%s.json'
+				% [new_song, new_difficulty.to_lower()]
+			)
 			printerr('Song at path %s doesn\'t exist!' % json_path)
 			GlobalAudio.get_player('MENU/CANCEL').play()
 			SceneManager.switch_to('scenes/menus/main_menu.tscn')

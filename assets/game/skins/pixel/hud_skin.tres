@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="HUDSkin" load_steps=2 format=3 uid="uid://bx66ixfj76oix"]
+
+[ext_resource type="Script" uid="uid://bwjjpqxupvxcc" path="res://scripts/resources/hud_skin.gd" id="1_nl67s"]
+
+[resource]
+script = ExtResource("1_nl67s")
+rating_scale = Vector2(0.7, 0.7)
+rating_filter = 0
+combo_scale = Vector2(0.5, 0.5)
+combo_spacing = 90.0
+combo_filter = 0
+countdown_textures = null
+countdown_sounds = null
+countdown_scale = Vector2(0.7, 0.7)
+countdown_filter = 0
+metadata/_custom_type_script = "uid://bwjjpqxupvxcc"

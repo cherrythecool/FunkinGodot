@@ -25,22 +25,22 @@ signal finished
 
 
 ## Sets the looping value of all tracks in use.
-func set_tracks_looping(looping: bool) -> void:
+func set_tracks_looping(_looping: bool) -> void:
 	if not (is_instance_valid(player) and is_instance_valid(player.stream)):
 		return
 	var tracks: Array[AudioStream] = []
 	if player.stream is AudioStreamSynchronized:
-		for i in player.stream.stream_count:
+		for i: int in player.stream.stream_count:
 			tracks.push_back(player.stream.get_sync_stream(i))
 	else:
 		tracks.push_back(player.stream)
 
-	for track in tracks:
+	for track: AudioStream in tracks:
 		if track is AudioStreamMP3 or track is AudioStreamOggVorbis:
-			track.loop = looping
+			track.loop = _looping
 		elif track is AudioStreamWAV:
 			track.loop_mode = AudioStreamWAV.LOOP_FORWARD \
-					if looping else AudioStreamWAV.LOOP_DISABLED
+					if _looping else AudioStreamWAV.LOOP_DISABLED
 
 
 ## Tries to find tracks of the specified song and path,
@@ -59,12 +59,12 @@ static func find_tracks(song: StringName, path: String) -> AudioStream:
 	if ResourceLoader.exists('%s/tracks.tres' % [song_folder]):
 		return load('%s/tracks.tres' % [song_folder])
 
-	var files := ResourceLoader.list_directory('%s/tracks' % [song_folder])
+	var files: PackedStringArray = ResourceLoader.list_directory('%s/tracks' % [song_folder])
 	if files.is_empty():
 		return null
 
-	var tracks := AudioStreamSynchronized.new()
-	for file in files:
+	var tracks: AudioStreamSynchronized = AudioStreamSynchronized.new()
+	for file: String in files:
 		tracks.stream_count += 1
 		tracks.set_sync_stream(tracks.stream_count - 1, load('%s/%s/tracks/%s' % \
 				[path, song, file,]))
@@ -77,7 +77,6 @@ static func find_tracks(song: StringName, path: String) -> AudioStream:
 func load_tracks(song: StringName, song_path: String = '') -> void:
 	if song_path.is_empty():
 		song_path = 'res://assets/songs'
-
 	# Shouldn't be an issue but just to be sure.
 	if song_path.ends_with('/'):
 		song_path = song_path.left(song_path.length() - 1)
@@ -88,7 +87,6 @@ func load_tracks(song: StringName, song_path: String = '') -> void:
 				% [song, song_path])
 		return
 
-	var index: int = 1
 	player.stream = tracks
 	player.bus = &'Music'
 	looping = looping
@@ -105,32 +103,6 @@ func play(from_position: float = 0.0) -> void:
 ## Stops all tracks at once.
 func stop() -> void:
 	player.stop()
-
-
-## Checks the sync of all tracks and resyncs them if they
-## are out of sync with each other.
-func check_sync(force: bool = false) -> void:
-	if not is_instance_valid(player.stream):
-		return
-	# With the newer target audio system it's
-	# no longer required to resync manually like this.
-	if Conductor.target_audio == player:
-		return
-
-	var last_time: float = Conductor.time
-	var track_index: int = 0
-
-	var target_time := player.get_playback_position()
-	var desync: float = absf(target_time - Conductor.time + Conductor.offset)
-	var any_desynced: bool = force or desync >= 0.02
-
-	if not any_desynced:
-		return
-
-	#print('Resynced with %.3fms of desync!%s' % [desync * 1000.0,
-	#		' (forced)' if force else ''])
-	Conductor.time = get_playback_position()
-	Conductor.beat += (Conductor.time - last_time) * Conductor.beat_delta
 
 
 ## Gets the playback position (factoring in offset) from the track specified.
@@ -165,10 +137,12 @@ func set_playback_position(position: float) -> void:
 	Conductor.beat += (Conductor.time - last_time) * Conductor.beat_delta
 
 
-func _physics_process(delta: float) -> void:
-	if playing:
-		check_sync()
-	elif is_instance_valid(Game.instance) and Game.instance.song_started:
+func _physics_process(_delta: float) -> void:
+	if (
+		(not playing)
+		and is_instance_valid(Game.instance)
+		and Game.instance.song_started
+	):
 		_on_finished()
 
 	last_playback_position = player.get_playback_position()

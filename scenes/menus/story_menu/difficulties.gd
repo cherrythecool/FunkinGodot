@@ -5,8 +5,8 @@ extends Control
 @onready var high_score: Label = %high_score
 @onready var left_arrow: AnimatedSprite = $left_arrow
 @onready var right_arrow: AnimatedSprite = $right_arrow
-@onready var difficulty: Sprite2D = $difficulty
-@onready var animated_difficulty: AnimatedSprite = difficulty.get_node('animated')
+@onready var difficulty_sprite: Sprite2D = $difficulty
+@onready var animated_difficulty: AnimatedSprite = difficulty_sprite.get_node('animated')
 
 static var selected: int = 1
 var difficulties: PackedStringArray = []
@@ -34,7 +34,7 @@ func _input(event: InputEvent) -> void:
 func change_selection(amount: int = 0) -> void:
 	selected = wrapi(selected + amount, 0, difficulties.size())
 
-	difficulty.visible = not difficulties.is_empty()
+	difficulty_sprite.visible = not difficulties.is_empty()
 	if difficulties.is_empty():
 		return
 
@@ -52,21 +52,21 @@ func _reload_difficulty_sprite() -> void:
 		animated_difficulty.visible = true
 		animated_difficulty.sprite_frames = load('%s.res' % path)
 		animated_difficulty.play(&'idle')
-		difficulty.self_modulate.a = 0.0
+		difficulty_sprite.self_modulate.a = 0.0
 	else:
 		animated_difficulty.visible = false
-		difficulty.self_modulate.a = 1.0
-		difficulty.texture = load('%s.png' % path)
+		difficulty_sprite.self_modulate.a = 1.0
+		difficulty_sprite.texture = load('%s.png' % path)
 
 
 func _tween_difficulty_sprite() -> void:
-	difficulty.modulate.a = 0.0
-	difficulty.position.y = 132.0 - 25.0
+	difficulty_sprite.modulate.a = 0.0
+	difficulty_sprite.position.y = 132.0 - 25.0
 	if is_instance_valid(tween) and tween.is_running():
 		tween.kill()
 	tween = create_tween().set_parallel()
-	tween.tween_property(difficulty, 'modulate:a', 1.0, 0.07)
-	tween.tween_property(difficulty, 'position:y', 132.0, 0.07)
+	tween.tween_property(difficulty_sprite, 'modulate:a', 1.0, 0.07)
+	tween.tween_property(difficulty_sprite, 'position:y', 132.0, 0.07)
 
 
 func _calculate_high_score() -> void:
@@ -75,8 +75,8 @@ func _calculate_high_score() -> void:
 	var suffix: String = week.difficulty_suffixes.mapping.get(difficulty, '')
 	target_score = 0
 
-	for raw_song in week.songs:
-		var song := raw_song + suffix
+	for raw_song: String in week.songs:
+		var song: String = raw_song + suffix
 		if not Scores.has_score(song, difficulty):
 			high_score.text = 'High Score: N/A'
 			break

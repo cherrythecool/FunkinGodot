@@ -42,13 +42,13 @@ func display() -> void:
 		static_memory_peak = static_memory_current
 
 	var scene_name: StringName = &'N/A'
-	var current_scene := get_tree().current_scene
+	var current_scene: Node = get_tree().current_scene
 
 	if is_instance_valid(current_scene):
 		scene_name = current_scene.name.to_pascal_case()
 
 	var avg: float = 0.0
-	for time in times:
+	for time: float in times:
 		avg += time / float(times.size())
 	times.clear()
 
@@ -57,15 +57,18 @@ func display() -> void:
 			'%d FPS (%.2fms)\n%s / %s <GPU>\n%s / %s <TEX>\nFunkin\' Godot v%s' % [
 		Performance.get_monitor(Performance.TIME_FPS),
 		avg * 1000.0,
-		String.humanize_size(video_memory_current), String.humanize_size(video_memory_peak),
-		String.humanize_size(texture_memory_current), String.humanize_size(texture_memory_peak),
+		String.humanize_size(floori(video_memory_current)),
+		String.humanize_size(floori(video_memory_peak)),
+		String.humanize_size(floori(texture_memory_current)),
+		String.humanize_size(floori(texture_memory_peak)),
 		version,
 	]
 
 	if debug_info:
 		text_output += '\n\n[Debug]\nScene: %s\n%s / %s <CPU>\n%d Nodes (%d Orphaned)\n\n[Conductor]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s' % [
 			scene_name,
-			String.humanize_size(static_memory_current), String.humanize_size(static_memory_peak),
+			String.humanize_size(floori(static_memory_current)),
+			String.humanize_size(floori(static_memory_peak)),
 			Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
 			Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT),
 			-AudioServer.get_output_latency() * 1000.0,

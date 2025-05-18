@@ -14,13 +14,13 @@ func _ready() -> void:
 func _load_user_data() -> Dictionary:
 	if not FileAccess.file_exists('user://scores.res'):
 		return {}
-	
-	var file := FileAccess.open('user://scores.res', FileAccess.READ)
+
+	var file: FileAccess = FileAccess.open('user://scores.res', FileAccess.READ)
 	return file.get_var()
 
 
 func save() -> void:
-	var file := FileAccess.open('user://scores.res', FileAccess.WRITE)
+	var file: FileAccess = FileAccess.open('user://scores.res', FileAccess.WRITE)
 	file.store_var(data)
 
 # Getting and setting scores #

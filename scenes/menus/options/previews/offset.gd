@@ -13,15 +13,10 @@ func _ready() -> void:
 	Conductor.beat_hit.connect(_on_beat_hit)
 	notes._force_no_chart = true
 	notes._chart = null
+	notes._scroll_speed = Config.get_value('gameplay', 'custom_scroll_speed')
 
 
-func _process(delta: float) -> void:
-	Conductor.time = GlobalAudio.music.get_playback_position() \
-			+ AudioServer.get_time_since_last_mix() + Conductor.offset
-	
-	if Conductor.beat >= 4.0:
-		Conductor.beat = 0.0
-	
+func _process(_delta: float) -> void:
 	# clean up notes when song restarts
 	for note: Note in notes._notes.get_children():
 		if note.data.time - Conductor.time >= 4.0:
@@ -29,10 +24,10 @@ func _process(delta: float) -> void:
 
 
 func _on_beat_hit(beat: int) -> void:
-	var note := NOTE.instantiate()
+	var note: Note = NOTE.instantiate()
 	note.data = NoteData.new()
-	note.data.time = Conductor.time + Conductor.beat_delta
-	note.data.beat = float(beat + 1.0)
+	note.data.time = Conductor.raw_time + (Conductor.beat_delta*4.0)
+	note.data.beat = float(beat + 4.0)
 	note.data.direction = lane
 	note.data.length = 0.0
 	note.data.type = &'default'
@@ -40,7 +35,7 @@ func _on_beat_hit(beat: int) -> void:
 	note.position.y = -4000.0
 	notes._notes.add_child(note)
 	note.lane = lane
-	
+
 	lane = wrapi(lane + 1, 0, 4)
 
 

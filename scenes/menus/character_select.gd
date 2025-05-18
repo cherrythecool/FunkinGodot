@@ -1,8 +1,7 @@
 extends Node2D
 
 
-@onready var CHARACTER_SELECT_INTRO = load('uid://cut5hpky7ul8s')
-@onready var CHARACTER_SELECT = load('uid://b234a5vj6k6')
+@onready var CHARACTER_SELECT: AudioStream = load('uid://b234a5vj6k6')
 
 @onready var character_selector: Node2D = %character_selector
 @onready var dipshit_blur: AnimatedSprite = %dipshit_blur
@@ -41,7 +40,7 @@ func _ready() -> void:
 	Conductor.target_audio = music
 	Conductor.tempo = 90.0
 	Conductor.beat_hit.connect(_on_beat_hit)
-	music.stream = CHARACTER_SELECT_INTRO
+	music.stream = CHARACTER_SELECT
 	music.play()
 
 	dipshit_tween = create_tween().set_trans(Tween.TRANS_EXPO)\
@@ -67,7 +66,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	for i in characters.get_child_count():
+	for i: int in characters.get_child_count():
 		var icon: Node2D = characters.get_child(i)
 		if i == selected_x + (selected_y * 3):
 			selector.global_position = selector.global_position.lerp(icon.global_position, delta * 12.0)
@@ -81,15 +80,31 @@ func _input(event: InputEvent) -> void:
 		return
 	if not event.is_pressed():
 		return
-	if locked:
-		return
 
 	if event.is_action(&'ui_cancel'):
-		SceneManager.switch_to('res://scenes/menus/main_menu.tscn')
-	if event.is_action(&'ui_accept'):
+		if locked:
+			locked = false
+			deny.play()
+			selector.play(&'denied')
+			player_anim.play(&'cancel')
+			spectator_anim.play(&'cancel')
+			confirm.stop()
+
+			var index: int = selected_x + (selected_y * 3)
+			# TODO: make this a script or smth so better customization
+			var icon: AnimatedSprite = characters.get_child(index)
+			icon.playing = false
+			icon.frame = 0
+
+			await spectator_anim.animation_finished
+
+			selector.play(&'idle')
+		else:
+			SceneManager.switch_to('res://scenes/menus/main_menu.tscn')
+	if event.is_action(&'ui_accept') and not locked:
 		locked = true
 
-		var index := selected_x + (selected_y * 3)
+		var index: int = selected_x + (selected_y * 3)
 		# TODO: make this a script or smth so better customization
 		var icon: AnimatedSprite = characters.get_child(index)
 		match icon.editor_description:
@@ -123,6 +138,8 @@ func _input(event: InputEvent) -> void:
 				deny.play()
 
 	# TODO: make this cleaner
+	if locked:
+		return
 	if event.is_action(&'ui_left'):
 		selected_x = wrapi(selected_x - 1, 0, 3)
 		_update_selection()
@@ -142,7 +159,7 @@ func _update_selection(sound: bool = true) -> void:
 	if sound:
 		select.play()
 
-	var index := selected_x + (selected_y * 3)
+	var index: int = selected_x + (selected_y * 3)
 	# TODO: make this a script or smth so better customization
 	var icon: AnimatedSprite = characters.get_child(index)
 	match icon.editor_description:
@@ -180,6 +197,12 @@ func _on_beat_hit(beat: int) -> void:
 	speakers.playing = true
 
 	if not locked:
+		if (
+			player_anim.current_animation == &'cancel'
+			or spectator_anim.current_animation == &'cancel'
+		):
+			return
+
 		if player_anim.has_animation(&'idle'):
 			player_anim.play(&'idle')
 		if spectator_anim.has_animation(&'dance_left'):

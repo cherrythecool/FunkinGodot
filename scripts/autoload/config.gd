@@ -1,7 +1,7 @@
 extends Node
 
 
-var file := ConfigFile.new()
+var file: ConfigFile = ConfigFile.new()
 var first_launch: bool = false
 
 signal loaded
@@ -33,8 +33,8 @@ func set_value(section: String, key: String, value: Variant, autosave: bool = tr
 
 func _load_user_config() -> Error:
 	if FileAccess.file_exists('user://config.cfg'):
-		var user_cfg := ConfigFile.new()
-		var error := user_cfg.load('user://config.cfg')
+		var user_cfg: ConfigFile = ConfigFile.new()
+		var error: Error = user_cfg.load('user://config.cfg')
 		if error != OK:
 			push_error('Config could not be loaded with error code %s!' % error)
 			return error
@@ -51,7 +51,7 @@ func _load_user_config() -> Error:
 
 
 func _parse_default_as_config() -> ConfigFile:
-	var new_file := ConfigFile.new()
+	var new_file: ConfigFile = ConfigFile.new()
 
 	for section: String in default_configuration.keys():
 		var section_value: Dictionary = default_configuration.get(section, {})

@@ -12,13 +12,13 @@ func _init() -> void:
 	Conductor.measure_hit.connect(_on_measure_hit)
 
 
-func _on_beat_hit(beat: int) -> void:
+func _on_beat_hit(_beat: int) -> void:
 	pass
 
 
-func _on_step_hit(step: int) -> void:
+func _on_step_hit(_step: int) -> void:
 	pass
 
 
-func _on_measure_hit(measure: int) -> void:
+func _on_measure_hit(_measure: int) -> void:
 	pass

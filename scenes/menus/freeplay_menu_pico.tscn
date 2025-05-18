@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cbp5qie32cehq"]
+[gd_scene load_steps=21 format=3 uid="uid://cbp5qie32cehq"]
 
 [ext_resource type="Script" uid="uid://buarre8s3ld28" path="res://scenes/menus/freeplay_menu.gd" id="1_qs7yu"]
 [ext_resource type="Script" uid="uid://c4n3qjttdmbrg" path="res://scripts/resources/freeplay_song.gd" id="2_i74pd"]
@@ -52,10 +52,6 @@ font = ExtResource("15_q56ni")
 [sub_resource type="LabelSettings" id="LabelSettings_1ivw4"]
 font = ExtResource("15_q56ni")
 font_size = 14
-
-[sub_resource type="LabelSettings" id="LabelSettings_v78yk"]
-font = ExtResource("15_q56ni")
-font_size = 12
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i7glp"]
 bg_color = Color(0, 0, 0, 0.5)
@@ -111,7 +107,7 @@ anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -256.0
-offset_bottom = 64.0
+offset_bottom = 45.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_h4xxx")
 script = ExtResource("14_e44qf")
@@ -139,17 +135,6 @@ label_settings = SubResource("LabelSettings_1ivw4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="score_label" type="Label" parent="root_control/info_panel"]
-layout_mode = 2
-offset_top = 51.0
-offset_right = 256.0
-offset_bottom = 64.0
-size_flags_vertical = 8
-text = "N/A [SHIFT]"
-label_settings = SubResource("LabelSettings_v78yk")
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="score_panel" type="Panel" parent="root_control"]
 unique_name_in_owner = true
 clip_contents = true
@@ -157,6 +142,7 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -264.0
 offset_top = 80.0
 offset_bottom = 176.0
 grow_horizontal = 0
@@ -250,6 +236,7 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
+offset_left = -264.0
 offset_top = 184.0
 offset_bottom = 280.0
 grow_horizontal = 0

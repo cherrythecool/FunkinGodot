@@ -19,17 +19,19 @@ func _ready() -> void:
 		queue_free()
 		return
 
-	for i in rects.size():
-		var rect := rects[i]
+	for i: int in rects.size():
+		var rect: ColorRect = rects[i]
 		var button: TouchScreenButton = rect.get_node(^'button')
-		button.pressed.connect(func():
-			states[i] = true)
-		button.released.connect(func():
-			states[i] = false)
+		button.pressed.connect(func() -> void:
+			states[i] = true
+		)
+		button.released.connect(func() -> void:
+			states[i] = false
+		)
 
 
 func _process(delta: float) -> void:
-	for i in states.size():
+	for i: int in states.size():
 		rects[i].color.a = lerpf(rects[i].color.a, 0.5 * float(states[i]), delta * 6.0)
 
 	var tree: SceneTree = get_tree()

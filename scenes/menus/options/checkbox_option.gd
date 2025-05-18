@@ -10,17 +10,21 @@ class_name CheckboxOption extends Option
 ## Use this if you want your true / false to be replaced with some strings.
 ## Useful for things like downscroll that have a string direction name
 ## but have two main values (up and down).
-## 
+##
 ## First value is for false and the second is for true.
 @export var strings: Array[String] = []
 
 var toggled: bool:
 	set(value):
-		Config.set_value(section, key, value if strings.size() < 2 else strings[int(value)])
+		if strings.size() > 1:
+			Config.set_value(section, key, strings[int(value)])
+			return
+
+		Config.set_value(section, key, value)
 	get:
 		if strings.size() > 1:
 			return Config.get_value(section, key) == strings[1]
-		
+
 		return Config.get_value(section, key)
 
 
@@ -30,7 +34,7 @@ func _ready() -> void:
 	else:
 		checkbox.position.x = alphabet.size.x + 64.0
 		checkbox.position.y = alphabet.size.y * 0.5
-	
+
 	update_animation()
 
 

@@ -3,7 +3,6 @@ class_name NoteField extends Node2D
 
 @export var takes_input: bool = false
 @export_enum('Opponent', 'Player') var side: int = 0
-@export var dynamic_positioning: bool = false
 @export var ignore_speed_changes: bool = false
 @export var default_note_splash: PackedScene = null
 
@@ -55,7 +54,7 @@ func _ready() -> void:
 	reload_skin()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if (not _force_no_chart) and \
 			(not is_instance_valid(_chart)) and is_instance_valid(Game.chart):
 		_chart = Game.chart
@@ -64,22 +63,23 @@ func _process(delta: float) -> void:
 	elif not Config.get_value('performance', 'threaded_note_spawning'):
 		_try_spawning()
 
-	var receptor_y: float = _receptors[0].position.y
+	var receptor_ys: Array[float] = [
+		_receptors[0].position.y,
+		_receptors[1].position.y,
+		_receptors[2].position.y,
+		_receptors[3].position.y,
+	]
 	for note: Note in _notes.get_children():
-		var receptor: Receptor = null
-
-		if dynamic_positioning:
-			receptor = _receptors[note.lane]
-			note.position = receptor.position
-		else:
-			note.position.y = receptor_y
-
+		note.position.y = receptor_ys[note.lane]
 		note.position.y -= (Conductor.time - note.data.time) * 1000.0 * 0.45 \
 				* _scroll_speed * _scroll_speed_modifier
 
 		if (not note._hit) and (note.data.time + note.data.length
 				- Conductor.time < -Receptor.input_zone):
 			miss_note(note)
+
+	if not takes_input:
+		_auto_input()
 
 	if not (takes_input and is_instance_valid(_default_character)):
 		return
@@ -89,10 +89,22 @@ func _process(delta: float) -> void:
 			continue
 
 		_default_character._sing_timer = 0.0
-		return
+		break
 
 
-func _on_hit_note(note: Note):
+func _auto_input() -> void:
+	for note: Note in _notes.get_children():
+		if Conductor.time < note.data.time:
+			break
+		if note._hit:
+			continue
+		var receptor: Receptor = _receptors[note.lane]
+		if receptor.play_confirm:
+			receptor.play_anim(&'confirm', true)
+		receptor.on_hit_note.emit(note)
+
+
+func _on_hit_note(note: Note) -> void:
 	if (not is_instance_valid(note._character)) and \
 			is_instance_valid(_default_character):
 		_default_character.sing(note, true)
@@ -122,15 +134,15 @@ func miss_note(note: Note) -> void:
 func _try_spawning() -> void:
 	if (not is_instance_valid(_chart)) or _note_index > _chart.notes.size() - 1:
 		return
-	var wait_allowed: float = 800.0 / (450.0 * _scroll_speed * absf(_scroll_speed_modifier))
+	var spawn_time: float = 800.0 / (450.0 * _scroll_speed * absf(_scroll_speed_modifier))
 	while _note_index < _chart.notes.size() and \
-			_chart.notes[_note_index].time - Conductor.time < wait_allowed:
+			_chart.notes[_note_index].time - Conductor.time < spawn_time:
 		if _note_index > _chart.notes.size() - 1:
 			return
-		var data := _chart.notes[_note_index]
+		var data: NoteData = _chart.notes[_note_index]
 		var skip: bool = data.direction < 0 or \
 				(data.direction < 4 if side == 0 else data.direction > 3)
-		if skip:
+		if skip:# or data.time > Conductor.time + 0.5:
 			_note_index += 1
 			continue
 
@@ -150,10 +162,9 @@ func _try_spawning() -> void:
 		_notes.add_child(note)
 
 		if note.use_skin and is_instance_valid(_skin):
-			var animation := note.sprite.animation
 			note.sprite.sprite_frames = _skin.note_frames
 			note.scale = _skin.note_scale
-			note.sprite.texture_filter = _skin.note_filter as CanvasItem.TextureFilter
+			note.sprite.texture_filter = _skin.note_filter
 
 			if is_instance_valid(note.sustain):
 				note.clip_rect.scale.x = 1.0 / note.scale.x
@@ -161,6 +172,7 @@ func _try_spawning() -> void:
 				note.sustain.texture_filter = note.sprite.texture_filter
 				note.tail.texture_filter = note.sprite.texture_filter
 				note.reload_sustain_sprites()
+		note._update_sustain()
 
 		_note_index += 1
 
@@ -185,14 +197,14 @@ func reload_skin() -> void:
 	for receptor: Receptor in _receptors:
 		receptor.sprite.sprite_frames = _skin.strum_frames
 		receptor.sprite.scale = _skin.strum_scale
-		receptor.sprite.texture_filter = _skin.strum_filter as CanvasItem.TextureFilter
+		receptor.sprite.texture_filter = _skin.strum_filter
 		receptor.play_anim(receptor._last_anim)
 
 	for note: Note in _notes.get_children():
 		if note.use_skin:
-			var animation := note.sprite.animation
+			var animation: StringName = note.sprite.animation
 			note.sprite.sprite_frames = _skin.note_frames
 			note.sprite.scale = _skin.note_scale
-			note.sprite.texture_filter = _skin.note_filter as CanvasItem.TextureFilter
+			note.sprite.texture_filter = _skin.note_filter
 			note.sprite.play(animation)
 			note.sprite.frame = 0

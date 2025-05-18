@@ -8,7 +8,7 @@ static var difficulty_index: int = 0
 
 @onready var background: Sprite2D = %background
 var target_background_color: Color = Color.WHITE
-@onready var songs = %songs
+@onready var songs: Node = %songs
 var song_nodes: Array[FreeplaySongNode] = []
 
 @onready var tracks: Tracks = %tracks
@@ -16,7 +16,8 @@ var song_nodes: Array[FreeplaySongNode] = []
 @onready var _info_panel: Panel = %info_panel
 
 var list_song: FreeplaySong:
-	get: return list[index]
+	get:
+		return list[index]
 
 var current_song: String:
 	get:
@@ -26,10 +27,12 @@ var current_song: String:
 		return _get_song_name(list_song, difficulty)
 
 var difficulties: PackedStringArray:
-	get: return list_song.song_difficulties
+	get:
+		return list_song.song_difficulties
 
 var difficulty: String:
-	get: return difficulties[difficulty_index]
+	get:
+		return difficulties[difficulty_index]
 
 var active: bool = true
 var previous_song: String
@@ -83,9 +86,9 @@ func _input(event: InputEvent) -> void:
 		SceneManager.switch_to('uid://62vvv8x8t7nm')
 
 	if event.is_action('ui_up') or event.is_action('ui_down'):
-		change_selection(Input.get_axis('ui_up', 'ui_down'))
+		change_selection(roundi(Input.get_axis('ui_up', 'ui_down')))
 	if event.is_action('ui_left') or event.is_action('ui_right'):
-		change_difficulty(Input.get_axis('ui_left', 'ui_right'))
+		change_difficulty(roundi(Input.get_axis('ui_left', 'ui_right')))
 
 	if event.is_action('freeplay_random'):
 		change_selection(randi_range(-song_nodes.size() + 1, song_nodes.size() - 1))
@@ -109,7 +112,7 @@ func change_selection(amount: int = 0) -> void:
 	if amount != 0:
 		GlobalAudio.get_player('MENU/SCROLL').play()
 	for i: int in song_nodes.size():
-		var node := song_nodes[i]
+		var node: FreeplaySongNode = song_nodes[i]
 		node.target_y = i - index
 		node.modulate.a = 1.0 if node.target_y == 0 else 0.6
 
@@ -137,7 +140,7 @@ func select_song() -> void:
 
 	Game.chart = Chart.load_song(current_song, difficulty)
 	if not is_instance_valid(Game.chart):
-		var json_path := 'res://assets/songs/%s/charts/%s.json' % [current_song, difficulty.to_lower()]
+		var json_path: String = 'res://assets/songs/%s/charts/%s.json' % [current_song, difficulty.to_lower()]
 		active = true
 		printerr('Song at path %s doesn\'t exist!' % json_path)
 		return
@@ -150,35 +153,34 @@ func select_song() -> void:
 
 
 func _load_song(i: int) -> void:
-	var song := list[i]
+	var song: FreeplaySong = list[i]
 	if song.song_difficulties.size() < 1:
 		printerr('Song is missing any difficulties!')
 		return
 
-	var song_name := _get_song_name(song, song.song_difficulties[0])
+	var song_name: String = _get_song_name(song, song.song_difficulties[0])
 	var meta_path: String = 'res://assets/songs/%s/meta.tres' % song_name
-	var meta_exists := ResourceLoader.exists(meta_path)
-
+	var meta_exists: bool = ResourceLoader.exists(meta_path)
 	if not meta_exists:
-		var node := FreeplaySongNode.new()
-		node.position = Vector2.ZERO
-		node.song = song
-		node.text = song.song_name
-		node.target_y = i
-		node.modulate = Color.SALMON
-		song_nodes.push_back(node)
-		songs.add_child(node)
+		var missing_song: FreeplaySongNode = FreeplaySongNode.new()
+		missing_song.position = Vector2.ZERO
+		missing_song.song = song
+		missing_song.text = song.song_name
+		missing_song.target_y = i
+		missing_song.modulate = Color.SALMON
+		song_nodes.push_back(missing_song)
+		songs.add_child(missing_song)
 
-		var lock := Sprite2D.new()
-		lock.texture = load('res://resources/images/menus/story_menu/interface/lock.png')
-		lock.position = Vector2(node.size.x + 75.0, 35.0)
-		lock.modulate = Color.WHITE / node.modulate
-		node.add_child(lock)
+		var lock: Sprite2D = Sprite2D.new()
+		lock.texture = load('uid://df3ndhqghncac')
+		lock.position = Vector2(missing_song.size.x + 75.0, 35.0)
+		lock.modulate = Color.WHITE / missing_song.modulate
+		missing_song.add_child(lock)
 		return
 
 	song.song_meta = load(meta_path)
 
-	var node := FreeplaySongNode.new()
+	var node: FreeplaySongNode = FreeplaySongNode.new()
 	node.position = Vector2.ZERO
 	node.song = song
 	node.text = song.song_meta.display_name
@@ -189,7 +191,7 @@ func _load_song(i: int) -> void:
 	if not is_instance_valid(song.icon):
 		song.icon = Icon.new()
 
-	var icon := Icon.create_sprite(song.icon)
+	var icon: Sprite2D = Icon.create_sprite(song.icon)
 	# 37.5 = 150.0 * 0.25
 	icon.position = Vector2(node.size.x + 75.0, 37.5)
 	node.add_child(icon)

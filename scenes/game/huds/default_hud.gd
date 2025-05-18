@@ -1,5 +1,19 @@
-extends HUD
+extends Control
 
+
+@export var do_countdown: bool = true
+var player_field: NoteField
+var opponent_field: NoteField
+var game: Game
+
+var scroll_direction: StringName = &'up':
+	set(value):
+		scroll_direction = value
+		_set_scroll_direction(value)
+var centered_receptors: bool = false:
+	set(value):
+		centered_receptors = value
+		_set_centered_receptors(value)
 
 @export var bump_amount: Vector2 = Vector2(0.03, 0.03)
 @export var use_conductor_time: bool = true
@@ -23,15 +37,25 @@ var countdown_offset: int = 0
 var tracks: Tracks
 var skin: HUDSkin
 
+@onready var sub_viewport_container: SubViewportContainer = %sub_viewport_container
 @onready var preloading_viewport: SubViewport = %preloading_viewport
 
 
 func _ready() -> void:
-	super()
+	if is_instance_valid(Game.instance):
+		game = Game.instance
+	else:
+		process_mode = Node.PROCESS_MODE_DISABLED
+		return
+
+	game.ready_post.connect(_ready_post)
+	Conductor.beat_hit.connect(_on_beat_hit)
+	Conductor.measure_hit.connect(_on_measure_hit)
 
 	use_conductor_time = Config.get_value('gameplay', 'use_conductor_time')
 	player_field = note_fields.get_node('player')
 	opponent_field = note_fields.get_node('opponent')
+	rating_container.visible = false
 
 	if not is_instance_valid(game):
 		return
@@ -41,7 +65,6 @@ func _ready() -> void:
 
 
 func setup() -> void:
-	super()
 	player_field.note_hit.connect(_on_note_hit)
 	player_field.note_miss.connect(_on_note_miss)
 
@@ -61,7 +84,6 @@ func setup() -> void:
 
 
 func countdown_resume() -> void:
-	super()
 	if is_nan(_force_time):
 		_force_time = Game.instance.tracks.get_playback_position()
 	Game.instance.tracks.set_playback_position(
@@ -75,19 +97,14 @@ func countdown_resume() -> void:
 
 
 func _ready_post() -> void:
-	super()
-
 	if not do_countdown:
 		Conductor.time = Conductor.offset
 		Conductor.beat = 0.0
 
 
 func _on_beat_hit(beat: int) -> void:
-	super(beat)
-
 	if (not do_countdown) and not _force_countdown:
 		return
-
 	if (beat >= 0 or game.song_started) and not _force_countdown:
 		return
 
@@ -107,8 +124,7 @@ func _on_beat_hit(beat: int) -> void:
 	_play_countdown_sound(index)
 
 
-func _on_measure_hit(measure: int) -> void:
-	super(measure)
+func _on_measure_hit(_measure: int) -> void:
 	if not (game.playing and game.camera_bumps):
 		return
 
@@ -118,15 +134,17 @@ func _on_measure_hit(measure: int) -> void:
 func _process(delta: float) -> void:
 	if not (game.playing and game.camera_bumps):
 		return
-	if is_instance_valid(preloading_viewport):
-		preloading_viewport.queue_free()
+	if (
+		is_instance_valid(preloading_viewport)
+		and preloading_viewport.get_child_count() <= 0
+	):
+			sub_viewport_container.free()
 
 	scale = scale.lerp(Vector2.ONE, delta * 3.0)
 
 
 func _on_note_hit(note: Note) -> void:
-	super(note)
-	var health := game.health
+	var health: float = game.health
 	var difference: float = INF
 	if use_conductor_time:
 		difference = Conductor.time - note.data.time
@@ -140,8 +158,8 @@ func _on_note_hit(note: Note) -> void:
 
 	if player_field.takes_input:
 		difference_label.text = '%.2fms' % [difference * 1000.0]
-		difference_label.modulate = Color8(255, 176, 96) \
-				if difference < 0.0 else Color8(111, 185, 255)
+		difference_label.modulate = Color(0.4, 0.5, 0.8) \
+				if difference < 0.0 else Color(0.8, 0.4, 0.5)
 	else:
 		difference_label.text = 'Botplay'
 		difference_label.modulate = Color(0.6, 0.62, 0.7)
@@ -149,7 +167,7 @@ func _on_note_hit(note: Note) -> void:
 	if is_instance_valid(rating_tween) and rating_tween.is_running():
 		rating_tween.kill()
 
-	var rating := ratings_calculator.get_rating(absf(difference * 1000.0))
+	var rating: Rating = ratings_calculator.get_rating(absf(difference * 1000.0))
 	match rating.name:
 		&'marvelous':
 			rating_sprite.texture = skin.marvelous
@@ -166,16 +184,14 @@ func _on_note_hit(note: Note) -> void:
 			(rating.name == &'marvelous' or rating.name == &'sick'):
 		var splash: AnimatedSprite = note.splash.instantiate()
 		splash.note = note
-
-		var skin := player_field._skin
-		if splash.use_skin and skin:
-			splash.sprite_frames = skin.splash_frames
-			splash.scale = skin.splash_scale
-			splash.texture_filter = skin.splash_filter as CanvasItem.TextureFilter
-
+		var player_skin: NoteSkin = player_field._skin
+		if splash.use_skin and is_instance_valid(player_skin):
+			splash.sprite_frames = player_skin.splash_frames
+			splash.scale = player_skin.splash_scale
+			splash.texture_filter = player_skin.splash_filter
 		add_child(splash)
-		splash.global_position = note._field._receptors_node.\
-				get_child(note.lane).global_position
+
+		splash.global_position = note._field._receptors[note.lane].global_position
 
 	rating_container.visible = true
 	rating_container.modulate.a = 1.0
@@ -183,30 +199,36 @@ func _on_note_hit(note: Note) -> void:
 	rating_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 	rating_tween.tween_property(rating_container, 'scale', Vector2.ONE, 0.15)
 	rating_tween.tween_property(rating_container, 'modulate:a', 0.0, 0.25).set_delay(0.25)
-	rating_tween.tween_callback(func():
+	rating_tween.tween_callback(func() -> void:
 		rating_container.visible = false).set_delay(0.5)
 
 	game.health = clampf(health + rating.health, 0.0, 100.0)
 	game.score += rating.score
 
-	var combo_str := str(game.combo).pad_zeros(3)
-	combo_node.position.x = -22.5 * (combo_str.length() - 1)
+	var combo_str: String = str(game.combo).pad_zeros(3)
+	var num_count: int = combo_str.length()
+	combo_node.position.x = (-skin.combo_spacing / 4.0) * (num_count - 1)
+
+	while combo_node.get_child_count() < num_count:
+		var node: Node = combo_node.get_child(0).duplicate()
+		node.name = str(combo_node.get_child_count()+1)
+		combo_node.add_child(node)
 
 	for i: int in combo_node.get_child_count():
 		var number: Sprite2D = combo_node.get_child(i)
-
-		if i <= combo_str.length() - 1:
+		if i < num_count:
+			number.texture = skin.combo_atlas
+			number.texture_filter = skin.combo_filter
 			number.frame = int(combo_str[i])
+			number.position.x = skin.combo_spacing * i
 			number.visible = true
 		else:
-			number.frame = 0
 			number.visible = false
 
 	health_bar.update_score_label()
 
 
-func _on_note_miss(note: Note) -> void:
-	super(note)
+func _on_note_miss(_note: Note) -> void:
 	rating_container.visible = false
 	health_bar.update_score_label()
 
@@ -216,16 +238,16 @@ func _display_countdown_sprite(index: int) -> void:
 	if not is_instance_valid(skin.countdown_textures[index]):
 		return
 
-	var sprite := Sprite2D.new()
+	var sprite: Sprite2D = Sprite2D.new()
 	sprite.scale = Vector2(1.05, 1.05)
 	sprite.texture = skin.countdown_textures[index]
 	sprite.texture_filter = skin.rating_filter
 	countdown_container.add_child(sprite)
 
-	var tween := create_tween().set_trans(Tween.TRANS_SINE)\
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_SINE)\
 			.set_ease(Tween.EASE_OUT).set_parallel()
-	tween.tween_property(sprite, 'modulate:a', 0.0, Conductor.beat_delta)
-	tween.tween_property(sprite, 'scale', Vector2.ONE, Conductor.beat_delta)
+	tween.tween_property(sprite, ^'modulate:a', 0.0, Conductor.beat_delta)
+	tween.tween_property(sprite, ^'scale', Vector2.ONE, Conductor.beat_delta)
 	tween.tween_callback(sprite.queue_free).set_delay(Conductor.beat_delta)
 
 
@@ -234,7 +256,7 @@ func _play_countdown_sound(index: int) -> void:
 	if not is_instance_valid(skin.countdown_sounds[index]):
 		return
 
-	var player := AudioStreamPlayer.new()
+	var player: AudioStreamPlayer = AudioStreamPlayer.new()
 	player.stream = skin.countdown_sounds[index]
 	player.bus = &'SFX'
 	player.finished.connect(player.queue_free)
@@ -243,54 +265,34 @@ func _play_countdown_sound(index: int) -> void:
 
 
 func _set_scroll_direction(value: StringName) -> void:
-	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)\
-			.set_parallel()
-	var duration: float = Conductor.beat_delta if game.song_started else 0.0
+	if value != &'up' and value != &'down':
+		printerr('A scroll direction of %s is not supported at this time.' % [value])
+		return
+
+	player_field._scroll_speed_modifier = 1.0 if value == &'up' else -1.0
+	opponent_field._scroll_speed_modifier = player_field._scroll_speed_modifier
 
 	match value:
 		&'up':
-			tween.tween_property(note_fields, 'position:y', -248.0, duration)
-			tween.tween_property(health_bar, 'position:y', 285.0, duration)
-			tween.tween_property(song_label, 'position:y', -352.0, duration)
-			song_label.vertical_alignment = VERTICAL_ALIGNMENT_TOP
-			tween.tween_property(player_field, '_scroll_speed_modifier', 1.0, duration)
-			tween.tween_property(opponent_field, '_scroll_speed_modifier', 1.0, duration)
+			player_field.position.y = 100.0
+			opponent_field.position.y = 100.0
+			health_bar.position.y = 720.0 - 80.0
+			song_label.position.y = 12.0
 		&'down':
-			tween.tween_property(note_fields, 'position:y', 248.0, duration)
-			tween.tween_property(health_bar, 'position:y', -285.0, duration)
-			tween.tween_property(song_label, 'position:y', 288.0, duration)
-			song_label.vertical_alignment = VERTICAL_ALIGNMENT_BOTTOM
-			tween.tween_property(player_field, '_scroll_speed_modifier', -1.0, duration)
-			tween.tween_property(opponent_field, '_scroll_speed_modifier', -1.0, duration)
-		_:
-			push_warning('A scroll direction of %s is not supported.' % value)
+			player_field.position.y = 720.0 - 100.0
+			opponent_field.position.y = 720.0 - 100.0
+			health_bar.position.y = 80.0
+			song_label.position.y = 720.0 - 28.0
 
 
 func _set_centered_receptors(value: bool) -> void:
-	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)\
-			.set_parallel()
-	var duration: float = Conductor.beat_delta if game.song_started else 0.0
+	opponent_field.visible = not value
 
 	if value:
-		if duration <= 0.0:
-			player_field.position.x = 0.0
-			opponent_field.position.x = 0.0
-			opponent_field.modulate.a = 0.0
-			tween.kill()
-		else:
-			tween.tween_property(player_field, 'position:x', 0.0, duration)
-			tween.tween_property(opponent_field, 'position:x', 0.0, duration)
-			tween.tween_property(opponent_field, 'modulate:a', 0.0, duration)
+		player_field.position.x = 640.0
 	else:
-		if duration <= 0.0:
-			player_field.position.x = 300.0
-			opponent_field.position.x = -300.0
-			opponent_field.modulate.a = 1.0
-			tween.kill()
-		else:
-			tween.tween_property(player_field, 'position:x', 300.0, duration)
-			tween.tween_property(opponent_field, 'position:x', -300.0, duration)
-			tween.tween_property(opponent_field, 'modulate:a', 1.0, duration)
+		player_field.position.x = 960.0
+		opponent_field.position.x = 320.0
 
 
 func _preload_splash(scene: PackedScene) -> void:
@@ -299,8 +301,6 @@ func _preload_splash(scene: PackedScene) -> void:
 	if not is_instance_valid(preloading_viewport):
 		return
 
-	var node: Node = scene.instantiate()
-	if node is Node2D:
-		node.scale = Vector2.ONE * 0.001
-		node.modulate.a = 0.001
-	preloading_viewport.add_child(node)
+	var splash: AnimatedSprite = scene.instantiate()
+	preloading_viewport.add_child(splash)
+	splash.play()

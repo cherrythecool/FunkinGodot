@@ -56,19 +56,19 @@ func _ready_post() -> void:
 	pass
 
 
-func _process_post(delta: float) -> void:
+func _process_post(_delta: float) -> void:
 	pass
 
 
-func _on_beat_hit(beat: int) -> void:
+func _on_beat_hit(_beat: int) -> void:
 	pass
 
 
-func _on_step_hit(step: int) -> void:
+func _on_step_hit(_step: int) -> void:
 	pass
 
 
-func _on_measure_hit(measure: int) -> void:
+func _on_measure_hit(_measure: int) -> void:
 	pass
 
 
@@ -76,9 +76,9 @@ func _on_song_start() -> void:
 	pass
 
 
-func _on_event_prepare(event: EventData) -> void:
+func _on_event_prepare(_event: EventData) -> void:
 	pass
 
 
-func _on_event_hit(event: EventData) -> void:
+func _on_event_hit(_event: EventData) -> void:
 	pass

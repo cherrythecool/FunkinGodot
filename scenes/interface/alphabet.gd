@@ -68,25 +68,24 @@ func _create_characters() -> void:
 			line_index += 1
 			continue
 
-		var character_data := _create_character(x_position, y_position, character)
+		var character_data: Array = _create_character(x_position, y_position, character)
 		add_child(character_data[0])
 
 		x_position += character_data[1].x
 
 		if x_position > size.x:
-			size.x = x_position
+			size.x = roundi(x_position)
 		if y_position + character_data[1].y > size.y:
 			size.y = y_position + character_data[1].y
 
-		var line_dict := lines[line_index]
+		var line_dict: Dictionary = lines[line_index]
 		line_dict.get('characters', []).push_back(character_data[0])
 		var line_size: Vector2i = line_dict.get('size', Vector2i.ZERO)
-
 		# x should basically be always true lol
 		if x_position > line_size.x:
-			line_size.x = x_position
+			line_size.x = roundi(x_position)
 		if y_position + character_data[1].y > line_size.y:
-			line_size.y = y_position + character_data[1].y
+			line_size.y = roundi(y_position + character_data[1].y)
 
 		line_dict['size'] = line_size
 
@@ -114,7 +113,7 @@ func _create_characters() -> void:
 
 
 func _create_character(x: float, y: float, character: String) -> Array:
-	var animation_data := _character_to_animation(character)
+	var animation_data: AlphabetAnimationData = _character_to_animation(character)
 	var node: AnimatedSprite2D = AnimatedSprite2D.new()
 	node.use_parent_material = true
 	node.centered = false
@@ -129,14 +128,14 @@ func _create_character(x: float, y: float, character: String) -> Array:
 
 	var character_size: Vector2 = Vector2.ZERO
 	if node.sprite_frames.has_animation(node.animation):
-		var frame_texture := node.sprite_frames.get_frame_texture(node.animation, 0)
+		var frame_texture: Texture2D = node.sprite_frames.get_frame_texture(node.animation, 0)
 		character_size = frame_texture.get_size()
 	node.offset.y -= (character_size.y - 65.0) / 2.0
 	return [node, character_size]
 
 
 func _character_to_animation(character: String) -> AlphabetAnimationData:
-	var data := AlphabetAnimationData.new()
+	var data: AlphabetAnimationData = AlphabetAnimationData.new()
 	if UNCHANGED_CHARACTERS.contains(character.to_upper()):
 		data.name = character.to_lower() if no_casing else character
 		data.offset = Vector2.ZERO
@@ -202,17 +201,28 @@ static func keycode_to_character(input: Key) -> String:
 
 static func string_to_character(input: String) -> String:
 	match input.to_lower():
-		'apostrophe': return '"'
-		'backslash': return '\\'
-		'comma': return ','
-		'period': return '.'
-		'semicolon': return ':'
-		'slash': return '/'
-		'minus': return '-'
-		'left': return '<'
-		'down': return 'v'
-		'up': return 'ô'
-		'right': return '>'
+		'apostrophe':
+			return '"'
+		'backslash':
+			return '\\'
+		'comma':
+			return ','
+		'period':
+			return '.'
+		'semicolon':
+			return ':'
+		'slash':
+			return '/'
+		'minus':
+			return '-'
+		'left':
+			return '<'
+		'down':
+			return 'v'
+		'up':
+			return 'ô'
+		'right':
+			return '>'
 
 	return input
 

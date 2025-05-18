@@ -38,20 +38,23 @@ func _input(event: InputEvent) -> void:
 
 func change_selection(amount: int = 0) -> void:
 	selected = wrapi(selected + amount, 0, list.get_child_count())
-	for i in list.get_child_count():
+	for i: int in list.get_child_count():
 		var item: ListedAlphabet = list.get_child(i)
 		item.target_y = i - selected
-		item.modulate.a = 0.6 + (float(item.target_y == 0) * 0.4)
+		if item.scale == Vector2.ONE:
+			item.modulate.a = 0.6 + (float(item.target_y == 0) * 0.4)
+		else:
+			item.modulate.a = 1.0
 
 	if amount == 0:
 		return
 
-	var item: ListedAlphabet = list.get_child(selected)
-	if item.text.is_empty() or item.scale != Vector2.ONE:
+	var selected_item: ListedAlphabet = list.get_child(selected)
+	if selected_item.text.is_empty() or selected_item.scale != Vector2.ONE:
 		change_selection(signi(amount))
 		return
 
-	if item is CreditsContributor:
-		info_label.text = item.role
-		info_texture.texture = item.texture
+	if selected_item is CreditsContributor:
+		info_label.text = selected_item.role
+		info_texture.texture = selected_item.texture
 	GlobalAudio.get_player(^'MENU/SCROLL').play()

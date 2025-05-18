@@ -38,21 +38,21 @@ func _ready() -> void:
 	game.player.z_index += player_offset.z_index
 	game.spectator.z_index += spectator_offset.z_index
 	game.opponent.z_index += opponent_offsett.z_index
-	
+
 	game.player.get_node(^'sprite').material = fast_car.material
 	game.opponent.get_node(^'sprite').material = fast_car.material
 	game.spectator.get_node(^'sprite').material = fast_car.material
 	if game.spectator.has_node(^'speakers'):
 		game.spectator.get_node(^'speakers').material = fast_car.material
-	
+
 	reset_fast_car()
 
 
 func _process(delta: float) -> void:
 	fast_car.position.x += delta * fast_car_vel
-	
+
 	mist_timer += delta
-	
+
 	mists[0].position.y = 100.0 + (sin(mist_timer) * 200.0)
 	mists[1].position.y = sin(mist_timer * 0.8) * 100.0
 	mists[2].position.y = -20.0 + (sin(mist_timer * 0.5) * 200.0)
@@ -63,12 +63,12 @@ func _process(delta: float) -> void:
 func _on_beat_hit(beat: int) -> void:
 	super(beat)
 	dance_left = beat % 2 == 0
-	for dancer in dancers.get_children():
+	for dancer: AnimatedSprite2D in dancers.get_children():
 		dancer.play('left' if dance_left else 'right')
-	
+
 	if randi_range(1, 100) <= 10 and fast_car_can:
 		drive_fast_car()
-	
+
 	if randi_range(1, 100) <= 10 and beat > star_beat + star_offset:
 		do_star(beat)
 
@@ -78,7 +78,7 @@ func do_star(beat: int) -> void:
 	star_sprite.position.y = randf_range(-10.0, 20.0)
 	star_sprite.flip_h = randi_range(0, 100) < 50
 	star_sprite.play(&'shooting star')
-	
+
 	star_beat = beat
 	star_offset = randi_range(4, 8)
 
@@ -94,7 +94,7 @@ func drive_fast_car() -> void:
 	if not car_sounds.is_empty():
 		car_pass.stream = car_sounds.pick_random()
 		car_pass.play()
-	
+
 	fast_car_vel = randf_range(170.0, 220.0) * 3.0 * 33.0
 	fast_car_can = false
 	car_timer.start()

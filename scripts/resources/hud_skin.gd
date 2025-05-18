@@ -1,7 +1,7 @@
 class_name HUDSkin extends Resource
 
 
-@export_category('Ratings')
+@export_group('Ratings')
 
 @export var marvelous: Texture2D = load('uid://cn6fmp8et8ktw')
 @export var sick: Texture2D = load('uid://gn12nu6v7fgf')
@@ -9,23 +9,16 @@ class_name HUDSkin extends Resource
 @export var bad: Texture2D = load('uid://bfte1efl00hqd')
 @export var shit: Texture2D = load('uid://ccnsbyha7asga')
 @export var rating_scale: Vector2 = Vector2(0.7, 0.7)
-@export_enum(
-		'Inherit', 'Nearest', 'Linear',
-		'Nearest Mipmap', 'Linear Mipmap',
-		'Nearest Mipmap Anisotropic', 'Linear Mipmap Anisotropic'
-) var rating_filter: int = 0
+@export var rating_filter: CanvasItem.TextureFilter = CanvasItem.TEXTURE_FILTER_PARENT_NODE
 
-@export_category('Combo')
+@export_group('Combo')
 
 @export var combo_atlas: Texture2D = load('uid://ds3g63uwcq4jw')
 @export var combo_scale: Vector2 = Vector2(0.5, 0.5)
-@export_enum(
-		'Inherit', 'Nearest', 'Linear',
-		'Nearest Mipmap', 'Linear Mipmap',
-		'Nearest Mipmap Anisotropic', 'Linear Mipmap Anisotropic'
-) var combo_filter: int = 0
+@export var combo_spacing: float = 90.0
+@export var combo_filter: CanvasItem.TextureFilter = CanvasItem.TEXTURE_FILTER_PARENT_NODE
 
-@export_category('Countdown')
+@export_group('Countdown')
 
 @export var countdown_textures: Array[Texture2D] = [
 	null,
@@ -42,13 +35,9 @@ class_name HUDSkin extends Resource
 ]
 
 @export var countdown_scale: Vector2 = Vector2(0.7, 0.7)
-@export_enum(
-		'Inherit', 'Nearest', 'Linear',
-		'Nearest Mipmap', 'Linear Mipmap',
-		'Nearest Mipmap Anisotropic', 'Linear Mipmap Anisotropic'
-) var countdown_filter: int = 0
+@export var countdown_filter: CanvasItem.TextureFilter = CanvasItem.TEXTURE_FILTER_PARENT_NODE
 
-@export_category('Misc')
+@export_group('Misc')
 
 @export var pause_menu: PackedScene = null
 @export var pause_music: AudioStream = null

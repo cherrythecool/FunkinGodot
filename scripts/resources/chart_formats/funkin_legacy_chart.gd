@@ -5,7 +5,7 @@ var json: Dictionary
 
 
 func parse() -> Chart:
-	var chart := Chart.new()
+	var chart: Chart = Chart.new()
 	var data: Dictionary = json
 	var notes_use_camera: bool = true
 
@@ -44,7 +44,7 @@ func parse() -> Chart:
 			if int(note[1]) < 0:
 				continue
 
-			var note_data := NoteData.new()
+			var note_data: NoteData = NoteData.new()
 			note_data.time = float(note[0]) / 1000.0
 			note_data.beat = beat + ((note_data.time - time) * beat_delta)
 			note_data.direction = int(note[1])
@@ -64,11 +64,12 @@ func parse() -> Chart:
 		time += section_length * beat_delta
 
 	Chart.sort_chart_notes(chart)
-	var stacked_notes := Chart.remove_stacked_notes(chart)
 
+	var stacked_notes: int = Chart.remove_stacked_notes(chart)
 	print('Loaded FunkinChart(%s) with %s stacked notes detected.' % [
 		data.song, stacked_notes
 	])
+
 	return chart
 
 
@@ -111,7 +112,7 @@ static func parse_psych_events(data: Dictionary) -> Array[EventData]:
 			continue
 
 		var event_time: float = object[0] / 1000.0
-		for event in object[1]:
+		for event: Array in object[1]:
 			var event_name: String = event[0]
 			var params: Array[String] = [event[1], event[2]]
 			events.push_back(DynamicEvent.new(event_name, event_time, params))

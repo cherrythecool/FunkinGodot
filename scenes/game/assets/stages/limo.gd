@@ -34,9 +34,9 @@ func _process(delta: float) -> void:
 func _on_beat_hit(beat: int) -> void:
 	super(beat)
 	dance_left = beat % 2 == 0
-	for dancer in dancers.get_children():
+	for dancer: AnimatedSprite2D in dancers.get_children():
 		dancer.play('left' if dance_left else 'right')
-	
+
 	if randi_range(1, 100) <= 10 and fast_car_can:
 		drive_fast_car()
 
@@ -52,7 +52,7 @@ func drive_fast_car() -> void:
 	if not car_sounds.is_empty():
 		car_pass.stream = car_sounds.pick_random()
 		car_pass.play()
-	
+
 	fast_car_vel = randf_range(170.0, 220.0) * 3.0 * 33.0
 	fast_car_can = false
 	car_timer.start()

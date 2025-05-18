@@ -16,5 +16,5 @@ class_name StoryWeekNode extends TextureRect
 func get_song_name(index: int, difficulty: StringName) -> StringName:
 	if is_instance_valid(difficulty_suffixes) and difficulty_suffixes.mapping.has(difficulty):
 		return songs[index] + difficulty_suffixes.mapping.get(difficulty, &'')
-	
+
 	return songs[index]

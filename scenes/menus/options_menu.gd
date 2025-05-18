@@ -16,11 +16,11 @@ var active: bool = true
 
 
 func _ready() -> void:
-	var music_player := GlobalAudio.music
-	Conductor.tempo = 125.0
+	var music_player: AudioStreamPlayer = GlobalAudio.music
 	music_player.stream = load('uid://ddoyqrhrcjw1j')
 	music_player.play()
 	Conductor.reset()
+	Conductor.tempo = 137.0
 	#Conductor.target_audio = music_player
 	Conductor.beat_hit.connect(_on_beat_hit)
 	change_selection()
@@ -60,7 +60,7 @@ func change_selection(amount: int = 0) -> void:
 	section_tween.tween_property(section_label, ^'position:y', 48.0, 0.5)
 	section_tween.tween_property(section_label, ^'modulate:a', 1.0, 0.5)
 
-	for i in categories.get_child_count():
+	for i: int in categories.get_child_count():
 		var child: Category = categories.get_child(i)
 		if i == selected:
 			child.target_alpha = 1.0
@@ -73,22 +73,21 @@ func change_selection(amount: int = 0) -> void:
 func deselect_current() -> void:
 	active = true
 	GlobalAudio.get_player('MENU/CANCEL').play()
-	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_parallel()
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_SINE)\
+			.set_ease(Tween.EASE_OUT).set_parallel()
 	tween.tween_property(interface, ^'position:x', 0.0, 0.5)
 	tween.tween_property(section, ^'position:x', 1920.0, 0.5)
 
-	var children := section.get_children()
+	var children: Array[Node] = section.get_children()
 	await get_tree().create_timer(0.5).timeout
-
-	for child in children:
-		if is_instance_valid(child):
-			child.queue_free()
+	Global.free_from_array(children)
 
 
 func select_current() -> void:
 	active = false
 	GlobalAudio.get_player('MENU/CONFIRM').play()
-	var tween := create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_parallel()
+
+	var tween: Tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_parallel()
 	tween.tween_property(interface, ^'position:x', -1280.0, 0.5)
 	tween.tween_property(section, ^'position:x', 640.0, 0.5)
 
@@ -101,9 +100,12 @@ func _process(delta: float) -> void:
 	options_label.scale = options_label.scale.lerp(Vector2(0.6, 0.6), delta * 4.5)
 
 
-func _on_beat_hit(beat: int) -> void:
+func _on_beat_hit(_beat: int) -> void:
 	options_label.scale = Vector2(0.65, 0.65)
 
 
 func _exit_tree() -> void:
 	GlobalAudio.music.stream = load('uid://dergcpn8f5cju')
+	GlobalAudio.music.play()
+	Conductor.reset()
+	Conductor.tempo = 107.0

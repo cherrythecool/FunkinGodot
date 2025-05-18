@@ -47,14 +47,15 @@ func _unhandled_input(event: InputEvent) -> void:
 		_automatically_play_static = false
 
 		for note: Note in _notes.get_children():
+			var before_zone: bool = Conductor.time < note.data.time - input_zone
+			if before_zone:
+				break
 			if note._hit:
 				continue
 			if note.lane != lane:
 				continue
 
-			var before_zone: bool = Conductor.time < note.data.time - input_zone
 			var after_zone: bool = Conductor.time > note.data.time + input_zone
-
 			if not (before_zone or after_zone):
 				hit_note(note)
 				break
@@ -64,36 +65,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		play_anim(&'static')
 
 		for note: Note in _notes.get_children():
+			var before_zone: bool = Conductor.time < note.data.time - input_zone
+			if before_zone:
+				break
 			if not note._hit:
 				continue
 			if note.lane != lane:
 				continue
 
-			var range := maxf(Conductor.beat_delta / 2.0, 0.1)
+			var lee_way: float = maxf(Conductor.beat_delta / 4.0, 0.1)
 			# give a bit of lee-way
-			if note.length < range:
+			if note.length < lee_way:
 				# we do this because the animations get funky sometimes lol
 				_automatically_play_static = true
 				continue
 
 			on_miss_note.emit(note)
-
-
-func _process(delta: float) -> void:
-	if not takes_input:
-		_auto_input()
-
-
-func _auto_input() -> void:
-	for note: Note in _notes.get_children():
-		if note._hit:
-			continue
-		if note.lane != lane:
-			continue
-		if Conductor.time >= note.data.time:
-			hit_note(note)
-			continue
-		break
 
 
 func hit_note(note: Note) -> void:

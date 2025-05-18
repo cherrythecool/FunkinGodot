@@ -44,8 +44,3 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 script = ExtResource("6_ur1sh")
 accuracy_curve = SubResource("Curve_5selw")
-
-[node name="preloading_viewport" type="SubViewport" parent="."]
-unique_name_in_owner = true
-size = Vector2i(256, 256)
-render_target_update_mode = 4

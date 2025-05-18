@@ -137,7 +137,7 @@ scroll_scale = Vector2(0.3, 0.3)
 position = Vector2(-75, 209)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/crowd"
-frame = 10
+frame = 2
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -145,7 +145,7 @@ metadata/_custom_type_script = "uid://diqmdngjb60u2"
 position = Vector2(-40, 391)
 sprite_frames = ExtResource("7_5ydai")
 animation = &"stage full instance 1"
-frame_progress = 0.354209
+frame_progress = 0.841242
 centered = false
 script = ExtResource("4_xae3q")
 playing = true
@@ -167,7 +167,6 @@ material = SubResource("CanvasItemMaterial_xae3q")
 position = Vector2(0, 55)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/bar"
-frame = 1
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 

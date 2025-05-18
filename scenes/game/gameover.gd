@@ -20,7 +20,7 @@ func _ready() -> void:
 	randomize()
 	active = true
 
-	var value := randi_range(1, 1000)
+	var value: int = randi_range(1, 1000)
 	if value == 273:
 		active = false
 		secret.get_node(^'player').stream = load('uid://6jxbt142o25i')
@@ -36,14 +36,15 @@ func _ready() -> void:
 	camera.zoom = camera_zoom
 	camera.global_position = camera_position
 	camera.position_smoothing_enabled = false
-	get_tree().create_timer(0.5).timeout.connect(func():
+	get_tree().create_timer(0.5).timeout.connect(func() -> void:
 		camera.position_smoothing_enabled = true
-		camera.position = character.position + character._camera_offset.position)
+		camera.position = character.position + character._camera_offset.position
+	)
 
 	character = load(character_path).instantiate()
 
 	if is_instance_valid(character.gameover_assets):
-		var assets := character.gameover_assets
+		var assets: GameoverAssets = character.gameover_assets
 		if is_instance_valid(assets.on_death):
 			on_death.stream = assets.on_death
 		if is_instance_valid(assets.looping_music):
@@ -90,10 +91,10 @@ func _input(event: InputEvent) -> void:
 		character.play_anim(&'retry')
 		music_player.stop()
 		retry.play()
-		get_tree().create_timer(0.7).timeout.connect(func():
-			var tween := create_tween()
+		get_tree().create_timer(0.7).timeout.connect(func() -> void:
+			var tween: Tween = create_tween()
 			tween.tween_property(self, 'modulate:a', 0.0, 2.0)
-			tween.tween_callback(func():
+			tween.tween_callback(func() -> void:
 				SceneManager.switch_to('uid://da8mu3oqto3qq')
 			)
 		)

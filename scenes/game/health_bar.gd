@@ -35,7 +35,7 @@ func _on_hud_setup() -> void:
 	reload_icons()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	bar.value = game.health
 	icons.scale = Vector2(1.2, 1.2).lerp(Vector2.ONE, _icon_lerp())
 	_position_icons(game.health)

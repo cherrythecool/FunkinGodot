@@ -20,21 +20,24 @@ class_name NumberOption extends PreviewOption
 var timer: float = 0.0
 var value: float = 0.0:
 	set(new_value):
-		var final_value: Variant = new_value if not integers else int(new_value)
+		var final_value: Variant = new_value
+		if integers:
+			final_value = int(new_value)
+
 		set_value(final_value)
 		value = new_value
-		
+
 		var left: String = '< '
 		var right: String = ' >'
-		
+
 		if not selected:
 			left = ''
 			right = ''
-		
+
 		if integers:
 			value_label.text = '%s%d%s%s' % [left, final_value, value_suffix, right]
 		else:
-			value_label.text = '%s%s%s%s' % [left, 
+			value_label.text = '%s%s%s%s' % [left,
 					str(snapped(final_value, step)).pad_decimals(1), value_suffix, right]
 		GlobalAudio.get_player(^'MENU/SCROLL').play()
 		_value_changed()
@@ -43,7 +46,7 @@ var value: float = 0.0:
 func _ready() -> void:
 	super()
 	value = Config.get_value(section, key)
-	
+
 	assert(is_instance_valid(root), 'No root given to number option. This could cause issues, so here is your error.')
 
 
@@ -61,12 +64,12 @@ func _process(delta: float) -> void:
 	if axis == 0.0:
 		timer = 0.0
 		return
-	
+
 	if Input.is_action_just_pressed('ui_left') or Input.is_action_just_pressed('ui_right'):
 		timer = increment_delay
-	
+
 	timer += delta
-	
+
 	var delay_modifier: float = 1.0 + \
 			float(Input.is_action_pressed('shift')) +\
 			float(Input.is_action_pressed('alt')) * 3.0
@@ -85,15 +88,15 @@ func _input(event: InputEvent) -> void:
 		return
 	if event.is_echo():
 		return
-	
+
 	if event.is_action('ui_accept') or event.is_action('ui_cancel'):
 		get_viewport().set_input_as_handled()
 		_select()
 		GlobalAudio.get_player(^'MENU/CONFIRM').play()
 
 
-func set_value(value: Variant) -> void:
-	Config.set_value(section, key, value)
+func set_value(_value: Variant) -> void:
+	Config.set_value(section, key, _value)
 
 
 func _value_changed() -> void:
