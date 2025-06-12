@@ -56,7 +56,7 @@ category = ExtResource("7_6v5hh")
 position = Vector2(75, 75)
 sprite_frames = ExtResource("6_lf7w2")
 animation = &"gameplay"
-frame_progress = 0.463079
+frame_progress = 0.749055
 script = ExtResource("4_k5v7g")
 playing = true
 
@@ -70,7 +70,7 @@ category = ExtResource("7_u8bnw")
 position = Vector2(75, 75)
 sprite_frames = ExtResource("6_lf7w2")
 animation = &"interface"
-frame_progress = 0.175344
+frame_progress = 0.46132
 script = ExtResource("4_k5v7g")
 playing = true
 
@@ -84,7 +84,7 @@ category = ExtResource("8_26on6")
 position = Vector2(75, 75)
 sprite_frames = ExtResource("6_lf7w2")
 animation = &"performance"
-frame_progress = 0.775028
+frame_progress = 0.061004
 script = ExtResource("4_k5v7g")
 playing = true
 
@@ -98,7 +98,7 @@ category = ExtResource("9_23plx")
 position = Vector2(75, 75)
 sprite_frames = ExtResource("6_lf7w2")
 animation = &"sound"
-frame_progress = 0.741824
+frame_progress = 0.0278
 script = ExtResource("4_k5v7g")
 playing = true
 
@@ -112,7 +112,7 @@ category = ExtResource("7_0g68v")
 position = Vector2(75, 75)
 sprite_frames = ExtResource("6_lf7w2")
 animation = &"accessibility"
-frame_progress = 0.805557
+frame_progress = 0.091533
 script = ExtResource("4_k5v7g")
 playing = true
 
@@ -141,9 +141,11 @@ centered = true
 [node name="options_label" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(163, 48)
+rotation = 0.0285527
 scale = Vector2(0.6, 0.6)
 sprite_frames = ExtResource("3_yv0yv")
 animation = &"options idle"
-frame_progress = 0.148302
+frame_progress = 0.434278
+offset = Vector2(0, -3.65016)
 script = ExtResource("4_6ck0r")
 playing = true

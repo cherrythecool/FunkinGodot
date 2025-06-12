@@ -16,7 +16,6 @@ var centered_receptors: bool = false:
 		_set_centered_receptors(value)
 
 @export var bump_amount: Vector2 = Vector2(0.03, 0.03)
-@export var use_conductor_time: bool = true
 
 @onready var note_fields: Node2D = %note_fields
 @onready var health_bar: HealthBar = %health_bar
@@ -36,6 +35,7 @@ var countdown_offset: int = 0
 var tracks: Tracks
 var skin: HUDSkin
 
+@onready var preloading_layer: CanvasLayer = %preloading_layer
 @onready var sub_viewport_container: SubViewportContainer = %sub_viewport_container
 @onready var preloading_viewport: SubViewport = %preloading_viewport
 
@@ -51,7 +51,6 @@ func _ready() -> void:
 	Conductor.beat_hit.connect(_on_beat_hit)
 	Conductor.measure_hit.connect(_on_measure_hit)
 
-	use_conductor_time = Config.get_value('gameplay', 'use_conductor_time')
 	player_field = note_fields.get_node('player')
 	opponent_field = note_fields.get_node('opponent')
 	rating_container.visible = false
@@ -104,8 +103,7 @@ func countdown_resume() -> void:
 
 func _ready_post() -> void:
 	if not do_countdown:
-		Conductor.time = Conductor.offset
-		Conductor.beat = 0.0
+		Conductor.raw_time = 0.0
 
 
 func _on_beat_hit(beat: int) -> void:
@@ -115,8 +113,7 @@ func _on_beat_hit(beat: int) -> void:
 		return
 
 	if pause_countdown:
-		Conductor.time = (-4.0 * Conductor.beat_delta) + Conductor.offset
-		Conductor.beat = -4.0
+		Conductor.raw_time = -5.0 * Conductor.beat_delta
 		return
 
 	# countdown lol
@@ -141,21 +138,16 @@ func _process(delta: float) -> void:
 		return
 	if (
 		is_instance_valid(preloading_viewport)
-		and preloading_viewport.get_child_count() <= 0
+		and preloading_viewport.get_child_count() == 0
 	):
-			sub_viewport_container.free()
+		preloading_layer.free()
 
 	scale = scale.lerp(Vector2.ONE, delta * 3.0)
 
 
 func _on_note_hit(note: Note) -> void:
 	var health: float = game.health
-	var difference: float = INF
-	if use_conductor_time:
-		difference = Conductor.time - note.data.time
-	else:
-		difference = tracks.get_playback_position() - note.data.time
-
+	var difference: float = Conductor.time - note.data.time
 	if not player_field.takes_input:
 		difference = 0.0
 
@@ -189,14 +181,14 @@ func _on_note_hit(note: Note) -> void:
 			(rating.name == &'marvelous' or rating.name == &'sick'):
 		var splash: AnimatedSprite = note.splash.instantiate()
 		splash.note = note
-		var player_skin: NoteSkin = player_field._skin
+		var player_skin: NoteSkin = player_field.skin
 		if splash.use_skin and is_instance_valid(player_skin):
 			splash.sprite_frames = player_skin.splash_frames
 			splash.scale = player_skin.splash_scale
 			splash.texture_filter = player_skin.splash_filter
 		add_child(splash)
 
-		splash.global_position = note.field._receptors[note.lane].global_position
+		splash.global_position = note.field.receptors[note.lane].global_position
 
 	rating_container.visible = true
 	rating_container.modulate.a = 1.0
@@ -274,8 +266,8 @@ func _set_scroll_direction(value: StringName) -> void:
 		printerr('A scroll direction of %s is not supported at this time.' % [value])
 		return
 
-	player_field._scroll_speed_modifier = 1.0 if value == &'up' else -1.0
-	opponent_field._scroll_speed_modifier = player_field._scroll_speed_modifier
+	player_field.scroll_speed_modifier = 1.0 if value == &'up' else -1.0
+	opponent_field.scroll_speed_modifier = player_field.scroll_speed_modifier
 
 	match value:
 		&'up':
@@ -292,7 +284,6 @@ func _set_scroll_direction(value: StringName) -> void:
 
 func _set_centered_receptors(value: bool) -> void:
 	opponent_field.visible = not value
-
 	if value:
 		player_field.position.x = 640.0
 	else:
@@ -308,4 +299,3 @@ func _preload_splash(scene: PackedScene) -> void:
 
 	var splash: AnimatedSprite = scene.instantiate()
 	preloading_viewport.add_child(splash)
-	splash.play()

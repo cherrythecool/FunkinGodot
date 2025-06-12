@@ -193,12 +193,12 @@ func _ready() -> void:
 			_opponent_field = hud.opponent_field
 
 		# Set the NoteField characters.
-		_player_field._default_character = player
-		_player_field._skin = assets.player_skin
+		_player_field.default_character = player
+		_player_field.skin = assets.player_skin
 		_player_field.reload_skin()
 
-		_opponent_field._default_character = opponent
-		_opponent_field._skin = assets.opponent_skin
+		_opponent_field.default_character = opponent
+		_opponent_field.skin = assets.opponent_skin
 		_opponent_field.reload_skin()
 
 		skin = assets.hud_skin
@@ -212,8 +212,8 @@ func _ready() -> void:
 	else:
 		skin = load('uid://oxo327xfxemo')
 
-	_player_field._note_types = note_types
-	_opponent_field._note_types = note_types
+	_player_field.note_types = note_types
+	_opponent_field.note_types = note_types
 	_player_field.note_miss.connect(_on_note_miss)
 	_player_field.note_hit.connect(_on_note_hit)
 	_opponent_field.note_hit.connect(func(_note: Note) -> void:
@@ -226,6 +226,10 @@ func _ready() -> void:
 	Conductor.reset()
 	Conductor.beat_hit.connect(_on_beat_hit)
 	Conductor.measure_hit.connect(_on_measure_hit)
+	Conductor.get_bpm_changes(chart.events)
+	Conductor.calculate_beat()
+	Conductor.raw_time = -5.0 * Conductor.beat_delta
+
 	scripts.load_scripts(song)
 
 	if not chart.events.is_empty():
@@ -259,10 +263,6 @@ func _ready() -> void:
 			_on_event_hit(chart.events[_event])
 			_event += 1
 
-	Conductor.time = (-4.0 * Conductor.beat_delta) + Conductor.offset
-	Conductor.beat = -4.0
-	Conductor.beat_hit.emit(Conductor.beat)
-
 	if camera_position != Vector2.INF:
 		camera.position = camera_position
 	ready_post.emit()
@@ -288,9 +288,8 @@ func _process(delta: float) -> void:
 			return
 
 	if is_instance_valid(tracks) and not song_started:
-		if Conductor.time >= Conductor.offset and not tracks.playing:
+		if Conductor.raw_time >= 0.0 and not tracks.playing:
 			tracks.play()
-			Conductor.beat = Conductor.offset * Conductor.beat_delta
 			Conductor.target_audio = tracks.player
 			song_start.emit()
 			song_started = true
@@ -332,7 +331,7 @@ func _input(event: InputEvent) -> void:
 		save_score = false
 		_player_field.takes_input = not _player_field.takes_input
 
-		for receptor: Receptor in _player_field._receptors:
+		for receptor: Receptor in _player_field.receptors:
 			receptor.takes_input = _player_field.takes_input
 			receptor.automatically_play_static = not _player_field.takes_input
 
@@ -341,6 +340,21 @@ func _input(event: InputEvent) -> void:
 				hud.song_label.text += ' [BOT]'
 			elif hud.song_label.text.contains(' [BOT]'):
 				hud.song_label.text = hud.song_label.text.replace(' [BOT]', '')
+
+
+func skip_to(seconds: float) -> void:
+	if not Conductor.target_audio:
+		Conductor.raw_time = seconds
+	else:
+		Conductor.target_audio.seek(seconds)
+		Conductor.sync_to_target(0.0)
+	Conductor.calculate_beat()
+
+	_opponent_field.try_spawning(true)
+	_opponent_field.clear_notes()
+
+	_player_field.try_spawning(true)
+	_player_field.clear_notes()
 
 
 func _on_beat_hit(_beat: int) -> void:

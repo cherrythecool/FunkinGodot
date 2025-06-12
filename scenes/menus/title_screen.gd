@@ -84,7 +84,13 @@ func _on_beat_hit(beat: int) -> void:
 func _input(event: InputEvent) -> void:
 	if not active:
 		return
-	if event.is_action('ui_accept') and event.is_action_pressed('ui_accept'):
+	if event.is_echo():
+		return
+	if not event.is_pressed():
+		return
+	if event.is_action(&'ui_cancel') and not DisplayServer.is_touchscreen_available():
+		get_tree().quit()
+	if event.is_action(&'ui_accept'):
 		if introing:
 			_skip_intro()
 			return

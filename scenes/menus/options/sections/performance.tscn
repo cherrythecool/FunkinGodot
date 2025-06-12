@@ -11,7 +11,7 @@
 [node name="performance" type="Node2D" node_paths=PackedStringArray("options")]
 position = Vector2(-320, 0)
 script = ExtResource("1_lsu8b")
-options = [NodePath("fps_cap"), NodePath("vsync_mode"), NodePath("auto_pause"), NodePath("performance_info_visible"), NodePath("preload_notes"), NodePath("threaded_note_spawning")]
+options = [NodePath("fps_cap"), NodePath("vsync_mode"), NodePath("auto_pause"), NodePath("performance_info_visible")]
 
 [node name="fps_cap" type="Node2D" parent="."]
 position = Vector2(66, -180)
@@ -86,45 +86,5 @@ animation = &"selected"
 offset = Vector2(-5, -35)
 script = ExtResource("5_7omr5")
 
-[node name="preload_notes" type="Node2D" parent="."]
-position = Vector2(51, 269)
-script = ExtResource("2_4cqv6")
-section = &"performance"
-key = &"preload_notes"
-
-[node name="alphabet" type="Node2D" parent="preload_notes"]
-script = ExtResource("3_p1may")
-text = "preload notes"
-centered = true
-
-[node name="checkbox" type="AnimatedSprite2D" parent="preload_notes"]
-position = Vector2(383, 0)
-scale = Vector2(0.8, 0.8)
-sprite_frames = ExtResource("4_j1leb")
-animation = &"selected"
-offset = Vector2(-5, -35)
-script = ExtResource("5_7omr5")
-
-[node name="threaded_note_spawning" type="Node2D" parent="."]
-position = Vector2(208, 359)
-script = ExtResource("2_4cqv6")
-section = &"performance"
-key = &"threaded_note_spawning"
-
-[node name="alphabet" type="Node2D" parent="threaded_note_spawning"]
-script = ExtResource("3_p1may")
-text = "async note spawning"
-centered = true
-
-[node name="checkbox" type="AnimatedSprite2D" parent="threaded_note_spawning"]
-position = Vector2(540, 0)
-scale = Vector2(0.8, 0.8)
-sprite_frames = ExtResource("4_j1leb")
-animation = &"selected"
-offset = Vector2(-5, -35)
-script = ExtResource("5_7omr5")
-
 [connection signal="animation_finished" from="auto_pause/checkbox" to="auto_pause" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="performance_info_visible/checkbox" to="performance_info_visible" method="_on_checkbox_animation_finished"]
-[connection signal="animation_finished" from="preload_notes/checkbox" to="preload_notes" method="_on_checkbox_animation_finished"]
-[connection signal="animation_finished" from="threaded_note_spawning/checkbox" to="threaded_note_spawning" method="_on_checkbox_animation_finished"]

@@ -132,10 +132,6 @@ func set_playback_position(position: float) -> void:
 
 	player.seek(position)
 
-	var last_time: float = Conductor.time
-	Conductor.time = position + Conductor.offset
-	Conductor.beat += (Conductor.time - last_time) * Conductor.beat_delta
-
 
 func _physics_process(_delta: float) -> void:
 	if (

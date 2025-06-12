@@ -111,8 +111,6 @@ var default_configuration: Dictionary = {
 		'auto_pause': false,
 		'fps_cap': -1,
 		'vsync_mode': 'disabled',
-		'preload_notes': false,
-		'threaded_note_spawning': true,
 		'performance_info': 'default',
 		'performance_info_visible': false,
 	},

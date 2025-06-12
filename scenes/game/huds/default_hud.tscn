@@ -210,15 +210,17 @@ unique_name_in_owner = true
 script = ExtResource("9_xshlu")
 ratings = Array[ExtResource("10_vo01y")]([SubResource("Resource_ybh81"), SubResource("Resource_2xl48"), SubResource("Resource_u7x50"), SubResource("Resource_jbop4"), SubResource("Resource_aj00i")])
 
-[node name="sub_viewport_container" type="SubViewportContainer" parent="."]
+[node name="preloading_layer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true
-visible = false
-layout_mode = 0
-offset_right = 512.0
-offset_bottom = 512.0
+layer = -64
 
-[node name="preloading_viewport" type="SubViewport" parent="sub_viewport_container"]
+[node name="sub_viewport_container" type="SubViewportContainer" parent="preloading_layer"]
+unique_name_in_owner = true
+offset_left = -512.0
+offset_top = -512.0
+
+[node name="preloading_viewport" type="SubViewport" parent="preloading_layer/sub_viewport_container"]
 unique_name_in_owner = true
 handle_input_locally = false
 gui_disable_input = true
-render_target_update_mode = 0
+render_target_update_mode = 4

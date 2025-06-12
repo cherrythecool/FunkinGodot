@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bndm7gp3qwu2d"
-path.bptc="res://.godot/imported/sprites.png-b4f7fc778a3a29465324056c58774a2b.bptc.ctex"
-path.astc="res://.godot/imported/sprites.png-b4f7fc778a3a29465324056c58774a2b.astc.ctex"
+path="res://.godot/imported/sprites.png-b4f7fc778a3a29465324056c58774a2b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/characters/monster/sprites.png"
-dest_files=["res://.godot/imported/sprites.png-b4f7fc778a3a29465324056c58774a2b.bptc.ctex", "res://.godot/imported/sprites.png-b4f7fc778a3a29465324056c58774a2b.astc.ctex"]
+dest_files=["res://.godot/imported/sprites.png-b4f7fc778a3a29465324056c58774a2b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

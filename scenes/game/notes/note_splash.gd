@@ -11,10 +11,9 @@ var note: Note
 
 
 func _ready() -> void:
-	if not is_instance_valid(note):
-		return
+	if is_instance_valid(note):
+		modulate.a = note.field.note_splash_alpha
 
-	modulate.a = note.field._note_splash_alpha
 	if modulate.a <= 0.0:
 		queue_free()
 		return
@@ -25,5 +24,6 @@ func _ready() -> void:
 	if not use_skin:
 		return
 
-	material = material as ShaderMaterial
-	material.set_shader_parameter(&'base_color', colors[note.lane])
+	if is_instance_valid(note):
+		material = material as ShaderMaterial
+		material.set_shader_parameter(&'base_color', colors[note.lane])

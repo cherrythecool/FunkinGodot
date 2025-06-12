@@ -68,7 +68,7 @@ func _process(delta: float) -> void:
 			# Because of how this is coded this will simply play
 			# the press animation over and over rather than
 			# actually trying to hit the same note multiple times.
-			field._on_hit_note(self)
+			field.hit_note(self)
 			field.get_receptor_from_lane(lane).hit_note(self)
 
 		previous_step = step
@@ -81,16 +81,16 @@ func _update_sustain() -> void:
 	if data.length < 0.0 or not is_instance_valid(sustain):
 		return
 
-	sustain.size.y = data.length * 1000.0 * 0.45 * (field._scroll_speed * absf(field._scroll_speed_modifier)) \
+	sustain.size.y = data.length * 1000.0 * 0.45 * (field.scroll_speed * absf(field.scroll_speed_modifier)) \
 			/ scale.y - tail.size.y
 	clip_rect.size.y = sustain.size.y + tail.size.y + 256.0
 
-	var clip_target: float = field._receptors[lane].position.y
+	var clip_target: float = field.receptors[lane].position.y
 	# I forgot the scale.y so many times but this works
 	# as longg as the clip rect is big enough to fill the
 	# whole screen (which it is rn because -1280 is more
 	# than enough at 0.7 scale, which is the default)
-	if field._scroll_speed_modifier < 0.0:
+	if field.scroll_speed_modifier < 0.0:
 		tail.pivot_offset.y = 0.0
 		tail.position.y = -tail.size.y
 		tail.flip_h = true
@@ -116,7 +116,7 @@ func _update_sustain() -> void:
 			sustain.position.y = 0.0
 
 	sustain.position.y += (sustain_offset / scale.y) * 1000.0 * 0.45 * \
-			(field._scroll_speed * absf(field._scroll_speed_modifier))
+			(field.scroll_speed * absf(field.scroll_speed_modifier))
 
 
 func reload_sustain_sprites() -> void:

@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dvxomhnvle7gy"]
-
-[ext_resource type="Script" uid="uid://ccygr6542u5ga" path="res://scripts/game/funkin_script.gd" id="1_0wxmv"]
-[ext_resource type="Script" uid="uid://bxjbsm84dvh3v" path="res://scenes/game/events/bpm_change.gd" id="1_bryxi"]
-
-[node name="bpm_change" type="Node"]
-script = ExtResource("1_bryxi")
-metadata/_custom_type_script = ExtResource("1_0wxmv")
