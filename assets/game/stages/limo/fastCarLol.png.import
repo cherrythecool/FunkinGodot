@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2vt2m2655uu"
-path.bptc="res://.godot/imported/fastCarLol.png-9ca69372f49db17e5488fec86f07db16.bptc.ctex"
-path.astc="res://.godot/imported/fastCarLol.png-9ca69372f49db17e5488fec86f07db16.astc.ctex"
+path="res://.godot/imported/fastCarLol.png-9ca69372f49db17e5488fec86f07db16.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/limo/fastCarLol.png"
-dest_files=["res://.godot/imported/fastCarLol.png-9ca69372f49db17e5488fec86f07db16.bptc.ctex", "res://.godot/imported/fastCarLol.png-9ca69372f49db17e5488fec86f07db16.astc.ctex"]
+dest_files=["res://.godot/imported/fastCarLol.png-9ca69372f49db17e5488fec86f07db16.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

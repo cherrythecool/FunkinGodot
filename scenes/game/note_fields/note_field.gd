@@ -47,7 +47,7 @@ func _ready() -> void:
 	for receptor: Receptor in _receptors:
 		receptor.play_anim(&'static')
 		receptor.takes_input = takes_input
-		receptor._automatically_play_static = not takes_input
+		receptor.automatically_play_static = not takes_input
 
 	reload_skin()
 
@@ -72,7 +72,7 @@ func _process(_delta: float) -> void:
 		note.position.y -= (Conductor.time - note.data.time) * 1000.0 * 0.45 \
 				* _scroll_speed * _scroll_speed_modifier
 
-		if (not note._hit) and (note.data.time + note.data.length
+		if (not note.hit) and (note.data.time + note.data.length
 				- Conductor.time < -Receptor.input_zone):
 			miss_note(note)
 
@@ -86,7 +86,7 @@ func _process(_delta: float) -> void:
 		if not receptor.pressed:
 			continue
 
-		_default_character._sing_timer = 0.0
+		_default_character.sing_timer = 0.0
 		break
 
 
@@ -94,7 +94,7 @@ func _auto_input() -> void:
 	for note: Note in _notes.get_children():
 		if Conductor.time < note.data.time:
 			break
-		if note._hit:
+		if note.hit:
 			continue
 		var receptor: Receptor = _receptors[note.lane]
 		if receptor.play_confirm:
@@ -126,13 +126,13 @@ func _input(event: InputEvent) -> void:
 func _receptor_press(receptor: Receptor) -> void:
 	receptor.pressed = true
 	receptor.play_anim(&'press')
-	receptor._automatically_play_static = false
+	receptor.automatically_play_static = false
 
 	for note: Note in _notes.get_children():
 		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
 		if before_zone:
 			break
-		if note._hit:
+		if note.hit:
 			continue
 		if note.lane != receptor.lane:
 			continue
@@ -141,7 +141,6 @@ func _receptor_press(receptor: Receptor) -> void:
 		if not (before_zone or after_zone):
 			receptor.hit_note(note)
 			_on_hit_note(note)
-			break
 		break
 
 
@@ -153,7 +152,7 @@ func _receptor_release(receptor: Receptor) -> void:
 		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
 		if before_zone:
 			break
-		if not note._hit:
+		if not note.hit:
 			continue
 		if note.lane != receptor.lane:
 			continue
@@ -162,36 +161,37 @@ func _receptor_release(receptor: Receptor) -> void:
 		# give a bit of lee-way
 		if note.length < lee_way:
 			# we do this because the animations get funky sometimes lol
-			receptor._automatically_play_static = true
+			receptor.automatically_play_static = true
 			continue
 
 		miss_note(note)
 
 
 func _on_hit_note(note: Note) -> void:
-	if (not is_instance_valid(note._character)) and \
+	if (not is_instance_valid(note.character)) and \
 			is_instance_valid(_default_character):
 		_default_character.sing(note, true)
 
-	if note._hit:
+	if note.hit:
 		return
 
 	note_hit.emit(note)
-	note._hit = true
+	note.hit = true
 
 	if note.length > 0.0:
 		note.length -= Conductor.time - note.data.time
 		note.data.length = note.length
-		note._sustain_offset = -(Conductor.time - note.data.time)
+		note.sustain_offset = -(Conductor.time - note.data.time)
 		note._update_sustain()
 
 
 func miss_note(note: Note) -> void:
-	if (not is_instance_valid(note._character)) and \
+	if (not is_instance_valid(note.character)) and \
 			is_instance_valid(_default_character):
 		_default_character.sing_miss(note, true)
 
 	note_miss.emit(note)
+	note.hide()
 	note.queue_free()
 
 
@@ -206,7 +206,7 @@ func _try_spawning() -> void:
 		var data: NoteData = _chart.notes[_note_index]
 		var skip: bool = data.direction < 0 or \
 				(data.direction < 4 if side == 0 else data.direction > 3)
-		if skip:# or data.time > Conductor.time + 0.5:
+		if skip:
 			_note_index += 1
 			continue
 
@@ -215,7 +215,7 @@ func _try_spawning() -> void:
 			data.length = 0.0
 
 		var note: Note = _note_types.types.get(data.type, _note_types.types['default']).instantiate()
-		note._field = self
+		note.field = self
 		note.data = data
 		note.lane = absi(data.direction) % _lane_count
 		note.position.x = _receptors[0].position.x + 112.0 * (note.lane % _lane_count)

@@ -38,7 +38,7 @@ func _ready() -> void:
 	camera.position_smoothing_enabled = false
 	get_tree().create_timer(0.5).timeout.connect(func() -> void:
 		camera.position_smoothing_enabled = true
-		camera.position = character.position + character._camera_offset.position
+		camera.position = character.position + character.camera_offset.position
 	)
 
 	character = load(character_path).instantiate()

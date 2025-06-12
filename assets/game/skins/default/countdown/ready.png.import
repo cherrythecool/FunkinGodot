@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cd4erocsrgekg"
-path.bptc="res://.godot/imported/ready.png-b45e97251405f507a94408f24d3b45ec.bptc.ctex"
-path.astc="res://.godot/imported/ready.png-b45e97251405f507a94408f24d3b45ec.astc.ctex"
+path="res://.godot/imported/ready.png-b45e97251405f507a94408f24d3b45ec.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/skins/default/countdown/ready.png"
-dest_files=["res://.godot/imported/ready.png-b45e97251405f507a94408f24d3b45ec.bptc.ctex", "res://.godot/imported/ready.png-b45e97251405f507a94408f24d3b45ec.astc.ctex"]
+dest_files=["res://.godot/imported/ready.png-b45e97251405f507a94408f24d3b45ec.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

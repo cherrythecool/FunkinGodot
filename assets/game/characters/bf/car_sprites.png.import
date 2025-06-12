@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cnka7ac5j5g3t"
-path.bptc="res://.godot/imported/car_sprites.png-6a7e3690a5723dc3ad2ccea114f49e52.bptc.ctex"
-path.astc="res://.godot/imported/car_sprites.png-6a7e3690a5723dc3ad2ccea114f49e52.astc.ctex"
+path="res://.godot/imported/car_sprites.png-6a7e3690a5723dc3ad2ccea114f49e52.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/characters/bf/car_sprites.png"
-dest_files=["res://.godot/imported/car_sprites.png-6a7e3690a5723dc3ad2ccea114f49e52.bptc.ctex", "res://.godot/imported/car_sprites.png-6a7e3690a5723dc3ad2ccea114f49e52.astc.ctex"]
+dest_files=["res://.godot/imported/car_sprites.png-6a7e3690a5723dc3ad2ccea114f49e52.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c7u4qpyu0eogq"
-path.bptc="res://.godot/imported/choose_dipshit.png-a7957df46511b73a39008bfde10084b8.bptc.ctex"
-path.astc="res://.godot/imported/choose_dipshit.png-a7957df46511b73a39008bfde10084b8.astc.ctex"
+path="res://.godot/imported/choose_dipshit.png-a7957df46511b73a39008bfde10084b8.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/stage/choose_dipshit.png"
-dest_files=["res://.godot/imported/choose_dipshit.png-a7957df46511b73a39008bfde10084b8.bptc.ctex", "res://.godot/imported/choose_dipshit.png-a7957df46511b73a39008bfde10084b8.astc.ctex"]
+dest_files=["res://.godot/imported/choose_dipshit.png-a7957df46511b73a39008bfde10084b8.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

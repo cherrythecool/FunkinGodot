@@ -12,28 +12,28 @@ static var input_zone: float = 0.18
 			play_confirm = false
 
 @onready var sprite: AnimatedSprite2D = $sprite
-@onready var _automatically_play_static: bool = false:
+@onready var automatically_play_static: bool = false:
 	set(value):
-		if _automatically_play_static != value:
+		if automatically_play_static != value:
 			if value:
 				sprite.animation_finished.connect(_on_animation_finished)
 			elif sprite.animation_finished.is_connected(_on_animation_finished):
 				sprite.animation_finished.disconnect(_on_animation_finished)
 
-			_automatically_play_static = value
+			automatically_play_static = value
 
 var play_confirm: bool = true
 var pressed: bool = false
-var _last_anim: StringName = &''
+var last_anim: StringName = &''
 
 
 func _ready() -> void:
-	if _automatically_play_static:
+	if automatically_play_static:
 		sprite.animation_finished.connect(_on_animation_finished)
 
 
 func play_anim(anim: StringName, force: bool = false) -> void:
-	_last_anim = anim
+	last_anim = anim
 	sprite.play(&'%s %s' % [direction, anim])
 
 	if force:

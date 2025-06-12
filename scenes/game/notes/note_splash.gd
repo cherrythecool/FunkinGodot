@@ -14,7 +14,7 @@ func _ready() -> void:
 	if not is_instance_valid(note):
 		return
 
-	modulate.a = note._field._note_splash_alpha
+	modulate.a = note.field._note_splash_alpha
 	if modulate.a <= 0.0:
 		queue_free()
 		return

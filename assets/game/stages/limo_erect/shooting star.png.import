@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://x2tpc5a1m0or"
-path.bptc="res://.godot/imported/shooting star.png-4310113c046b4c1ea5286184a9969d93.bptc.ctex"
-path.astc="res://.godot/imported/shooting star.png-4310113c046b4c1ea5286184a9969d93.astc.ctex"
+path="res://.godot/imported/shooting star.png-4310113c046b4c1ea5286184a9969d93.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/limo_erect/shooting star.png"
-dest_files=["res://.godot/imported/shooting star.png-4310113c046b4c1ea5286184a9969d93.bptc.ctex", "res://.godot/imported/shooting star.png-4310113c046b4c1ea5286184a9969d93.astc.ctex"]
+dest_files=["res://.godot/imported/shooting star.png-4310113c046b4c1ea5286184a9969d93.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

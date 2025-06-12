@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfte1efl00hqd"
-path.bptc="res://.godot/imported/bad.png-c07f825994f49eef28c84a449ac3af19.bptc.ctex"
-path.astc="res://.godot/imported/bad.png-c07f825994f49eef28c84a449ac3af19.astc.ctex"
+path="res://.godot/imported/bad.png-c07f825994f49eef28c84a449ac3af19.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/skins/default/ratings/bad.png"
-dest_files=["res://.godot/imported/bad.png-c07f825994f49eef28c84a449ac3af19.bptc.ctex", "res://.godot/imported/bad.png-c07f825994f49eef28c84a449ac3af19.astc.ctex"]
+dest_files=["res://.godot/imported/bad.png-c07f825994f49eef28c84a449ac3af19.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

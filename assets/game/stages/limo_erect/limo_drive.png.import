@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bc0fnibvlk0wq"
-path.bptc="res://.godot/imported/limo_drive.png-e25a2b706835a3c3f55a69682ce3a05d.bptc.ctex"
-path.astc="res://.godot/imported/limo_drive.png-e25a2b706835a3c3f55a69682ce3a05d.astc.ctex"
+path="res://.godot/imported/limo_drive.png-e25a2b706835a3c3f55a69682ce3a05d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/limo_erect/limo_drive.png"
-dest_files=["res://.godot/imported/limo_drive.png-e25a2b706835a3c3f55a69682ce3a05d.bptc.ctex", "res://.godot/imported/limo_drive.png-e25a2b706835a3c3f55a69682ce3a05d.astc.ctex"]
+dest_files=["res://.godot/imported/limo_drive.png-e25a2b706835a3c3f55a69682ce3a05d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

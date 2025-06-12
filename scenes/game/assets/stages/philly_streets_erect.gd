@@ -26,10 +26,10 @@ var timer: float = 0.0
 
 func _ready() -> void:
 	game.player.z_index += 400
-	game.player._camera_offset.position += Vector2(-250.0, -35.0)
+	game.player.camera_offset.position += Vector2(-250.0, -35.0)
 	game.spectator.z_index += 300
 	game.opponent.z_index += 350
-	game.opponent._camera_offset.position += Vector2(230.0, 75.0)
+	game.opponent.camera_offset.position += Vector2(230.0, 75.0)
 	var plr: AnimatedSprite = game.player.get_node(^'sprite')
 	plr.material = ShaderMaterial.new()
 	plr.material.shader = load('uid://bgwusoh6kicj3')

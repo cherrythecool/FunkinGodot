@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://buugjy1a0ip73"
-path.bptc="res://.godot/imported/phillyCars.png-cc7a044faba30e688b154ccc15075011.bptc.ctex"
-path.astc="res://.godot/imported/phillyCars.png-cc7a044faba30e688b154ccc15075011.astc.ctex"
+path="res://.godot/imported/phillyCars.png-cc7a044faba30e688b154ccc15075011.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/philly_streets/erect/phillyCars.png"
-dest_files=["res://.godot/imported/phillyCars.png-cc7a044faba30e688b154ccc15075011.bptc.ctex", "res://.godot/imported/phillyCars.png-cc7a044faba30e688b154ccc15075011.astc.ctex"]
+dest_files=["res://.godot/imported/phillyCars.png-cc7a044faba30e688b154ccc15075011.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

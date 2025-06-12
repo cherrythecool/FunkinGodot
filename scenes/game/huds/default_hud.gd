@@ -31,7 +31,6 @@ var centered_receptors: bool = false:
 var rating_tween: Tween
 
 var pause_countdown: bool = false
-var _force_time: float = NAN
 var _force_countdown: bool = false
 var countdown_offset: int = 0
 var tracks: Tracks
@@ -84,16 +83,23 @@ func setup() -> void:
 
 
 func countdown_resume() -> void:
-	if is_nan(_force_time):
-		_force_time = Game.instance.tracks.get_playback_position()
-	Game.instance.tracks.set_playback_position(
-			maxf(_force_time - 4.0 * Conductor.beat_delta, 0.0))
-	countdown_offset = -floori(Conductor.beat) - 5
+	if _force_countdown:
+		return
+
+	Conductor.target_audio.seek(
+		maxf(Conductor.raw_time - (4.0 * Conductor.beat_delta), 0.0)
+	)
+	countdown_offset = -floori(Conductor.beat) - 1
 	_force_countdown = true
 	pause_countdown = false
 
-	Game.instance.tracks.player.volume_db = -120.0
-	create_tween().tween_property(Game.instance.tracks.player, ^'volume_db', 0.0, 4.0 * Conductor.beat_delta)
+	Conductor.target_audio.volume_linear = 0.0
+	create_tween().tween_property(
+		Conductor.target_audio,
+		^'volume_linear',
+		1.0,
+		4.0 * Conductor.beat_delta
+	)
 
 
 func _ready_post() -> void:
@@ -117,7 +123,6 @@ func _on_beat_hit(beat: int) -> void:
 	beat += countdown_offset
 	if beat >= 0 and _force_countdown:
 		_force_countdown = false
-		_force_time = NAN
 		return
 	var index: int = clampi(4 - absi(beat), 0, 3)
 	_display_countdown_sprite(index)
@@ -191,7 +196,7 @@ func _on_note_hit(note: Note) -> void:
 			splash.texture_filter = player_skin.splash_filter
 		add_child(splash)
 
-		splash.global_position = note._field._receptors[note.lane].global_position
+		splash.global_position = note.field._receptors[note.lane].global_position
 
 	rating_container.visible = true
 	rating_container.modulate.a = 1.0

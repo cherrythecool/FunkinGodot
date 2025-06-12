@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cmcuq2r12cpyr"
-path.bptc="res://.godot/imported/spritemap1.png-9f6b6f4eab74b86df33fb60d2bfc2a47.bptc.ctex"
-path.astc="res://.godot/imported/spritemap1.png-9f6b6f4eab74b86df33fb60d2bfc2a47.astc.ctex"
+path="res://.godot/imported/spritemap1.png-9f6b6f4eab74b86df33fb60d2bfc2a47.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/pico/player/spritemap1.png"
-dest_files=["res://.godot/imported/spritemap1.png-9f6b6f4eab74b86df33fb60d2bfc2a47.bptc.ctex", "res://.godot/imported/spritemap1.png-9f6b6f4eab74b86df33fb60d2bfc2a47.astc.ctex"]
+dest_files=["res://.godot/imported/spritemap1.png-9f6b6f4eab74b86df33fb60d2bfc2a47.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

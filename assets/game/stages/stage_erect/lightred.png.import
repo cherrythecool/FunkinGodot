@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ehms2fgkxe3x"
-path.bptc="res://.godot/imported/lightred.png-b2024b67a200dce0ec40f909d4f69b50.bptc.ctex"
-path.astc="res://.godot/imported/lightred.png-b2024b67a200dce0ec40f909d4f69b50.astc.ctex"
+path="res://.godot/imported/lightred.png-b2024b67a200dce0ec40f909d4f69b50.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/stage_erect/lightred.png"
-dest_files=["res://.godot/imported/lightred.png-b2024b67a200dce0ec40f909d4f69b50.bptc.ctex", "res://.godot/imported/lightred.png-b2024b67a200dce0ec40f909d4f69b50.astc.ctex"]
+dest_files=["res://.godot/imported/lightred.png-b2024b67a200dce0ec40f909d4f69b50.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

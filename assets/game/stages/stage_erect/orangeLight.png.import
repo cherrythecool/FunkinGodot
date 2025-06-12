@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cp7t5wpilryw5"
-path.bptc="res://.godot/imported/orangeLight.png-e8fcee794bc0ad18c22a4bd10571e1ac.bptc.ctex"
-path.astc="res://.godot/imported/orangeLight.png-e8fcee794bc0ad18c22a4bd10571e1ac.astc.ctex"
+path="res://.godot/imported/orangeLight.png-e8fcee794bc0ad18c22a4bd10571e1ac.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/stage_erect/orangeLight.png"
-dest_files=["res://.godot/imported/orangeLight.png-e8fcee794bc0ad18c22a4bd10571e1ac.bptc.ctex", "res://.godot/imported/orangeLight.png-e8fcee794bc0ad18c22a4bd10571e1ac.astc.ctex"]
+dest_files=["res://.godot/imported/orangeLight.png-e8fcee794bc0ad18c22a4bd10571e1ac.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

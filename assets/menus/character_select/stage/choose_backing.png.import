@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://blc2ebncn5gtq"
-path.bptc="res://.godot/imported/choose_backing.png-6e8686da2e3dd8e006d34d0e29b21d6c.bptc.ctex"
-path.astc="res://.godot/imported/choose_backing.png-6e8686da2e3dd8e006d34d0e29b21d6c.astc.ctex"
+path="res://.godot/imported/choose_backing.png-6e8686da2e3dd8e006d34d0e29b21d6c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/stage/choose_backing.png"
-dest_files=["res://.godot/imported/choose_backing.png-6e8686da2e3dd8e006d34d0e29b21d6c.bptc.ctex", "res://.godot/imported/choose_backing.png-6e8686da2e3dd8e006d34d0e29b21d6c.astc.ctex"]
+dest_files=["res://.godot/imported/choose_backing.png-6e8686da2e3dd8e006d34d0e29b21d6c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://58wb7trlvgt1"
-path.bptc="res://.godot/imported/icon.png-9e1b68f4612149a8e9265a1d57ec8a85.bptc.ctex"
-path.astc="res://.godot/imported/icon.png-9e1b68f4612149a8e9265a1d57ec8a85.astc.ctex"
+path="res://.godot/imported/icon.png-9e1b68f4612149a8e9265a1d57ec8a85.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/pico/icon.png"
-dest_files=["res://.godot/imported/icon.png-9e1b68f4612149a8e9265a1d57ec8a85.bptc.ctex", "res://.godot/imported/icon.png-9e1b68f4612149a8e9265a1d57ec8a85.astc.ctex"]
+dest_files=["res://.godot/imported/icon.png-9e1b68f4612149a8e9265a1d57ec8a85.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bmjua6maldayc"
-path.bptc="res://.godot/imported/denied.png-2bd313d32ee8ca70c799209a21569b92.bptc.ctex"
-path.astc="res://.godot/imported/denied.png-2bd313d32ee8ca70c799209a21569b92.astc.ctex"
+path="res://.godot/imported/denied.png-2bd313d32ee8ca70c799209a21569b92.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/selector/denied.png"
-dest_files=["res://.godot/imported/denied.png-2bd313d32ee8ca70c799209a21569b92.bptc.ctex", "res://.godot/imported/denied.png-2bd313d32ee8ca70c799209a21569b92.astc.ctex"]
+dest_files=["res://.godot/imported/denied.png-2bd313d32ee8ca70c799209a21569b92.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

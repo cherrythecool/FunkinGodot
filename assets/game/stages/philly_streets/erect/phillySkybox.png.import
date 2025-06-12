@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://i7wldmqqojxv"
-path.bptc="res://.godot/imported/phillySkybox.png-1489a669f723d347633b7fc7bf588660.bptc.ctex"
-path.astc="res://.godot/imported/phillySkybox.png-1489a669f723d347633b7fc7bf588660.astc.ctex"
+path="res://.godot/imported/phillySkybox.png-1489a669f723d347633b7fc7bf588660.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/philly_streets/erect/phillySkybox.png"
-dest_files=["res://.godot/imported/phillySkybox.png-1489a669f723d347633b7fc7bf588660.bptc.ctex", "res://.godot/imported/phillySkybox.png-1489a669f723d347633b7fc7bf588660.astc.ctex"]
+dest_files=["res://.godot/imported/phillySkybox.png-1489a669f723d347633b7fc7bf588660.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b8voq3q2w3bjq"
-path.bptc="res://.godot/imported/spritemap1.png-b01f22f7154dc6eef4a5e7a7aa94b7c6.bptc.ctex"
-path.astc="res://.godot/imported/spritemap1.png-b01f22f7154dc6eef4a5e7a7aa94b7c6.astc.ctex"
+path="res://.godot/imported/spritemap1.png-b01f22f7154dc6eef4a5e7a7aa94b7c6.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/stage/speakers/spritemap1.png"
-dest_files=["res://.godot/imported/spritemap1.png-b01f22f7154dc6eef4a5e7a7aa94b7c6.bptc.ctex", "res://.godot/imported/spritemap1.png-b01f22f7154dc6eef4a5e7a7aa94b7c6.astc.ctex"]
+dest_files=["res://.godot/imported/spritemap1.png-b01f22f7154dc6eef4a5e7a7aa94b7c6.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

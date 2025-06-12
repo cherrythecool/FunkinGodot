@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dkhehc56csbb2"
-path.bptc="res://.godot/imported/character_light.png-c93121fd4b2337c30c6a83c593f27c02.bptc.ctex"
-path.astc="res://.godot/imported/character_light.png-c93121fd4b2337c30c6a83c593f27c02.astc.ctex"
+path="res://.godot/imported/character_light.png-c93121fd4b2337c30c6a83c593f27c02.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/stage/character_light.png"
-dest_files=["res://.godot/imported/character_light.png-c93121fd4b2337c30c6a83c593f27c02.bptc.ctex", "res://.godot/imported/character_light.png-c93121fd4b2337c30c6a83c593f27c02.astc.ctex"]
+dest_files=["res://.godot/imported/character_light.png-c93121fd4b2337c30c6a83c593f27c02.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

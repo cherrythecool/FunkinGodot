@@ -12,6 +12,6 @@ func _on_event_hit(event: EventData) -> void:
 			CameraPan.Side.OPPONENT:
 				target = opponent
 
-		game.target_camera_position = target._camera_offset.global_position
+		game.target_camera_position = target.camera_offset.global_position
 		if event.time <= 0.0:
 			camera.position = game.target_camera_position

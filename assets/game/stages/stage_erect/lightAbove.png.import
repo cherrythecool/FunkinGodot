@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bidx1tkuqgdgg"
-path.bptc="res://.godot/imported/lightAbove.png-d5dd10012d4db3e5124045a4399c3c3d.bptc.ctex"
-path.astc="res://.godot/imported/lightAbove.png-d5dd10012d4db3e5124045a4399c3c3d.astc.ctex"
+path="res://.godot/imported/lightAbove.png-d5dd10012d4db3e5124045a4399c3c3d.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/stage_erect/lightAbove.png"
-dest_files=["res://.godot/imported/lightAbove.png-d5dd10012d4db3e5124045a4399c3c3d.bptc.ctex", "res://.godot/imported/lightAbove.png-d5dd10012d4db3e5124045a4399c3c3d.astc.ctex"]
+dest_files=["res://.godot/imported/lightAbove.png-d5dd10012d4db3e5124045a4399c3c3d.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

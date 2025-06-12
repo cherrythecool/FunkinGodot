@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccnsbyha7asga"
-path.bptc="res://.godot/imported/shit.png-a6c12280f7bc8adcc6634f14567cf96f.bptc.ctex"
-path.astc="res://.godot/imported/shit.png-a6c12280f7bc8adcc6634f14567cf96f.astc.ctex"
+path="res://.godot/imported/shit.png-a6c12280f7bc8adcc6634f14567cf96f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/skins/default/ratings/shit.png"
-dest_files=["res://.godot/imported/shit.png-a6c12280f7bc8adcc6634f14567cf96f.bptc.ctex", "res://.godot/imported/shit.png-a6c12280f7bc8adcc6634f14567cf96f.astc.ctex"]
+dest_files=["res://.godot/imported/shit.png-a6c12280f7bc8adcc6634f14567cf96f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

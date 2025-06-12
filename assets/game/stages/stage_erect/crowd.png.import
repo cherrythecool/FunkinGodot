@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwckllb66tl08"
-path.bptc="res://.godot/imported/crowd.png-89adf5451c1467ba0a1f2518d41b4e7b.bptc.ctex"
-path.astc="res://.godot/imported/crowd.png-89adf5451c1467ba0a1f2518d41b4e7b.astc.ctex"
+path="res://.godot/imported/crowd.png-89adf5451c1467ba0a1f2518d41b4e7b.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/stage_erect/crowd.png"
-dest_files=["res://.godot/imported/crowd.png-89adf5451c1467ba0a1f2518d41b4e7b.bptc.ctex", "res://.godot/imported/crowd.png-89adf5451c1467ba0a1f2518d41b4e7b.astc.ctex"]
+dest_files=["res://.godot/imported/crowd.png-89adf5451c1467ba0a1f2518d41b4e7b.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

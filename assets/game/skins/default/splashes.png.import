@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bqjw2l0kbad5e"
-path.bptc="res://.godot/imported/splashes.png-0e6211eaac2273d8e2ef11a7073a650f.bptc.ctex"
-path.astc="res://.godot/imported/splashes.png-0e6211eaac2273d8e2ef11a7073a650f.astc.ctex"
+path="res://.godot/imported/splashes.png-0e6211eaac2273d8e2ef11a7073a650f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/skins/default/splashes.png"
-dest_files=["res://.godot/imported/splashes.png-0e6211eaac2273d8e2ef11a7073a650f.bptc.ctex", "res://.godot/imported/splashes.png-0e6211eaac2273d8e2ef11a7073a650f.astc.ctex"]
+dest_files=["res://.godot/imported/splashes.png-0e6211eaac2273d8e2ef11a7073a650f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

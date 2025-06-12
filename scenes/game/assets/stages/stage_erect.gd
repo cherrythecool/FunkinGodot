@@ -11,8 +11,8 @@ func hue_sprite(sprite: CanvasItem, hue: float, sat: float, cont: float, bright:
 
 
 func _ready() -> void:
-	game.player._camera_offset.position += Vector2(-50.0, -50.0)
-	game.opponent._camera_offset.position += Vector2(210.0, 15.0)
+	game.player.camera_offset.position += Vector2(-50.0, -50.0)
+	game.opponent.camera_offset.position += Vector2(210.0, 15.0)
 	game.player.z_index += 300
 	game.opponent.z_index += 200
 	game.spectator.z_index += 100

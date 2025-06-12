@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://db00qck5ydxrr"
-path.bptc="res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.bptc.ctex"
-path.astc="res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.astc.ctex"
+path="res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/fonts/alphabet/alphabet.png"
-dest_files=["res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.bptc.ctex", "res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.astc.ctex"]
+dest_files=["res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

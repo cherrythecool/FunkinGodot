@@ -179,7 +179,7 @@ func _ready() -> void:
 		if not player.starts_as_player:
 			player.scale *= Vector2(-1.0, 1.0) * player_point.scale
 
-		player._is_player = true
+		player.is_player = true
 		opponent.global_position = opponent_point.global_position
 		opponent.scale *= opponent_point.scale
 		spectator.global_position = spectator_point.global_position
@@ -321,20 +321,20 @@ func _input(event: InputEvent) -> void:
 		return
 	if not playing:
 		return
-	if event.is_action('ui_cancel'):
+	if event.is_action(&'ui_cancel'):
 		_song_finished(true)
-	if event.is_action('pause_game'):
+	if event.is_action(&'pause_game'):
 		var menu: CanvasLayer = pause_menu.instantiate()
 		add_child(menu)
 		process_mode = Node.PROCESS_MODE_DISABLED
-		Conductor.process_mode = Node.PROCESS_MODE_DISABLED
-	if event.is_action('toggle_botplay'):
+		Conductor.active = false
+	if event.is_action(&'toggle_botplay'):
 		save_score = false
 		_player_field.takes_input = not _player_field.takes_input
 
 		for receptor: Receptor in _player_field._receptors:
 			receptor.takes_input = _player_field.takes_input
-			receptor._automatically_play_static = not _player_field.takes_input
+			receptor.automatically_play_static = not _player_field.takes_input
 
 		if 'song_label' in hud:
 			if not _player_field.takes_input:

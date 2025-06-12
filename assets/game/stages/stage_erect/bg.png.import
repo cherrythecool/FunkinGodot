@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k0ecbkhwv0p8"
-path.bptc="res://.godot/imported/bg.png-06d18434e3ad5ef70b49c3f0303bacd1.bptc.ctex"
-path.astc="res://.godot/imported/bg.png-06d18434e3ad5ef70b49c3f0303bacd1.astc.ctex"
+path="res://.godot/imported/bg.png-06d18434e3ad5ef70b49c3f0303bacd1.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/stage_erect/bg.png"
-dest_files=["res://.godot/imported/bg.png-06d18434e3ad5ef70b49c3f0303bacd1.bptc.ctex", "res://.godot/imported/bg.png-06d18434e3ad5ef70b49c3f0303bacd1.astc.ctex"]
+dest_files=["res://.godot/imported/bg.png-06d18434e3ad5ef70b49c3f0303bacd1.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

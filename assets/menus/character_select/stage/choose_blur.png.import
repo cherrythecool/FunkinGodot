@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ccwfbkp5nqjtw"
-path.bptc="res://.godot/imported/choose_blur.png-eb063e10d8a2e3501adda9d54d4488a1.bptc.ctex"
-path.astc="res://.godot/imported/choose_blur.png-eb063e10d8a2e3501adda9d54d4488a1.astc.ctex"
+path="res://.godot/imported/choose_blur.png-eb063e10d8a2e3501adda9d54d4488a1.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/character_select/stage/choose_blur.png"
-dest_files=["res://.godot/imported/choose_blur.png-eb063e10d8a2e3501adda9d54d4488a1.bptc.ctex", "res://.godot/imported/choose_blur.png-eb063e10d8a2e3501adda9d54d4488a1.astc.ctex"]
+dest_files=["res://.godot/imported/choose_blur.png-eb063e10d8a2e3501adda9d54d4488a1.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

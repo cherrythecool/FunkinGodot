@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bna8cxh2gukil"
-path.bptc="res://.godot/imported/phillyForegroundCity.png-5029388a31d96434b0a5952cb0e11e6c.bptc.ctex"
-path.astc="res://.godot/imported/phillyForegroundCity.png-5029388a31d96434b0a5952cb0e11e6c.astc.ctex"
+path="res://.godot/imported/phillyForegroundCity.png-5029388a31d96434b0a5952cb0e11e6c.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/philly_streets/erect/phillyForegroundCity.png"
-dest_files=["res://.godot/imported/phillyForegroundCity.png-5029388a31d96434b0a5952cb0e11e6c.bptc.ctex", "res://.godot/imported/phillyForegroundCity.png-5029388a31d96434b0a5952cb0e11e6c.astc.ctex"]
+dest_files=["res://.godot/imported/phillyForegroundCity.png-5029388a31d96434b0a5952cb0e11e6c.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

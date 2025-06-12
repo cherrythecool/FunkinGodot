@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ds3g63uwcq4jw"
-path.bptc="res://.godot/imported/combo.png-13244c56ac2b1e32ed25749dcc947aa9.bptc.ctex"
-path.astc="res://.godot/imported/combo.png-13244c56ac2b1e32ed25749dcc947aa9.astc.ctex"
+path="res://.godot/imported/combo.png-13244c56ac2b1e32ed25749dcc947aa9.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/skins/default/combo.png"
-dest_files=["res://.godot/imported/combo.png-13244c56ac2b1e32ed25749dcc947aa9.bptc.ctex", "res://.godot/imported/combo.png-13244c56ac2b1e32ed25749dcc947aa9.astc.ctex"]
+dest_files=["res://.godot/imported/combo.png-13244c56ac2b1e32ed25749dcc947aa9.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

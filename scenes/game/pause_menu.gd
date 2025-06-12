@@ -125,8 +125,5 @@ func _close() -> void:
 	get_viewport().set_input_as_handled()
 	active = false
 	visible = false
-
-
-func _exit_tree() -> void:
 	tree.current_scene.process_mode = Node.PROCESS_MODE_INHERIT
-	Conductor.process_mode = Node.PROCESS_MODE_INHERIT
+	Conductor.active = true

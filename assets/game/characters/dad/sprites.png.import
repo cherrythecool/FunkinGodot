@@ -2,21 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2nowrr6dsdk7"
-path="res://.godot/imported/darnell.png-6beeb6772d80545cb3b0d5b6309e5a4f.ctex"
+uid="uid://be1tylhbgt5m8"
+path="res://.godot/imported/sprites.png-24b1aa91bc53c76e23f42598d848ca58.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/game/characters/darnell/darnell.png"
-dest_files=["res://.godot/imported/darnell.png-6beeb6772d80545cb3b0d5b6309e5a4f.ctex"]
+source_file="res://assets/game/characters/dad/sprites.png"
+dest_files=["res://.godot/imported/sprites.png-24b1aa91bc53c76e23f42598d848ca58.ctex"]
 
 [params]
 
 compress/mode=0
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://gn12nu6v7fgf"
-path.bptc="res://.godot/imported/sick.png-9c0a6d6dcd3148c0e9286eeef21bf839.bptc.ctex"
-path.astc="res://.godot/imported/sick.png-9c0a6d6dcd3148c0e9286eeef21bf839.astc.ctex"
+path="res://.godot/imported/sick.png-9c0a6d6dcd3148c0e9286eeef21bf839.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/skins/default/ratings/sick.png"
-dest_files=["res://.godot/imported/sick.png-9c0a6d6dcd3148c0e9286eeef21bf839.bptc.ctex", "res://.godot/imported/sick.png-9c0a6d6dcd3148c0e9286eeef21bf839.astc.ctex"]
+dest_files=["res://.godot/imported/sick.png-9c0a6d6dcd3148c0e9286eeef21bf839.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
