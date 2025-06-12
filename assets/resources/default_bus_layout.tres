@@ -1,9 +1,4 @@
-[gd_resource type="AudioBusLayout" load_steps=3 format=3 uid="uid://dfk8owu2dipxx"]
-
-[sub_resource type="AudioEffectHardLimiter" id="AudioEffectHardLimiter_o04cc"]
-resource_name = "HardLimiter"
-pre_gain_db = -12.0
-ceiling_db = -6.0
+[gd_resource type="AudioBusLayout" load_steps=2 format=3 uid="uid://dfk8owu2dipxx"]
 
 [sub_resource type="AudioEffectSpectrumAnalyzer" id="AudioEffectSpectrumAnalyzer_gcjdw"]
 resource_name = "SpectrumAnalyzer"
@@ -11,8 +6,6 @@ buffer_length = 1.0
 fft_size = 0
 
 [resource]
-bus/0/effect/0/effect = SubResource("AudioEffectHardLimiter_o04cc")
-bus/0/effect/0/enabled = false
 bus/1/name = &"Music"
 bus/1/solo = false
 bus/1/mute = false

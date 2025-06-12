@@ -19,8 +19,8 @@ var fast_car_vel: float = 0.0
 
 
 func _ready() -> void:
-	game.player._camera_offset.position.x -= 225.0
-	game.player._camera_offset.position.y -= 25.0
+	game.player.camera_offset.position.x -= 225.0
+	game.player.camera_offset.position.y -= 25.0
 	game.player.z_index += player_offset.z_index
 	game.spectator.z_index += spectator_offset.z_index
 	game.opponent.z_index += opponent_offsett.z_index

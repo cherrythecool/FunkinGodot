@@ -79,21 +79,9 @@ var default_configuration: Dictionary = {
 	},
 	'sound': {
 		'buses': {
-			'Master': 50.0,
+			'Master': 10.0,
 			'Music': 100.0,
 			'SFX': 100.0,
-		},
-		'bus_effects': {
-			'Master': {
-				'hardlimiter': {
-					'ceiling': -6.0,
-					'pre_gain': -12.0,
-					'release': 0.1,
-					'enabled': false,
-				},
-			},
-			'Music': {},
-			'SFX': {},
 		},
 		'recalculate_output_latency': true,
 	},

@@ -128,3 +128,36 @@ func get_rendering_api() -> String:
 		return 'Vulkan'
 
 	return 'Metal'
+
+
+# Shit from V-Slice mostly
+func convert_flixel_tween_ease(v: String) -> Tween.EaseType:
+	if v.ends_with('Out'):
+		return Tween.EASE_OUT
+	if v.ends_with('InOut'):
+		return Tween.EASE_IN_OUT
+	if v.ends_with('OutIn'):
+		return Tween.EASE_OUT_IN
+	return Tween.EASE_IN
+
+
+func convert_flixel_tween_trans(v: String) -> Tween.TransitionType:
+	match v:
+		'sineIn', 'sineOut', 'sineInOut', 'sineOutIn':
+			return Tween.TRANS_SINE
+		'cubeIn', 'cubeOut', 'cubeInOut', 'cubeOutIn':
+			return Tween.TRANS_CUBIC
+		'quadIn', 'quadOut', 'quadInOut', 'quadOutIn':
+			return Tween.TRANS_QUAD
+		'quartIn', 'quartOut', 'quartInOut', 'quartOutIn':
+			return Tween.TRANS_QUART
+		'quintIn', 'quintInOut', 'quintInOut', 'quintOutIn':
+			return Tween.TRANS_QUINT
+		'expoIn', 'expoOut', 'expoInOut', 'expoOutIn':
+			return Tween.TRANS_EXPO
+		'smoothStepIn', 'smoothStepOut', 'smoothStepInOut', 'smoothStepOutIn':
+			return Tween.TRANS_SPRING # i think?
+		'elasticIn', 'elasticOut', 'elasticInOut', 'elasticOutIn':
+			return Tween.TRANS_ELASTIC
+		_: # default to linear
+			return Tween.TRANS_LINEAR

@@ -29,15 +29,16 @@ signal animation_finished(animation: StringName)
 
 func _ready() -> void:
 	dance(true)
-	animation_player.animation_finished.connect(func(animation: StringName) -> void:
-		animation_finished.emit(animation)
+	animation_player.animation_finished.connect(func(anim_name: StringName) -> void:
+		animation_finished.emit(anim_name)
 	)
 
 
 func play_anim(anim: StringName, force: bool = false, special: bool = false) -> void:
 	if in_special_anim and animation_player.is_playing():
 		return
-	if not animation_player.has_animation(anim):
+	if not has_anim(anim):
+		push_warning('Character missing animation "%s"!' % [anim])
 		return
 
 	in_special_anim = special
