@@ -12,7 +12,7 @@ script = ExtResource("1_fujo8")
 options = [NodePath("recalculate_output_latency"), NodePath("master_volume"), NodePath("music_volume"), NodePath("sfx_volume")]
 
 [node name="recalculate_output_latency" type="Node2D" parent="."]
-position = Vector2(-46, -155)
+position = Vector2(-53, -155)
 script = ExtResource("2_efc3u")
 section = &"sound"
 key = &"recalculate_output_latency"
@@ -38,7 +38,7 @@ key = &"buses"
 ranged = true
 minimum = 0.0
 maximum = 100.0
-value_suffix = &" percent"
+value_suffix = &"%"
 root = NodePath("..")
 PREVIEW = ""
 
@@ -51,7 +51,7 @@ centered = true
 [node name="value" type="Node2D" parent="master_volume"]
 position = Vector2(38, -32)
 script = ExtResource("2_rqn5q")
-text = "< 0 percent >"
+text = "< 0% >"
 
 [node name="music_volume" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 position = Vector2(-287, 86)
@@ -62,7 +62,7 @@ key = &"buses"
 ranged = true
 minimum = 0.0
 maximum = 100.0
-value_suffix = &" percent"
+value_suffix = &"%"
 root = NodePath("..")
 PREVIEW = ""
 
@@ -75,7 +75,7 @@ centered = true
 [node name="value" type="Node2D" parent="music_volume"]
 position = Vector2(60, -33)
 script = ExtResource("2_rqn5q")
-text = "< 0 percent >"
+text = "< 0% >"
 
 [node name="sfx_volume" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 position = Vector2(-336, 184)
@@ -86,7 +86,7 @@ key = &"buses"
 ranged = true
 minimum = 0.0
 maximum = 100.0
-value_suffix = &" percent"
+value_suffix = &"%"
 root = NodePath("..")
 PREVIEW = ""
 
@@ -99,6 +99,6 @@ centered = true
 [node name="value" type="Node2D" parent="sfx_volume"]
 position = Vector2(109, -33)
 script = ExtResource("2_rqn5q")
-text = "< 0 percent >"
+text = "< 0% >"
 
 [connection signal="animation_finished" from="recalculate_output_latency/checkbox" to="recalculate_output_latency" method="_on_checkbox_animation_finished"]

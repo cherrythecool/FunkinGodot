@@ -18,7 +18,7 @@ func _focus() -> void:
 		return
 	if not is_instance_valid(packed):
 		return
-	
+
 	current = packed.instantiate()
 	current_preview.add_child(current)
 

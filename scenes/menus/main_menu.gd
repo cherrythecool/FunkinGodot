@@ -17,8 +17,7 @@ func _ready() -> void:
 	if not GlobalAudio.music.playing:
 		GlobalAudio.music.play()
 
-	version_label.text = \
-			version_label.text.replace('$VERSION', RuntimeInfo.version)
+	version_label.text = version_label.text.replace('$VERSION', Global.version)
 	change_selection()
 
 
@@ -28,7 +27,7 @@ func _input(event: InputEvent) -> void:
 	if not active:
 		return
 	if event.is_action('ui_down') or event.is_action('ui_up'):
-		change_selection(int(roundf(Input.get_axis('ui_up', 'ui_down'))))
+		change_selection(roundi(Input.get_axis('ui_up', 'ui_down')))
 	if event.is_action('ui_cancel'):
 		GlobalAudio.get_player('MENU/CANCEL').play()
 		active = false

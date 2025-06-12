@@ -99,8 +99,8 @@ var default_configuration: Dictionary = {
 		'auto_pause': false,
 		'fps_cap': -1,
 		'vsync_mode': 'disabled',
-		'performance_info': 'default',
-		'performance_info_visible': false,
+		'debug_label': 'default',
+		'debug_label_visible': false,
 	},
 	'accessibility': {
 		'flashing_lights': true,

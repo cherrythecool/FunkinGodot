@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhbryleu1jjq0"]
+[gd_scene load_steps=12 format=3 uid="uid://bhbryleu1jjq0"]
 
 [ext_resource type="Script" uid="uid://d3gp8t7bd34mv" path="res://scenes/autoload/mixer_control.gd" id="1_fobyb"]
 [ext_resource type="Theme" uid="uid://o8lle0eu7wkh" path="res://assets/resources/themes/general_theme.tres" id="2_baism"]
@@ -7,30 +7,48 @@
 [ext_resource type="Texture2D" uid="uid://4qant1okv1gk" path="res://assets/piano.svg" id="4_rgfc6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_upr3n"]
-bg_color = Color(0, 0, 0, 0.5)
+bg_color = Color(0.195313, 0.195313, 0.195313, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qapov"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
-border_color = Color(1, 1, 1, 0.5)
+border_color = Color(0.501961, 0.501961, 0.501961, 1)
 border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wkmc4"]
+bg_color = Color(0.141176, 0.141176, 0.141176, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l6gjn"]
+bg_color = Color(0.501961, 0.501961, 0.501961, 1)
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
 [sub_resource type="LabelSettings" id="LabelSettings_4lv5x"]
 font_size = 12
-font_color = Color(0.9, 0.9, 0.9, 1)
+font_color = Color(0.5, 0.5, 0.5, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_vo63s"]
 font_size = 10
-font_color = Color(0.7, 0.7, 0.7, 1)
+font_color = Color(0.501961, 0.501961, 0.501961, 1)
 
 [node name="mixer_control" type="CanvasLayer"]
 process_mode = 3
 layer = 48
-visible = false
 script = ExtResource("1_fobyb")
 icons = Array[Texture2D]([ExtResource("3_f6m6h"), ExtResource("3_d0bi8"), ExtResource("4_rgfc6")])
 
@@ -44,8 +62,8 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("2_baism")
 
-[node name="panel" type="Panel" parent="root"]
-clip_contents = true
+[node name="main_panel" type="Panel" parent="root"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -53,52 +71,77 @@ anchor_right = 1.0
 offset_left = -264.0
 offset_top = 8.0
 offset_right = -8.0
-offset_bottom = 8.0
+offset_bottom = 100.0
 grow_horizontal = 0
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_upr3n")
 
-[node name="bar" type="ProgressBar" parent="root/panel"]
+[node name="outline" type="Panel" parent="root/main_panel"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_qapov")
+
+[node name="bar" type="ProgressBar" parent="root/main_panel/outline"]
+unique_name_in_owner = true
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = -84.0
-offset_right = 40.0
-offset_bottom = -8.0
+offset_left = 10.0
+offset_top = -86.0
+offset_right = 42.0
+offset_bottom = -10.0
 grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_wkmc4")
+theme_override_styles/fill = SubResource("StyleBoxFlat_l6gjn")
 value = 50.0
 fill_mode = 3
 show_percentage = false
 
-[node name="volume_label" type="Label" parent="root/panel"]
+[node name="volume_label" type="Label" parent="root/main_panel/outline"]
+unique_name_in_owner = true
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 48.0
-offset_top = -24.0
-offset_right = -80.0
-offset_bottom = -8.0
+offset_left = 50.0
+offset_top = -26.0
+offset_right = -78.0
+offset_bottom = -10.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "50% Volume"
 label_settings = SubResource("LabelSettings_4lv5x")
 vertical_alignment = 2
 
-[node name="icon" type="TextureRect" parent="root/panel"]
-modulate = Color(0.478248, 0.478248, 0.478248, 1)
+[node name="icon" type="TextureRect" parent="root/main_panel/outline"]
+unique_name_in_owner = true
+modulate = Color(0.5, 0.5, 0.5, 1)
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -72.0
-offset_top = -84.0
-offset_right = -8.0
-offset_bottom = -20.0
+offset_left = -74.0
+offset_top = -86.0
+offset_right = -10.0
+offset_bottom = -22.0
 grow_horizontal = 0
 grow_vertical = 0
 mouse_filter = 2
@@ -106,17 +149,19 @@ texture = ExtResource("3_f6m6h")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="icon_label" type="Label" parent="root/panel"]
+[node name="icon_label" type="Label" parent="root/main_panel/outline"]
+unique_name_in_owner = true
+show_behind_parent = true
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -71.0
-offset_top = -21.0
-offset_right = -7.0
-offset_bottom = -5.0
+offset_left = -73.0
+offset_top = -23.0
+offset_right = -9.0
+offset_bottom = -7.0
 grow_horizontal = 0
 grow_vertical = 0
 text = "Master"
@@ -124,7 +169,7 @@ label_settings = SubResource("LabelSettings_vo63s")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="left" type="Label" parent="root/panel/icon_label"]
+[node name="left" type="Label" parent="root/main_panel/outline/icon_label"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -140,7 +185,7 @@ text = "<"
 label_settings = SubResource("LabelSettings_vo63s")
 vertical_alignment = 1
 
-[node name="right" type="Label" parent="root/panel/icon_label"]
+[node name="right" type="Label" parent="root/main_panel/outline/icon_label"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

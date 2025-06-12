@@ -14,13 +14,14 @@ options = [NodePath("splash_alpha"), NodePath("sustain_layer"), NodePath("cpu_st
 max_distance = -300.0
 
 [node name="splash_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(171, -183)
+position = Vector2(165, -183)
 script = ExtResource("6_1836p")
 section = &"interface"
 key = &"note_splash_alpha"
 ranged = true
 minimum = 0.0
 maximum = 100.0
+value_suffix = &"%"
 root = NodePath("..")
 PREVIEW = ""
 
@@ -132,14 +133,14 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="pause_blur" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(102, 528)
+position = Vector2(110, 528)
 script = ExtResource("6_1836p")
 section = &"interface"
 key = &"pause_blur"
 ranged = true
 minimum = 0.0
 maximum = 100.0
-value_suffix = &" percent"
+value_suffix = &"%"
 root = NodePath("..")
 PREVIEW = ""
 

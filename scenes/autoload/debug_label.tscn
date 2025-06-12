@@ -1,19 +1,19 @@
 [gd_scene load_steps=4 format=3 uid="uid://d4lyul6n3wfmw"]
 
-[ext_resource type="Script" uid="uid://baq1jchoadbo1" path="res://scenes/autoload/runtime_info.gd" id="1_now7c"]
-[ext_resource type="FontFile" uid="uid://br11pkir6c8as" path="res://assets/fonts/mono.ttf" id="2_tntl2"]
+[ext_resource type="Script" uid="uid://baq1jchoadbo1" path="res://scenes/autoload/debug_label.gd" id="1_itebg"]
+[ext_resource type="FontFile" uid="uid://br11pkir6c8as" path="res://assets/fonts/mono.ttf" id="2_uhwfu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rqscu"]
 line_spacing = -4.0
-font = ExtResource("2_tntl2")
+font = ExtResource("2_uhwfu")
 font_size = 14
 outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 
-[node name="runtime_info" type="CanvasLayer"]
+[node name="debug_label" type="CanvasLayer"]
 process_mode = 3
 layer = 64
-script = ExtResource("1_now7c")
+script = ExtResource("1_itebg")
 
 [node name="label" type="Label" parent="."]
 offset_left = 8.0

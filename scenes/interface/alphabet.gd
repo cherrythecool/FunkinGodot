@@ -120,7 +120,7 @@ func _create_character(x: float, y: float, character: String) -> Array:
 	if is_instance_valid(frames):
 		node.sprite_frames = frames
 	else:
-		node.sprite_frames = load('uid://dqo7xiv07wfyc')
+		node.sprite_frames = load('uid://ca884uugnvt5t')
 	node.position = Vector2(x, y)
 	node.animation = animation_data.name + suffix
 	node.offset = animation_data.offset
@@ -159,6 +159,10 @@ func _character_to_animation(character: String) -> AlphabetAnimationData:
 			data.offset.y = -MAGIC_OFFSET
 		'!':
 			data.name = 'exclamation'
+		'¡':
+			data.name = 'inverted exclamation'
+		'¿':
+			data.name = 'inverted question'
 		'/':
 			data.name = 'forward slash'
 		'♥', '❤️':

@@ -11,7 +11,7 @@
 [node name="performance" type="Node2D" node_paths=PackedStringArray("options")]
 position = Vector2(-320, 0)
 script = ExtResource("1_lsu8b")
-options = [NodePath("fps_cap"), NodePath("vsync_mode"), NodePath("auto_pause"), NodePath("performance_info_visible")]
+options = [NodePath("fps_cap"), NodePath("vsync_mode"), NodePath("auto_pause"), NodePath("debug_label_visible"), NodePath("debug_label")]
 
 [node name="fps_cap" type="Node2D" parent="."]
 position = Vector2(66, -180)
@@ -67,18 +67,18 @@ animation = &"selected"
 offset = Vector2(-5, -35)
 script = ExtResource("5_7omr5")
 
-[node name="performance_info_visible" type="Node2D" parent="."]
+[node name="debug_label_visible" type="Node2D" parent="."]
 position = Vector2(2, 173)
 script = ExtResource("2_4cqv6")
 section = &"performance"
-key = &"performance_info_visible"
+key = &"debug_label_visible"
 
-[node name="alphabet" type="Node2D" parent="performance_info_visible"]
+[node name="alphabet" type="Node2D" parent="debug_label_visible"]
 script = ExtResource("3_p1may")
 text = "debug label"
 centered = true
 
-[node name="checkbox" type="AnimatedSprite2D" parent="performance_info_visible"]
+[node name="checkbox" type="AnimatedSprite2D" parent="debug_label_visible"]
 position = Vector2(341, 0)
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("4_j1leb")
@@ -86,5 +86,23 @@ animation = &"selected"
 offset = Vector2(-5, -35)
 script = ExtResource("5_7omr5")
 
+[node name="debug_label" type="Node2D" parent="."]
+position = Vector2(131, 270)
+script = ExtResource("7_a8kn0")
+section = &"performance"
+key = &"debug_label"
+list = Array[String](["default", "debug"])
+
+[node name="label" type="Node2D" parent="debug_label"]
+position = Vector2(-135, 0)
+script = ExtResource("3_p1may")
+text = "debug mode:"
+centered = true
+
+[node name="value" type="Node2D" parent="debug_label"]
+position = Vector2(152, -34)
+script = ExtResource("3_p1may")
+text = "disabled"
+
 [connection signal="animation_finished" from="auto_pause/checkbox" to="auto_pause" method="_on_checkbox_animation_finished"]
-[connection signal="animation_finished" from="performance_info_visible/checkbox" to="performance_info_visible" method="_on_checkbox_animation_finished"]
+[connection signal="animation_finished" from="debug_label_visible/checkbox" to="debug_label_visible" method="_on_checkbox_animation_finished"]

@@ -11,6 +11,7 @@ var game_size: Vector2:
 	get:
 		return get_viewport().get_visible_rect().size
 
+var version: String = 'Unknown'
 var was_paused: bool = false
 var main_window: Window = null
 
@@ -32,6 +33,8 @@ func _ready() -> void:
 	main_window = get_window()
 	main_window.focus_entered.connect(_on_focus_enter)
 	main_window.focus_exited.connect(_on_focus_exit)
+
+	version = ProjectSettings.get_setting('application/config/version', 'Unknown')
 
 	Config.loaded.connect(_on_config_loaded)
 	Config.value_changed.connect(_on_value_changed)
@@ -119,12 +122,12 @@ func free_from_array(nodes: Array[Node], immediate: bool = false) -> void:
 # at some point but i don't know of a better method rn? maybe
 # i should make a godot pr :p
 func get_rendering_api() -> String:
-	var version: String = RenderingServer.get_video_adapter_api_version()
-	if version.begins_with('12'):
+	var api_version: String = RenderingServer.get_video_adapter_api_version()
+	if api_version.begins_with('12'):
 		return 'D3D12'
-	if version.begins_with('3'):
+	if api_version.begins_with('3'):
 		return 'OpenGL'
-	if version.begins_with('1'):
+	if api_version.begins_with('1'):
 		return 'Vulkan'
 
 	return 'Metal'

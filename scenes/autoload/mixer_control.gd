@@ -3,11 +3,11 @@ extends CanvasLayer
 
 @export var icons: Array[Texture2D] = []
 
-@onready var panel: Panel = $root/panel
-@onready var bar: ProgressBar = $root/panel/bar
-@onready var volume_label: Label = $root/panel/volume_label
-@onready var icon_label: Label = $root/panel/icon_label
-@onready var icon_rect: TextureRect = $root/panel/icon
+@onready var main_panel: Panel = %main_panel
+@onready var bar: ProgressBar = %bar
+@onready var volume_label: Label = %volume_label
+@onready var icon: TextureRect = %icon
+@onready var icon_label: Label = %icon_label
 
 var tween: Tween
 var target_bus: StringName = &'Master'
@@ -51,8 +51,8 @@ func _input(event: InputEvent) -> void:
 		tween.kill()
 
 	tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
-	tween.tween_property(panel, 'size:y', 92, 0.5)
-	tween.tween_property(panel, 'size:y', 0, 0.5).set_delay(1.0)
+	tween.tween_property(main_panel, 'size:y', 92, 0.5)
+	tween.tween_property(main_panel, 'size:y', 0, 0.5).set_delay(1.0)
 	tween.tween_property(self, 'visible', false, 0.0)
 	visible = true
 
@@ -71,4 +71,4 @@ func _input(event: InputEvent) -> void:
 	bar.value = volume * 100.0
 	volume_label.text = '%d%% Volume' % [roundi(volume * 100.0)]
 	icon_label.text = target_bus
-	icon_rect.texture = icons[bus_index] if bus_index < icons.size() else icons[0]
+	icon.texture = icons[bus_index] if bus_index < icons.size() else icons[0]
