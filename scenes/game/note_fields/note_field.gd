@@ -232,7 +232,7 @@ func try_spawning(skip: bool = false) -> void:
 
 		var scene: PackedScene = note_types.types.get(data.type)
 		if not is_instance_valid(scene):
-			note_types.types.get('default')
+			scene = note_types.types.get('default')
 		assert(is_instance_valid(scene), 'You don\'t have any valid note types.')
 
 		var note: Note = scene.instantiate()
