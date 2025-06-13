@@ -29,11 +29,6 @@ func _ready() -> void:
 	if is_instance_valid(Game.instance):
 		game = Game.instance
 		game.scroll_speed_changed.connect(_on_scroll_speed_changed)
-
-		if not is_instance_valid(note_types):
-			note_types = game.note_types
-	if is_instance_valid(Game.chart):
-		chart = Game.chart
 	if scroll_speed <= 0.0:
 		scroll_speed = Game.scroll_speed
 	note_splash_alpha = Config.get_value('interface', 'note_splash_alpha') / 100.0
@@ -289,7 +284,7 @@ func reload_skin() -> void:
 		receptor.sprite.sprite_frames = skin.strum_frames
 		receptor.sprite.scale = skin.strum_scale
 		receptor.sprite.texture_filter = skin.strum_filter
-		receptor.play_anim(receptor._last_anim)
+		receptor.play_anim(receptor.last_anim)
 
 	for note: Note in notes.get_children():
 		if note.use_skin:

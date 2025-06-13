@@ -177,9 +177,12 @@ func _ready() -> void:
 		player.global_position = player_point.global_position
 
 		if not player.starts_as_player:
-			player.scale *= Vector2(-1.0, 1.0) * player_point.scale
+			player.scale *= Vector2(-1.0, 1.0)
+		if opponent.starts_as_player:
+			opponent.scale *= Vector2(-1.0, 1.0)
 
 		player.is_player = true
+		player.scale *= player_point.scale
 		opponent.global_position = opponent_point.global_position
 		opponent.scale *= opponent_point.scale
 		spectator.global_position = spectator_point.global_position
@@ -213,7 +216,9 @@ func _ready() -> void:
 		skin = load('uid://oxo327xfxemo')
 
 	_player_field.note_types = note_types
+	_player_field.chart = chart
 	_opponent_field.note_types = note_types
+	_opponent_field.chart = chart
 	_player_field.note_miss.connect(_on_note_miss)
 	_player_field.note_hit.connect(_on_note_hit)
 	_opponent_field.note_hit.connect(func(_note: Note) -> void:
