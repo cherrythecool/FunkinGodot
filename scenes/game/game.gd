@@ -209,11 +209,11 @@ func _ready() -> void:
 			_opponent_field = hud.opponent_field
 
 		# Set the NoteField characters.
-		_player_field.default_character = player
+		_player_field.target_character = player
 		_player_field.skin = assets.player_skin
 		_player_field.reload_skin()
 
-		_opponent_field.default_character = opponent
+		_opponent_field.target_character = opponent
 		_opponent_field.skin = assets.opponent_skin
 		_opponent_field.reload_skin()
 
@@ -229,11 +229,14 @@ func _ready() -> void:
 		skin = load('uid://oxo327xfxemo')
 
 	_player_field.note_types = note_types
-	_player_field.chart = chart
-	_opponent_field.note_types = note_types
-	_opponent_field.chart = chart
+	_player_field.scroll_speed = scroll_speed
+	_player_field.apply_chart(chart)
 	_player_field.note_miss.connect(_on_note_miss)
 	_player_field.note_hit.connect(_on_note_hit)
+
+	_opponent_field.note_types = note_types
+	_opponent_field.scroll_speed = scroll_speed
+	_opponent_field.apply_chart(chart)
 	_opponent_field.note_hit.connect(func(_note: Note) -> void:
 		camera_bumps = true
 	)

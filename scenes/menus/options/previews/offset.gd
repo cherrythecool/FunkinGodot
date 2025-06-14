@@ -15,24 +15,19 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	# clean up notes when song restarts
-	for note: Note in notes.notes.get_children():
+	for note: Note in notes.notes:
 		if note.data.time - Conductor.time >= 4.0:
-			note.free()
+			notes.remove_note(note)
 
 
 func _on_beat_hit(beat: int) -> void:
-	var note: Note = NOTE.instantiate()
-	note.data = NoteData.new()
-	note.data.time = Conductor.raw_time + (Conductor.beat_delta * 4.0)
-	note.data.beat = float(beat + 4.0)
-	note.data.direction = lane
-	note.data.length = 0.0
-	note.data.type = &'default'
-	note.position.x = notes.receptors[lane].position.x
-	note.position.y = -4000.0
-	notes.notes.add_child(note)
-	note.lane = lane
-
+	var data: NoteData = NoteData.new()
+	data.time = Conductor.raw_time + (Conductor.beat_delta * 4.0)
+	data.beat = float(beat + 4.0)
+	data.direction = lane
+	data.length = 0.0
+	data.type = &'default'
+	notes.spawn_note(data)
 	lane = wrapi(lane + 1, 0, 4)
 
 

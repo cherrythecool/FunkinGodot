@@ -1,4 +1,4 @@
 class_name NoteTypes extends Resource
 
 
-var types: Dictionary = {}
+@export var types: Dictionary[StringName, PackedScene] = {}

@@ -11,6 +11,7 @@ var length: float = 0.0:
 	set(v):
 		length = v
 		_update_sustain()
+var is_sustain: bool = false
 
 const directions: PackedStringArray = ['left', 'down', 'up', 'right']
 
@@ -39,12 +40,14 @@ func _ready() -> void:
 		field = get_parent().get_parent()
 
 	if length > 0.0:
+		is_sustain = true
 		reload_sustain_sprites()
 		if Config.get_value('interface', 'sustain_layer') == 'below':
 			sustain.z_index -= 1
 		_update_sustain()
 	else:
-		clip_rect.free()
+		clip_rect.hide()
+		clip_rect.queue_free()
 
 
 func _process(delta: float) -> void:
@@ -52,9 +55,8 @@ func _process(delta: float) -> void:
 		return
 
 	if length <= 0.0:
-		if is_instance_valid(character):
-			character.sing(self, true)
-		free()
+		if is_instance_valid(field):
+			field.remove_note(self)
 		return
 
 	sprite.visible = false
@@ -62,8 +64,6 @@ func _process(delta: float) -> void:
 
 	var step: int = floori(Conductor.step)
 	if step > previous_step:
-		if is_instance_valid(character):
-			character.sing(self, true)
 		if is_instance_valid(field):
 			# Because of how this is coded this will simply play
 			# the press animation over and over rather than
@@ -77,8 +77,7 @@ func _process(delta: float) -> void:
 func _update_sustain() -> void:
 	if not is_instance_valid(field):
 		return
-
-	if data.length < 0.0 or not is_instance_valid(sustain):
+	if not is_sustain:
 		return
 
 	sustain.size.y = data.length * 1000.0 * 0.45 * (field.scroll_speed * absf(field.scroll_speed_modifier)) \
@@ -120,7 +119,7 @@ func _update_sustain() -> void:
 
 
 func reload_sustain_sprites() -> void:
-	if not is_instance_valid(sustain):
+	if not is_sustain:
 		return
 
 	var sustain_texture: AtlasTexture = sprite.sprite_frames.get_frame_texture('%s sustain' % [

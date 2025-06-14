@@ -1,25 +1,31 @@
 class_name NoteField extends Node2D
 
 
+@export_category('Gameplay')
 @export var takes_input: bool = false
 @export_enum('Opponent', 'Player') var side: int = 0
-@export var ignore_speed_changes: bool = false
+@export var note_types: NoteTypes = NoteTypes.new()
+
+@export_category('Visuals')
 @export var default_note_splash: PackedScene = null
+@export var scroll_speed: float = 1.0
+@export var ignore_speed_changes: bool = false
+@export var skin: NoteSkin = null
 
 @onready var receptors_node: Node2D = $receptors
 @onready var receptors: Array = []
-@onready var notes: Node2D = $notes
+var lane_count: int = 0
 
-var note_index: int = 0
-var chart: Chart = null
-var scroll_speed: float = -1.0
+@onready var note_container: Node2D = $notes
+var notes: Array[Note] = []
+var note_data: Array[NoteData] = []
+var note_data_index: int = 0
+
 var scroll_speed_modifier: float = 1.0
-var default_character: Character = null
-var note_types: NoteTypes = null
-var note_splash_alpha: float = 0.6
-var lane_count: int
+
 var game: Game = null
-var skin: NoteSkin = null
+var note_splash_alpha: float = 0.6
+var target_character: Character = null
 
 signal note_hit(note: Note)
 signal note_miss(note: Note)
@@ -29,8 +35,6 @@ func _ready() -> void:
 	if is_instance_valid(Game.instance):
 		game = Game.instance
 		game.scroll_speed_changed.connect(_on_scroll_speed_changed)
-	if scroll_speed <= 0.0:
-		scroll_speed = Game.scroll_speed
 	note_splash_alpha = Config.get_value('interface', 'note_splash_alpha') / 100.0
 
 	# If you have another node in here that isn't a Node2D
@@ -56,7 +60,7 @@ func _process(_delta: float) -> void:
 	for i: int in lane_count:
 		receptor_ys.push_back(receptors[i].position.y)
 
-	for note: Note in notes.get_children():
+	for note: Note in notes:
 		note.position.y = receptor_ys[note.lane]
 		note.position.y -= (Conductor.time - note.data.time) * 1000.0 * 0.45 \
 				* scroll_speed * scroll_speed_modifier
@@ -71,18 +75,18 @@ func _process(_delta: float) -> void:
 		if difference < -Receptor.input_zone:
 			miss_note(note)
 
-	if not (takes_input and is_instance_valid(default_character)):
+	if not (takes_input and is_instance_valid(target_character)):
 		return
 	for receptor: Receptor in receptors:
 		if not receptor.pressed:
 			continue
 
-		default_character.sing_timer = 0.0
+		target_character.sing_timer = 0.0
 		break
 
 
 func auto_input() -> void:
-	for note: Note in notes.get_children():
+	for note: Note in notes:
 		if Conductor.time < note.data.time:
 			break
 		if note.hit:
@@ -93,7 +97,7 @@ func auto_input() -> void:
 		hit_note(note)
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not takes_input:
 		return
 	if event.is_echo():
@@ -119,7 +123,7 @@ func receptor_press(receptor: Receptor) -> void:
 	receptor.play_anim(&'press')
 	receptor.automatically_play_static = false
 
-	for note: Note in notes.get_children():
+	for note: Note in notes:
 		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
 		if before_zone:
 			break
@@ -139,7 +143,7 @@ func receptor_release(receptor: Receptor) -> void:
 	receptor.pressed = false
 	receptor.play_anim(&'static')
 
-	for note: Note in notes.get_children():
+	for note: Note in notes:
 		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
 		if before_zone:
 			break
@@ -162,10 +166,9 @@ func receptor_release(receptor: Receptor) -> void:
 
 
 func hit_note(note: Note) -> void:
-	var target: Character = default_character
+	var target: Character = target_character
 	if is_instance_valid(note.character):
 		target = note.character
-
 	if is_instance_valid(target):
 		target.sing(note, true)
 
@@ -175,7 +178,7 @@ func hit_note(note: Note) -> void:
 	note_hit.emit(note)
 	note.hit = true
 
-	if note.length > 0.0:
+	if note.is_sustain:
 		note.length -= Conductor.time - note.data.time
 		note.data.length = note.length
 		note.sustain_offset = -(Conductor.time - note.data.time)
@@ -183,7 +186,7 @@ func hit_note(note: Note) -> void:
 
 
 func miss_note(note: Note) -> void:
-	var target: Character = default_character
+	var target: Character = target_character
 	if is_instance_valid(note.character):
 		target = note.character
 
@@ -191,88 +194,85 @@ func miss_note(note: Note) -> void:
 		target.sing_miss(note, true)
 
 	note_miss.emit(note)
+	remove_note(note)
+
+
+func remove_note(note: Note) -> void:
 	note.hide()
 	note.queue_free()
+	notes.erase(note)
+
+
+func clear_notes() -> void:
+	while notes.size() > 0:
+		remove_note(note_container.get_child(0))
+
+
+func apply_chart(chart: Chart) -> void:
+	note_data.append_array(chart.notes)
+	note_data.sort_custom(func(a: NoteData, b: NoteData) -> bool:
+		return a.time < b.time)
+
+
+func spawn_note(data: NoteData) -> void:
+	var note_side: int = 1
+	if data.direction > 3:
+		note_side = 0
+
+	if note_side != side:
+		return
+
+	data = data.duplicate()
+	if data.length > 0.0 and data.length < Conductor.step_delta:
+		data.length = 0.0
+
+	var scene: PackedScene = note_types.types.get(data.type)
+	if not is_instance_valid(scene):
+		scene = note_types.types.get('default')
+	if not is_instance_valid(scene):
+		printerr('Note field is missing either "%s" or "default" as a note type.' % [data.type])
+		return
+
+	var note: Note = scene.instantiate()
+	note.field = self
+	note.data = data
+	note.lane = absi(data.direction) % lane_count
+	note.position.x = receptors[note.lane].position.x
+	note.position.y = -100000.0
+	if not is_instance_valid(note.splash):
+		note.splash = default_note_splash
+
+	note_container.add_child(note)
+	notes.append(note)
+	apply_skin_to_note(note)
+	note._update_sustain()
 
 
 func try_spawning(skip: bool = false) -> void:
-	if not is_instance_valid(chart):
+	if note_data.is_empty():
 		return
-	if note_index > chart.notes.size() - 1:
+	if note_data_index > note_data.size() - 1:
 		return
 
 	var speed_modifier: float = scroll_speed * absf(scroll_speed_modifier)
 	var spawn_time: float = 800.0 / (450.0 * speed_modifier)
 	while true:
-		if note_index > chart.notes.size() - 1:
+		if note_data_index > note_data.size() - 1:
 			return
-		if chart.notes[note_index].time - Conductor.time > spawn_time:
+		if note_data[note_data_index].time - Conductor.time > spawn_time:
 			return
 		if skip:
-			note_index += 1
+			note_data_index += 1
 			continue
-
-		var data: NoteData = chart.notes[note_index]
-		var note_side: int = 1
-		if data.direction > 3:
-			note_side = 0
-
-		if note_side != side:
-			note_index += 1
-			continue
-
-		data = data.duplicate()
-		if data.length > 0.0 and data.length < Conductor.step_delta:
-			data.length = 0.0
-
-		var scene: PackedScene = note_types.types.get(data.type)
-		if not is_instance_valid(scene):
-			scene = note_types.types.get('default')
-		assert(is_instance_valid(scene), 'You don\'t have any valid note types.')
-
-		var note: Note = scene.instantiate()
-		note.field = self
-		note.data = data
-		note.lane = absi(data.direction) % lane_count
-		note.position.x = receptors[note.lane].position.x
-		note.position.y = -100000.0
-		if not is_instance_valid(note.splash):
-			note.splash = default_note_splash
-
-		notes.add_child(note)
-
-		if note.use_skin and is_instance_valid(skin):
-			note.sprite.sprite_frames = skin.note_frames
-			note.scale = skin.note_scale
-			note.sprite.texture_filter = skin.note_filter
-
-			if is_instance_valid(note.sustain):
-				note.clip_rect.scale.x = 1.0 / note.scale.x
-				note.sustain.modulate.a = skin.sustain_alpha
-				note.sustain.texture_filter = note.sprite.texture_filter
-				note.tail.texture_filter = note.sprite.texture_filter
-				note.reload_sustain_sprites()
-		note._update_sustain()
-		note_index += 1
-
-
-func clear_notes() -> void:
-	while notes.get_child_count() > 0:
-		var note: Note = notes.get_child(0)
-		note.queue_free()
-		notes.remove_child(note)
-
-
-func _on_scroll_speed_changed() -> void:
-	if ignore_speed_changes:
-		return
-	scroll_speed = Game.scroll_speed
+		spawn_note(note_data[note_data_index])
+		note_data_index += 1
 
 
 func get_receptor_from_lane(lane: int) -> Receptor:
 	for receptor: Receptor in receptors:
 		if receptor.lane == lane:
 			return receptor
+
 	return null
 
 
@@ -286,11 +286,33 @@ func reload_skin() -> void:
 		receptor.sprite.texture_filter = skin.strum_filter
 		receptor.play_anim(receptor.last_anim)
 
-	for note: Note in notes.get_children():
-		if note.use_skin:
-			var animation: StringName = note.sprite.animation
-			note.sprite.sprite_frames = skin.note_frames
-			note.sprite.scale = skin.note_scale
-			note.sprite.texture_filter = skin.note_filter
-			note.sprite.play(animation)
-			note.sprite.frame = 0
+	for note: Note in notes:
+		apply_skin_to_note(note)
+
+
+func apply_skin_to_note(note: Note) -> void:
+	if not is_instance_valid(skin):
+		return
+	if not note.use_skin:
+		return
+
+	var animation: StringName = note.sprite.animation
+	note.sprite.sprite_frames = skin.note_frames
+	note.sprite.scale = skin.note_scale
+	note.sprite.texture_filter = skin.note_filter
+	note.sprite.play(animation)
+	note.sprite.frame = 0
+
+	if note.is_sustain:
+		note.clip_rect.scale.x = 1.0 / note.scale.x
+		note.sustain.modulate.a = skin.sustain_alpha
+		note.sustain.texture_filter = note.sprite.texture_filter
+		note.tail.texture_filter = note.sprite.texture_filter
+		note.reload_sustain_sprites()
+		note._update_sustain()
+
+
+func _on_scroll_speed_changed() -> void:
+	if ignore_speed_changes:
+		return
+	scroll_speed = Game.scroll_speed
