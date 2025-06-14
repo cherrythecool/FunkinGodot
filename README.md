@@ -7,8 +7,7 @@ thanks to Godot and its extensible Node and Resource systems.
 
 ## Features
 
-* Fairly optimized but simple codebase
-* High accuracy to the base game's look and feel (with some small changes)
+* High accuracy to the base game's look and feel (with some changes)
 * Different scriptable parts to songs such as
 	- Cutscenes
 	- Events
@@ -22,7 +21,7 @@ thanks to Godot and its extensible Node and Resource systems.
 
 ## Godot Version
 
-This project is built for whatever the latest Godot 4.4 stable build is as of the latest changes (4.4 stable as of writing, 14 March 2025)
+This project is built for whatever the latest Godot 4.4.1 stable build is as of the latest changes (4.4.1 stable as of writing, 14 March 2025)
 
 ## State of this branch
 
