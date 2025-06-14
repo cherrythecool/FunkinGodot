@@ -9,6 +9,7 @@ func parse() -> Chart:
 	var chart: Chart = Chart.new()
 	var data: Dictionary = json
 	var notes_use_camera: bool = true
+	chart.scroll_speed = scroll_speed
 
 	if data.song is Dictionary:
 		data = data.song

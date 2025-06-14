@@ -326,8 +326,6 @@ unique_name_in_owner = true
 script = ExtResource("2_fq3va")
 metadata/_custom_type_script = "uid://bbfskuw2fyle3"
 
-[node name="player" type="AudioStreamPlayer" parent="tracks"]
-
 [node name="background" type="Sprite2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(640, 360)

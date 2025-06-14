@@ -9,7 +9,7 @@ const MINIMUM_DESYNC_ALLOWED: float = 0.010
 
 @export var stop_on_finish: bool = false
 
-@onready var player: AudioStreamPlayer = $player
+var player: AudioStreamPlayer
 var playing: bool:
 	get:
 		return player.is_playing()
@@ -22,6 +22,12 @@ var playing: bool:
 var last_playback_position: float = 0.0
 
 signal finished
+
+
+func _ready() -> void:
+	if not is_instance_valid(player):
+		player = AudioStreamPlayer.new()
+		add_child(player)
 
 
 ## Sets the looping value of all tracks in use.

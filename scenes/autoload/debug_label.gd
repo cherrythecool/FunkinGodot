@@ -19,6 +19,7 @@ func _ready() -> void:
 	Config.value_changed.connect(_on_value_changed)
 
 	_update_timer()
+	display()
 
 
 func _process(delta: float) -> void:

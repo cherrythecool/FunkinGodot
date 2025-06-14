@@ -8,6 +8,7 @@ var scroll_speed: float = 1.0
 
 func parse(difficulty: StringName) -> Chart:
 	var chart: Chart = Chart.new()
+	chart.scroll_speed = scroll_speed
 	if not json_chart.notes.has(difficulty):
 		printerr('Chart did not have difficulty of "%s"!' % difficulty)
 		return null

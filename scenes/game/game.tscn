@@ -24,8 +24,6 @@ editor_description = "Node to contain all audio tracks for the given song that i
 script = ExtResource("2_j74rm")
 stop_on_finish = true
 
-[node name="player" type="AudioStreamPlayer" parent="tracks"]
-
 [node name="scripts" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_oquto")
