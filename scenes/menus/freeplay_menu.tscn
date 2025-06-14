@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://3rua2gpac5p8"]
+[gd_scene load_steps=59 format=3 uid="uid://3rua2gpac5p8"]
 
 [ext_resource type="Texture2D" uid="uid://coli0ye4bsyff" path="res://assets/menus/background.png" id="1_2q4rq"]
 [ext_resource type="Script" uid="uid://buarre8s3ld28" path="res://scenes/menus/freeplay_menu.gd" id="1_p2lt6"]
@@ -169,6 +169,38 @@ icon = SubResource("Resource_7tswt")
 difficulty_remap = SubResource("Resource_0bmfe")
 metadata/_custom_type_script = "uid://c4n3qjttdmbrg"
 
+[sub_resource type="Resource" id="Resource_xm25r"]
+script = ExtResource("5_qk06g")
+mapping = Dictionary[StringName, StringName]({
+&"erect": &"philly_nice_erect",
+&"nightmare": &"philly_nice_erect"
+})
+metadata/_custom_type_script = "uid://df2o86ah3b60w"
+
+[sub_resource type="Resource" id="Resource_pn0mc"]
+script = ExtResource("2_k47q8")
+song_name = &"philly_nice"
+song_difficulties = [&"easy", &"normal", &"hard", "erect", "nightmare"]
+icon = SubResource("Resource_7tswt")
+difficulty_remap = SubResource("Resource_xm25r")
+metadata/_custom_type_script = "uid://c4n3qjttdmbrg"
+
+[sub_resource type="Resource" id="Resource_w3ng7"]
+script = ExtResource("5_qk06g")
+mapping = Dictionary[StringName, StringName]({
+&"erect": &"blammed_erect",
+&"nightmare": &"blammed_erect"
+})
+metadata/_custom_type_script = "uid://df2o86ah3b60w"
+
+[sub_resource type="Resource" id="Resource_5l485"]
+script = ExtResource("2_k47q8")
+song_name = &"blammed"
+song_difficulties = [&"easy", &"normal", &"hard", "erect", "nightmare"]
+icon = SubResource("Resource_7tswt")
+difficulty_remap = SubResource("Resource_w3ng7")
+metadata/_custom_type_script = "uid://c4n3qjttdmbrg"
+
 [sub_resource type="Resource" id="Resource_gapdl"]
 script = ExtResource("5_qk06g")
 mapping = Dictionary[StringName, StringName]({
@@ -283,7 +315,7 @@ font_size = 10
 
 [node name="freeplay_menu" type="Node2D"]
 script = ExtResource("1_p2lt6")
-list = Array[ExtResource("2_k47q8")]([SubResource("Resource_1p1y5"), SubResource("Resource_7q3cy"), SubResource("Resource_l3rbe"), SubResource("Resource_qk06g"), SubResource("Resource_wtlag"), SubResource("Resource_tp4e0"), SubResource("Resource_gmxtr"), SubResource("Resource_cl738"), SubResource("Resource_o750g"), SubResource("Resource_b2ygt"), SubResource("Resource_4trhg"), SubResource("Resource_bs7ia"), SubResource("Resource_n00kv")])
+list = Array[ExtResource("2_k47q8")]([SubResource("Resource_1p1y5"), SubResource("Resource_7q3cy"), SubResource("Resource_l3rbe"), SubResource("Resource_qk06g"), SubResource("Resource_wtlag"), SubResource("Resource_tp4e0"), SubResource("Resource_gmxtr"), SubResource("Resource_cl738"), SubResource("Resource_pn0mc"), SubResource("Resource_5l485"), SubResource("Resource_o750g"), SubResource("Resource_b2ygt"), SubResource("Resource_4trhg"), SubResource("Resource_bs7ia"), SubResource("Resource_n00kv")])
 
 [node name="track_timer" type="Timer" parent="."]
 unique_name_in_owner = true

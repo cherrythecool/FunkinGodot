@@ -8,7 +8,6 @@ func _on_event_hit(event: EventData) -> void:
 	var data: Dictionary = event.data[0]
 	var target: String = data.get('target', 'bf')
 	var animation: String = data.get('anim', 'hey')
-	var force: bool = data.get('force', true)
 	var character: Character
 	match target:
 		'bf', 'boyfriend':
@@ -22,4 +21,4 @@ func _on_event_hit(event: EventData) -> void:
 				% [target])
 		return
 
-	character.play_anim(animation, force, true)
+	character.play_anim(animation, true, true)

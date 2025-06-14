@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://dlyvg1vjavy7t"]
+
+[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_0du30"]
+[ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_y8ewe"]
+
+[resource]
+script = ExtResource("2_y8ewe")
+display_name = &"Blammed Erect"
+authors = Array[ExtResource("1_0du30")]([])
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"

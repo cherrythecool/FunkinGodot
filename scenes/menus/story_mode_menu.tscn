@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dcf86iwg6mn3d"]
+[gd_scene load_steps=34 format=3 uid="uid://dcf86iwg6mn3d"]
 
 [ext_resource type="Script" uid="uid://df3do7nvg4as7" path="res://scenes/menus/story_mode_menu.gd" id="1_el8f4"]
 [ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="2_3esc8"]
@@ -21,6 +21,8 @@
 [ext_resource type="Texture2D" uid="uid://butmkemg2qi0g" path="res://assets/menus/story_menu/week_sprites/week2.png" id="14_6iroa"]
 [ext_resource type="PackedScene" uid="uid://bl4osqppv4p3j" path="res://scenes/menus/story_menu/props/mom.tscn" id="15_h4pin"]
 [ext_resource type="PackedScene" uid="uid://eeh8q36snnag" path="res://scenes/menus/story_menu/props/spooky.tscn" id="15_nakdl"]
+[ext_resource type="Texture2D" uid="uid://cebpbhg2jc6ic" path="res://assets/menus/story_menu/week_sprites/week3.png" id="16_rx72u"]
+[ext_resource type="PackedScene" uid="uid://hs0eb1ifd534" path="res://scenes/menus/story_menu/props/pico.tscn" id="17_5noim"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kq7xu"]
 font = ExtResource("2_3esc8")
@@ -57,6 +59,12 @@ mapping = Dictionary[StringName, StringName]({
 [sub_resource type="Resource" id="Resource_5noim"]
 script = ExtResource("9_fjedh")
 left = ExtResource("15_nakdl")
+center = ExtResource("8_2yyv5")
+right = ExtResource("13_h6fec")
+
+[sub_resource type="Resource" id="Resource_nlhku"]
+script = ExtResource("9_fjedh")
+left = ExtResource("17_5noim")
 center = ExtResource("8_2yyv5")
 right = ExtResource("13_h6fec")
 
@@ -268,11 +276,26 @@ display_name = &"Spooky Month"
 props = SubResource("Resource_5noim")
 difficulty_suffixes = SubResource("Resource_81ca5")
 
+[node name="week_3" type="TextureRect" parent="bottom/weeks"]
+layout_mode = 2
+offset_top = 255.0
+offset_right = 456.0
+offset_bottom = 344.0
+grow_horizontal = 2
+texture = ExtResource("16_rx72u")
+stretch_mode = 5
+script = ExtResource("6_qh5s5")
+songs = PackedStringArray("pico", "philly_nice", "blammed")
+difficulties = PackedStringArray("easy", "normal", "hard", "erect", "nightmare")
+display_name = &"Pico"
+props = SubResource("Resource_nlhku")
+difficulty_suffixes = SubResource("Resource_81ca5")
+
 [node name="week_4" type="TextureRect" parent="bottom/weeks"]
 layout_mode = 2
-offset_top = 273.0
+offset_top = 374.0
 offset_right = 456.0
-offset_bottom = 362.0
+offset_bottom = 463.0
 grow_horizontal = 2
 texture = ExtResource("14_4twhc")
 stretch_mode = 5

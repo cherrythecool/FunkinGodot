@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created with Funkin Packer v0.1.3 https://neeeoo.github.io/funkin-packer/
+-->
+<TextureAtlas imagePath="censored_singing.png" width="2386" height="2508">
+	<SubTexture name="pico swear down0000" x="1" y="1" width="722" height="382" frameX="-13" frameY="-9" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0001" x="1" y="384" width="722" height="382" frameX="-13" frameY="-9" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0002" x="724" y="1" width="392" height="502" rotated="true" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0003" x="724" y="504" width="392" height="502" rotated="true" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0004" x="1" y="767" width="502" height="392" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0005" x="1117" y="1" width="392" height="502" rotated="true" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0006" x="724" y="1" width="392" height="502" rotated="true" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0007" x="724" y="504" width="392" height="502" rotated="true" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0008" x="1" y="767" width="502" height="392" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0009" x="1117" y="1" width="392" height="502" rotated="true" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear down0010" x="724" y="1" width="392" height="502" rotated="true" frameX="-0" frameY="-0" frameWidth="736" frameHeight="392"/>
+	<SubTexture name="pico swear left0000" x="1394" y="2036" width="449" height="461" frameX="-6" frameY="-3" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0001" x="931" y="2052" width="462" height="449" rotated="true" frameX="-6" frameY="-2" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0002" x="1917" y="983" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0003" x="1917" y="1439" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0004" x="1" y="2052" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0005" x="466" y="2052" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0006" x="1917" y="983" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0007" x="1917" y="1439" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0008" x="1" y="2052" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0009" x="466" y="2052" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0010" x="1917" y="983" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0011" x="1917" y="1439" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0012" x="1" y="2052" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0013" x="466" y="2052" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0014" x="1917" y="983" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0015" x="1917" y="1439" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear left0016" x="1" y="2052" width="464" height="455" rotated="true" frameX="-0" frameY="-0" frameWidth="455" frameHeight="464"/>
+	<SubTexture name="pico swear right0000" x="1" y="1593" width="475" height="458" rotated="true" frameX="-1" frameY="-1" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0001" x="477" y="1593" width="475" height="458" rotated="true" frameX="-1" frameY="-1" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0002" x="953" y="1593" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0003" x="1426" y="1474" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0004" x="1943" y="1" width="442" height="472" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0005" x="1943" y="474" width="442" height="472" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0006" x="953" y="1593" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0007" x="1426" y="1474" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0008" x="1943" y="1" width="442" height="472" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0009" x="1943" y="474" width="442" height="472" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0010" x="953" y="1593" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0011" x="1426" y="1474" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0012" x="1943" y="1" width="442" height="472" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0013" x="1943" y="474" width="442" height="472" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0014" x="953" y="1593" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0015" x="1426" y="1474" width="472" height="442" rotated="true" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear right0016" x="1943" y="1" width="442" height="472" frameX="-0" frameY="-4" frameWidth="459" frameHeight="476"/>
+	<SubTexture name="pico swear up0000" x="1" y="1160" width="495" height="432" rotated="true" frameX="-0" frameY="-0" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0001" x="497" y="1160" width="495" height="432" rotated="true" frameX="-0" frameY="-0" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0002" x="993" y="1007" width="490" height="432" rotated="true" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0003" x="1510" y="1" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0004" x="1510" y="492" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0005" x="1484" y="983" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0006" x="993" y="1007" width="490" height="432" rotated="true" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0007" x="1510" y="1" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0008" x="1510" y="492" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0009" x="1484" y="983" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0010" x="993" y="1007" width="490" height="432" rotated="true" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0011" x="1510" y="1" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0012" x="1510" y="492" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+	<SubTexture name="pico swear up0013" x="1484" y="983" width="432" height="490" frameX="-1" frameY="-5" frameWidth="433" frameHeight="495"/>
+</TextureAtlas>

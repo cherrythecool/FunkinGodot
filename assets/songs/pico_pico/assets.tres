@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://dr24tjg5bcvow" path="res://scenes/game/assets/characters/pico.tscn" id="1_3lbaw"]
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_7xrne"]
-[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico_player.tscn" id="2_26ew2"]
+[ext_resource type="PackedScene" uid="uid://xbtjrkc4puc7" path="res://scenes/game/assets/characters/pico_player_swears.tscn" id="2_26ew2"]
 [ext_resource type="PackedScene" uid="uid://chcrerdnievt5" path="res://scenes/game/assets/characters/nene_with_hair_blowing.tscn" id="4_gao7p"]
 [ext_resource type="PackedScene" uid="uid://b1g35ux81f5hh" path="res://scenes/game/assets/stages/philly_train_erect.tscn" id="5_26ew2"]
 

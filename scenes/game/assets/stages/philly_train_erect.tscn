@@ -25,7 +25,7 @@ shader_parameter/brightness = -5.0
 
 [node name="philly_train_erect" type="Node2D"]
 script = ExtResource("1_devln")
-light_colors = [Color(0.713726, 0.435294, 0.262745, 1), Color(0.196078, 0.603922, 0.427451, 1), Color(0.576471, 0.172549, 0.156863, 1), Color(0.14902, 0.388235, 0.67451, 1), Color(0.313726, 0.176471, 0.392157, 1)]
+light_colors = Array[Color]([Color(0.713726, 0.435294, 0.262745, 1), Color(0.196078, 0.603922, 0.427451, 1), Color(0.576471, 0.172549, 0.156863, 1), Color(0.14902, 0.388235, 0.67451, 1), Color(0.313726, 0.176471, 0.392157, 1)])
 
 [node name="sky" type="Parallax2D" parent="."]
 z_index = 10

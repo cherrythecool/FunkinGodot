@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://6evx44stb57w"]
+
+[ext_resource type="Script" uid="uid://dj0ps70uiqehu" path="res://scenes/game/notes/note.gd" id="1_il0a2"]
+[ext_resource type="Texture2D" uid="uid://bbc06fsifnyro" path="res://assets/game/skins/default/notes.png" id="2_hte7g"]
+[ext_resource type="SpriteFrames" path="res://assets/game/skins/default/notes.res" id="3_41rcl"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_fq1k2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8m8o"]
+atlas = ExtResource("2_hte7g")
+region = Rect2(207, 312, 50, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgo8q"]
+atlas = ExtResource("2_hte7g")
+region = Rect2(314, 197, 50, 63)
+
+[node name="censor" type="Node2D"]
+scale = Vector2(0.7, 0.7)
+script = ExtResource("1_il0a2")
+sing_suffix = &"_censor"
+
+[node name="clip_rect" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -64.0
+offset_top = -1280.0
+offset_right = 64.0
+grow_horizontal = 2
+pivot_offset = Vector2(64, 1280)
+
+[node name="sustain" type="TextureRect" parent="clip_rect"]
+modulate = Color(1, 1, 1, 0.7)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -25.0
+offset_top = 1024.0
+offset_right = 25.0
+offset_bottom = 1280.0
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_q8m8o")
+expand_mode = 1
+
+[node name="tail" type="TextureRect" parent="clip_rect/sustain"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -319.0
+offset_right = 25.0
+offset_bottom = -256.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_qgo8q")
+expand_mode = 1
+flip_h = true
+flip_v = true
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_41rcl")
+animation = &"left note"
+script = ExtResource("4_fq1k2")

@@ -101,7 +101,7 @@ func sync_to_target(delta: float) -> void:
 	var mix_delta: float = AudioServer.get_time_since_last_mix()
 	var audio_time: float = target_audio.get_playback_position() + mix_delta
 	var desync: float = absf(raw_time - audio_time)
-	if desync >= MAX_DESYNC:
+	if audio_time > raw_time or desync >= MAX_DESYNC:
 		raw_time = audio_time
 	else:
 		raw_time += delta * target_audio.pitch_scale
@@ -109,22 +109,22 @@ func sync_to_target(delta: float) -> void:
 
 func calculate_beat() -> void:
 	time = raw_time + offset
-
-	if not tempo_changes.is_empty():
-		beat = 0.0
-
-		var last_time: float = 0.0
-		for change: BPMChange in tempo_changes:
-			if maxf(time, 0.0) < change.time:
-				break
-
-			tempo = change.data[0]
-			beat += (change.time - last_time) / beat_delta
-			last_time = change.time
-
-		beat += (time - last_time) / beat_delta
-	else:
+	if tempo_changes.is_empty():
 		beat = time / beat_delta
+		return
+
+	beat = 0.0
+
+	var last_time: float = 0.0
+	for change: BPMChange in tempo_changes:
+		if maxf(time, 0.0) < change.time:
+			break
+
+		tempo = change.data[0]
+		beat += (change.time - last_time) / beat_delta
+		last_time = change.time
+
+	beat += (time - last_time) / beat_delta
 
 
 func reset() -> void:

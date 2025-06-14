@@ -69,10 +69,12 @@ func sing(note: Note, force: bool = false) -> void:
 	if is_player != starts_as_player and swapped.has(direction):
 		direction = swapped[wrapi(swapped.find(direction) + 1, 0, swapped.size())]
 
-	if (not note.sing_suffix.is_empty()) and \
-			has_anim(&'sing_%s%s' % [direction.to_lower(), note.sing_suffix]):
+	var suffixed_name: StringName = &'sing_%s%s' % [direction.to_lower(), note.sing_suffix]
+	if (not note.sing_suffix.is_empty()) and has_anim(suffixed_name):
 		play_anim(&'sing_%s%s' % [direction.to_lower(), note.sing_suffix], force)
 	else:
+		if not has_anim(suffixed_name):
+			push_warning('Can\'t play sing animation "%s"! Defaulting back.' % [suffixed_name])
 		play_anim(&'sing_%s' % direction.to_lower(), force)
 
 

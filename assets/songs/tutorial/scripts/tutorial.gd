@@ -8,7 +8,7 @@ func _ready() -> void:
 		queue_free()
 		return
 
-	spectator.camera_offset.position += Vector2(50.0, 50.0)
+	spectator.camera_offset.position += Vector2(50.0, -200.0)
 
 	create_tween().set_trans(Tween.TRANS_ELASTIC).tween_property(
 		camera, 'zoom', Vector2(1.3, 1.3), Conductor.beat_delta)

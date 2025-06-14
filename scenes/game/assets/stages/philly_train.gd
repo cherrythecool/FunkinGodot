@@ -14,7 +14,7 @@ var train_cars: int = 8
 
 @onready var train_passes: AudioStreamPlayer = %train_passes
 
-@export var light_colors: PackedColorArray = [
+@export var light_colors: Array[Color] = [
 	Color('#31a2fd'),
 	Color('#31fd8c'),
 	Color('#fb33f5'),
@@ -25,6 +25,9 @@ var train_cars: int = 8
 
 func _ready() -> void:
 	_on_measure_hit(0)
+
+	if game.player.name == &'bf':
+		game.player.camera_offset.position.y -= 25.0
 
 
 func _process(delta: float) -> void:
@@ -63,7 +66,7 @@ func _on_measure_hit(measure: int) -> void:
 		return
 
 	window_fade_value = 0.0
-	window.modulate = light_colors[randi_range(0, light_colors.size() - 1)]
+	window.modulate = light_colors.pick_random()
 
 
 func reset_train() -> void:

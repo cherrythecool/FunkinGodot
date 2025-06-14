@@ -675,7 +675,7 @@ _data = {
 &"sing_up_miss": SubResource("Animation_4o0ab")
 }
 
-[node name="pico-player" type="Node2D"]
+[node name="pico_player" type="Node2D"]
 script = ExtResource("1_attca")
 icon = SubResource("Resource_vmsim")
 starts_as_player = true
