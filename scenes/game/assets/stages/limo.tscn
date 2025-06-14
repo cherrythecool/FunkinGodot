@@ -40,22 +40,22 @@ z_index = 20
 position = Vector2(-200, 480)
 sprite_frames = ExtResource("3_8o2p2")
 animation = &"background limo pink"
-frame_progress = 0.211302
+frame_progress = 0.306864
 centered = false
 script = ExtResource("4_xtsds")
 playing = true
-metadata/_custom_type_script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="fg_limo" type="AnimatedSprite2D" parent="."]
 z_index = 150
 position = Vector2(-120, 550)
 sprite_frames = ExtResource("5_axglq")
 animation = &"Limo stage"
-frame_progress = 0.711789
+frame_progress = 0.807351
 centered = false
 script = ExtResource("4_xtsds")
 playing = true
-metadata/_custom_type_script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="fast_car" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -83,7 +83,7 @@ sprite_frames = ExtResource("9_xtsds")
 animation = &"right"
 centered = false
 script = ExtResource("4_xtsds")
-metadata/_custom_type_script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="1" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -92,7 +92,7 @@ sprite_frames = ExtResource("9_xtsds")
 animation = &"hench dancing"
 centered = false
 script = ExtResource("4_xtsds")
-metadata/_custom_type_script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="2" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -101,7 +101,7 @@ sprite_frames = ExtResource("9_xtsds")
 animation = &"hench dancing"
 centered = false
 script = ExtResource("4_xtsds")
-metadata/_custom_type_script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="3" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -110,7 +110,7 @@ sprite_frames = ExtResource("9_xtsds")
 animation = &"hench dancing"
 centered = false
 script = ExtResource("4_xtsds")
-metadata/_custom_type_script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="4" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -119,7 +119,7 @@ sprite_frames = ExtResource("9_xtsds")
 animation = &"left"
 centered = false
 script = ExtResource("4_xtsds")
-metadata/_custom_type_script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="player" type="Marker2D" parent="."]
 unique_name_in_owner = true

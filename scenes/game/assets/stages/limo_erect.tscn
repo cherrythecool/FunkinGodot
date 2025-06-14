@@ -98,7 +98,7 @@ sprite_frames = ExtResource("5_dqopq")
 animation = &"shooting star"
 centered = false
 script = ExtResource("8_gyo08")
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="bg_limo" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.4, 0.4)
@@ -108,22 +108,22 @@ z_index = 20
 position = Vector2(-200, 480)
 sprite_frames = ExtResource("7_dqopq")
 animation = &"background limo blue"
-frame_progress = 0.465907
+frame_progress = 0.53629
 centered = false
 script = ExtResource("8_gyo08")
 playing = true
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="fg_limo" type="AnimatedSprite2D" parent="."]
 z_index = 150
 position = Vector2(-120, 550)
 sprite_frames = ExtResource("8_dqopq")
 animation = &"Limo stage"
-frame_progress = 0.287822
+frame_progress = 0.358204
 centered = false
 script = ExtResource("8_gyo08")
 playing = true
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="fast_car" type="Sprite2D" parent="."]
 unique_name_in_owner = true
@@ -153,7 +153,7 @@ sprite_frames = ExtResource("11_g8tp8")
 animation = &"left"
 centered = false
 script = ExtResource("8_gyo08")
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="1" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -163,7 +163,7 @@ sprite_frames = ExtResource("11_g8tp8")
 animation = &"hench dancing"
 centered = false
 script = ExtResource("8_gyo08")
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="2" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -173,7 +173,7 @@ sprite_frames = ExtResource("11_g8tp8")
 animation = &"hench dancing"
 centered = false
 script = ExtResource("8_gyo08")
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="3" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -183,7 +183,7 @@ sprite_frames = ExtResource("11_g8tp8")
 animation = &"hench dancing"
 centered = false
 script = ExtResource("8_gyo08")
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="4" type="AnimatedSprite2D" parent="dancers"]
 z_index = 30
@@ -193,7 +193,7 @@ sprite_frames = ExtResource("11_g8tp8")
 animation = &"left"
 centered = false
 script = ExtResource("8_gyo08")
-metadata/_custom_type_script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="mist_4" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.6, 0.6)

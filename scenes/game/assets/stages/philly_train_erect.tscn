@@ -1,0 +1,111 @@
+[gd_scene load_steps=14 format=3 uid="uid://b1g35ux81f5hh"]
+
+[ext_resource type="Script" uid="uid://t7ptunydfk7u" path="res://scenes/game/assets/stages/philly_train.gd" id="1_devln"]
+[ext_resource type="Texture2D" uid="uid://cqiqgwaw58tl1" path="res://assets/game/stages/philly_train_erect/sky.png" id="2_devln"]
+[ext_resource type="Texture2D" uid="uid://p6nr06rmttnt" path="res://assets/game/stages/philly_train_erect/city.png" id="3_beb4g"]
+[ext_resource type="Shader" uid="uid://dnqaft6aak1my" path="res://assets/shaders/philly_train/window_fade.gdshader" id="4_4ryuo"]
+[ext_resource type="Texture2D" uid="uid://chgo1p04edpy3" path="res://assets/game/stages/philly_train/window.png" id="5_58jnp"]
+[ext_resource type="Texture2D" uid="uid://degq2arvchyer" path="res://assets/game/stages/philly_train_erect/behindTrain.png" id="6_vd8c5"]
+[ext_resource type="Shader" uid="uid://bgwusoh6kicj3" path="res://assets/shaders/adjust_hsv.gdshader" id="7_beb4g"]
+[ext_resource type="Texture2D" uid="uid://dalxwasyw76dq" path="res://assets/game/stages/philly_train/train.png" id="7_bf3ax"]
+[ext_resource type="Texture2D" uid="uid://djci2ets06ofw" path="res://assets/game/stages/philly_train_erect/street.png" id="8_4ryuo"]
+[ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/assets/stages/character_preview.gd" id="9_t736h"]
+[ext_resource type="AudioStream" uid="uid://dt3ot3o508nk" path="res://assets/game/stages/philly_train/train_passes.ogg" id="10_wnwyq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oe5j7"]
+shader = ExtResource("4_4ryuo")
+shader_parameter/fade = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vd8c5"]
+shader = ExtResource("7_beb4g")
+shader_parameter/hue = -26.0
+shader_parameter/saturation = -16.0
+shader_parameter/contrast = 0.0
+shader_parameter/brightness = -5.0
+
+[node name="philly_train_erect" type="Node2D"]
+script = ExtResource("1_devln")
+light_colors = [Color(0.713726, 0.435294, 0.262745, 1), Color(0.196078, 0.603922, 0.427451, 1), Color(0.576471, 0.172549, 0.156863, 1), Color(0.14902, 0.388235, 0.67451, 1), Color(0.313726, 0.176471, 0.392157, 1)]
+
+[node name="sky" type="Parallax2D" parent="."]
+z_index = 10
+scroll_scale = Vector2(0.1, 0.1)
+
+[node name="sprite" type="Sprite2D" parent="sky"]
+position = Vector2(-100, 0)
+texture = ExtResource("2_devln")
+centered = false
+
+[node name="city" type="Parallax2D" parent="."]
+z_index = 20
+scroll_scale = Vector2(0.3, 0.3)
+
+[node name="sprite" type="Sprite2D" parent="city"]
+position = Vector2(-10, 0)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("3_beb4g")
+centered = false
+
+[node name="window" type="Parallax2D" parent="."]
+z_index = 30
+scroll_scale = Vector2(0.3, 0.3)
+
+[node name="window" type="Sprite2D" parent="window"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_oe5j7")
+position = Vector2(-10, 0)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("5_58jnp")
+centered = false
+
+[node name="behind_train" type="Parallax2D" parent="."]
+z_index = 50
+
+[node name="sprite" type="Sprite2D" parent="behind_train"]
+position = Vector2(-40, 50)
+texture = ExtResource("6_vd8c5")
+centered = false
+
+[node name="train" type="Parallax2D" parent="."]
+z_index = 60
+
+[node name="train" type="Sprite2D" parent="train"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_vd8c5")
+position = Vector2(2000, 360)
+texture = ExtResource("7_bf3ax")
+centered = false
+
+[node name="street" type="Parallax2D" parent="."]
+z_index = 70
+
+[node name="sprite" type="Sprite2D" parent="street"]
+position = Vector2(-40, 50)
+texture = ExtResource("8_4ryuo")
+centered = false
+
+[node name="player" type="Marker2D" parent="."]
+z_index = 300
+material = SubResource("ShaderMaterial_vd8c5")
+position = Vector2(989.5, 885)
+script = ExtResource("9_t736h")
+character_path = "uid://bu44d2he2dxm3"
+
+[node name="opponent" type="Marker2D" parent="."]
+z_index = 200
+material = SubResource("ShaderMaterial_vd8c5")
+position = Vector2(468, 885)
+script = ExtResource("9_t736h")
+character_path = "uid://dr24tjg5bcvow"
+flipped = true
+
+[node name="spectator" type="Marker2D" parent="."]
+z_index = 100
+material = SubResource("ShaderMaterial_vd8c5")
+position = Vector2(751.1, 787)
+script = ExtResource("9_t736h")
+character_path = "res://scenes/game/assets/characters/gf.tscn"
+
+[node name="train_passes" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("10_wnwyq")

@@ -2,14 +2,14 @@
 
 [ext_resource type="PackedScene" uid="uid://dr24tjg5bcvow" path="res://scenes/game/assets/characters/pico.tscn" id="1_3lbaw"]
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_7xrne"]
-[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico-player.tscn" id="2_k0pdi"]
-[ext_resource type="PackedScene" uid="uid://s7la6mup6cwb" path="res://scenes/game/assets/characters/nene.tscn" id="4_k0pdi"]
-[ext_resource type="PackedScene" uid="uid://cr1y6ckgvprb6" path="res://scenes/game/assets/stages/philly_train.tscn" id="5_26ew2"]
+[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico_player.tscn" id="2_26ew2"]
+[ext_resource type="PackedScene" uid="uid://chcrerdnievt5" path="res://scenes/game/assets/characters/nene_with_hair_blowing.tscn" id="4_gao7p"]
+[ext_resource type="PackedScene" uid="uid://b1g35ux81f5hh" path="res://scenes/game/assets/stages/philly_train_erect.tscn" id="5_26ew2"]
 
 [resource]
 script = ExtResource("1_7xrne")
-player = ExtResource("2_k0pdi")
-spectator = ExtResource("4_k0pdi")
+player = ExtResource("2_26ew2")
+spectator = ExtResource("4_gao7p")
 opponent = ExtResource("1_3lbaw")
 stage = ExtResource("5_26ew2")
 scripts = Array[PackedScene]([])

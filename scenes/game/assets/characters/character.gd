@@ -23,11 +23,15 @@ var animation: StringName = &''
 var singing: bool = false
 var sing_timer: float = 0.0
 var in_special_anim: bool = false
+var sprite: CanvasItem = null
 
 signal animation_finished(animation: StringName)
 
 
 func _ready() -> void:
+	if has_node(^'sprite'):
+		sprite = $sprite
+
 	dance(true)
 	animation_player.animation_finished.connect(func(anim_name: StringName) -> void:
 		animation_finished.emit(anim_name)
@@ -95,6 +99,11 @@ func dance(force: bool = false) -> void:
 		return
 
 	play_anim(dance_steps[0], force)
+
+
+func set_character_material(new_material: Material) -> void:
+	if is_instance_valid(sprite):
+		sprite.material = new_material
 
 
 func _process(delta: float) -> void:

@@ -694,4 +694,4 @@ libraries = {
 }
 
 [node name="camera_offset" type="Marker2D" parent="."]
-position = Vector2(-104, -331)
+position = Vector2(-127, -322)

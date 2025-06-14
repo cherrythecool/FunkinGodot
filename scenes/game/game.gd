@@ -172,28 +172,34 @@ func _ready() -> void:
 		camera.zoom = target_camera_zoom
 		camera_speed = stage.camera_speed
 
-		# Position and scale the characters.
-		var player_point: Node2D = stage.get_node('player')
-		var opponent_point: Node2D = stage.get_node('opponent')
-		var spectator_point: Node2D = stage.get_node('spectator')
-		player.global_position = player_point.global_position
-
+		# Setup the characters.
 		if not player.starts_as_player:
 			player.scale *= Vector2(-1.0, 1.0)
 		if opponent.starts_as_player:
 			opponent.scale *= Vector2(-1.0, 1.0)
 
-		player.is_player = true
+		var player_point: Node2D = stage.get_node('player')
+		player.global_position = player_point.global_position
 		player.scale *= player_point.scale
 		player.z_index += player_point.z_index
+		if is_instance_valid(player_point.material):
+			player.set_character_material(player_point.material)
 
+		player.is_player = true
+
+		var opponent_point: Node2D = stage.get_node('opponent')
 		opponent.global_position = opponent_point.global_position
 		opponent.scale *= opponent_point.scale
 		opponent.z_index += opponent_point.z_index
+		if is_instance_valid(opponent_point.material):
+			opponent.set_character_material(opponent_point.material)
 
+		var spectator_point: Node2D = stage.get_node('spectator')
 		spectator.global_position = spectator_point.global_position
 		spectator.scale *= spectator_point.scale
 		spectator.z_index += spectator_point.z_index
+		if is_instance_valid(spectator_point.material):
+			spectator.set_character_material(spectator_point.material)
 
 		if is_instance_valid(assets.hud):
 			hud.free()

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_djkrh"]
 [ext_resource type="PackedScene" uid="uid://dr24tjg5bcvow" path="res://scenes/game/assets/characters/pico.tscn" id="1_jcvhn"]
-[ext_resource type="PackedScene" uid="uid://cr1y6ckgvprb6" path="res://scenes/game/assets/stages/philly_train.tscn" id="3_4bt30"]
+[ext_resource type="PackedScene" uid="uid://b1g35ux81f5hh" path="res://scenes/game/assets/stages/philly_train_erect.tscn" id="3_4bt30"]
 
 [resource]
 script = ExtResource("1_djkrh")

@@ -14,7 +14,7 @@ var train_cars: int = 8
 
 @onready var train_passes: AudioStreamPlayer = %train_passes
 
-const LIGHT_COLORS: PackedColorArray = [
+@export var light_colors: PackedColorArray = [
 	Color('#31a2fd'),
 	Color('#31fd8c'),
 	Color('#fb33f5'),
@@ -63,11 +63,13 @@ func _on_measure_hit(measure: int) -> void:
 		return
 
 	window_fade_value = 0.0
-	window.modulate = LIGHT_COLORS[randi_range(0, LIGHT_COLORS.size() - 1)]
+	window.modulate = light_colors[randi_range(0, light_colors.size() - 1)]
 
 
 func reset_train() -> void:
 	game.spectator.play_anim(&'hair_fall', true, true)
+	game.spectator.animation_finished.connect(func(_animation: StringName) -> void:
+		game.spectator.dance(), CONNECT_ONE_SHOT)
 	train.position.x = 1280.0 + 200.0
 	train_started = false
 	train_moving = false

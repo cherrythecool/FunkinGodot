@@ -1,18 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cfd0vee7ua8k7"]
+[gd_scene load_steps=9 format=3 uid="uid://cfd0vee7ua8k7"]
 
-[ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/assets/characters/character.gd" id="1_rq38n"]
-[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_whhv5"]
-[ext_resource type="Texture2D" uid="uid://d2c1hlp80sm2q" path="res://assets/game/characters/gf/icon.png" id="3_27rml"]
+[ext_resource type="Script" uid="uid://bdoqh1blda6fx" path="res://scenes/game/assets/characters/gf_car.gd" id="1_bi3vf"]
 [ext_resource type="SpriteFrames" path="res://assets/game/characters/gf/speakers.res" id="4_uloin"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_4ddhu"]
 [ext_resource type="SpriteFrames" path="res://assets/game/characters/gf/car_sprites.res" id="6_j7cp1"]
-
-[sub_resource type="Resource" id="Resource_1qgms"]
-script = ExtResource("2_whhv5")
-texture = ExtResource("3_27rml")
-color = Color(0.647288, 0, 0.3019, 1)
-frames = Vector2i(1, 1)
-filter = 0
 
 [sub_resource type="Animation" id="Animation_bgpi6"]
 length = 0.001
@@ -287,8 +278,7 @@ _data = {
 }
 
 [node name="gf_car" type="Node2D"]
-script = ExtResource("1_rq38n")
-icon = SubResource("Resource_1qgms")
+script = ExtResource("1_bi3vf")
 dance_steps = Array[StringName]([&"dance_left", &"dance_right"])
 
 [node name="speakers" type="AnimatedSprite2D" parent="."]

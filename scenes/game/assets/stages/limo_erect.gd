@@ -35,15 +35,10 @@ var mist_timer: float = 0.0
 func _ready() -> void:
 	game.player.camera_offset.position.x -= 225.0
 	game.player.camera_offset.position.y -= 25.0
-	game.player.z_index += player_offset.z_index
-	game.spectator.z_index += spectator_offset.z_index
-	game.opponent.z_index += opponent_offsett.z_index
 
-	game.player.get_node(^'sprite').material = fast_car.material
-	game.opponent.get_node(^'sprite').material = fast_car.material
-	game.spectator.get_node(^'sprite').material = fast_car.material
-	if game.spectator.has_node(^'speakers'):
-		game.spectator.get_node(^'speakers').material = fast_car.material
+	game.player.set_character_material(fast_car.material)
+	game.opponent.set_character_material(fast_car.material)
+	game.spectator.set_character_material(fast_car.material)
 
 	reset_fast_car()
 

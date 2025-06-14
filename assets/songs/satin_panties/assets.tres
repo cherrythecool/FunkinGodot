@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_xtu7b"]
 [ext_resource type="PackedScene" uid="uid://cdxxht68lxv1a" path="res://scenes/game/assets/characters/mom.tscn" id="2_ckv13"]
-[ext_resource type="PackedScene" uid="uid://cfd0vee7ua8k7" path="res://scenes/game/assets/characters/gf-car.tscn" id="3_bu7v1"]
-[ext_resource type="PackedScene" uid="uid://ctwq5qb8rpv66" path="res://scenes/game/assets/characters/bf-car.tscn" id="3_mcyyw"]
+[ext_resource type="PackedScene" uid="uid://cfd0vee7ua8k7" path="res://scenes/game/assets/characters/gf_car.tscn" id="3_bu7v1"]
+[ext_resource type="PackedScene" uid="uid://ctwq5qb8rpv66" path="res://scenes/game/assets/characters/bf_car.tscn" id="3_mcyyw"]
 [ext_resource type="PackedScene" uid="uid://k1d367s1as6d" path="res://scenes/game/assets/stages/limo.tscn" id="3_v0faq"]
 
 [resource]

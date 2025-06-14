@@ -15,10 +15,6 @@ func _ready() -> void:
 		return
 
 	Game.instance.event_hit.connect(_on_event_hit)
-	await Game.instance.ready_post
-	eye_whites.material = speakers.material
-	eyes.material = speakers.material
-	background.material = speakers.material
 
 
 func _process(_delta: float) -> void:
@@ -53,3 +49,11 @@ func _on_event_hit(event: EventData) -> void:
 	else:
 		eyes.frame = 0
 		eyes.playing = true
+
+
+func set_character_material(new_material: Material) -> void:
+	super(new_material)
+	speakers.material = new_material
+	eye_whites.material = new_material
+	eyes.material = new_material
+	background.material = new_material

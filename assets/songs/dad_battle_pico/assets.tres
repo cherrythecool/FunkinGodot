@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bfte1efl00hqd" path="res://assets/game/skins/default/ratings/bad.png" id="1_ohhdw"]
 [ext_resource type="AudioStream" uid="uid://cdx006xagoh7x" path="res://assets/menus/pause_menu/pico_theme.ogg" id="1_syfdj"]
 [ext_resource type="Texture2D" uid="uid://ds3g63uwcq4jw" path="res://assets/game/skins/default/combo.png" id="2_0a05e"]
-[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico-player.tscn" id="2_hm6ok"]
+[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico_player.tscn" id="2_hm6ok"]
 [ext_resource type="AudioStream" uid="uid://vusu7c2ire01" path="res://assets/game/skins/default/countdown/3.ogg" id="3_77d0u"]
 [ext_resource type="PackedScene" uid="uid://s7la6mup6cwb" path="res://scenes/game/assets/characters/nene.tscn" id="3_syfdj"]
 [ext_resource type="PackedScene" uid="uid://8gvi1td3sh2t" path="res://scenes/game/assets/stages/stage_erect.tscn" id="4_1lud1"]

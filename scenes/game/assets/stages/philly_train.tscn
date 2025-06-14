@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ccalaeucl8di1" path="res://assets/game/stages/philly_train/sky.png" id="2_66wy7"]
 [ext_resource type="Texture2D" uid="uid://dhhta0p0ey68a" path="res://assets/game/stages/philly_train/city.png" id="3_vfoc4"]
 [ext_resource type="Shader" uid="uid://dnqaft6aak1my" path="res://assets/shaders/philly_train/window_fade.gdshader" id="4_6ah8b"]
-[ext_resource type="Texture2D" uid="uid://chgo1p04edpy3" path="res://assets/game/stages/philly_train/win0.png" id="4_r13m0"]
+[ext_resource type="Texture2D" uid="uid://chgo1p04edpy3" path="res://assets/game/stages/philly_train/window.png" id="4_r13m0"]
 [ext_resource type="Texture2D" uid="uid://xu8x5ecw8r0v" path="res://assets/game/stages/philly_train/behindTrain.png" id="5_6ah8b"]
 [ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/assets/stages/character_preview.gd" id="5_r13m0"]
 [ext_resource type="Texture2D" uid="uid://dalxwasyw76dq" path="res://assets/game/stages/philly_train/train.png" id="6_oe5j7"]

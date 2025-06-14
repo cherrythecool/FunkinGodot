@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chgo1p04edpy3"
-path="res://.godot/imported/win0.png-457a6be3185ca3bf634d6ac3fc2b5c60.ctex"
+uid="uid://p6nr06rmttnt"
+path="res://.godot/imported/city.png-18dd043f9615c3b26d5818816615e77e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/game/stages/philly_train/win0.png"
-dest_files=["res://.godot/imported/win0.png-457a6be3185ca3bf634d6ac3fc2b5c60.ctex"]
+source_file="res://assets/game/stages/philly_train_erect/city.png"
+dest_files=["res://.godot/imported/city.png-18dd043f9615c3b26d5818816615e77e.ctex"]
 
 [params]
 

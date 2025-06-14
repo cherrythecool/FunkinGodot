@@ -25,24 +25,19 @@ var timer: float = 0.0
 
 
 func _ready() -> void:
-	game.player.z_index += 400
 	game.player.camera_offset.position += Vector2(-250.0, -35.0)
-	game.spectator.z_index += 300
-	game.opponent.z_index += 350
 	game.opponent.camera_offset.position += Vector2(230.0, 75.0)
-	var plr: AnimatedSprite = game.player.get_node(^'sprite')
-	plr.material = ShaderMaterial.new()
-	plr.material.shader = load('uid://bgwusoh6kicj3')
-	plr.material.set_shader_parameter('hue', -5.0)
-	plr.material.set_shader_parameter('saturation', -40.0)
-	plr.material.set_shader_parameter('contrast', -25.0)
-	plr.material.set_shader_parameter('brightness', -20.0)
 
-	game.spectator.get_node(^'sprite').material = plr.material
-	if game.spectator.has_node(^'speakers'):
-		game.spectator.get_node(^'speakers').material = plr.material
+	var color_material: ShaderMaterial = ShaderMaterial.new()
+	color_material.shader = load('uid://bgwusoh6kicj3')
+	color_material.set_shader_parameter('hue', -5.0)
+	color_material.set_shader_parameter('saturation', -40.0)
+	color_material.set_shader_parameter('contrast', -25.0)
+	color_material.set_shader_parameter('brightness', -20.0)
 
-	game.opponent.get_node(^'sprite').material = plr.material
+	game.player.set_character_material(color_material)
+	game.spectator.set_character_material(color_material)
+	game.opponent.set_character_material(color_material)
 	reset_cars(true, true)
 
 
