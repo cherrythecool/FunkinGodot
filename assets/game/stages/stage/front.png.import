@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://86bapobu21kd"
-path.bptc="res://.godot/imported/front.png-018afbc7aceedc63c94d3818a2997500.bptc.ctex"
-path.astc="res://.godot/imported/front.png-018afbc7aceedc63c94d3818a2997500.astc.ctex"
+path="res://.godot/imported/front.png-018afbc7aceedc63c94d3818a2997500.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/stage/front.png"
-dest_files=["res://.godot/imported/front.png-018afbc7aceedc63c94d3818a2997500.bptc.ctex", "res://.godot/imported/front.png-018afbc7aceedc63c94d3818a2997500.astc.ctex"]
+dest_files=["res://.godot/imported/front.png-018afbc7aceedc63c94d3818a2997500.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

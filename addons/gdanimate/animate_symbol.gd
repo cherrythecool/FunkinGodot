@@ -22,18 +22,23 @@ class_name AnimateSymbol extends Node2D
 ## changed. (Resetting the current animation)
 @export var symbol: String = '':
 	set(v):
+		var last: String = symbol
 		symbol = v
 		symbol_changed.emit(v)
 		frame = 0
 		_timer = 0.0
+		if symbol != last:
+			queue_redraw()
 
 ## The current frame of the animation.
 ## [br][br][b]Note[/b]: This automatically redraws the entire
 ## atlas when changed.
 @export var frame: int = 0:
 	set(v):
+		var last: int = frame
 		frame = v
-		queue_redraw()
+		if frame != last:
+			queue_redraw()
 
 ## Defines what happens when the end of the animation is reached.
 ## [br][br]Loop loops the animation forever and Play Once just stops.
@@ -144,7 +149,7 @@ func _draw_symbol(element: Element) -> void:
 		printerr('Tried to draw invalid symbol "%s"' % [element.name])
 		return
 
-	_draw_timeline(_animation.symbol_dictionary.get(element.name), element.frame)
+	_draw_timeline(_animation.symbol_dictionary.get(element.name), element.frame, element.loop_mode == SymbolElement.SymbolLoopMode.LOOP)
 
 
 func _draw_sprite(element: Element) -> void:
@@ -173,12 +178,18 @@ func _draw_sprite(element: Element) -> void:
 	printerr('Tried to draw invalid sprite "%s"' % [element.name])
 
 
-func _draw_timeline(timeline: Timeline, target_frame: int) -> void:
-	var layers := timeline.layers.duplicate()
+func _draw_timeline(timeline: Timeline, target_frame: int, loop: bool = false) -> void:
+	var layers: Array[Layer] = timeline.layers.duplicate()
 	layers.reverse()
 
-	var layer_transform := _current_transform
+	var og_frame: int = target_frame
+	var layer_transform: Transform2D = _current_transform
 	for layer: Layer in layers:
+		if layer.length <= 0:
+			continue
+		if loop:
+			target_frame = og_frame % layer.length
+
 		for layer_frame in layer.frames:
 			if target_frame < layer_frame.index:
 				continue
@@ -192,6 +203,7 @@ func _draw_timeline(timeline: Timeline, target_frame: int) -> void:
 						_draw_symbol(element)
 					Element.ElementType.SPRITE:
 						_draw_sprite(element)
+			break
 
 
 func _draw() -> void:

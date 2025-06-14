@@ -10,7 +10,7 @@ func _calculate_duration() -> void:
 	for layer in layers:
 		if layer.length > longest:
 			longest = layer.length
-	
+
 	length = longest
 
 
@@ -21,7 +21,7 @@ func parse_unoptimized(input: Dictionary) -> void:
 		layer.name = StringName(raw_layer.get('Layer_name', ''))
 		layer.parse_unoptimized(raw_layer)
 		layers.push_back(layer)
-	
+
 	_calculate_duration()
 
 
@@ -32,5 +32,5 @@ func parse_optimized(input: Dictionary) -> void:
 		layer.name = StringName(raw_layer.get('LN', ''))
 		layer.parse_optimized(raw_layer)
 		layers.push_back(layer)
-	
+
 	_calculate_duration()

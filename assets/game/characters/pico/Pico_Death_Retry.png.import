@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpbtif72iy7cl"
-path.bptc="res://.godot/imported/Pico_Death_Retry.png-bc05a18f6383b836f6f8173fbf50533a.bptc.ctex"
-path.astc="res://.godot/imported/Pico_Death_Retry.png-bc05a18f6383b836f6f8173fbf50533a.astc.ctex"
+path="res://.godot/imported/Pico_Death_Retry.png-bc05a18f6383b836f6f8173fbf50533a.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/characters/pico/Pico_Death_Retry.png"
-dest_files=["res://.godot/imported/Pico_Death_Retry.png-bc05a18f6383b836f6f8173fbf50533a.bptc.ctex", "res://.godot/imported/Pico_Death_Retry.png-bc05a18f6383b836f6f8173fbf50533a.astc.ctex"]
+dest_files=["res://.godot/imported/Pico_Death_Retry.png-bc05a18f6383b836f6f8173fbf50533a.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

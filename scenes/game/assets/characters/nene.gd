@@ -21,7 +21,7 @@ func _ready() -> void:
 	background.material = speakers.material
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if camera_side == 1 and eyes.frame >= 13:
 		eyes.playing = false
 		eyes.frame = 13

@@ -21,9 +21,9 @@ func _update() -> void:
 	var prev_hz: float = 0.0
 	for i: int in targets.size():
 		var hz: float = float(i) * max_hz / float(targets.size())
-		var magnitude := spectrum.get_magnitude_for_frequency_range(prev_hz, hz).length()
-		var energy := clampf((min_db + linear_to_db(magnitude)) / min_db, 0.0, 1.0)
-		var silly := remap(energy, 0.0, 1.0, 0.0, 5.0)
+		var magnitude: float = spectrum.get_magnitude_for_frequency_range(prev_hz, hz).length()
+		var energy: float = clampf((min_db + linear_to_db(magnitude)) / min_db, 0.0, 1.0)
+		var silly: float = remap(energy, 0.0, 1.0, 0.0, 5.0)
 		targets[i].frame = int(5.0 - silly)
 		prev_hz = hz
 

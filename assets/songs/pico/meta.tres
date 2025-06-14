@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://bgg7iwbxwudm1"]
+
+[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_hou11"]
+[ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_5h4lu"]
+
+[resource]
+script = ExtResource("2_5h4lu")
+display_name = &"Pico"
+authors = Array[ExtResource("1_hou11")]([])
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"

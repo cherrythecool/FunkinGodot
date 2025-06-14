@@ -2,6 +2,7 @@ class_name FunkinLegacyChart extends Resource
 
 
 var json: Dictionary
+var scroll_speed: float = 1.0
 
 
 func parse() -> Chart:

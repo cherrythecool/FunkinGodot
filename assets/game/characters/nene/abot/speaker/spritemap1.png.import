@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drdl2bb76ju7g"
-path.bptc="res://.godot/imported/spritemap1.png-c24341cef9522a35ee67df3f92939a94.bptc.ctex"
-path.astc="res://.godot/imported/spritemap1.png-c24341cef9522a35ee67df3f92939a94.astc.ctex"
+path="res://.godot/imported/spritemap1.png-c24341cef9522a35ee67df3f92939a94.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/characters/nene/abot/speaker/spritemap1.png"
-dest_files=["res://.godot/imported/spritemap1.png-c24341cef9522a35ee67df3f92939a94.bptc.ctex", "res://.godot/imported/spritemap1.png-c24341cef9522a35ee67df3f92939a94.astc.ctex"]
+dest_files=["res://.godot/imported/spritemap1.png-c24341cef9522a35ee67df3f92939a94.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

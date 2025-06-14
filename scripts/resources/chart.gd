@@ -3,6 +3,7 @@ class_name Chart extends Resource
 
 var notes: Array[NoteData] = []
 var events: Array[EventData] = []
+var scroll_speed: float = 1.0
 
 
 func _to_string() -> String:
@@ -82,9 +83,9 @@ static func _try_legacy(base_path: String, difficulty: StringName) -> Chart:
 		return CodenameChart.parse(base_path, funkin.json)
 
 	if funkin.json.song is Dictionary:
-		Game.scroll_speed = funkin.json.song.get('speed', 1.0)
+		funkin.scroll_speed = funkin.json.song.get('speed', 1.0)
 	else:
-		Game.scroll_speed = funkin.json.get('speed', 1.0)
+		funkin.scroll_speed = funkin.json.get('speed', 1.0)
 
 	var extra_events: Array[EventData] = []
 	var events_path: String = '%s/charts/events.json' % [base_path]
@@ -119,11 +120,11 @@ static func _try_fnfc(base_path: String, difficulty: StringName) -> Chart:
 	fnfc.json_meta = JSON.parse_string(meta_data)
 
 	if fnfc.json_chart.scrollSpeed is float:
-		Game.scroll_speed = fnfc.json_chart.scrollSpeed
+		fnfc.scroll_speed = fnfc.json_chart.scrollSpeed
 	else:
 		if fnfc.json_chart.scrollSpeed.has(difficulty.to_lower()):
-			Game.scroll_speed = fnfc.json_chart.scrollSpeed.get(difficulty.to_lower(), 1.0)
+			fnfc.scroll_speed = fnfc.json_chart.scrollSpeed.get(difficulty.to_lower(), 1.0)
 		else:
-			Game.scroll_speed = fnfc.json_chart.scrollSpeed.get('default', 1.0)
+			fnfc.scroll_speed = fnfc.json_chart.scrollSpeed.get('default', 1.0)
 
 	return fnfc.parse(difficulty)

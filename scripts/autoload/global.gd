@@ -164,3 +164,7 @@ func convert_flixel_tween_trans(v: String) -> Tween.TransitionType:
 			return Tween.TRANS_ELASTIC
 		_: # default to linear
 			return Tween.TRANS_LINEAR
+
+
+func get_accurate_time(player: AudioStreamPlayer) -> float:
+	return player.get_playback_position() + AudioServer.get_time_since_last_mix()

@@ -3,6 +3,7 @@ class_name FNFCChart extends Resource
 
 var json_chart: Dictionary
 var json_meta: Dictionary
+var scroll_speed: float = 1.0
 
 
 func parse(difficulty: StringName) -> Chart:

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SongAssets" load_steps=6 format=3 uid="uid://dq2hqytmpbbxe"]
+
+[ext_resource type="PackedScene" uid="uid://dr24tjg5bcvow" path="res://scenes/game/assets/characters/pico.tscn" id="1_3lbaw"]
+[ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_7xrne"]
+[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico-player.tscn" id="2_k0pdi"]
+[ext_resource type="PackedScene" uid="uid://s7la6mup6cwb" path="res://scenes/game/assets/characters/nene.tscn" id="4_k0pdi"]
+[ext_resource type="PackedScene" uid="uid://cr1y6ckgvprb6" path="res://scenes/game/assets/stages/philly_train.tscn" id="5_26ew2"]
+
+[resource]
+script = ExtResource("1_7xrne")
+player = ExtResource("2_k0pdi")
+spectator = ExtResource("4_k0pdi")
+opponent = ExtResource("1_3lbaw")
+stage = ExtResource("5_26ew2")
+scripts = Array[PackedScene]([])
+metadata/_custom_type_script = "uid://dk2lxfhv5lvf4"

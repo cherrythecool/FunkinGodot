@@ -105,11 +105,13 @@ func _ready() -> void:
 	tracks.load_tracks(song)
 	tracks.finished.connect(_song_finished.bind(false, false))
 
+	var custom_speed: float = Config.get_value('gameplay', 'custom_scroll_speed')
 	match Config.get_value('gameplay', 'scroll_speed_method'):
 		'chart':
-			scroll_speed *= Config.get_value('gameplay', 'custom_scroll_speed')
+			scroll_speed = chart.scroll_speed * custom_speed
 		'constant':
-			scroll_speed = Config.get_value('gameplay', 'custom_scroll_speed')
+			scroll_speed = custom_speed
+
 	scroll_speed_changed.emit()
 
 	if ResourceLoader.exists('res://assets/songs/%s/events.tres' % song):
@@ -183,10 +185,15 @@ func _ready() -> void:
 
 		player.is_player = true
 		player.scale *= player_point.scale
+		player.z_index += player_point.z_index
+
 		opponent.global_position = opponent_point.global_position
 		opponent.scale *= opponent_point.scale
+		opponent.z_index += opponent_point.z_index
+
 		spectator.global_position = spectator_point.global_position
 		spectator.scale *= spectator_point.scale
+		spectator.z_index += spectator_point.z_index
 
 		if is_instance_valid(assets.hud):
 			hud.free()

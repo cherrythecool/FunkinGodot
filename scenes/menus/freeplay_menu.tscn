@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://3rua2gpac5p8"]
+[gd_scene load_steps=55 format=3 uid="uid://3rua2gpac5p8"]
 
 [ext_resource type="Texture2D" uid="uid://coli0ye4bsyff" path="res://assets/menus/background.png" id="1_2q4rq"]
 [ext_resource type="Script" uid="uid://buarre8s3ld28" path="res://scenes/menus/freeplay_menu.gd" id="1_p2lt6"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://qvp8tkrjr2l7" path="res://assets/game/characters/mom/icon.png" id="7_l3rbe"]
 [ext_resource type="Texture2D" uid="uid://dnw888uux6bmj" path="res://assets/game/characters/darnell/icon.png" id="8_gapdl"]
 [ext_resource type="Texture2D" uid="uid://cyns8uj2h4erl" path="res://assets/game/characters/monster/icon.png" id="8_o750g"]
+[ext_resource type="Texture2D" uid="uid://cbpmx024rn06u" path="res://assets/game/characters/pico/icon.png" id="9_nevf3"]
 [ext_resource type="Texture2D" uid="uid://bk7jsl1s5ax2o" path="res://assets/game/characters/face/icon.png" id="9_qk06g"]
 
 [sub_resource type="Resource" id="Resource_1y04g"]
@@ -144,6 +145,30 @@ song_difficulties = [&"easy", &"normal", &"hard"]
 icon = SubResource("Resource_t3730")
 metadata/_custom_type_script = "uid://c4n3qjttdmbrg"
 
+[sub_resource type="Resource" id="Resource_0bmfe"]
+script = ExtResource("5_qk06g")
+mapping = Dictionary[StringName, StringName]({
+&"erect": &"pico_erect",
+&"nightmare": &"pico_erect"
+})
+metadata/_custom_type_script = "uid://df2o86ah3b60w"
+
+[sub_resource type="Resource" id="Resource_7tswt"]
+script = ExtResource("3_l3rbe")
+texture = ExtResource("9_nevf3")
+color = Color(0.717647, 0.847059, 0.333333, 1)
+frames = Vector2i(2, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
+
+[sub_resource type="Resource" id="Resource_cl738"]
+script = ExtResource("2_k47q8")
+song_name = &"pico"
+song_difficulties = [&"easy", &"normal", &"hard", "erect", "nightmare"]
+icon = SubResource("Resource_7tswt")
+difficulty_remap = SubResource("Resource_0bmfe")
+metadata/_custom_type_script = "uid://c4n3qjttdmbrg"
+
 [sub_resource type="Resource" id="Resource_gapdl"]
 script = ExtResource("5_qk06g")
 mapping = Dictionary[StringName, StringName]({
@@ -258,7 +283,7 @@ font_size = 10
 
 [node name="freeplay_menu" type="Node2D"]
 script = ExtResource("1_p2lt6")
-list = Array[ExtResource("2_k47q8")]([SubResource("Resource_1p1y5"), SubResource("Resource_7q3cy"), SubResource("Resource_l3rbe"), SubResource("Resource_qk06g"), SubResource("Resource_wtlag"), SubResource("Resource_tp4e0"), SubResource("Resource_gmxtr"), SubResource("Resource_o750g"), SubResource("Resource_b2ygt"), SubResource("Resource_4trhg"), SubResource("Resource_bs7ia"), SubResource("Resource_n00kv")])
+list = Array[ExtResource("2_k47q8")]([SubResource("Resource_1p1y5"), SubResource("Resource_7q3cy"), SubResource("Resource_l3rbe"), SubResource("Resource_qk06g"), SubResource("Resource_wtlag"), SubResource("Resource_tp4e0"), SubResource("Resource_gmxtr"), SubResource("Resource_cl738"), SubResource("Resource_o750g"), SubResource("Resource_b2ygt"), SubResource("Resource_4trhg"), SubResource("Resource_bs7ia"), SubResource("Resource_n00kv")])
 
 [node name="track_timer" type="Timer" parent="."]
 unique_name_in_owner = true

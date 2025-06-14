@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c57ymqk8sdl5u"
-path.bptc="res://.godot/imported/backdrop.png-b607e44ecb46578e19d7ef37931e6f9a.bptc.ctex"
-path.astc="res://.godot/imported/backdrop.png-b607e44ecb46578e19d7ef37931e6f9a.astc.ctex"
+path="res://.godot/imported/backdrop.png-b607e44ecb46578e19d7ef37931e6f9a.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/game/stages/stage/backdrop.png"
-dest_files=["res://.godot/imported/backdrop.png-b607e44ecb46578e19d7ef37931e6f9a.bptc.ctex", "res://.godot/imported/backdrop.png-b607e44ecb46578e19d7ef37931e6f9a.astc.ctex"]
+dest_files=["res://.godot/imported/backdrop.png-b607e44ecb46578e19d7ef37931e6f9a.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

@@ -22,7 +22,7 @@ static func load_from_json(input: Dictionary) -> AtlasAnimation:
 	else:
 		animation.format = AtlasFormat.OPTIMIZED
 		animation.parse_optimized(input)
-	
+
 	return animation
 
 
@@ -32,10 +32,10 @@ func parse_unoptimized(input: Dictionary) -> void:
 	symbol_name = StringName(animation.get('SYMBOL_name', ''))
 	timeline = Timeline.new()
 	timeline.parse_unoptimized(animation.get('TIMELINE', {}))
-	
+
 	var metadata: Dictionary = input.get('metadata', {})
 	framerate = metadata.get('framerate', 30.0)
-	
+
 	var symbol_dictionary_raw: Dictionary = input.get('SYMBOL_DICTIONARY', {})
 	var symbols: Array = symbol_dictionary_raw.get('Symbols', [])
 	for symbol: Dictionary in symbols:
@@ -50,10 +50,10 @@ func parse_optimized(input: Dictionary) -> void:
 	symbol_name = StringName(animation.get('SN', ''))
 	timeline = Timeline.new()
 	timeline.parse_optimized(animation.get('TL', {}))
-	
+
 	var metadata: Dictionary = input.get('MD', {})
 	framerate = metadata.get('FRT', 30.0)
-	
+
 	var symbol_dictionary_raw: Dictionary = input.get('SD', {})
 	var symbols: Array = symbol_dictionary_raw.get('S', [])
 	for symbol: Dictionary in symbols:

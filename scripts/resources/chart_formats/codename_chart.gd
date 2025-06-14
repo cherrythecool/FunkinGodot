@@ -11,7 +11,7 @@ static func parse(base_path: String, data: Dictionary) -> Chart:
 	var meta: Dictionary = JSON.parse_string(raw_meta)
 
 	var chart: Chart = Chart.new()
-	Game.scroll_speed = data.get('scrollSpeed', 1.0)
+	chart.scroll_speed = data.get('scrollSpeed', 1.0)
 	chart.events.push_back(BPMChange.new(0.0, meta.get('bpm', 120.0)))
 	chart.events.push_back(CameraPan.new(0.0, CameraPan.Side.OPPONENT))
 
