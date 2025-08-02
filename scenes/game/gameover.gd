@@ -41,7 +41,10 @@ func _ready() -> void:
 		camera.position = character.position + character.camera_offset.position
 	)
 
-	character = load(character_path).instantiate()
+	var scene: PackedScene = load(character_path)
+	if not is_instance_valid(scene):
+		scene = load('uid://w4v0gymuehdt')
+	character = scene.instantiate()
 
 	if is_instance_valid(character.gameover_assets):
 		var assets: GameoverAssets = character.gameover_assets

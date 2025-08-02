@@ -130,6 +130,9 @@ func get_rendering_api() -> String:
 	if api_version.begins_with('1'):
 		return 'Vulkan'
 
+	if OS.get_name() == 'Web':
+		return 'WebGL'
+
 	return 'Metal'
 
 

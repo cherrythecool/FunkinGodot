@@ -1,10 +1,22 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://b3fq42754nm2l"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://b3fq42754nm2l"]
 
-[ext_resource type="Script" path="res://scripts/resources/song_author.gd" id="1_tnumg"]
-[ext_resource type="Script" path="res://scripts/resources/song_metadata.gd" id="2_1nxmw"]
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_wvf7p"]
+[ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_1nxmw"]
+[ext_resource type="Texture2D" uid="uid://dnw888uux6bmj" path="res://assets/game/characters/darnell/icon.png" id="2_idmi8"]
+
+[sub_resource type="Resource" id="Resource_you1c"]
+script = ExtResource("1_wvf7p")
+texture = ExtResource("2_idmi8")
+color = Color(0.45098, 0.368627, 0.690196, 1)
+frames = Vector2i(2, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("2_1nxmw")
-display_name = &"Darnell BF Mix"
-authors = Array[ExtResource("1_tnumg")]([])
-metadata/_custom_type_script = ExtResource("2_1nxmw")
+display_name = &"Darnell"
+mix = &"BF"
+icon = SubResource("Resource_you1c")
+difficulties = ["easy", "normal", "hard"]
+difficulty_song_overrides = Dictionary[String, StringName]({})
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"

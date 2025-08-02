@@ -27,6 +27,9 @@ func _ready() -> void:
 	tween.tween_property(root, 'modulate:a', 1.0, 0.5)
 
 	var blur_amount: float = Config.get_value('interface', 'pause_blur') / 150.0
+	if OS.get_name() == 'Web':
+		blur_amount = 0.0
+
 	if blur_amount > 0.0:
 		var simple: bool = Config.get_value('interface', 'simple_pause_blur')
 		blur.material = load(SIMPLE_BLUR_MATERIAL if simple else SLOW_BLUR_MATERIAL)
@@ -61,7 +64,7 @@ func _ready() -> void:
 		music.play()
 
 	var keys: Array = Game.PlayMode.keys()
-	song_name.text = '%s\n(%s)' % [Game.instance.metadata.display_name,
+	song_name.text = '%s\n(%s)' % [Game.instance.metadata.get_full_name(),
 			Game.difficulty.to_upper(),]
 	if song_name.size.x > Global.game_size.x:
 		song_name.scale = Vector2.ONE * (Global.game_size.x / song_name.size.x * 0.9)
@@ -92,9 +95,6 @@ func _input(event: InputEvent) -> void:
 			match type:
 				&'resume':
 					_close()
-					if Game.instance.song_started and \
-							Config.get_value('interface', 'countdown_on_resume'):
-						Game.instance.countdown_resume()
 				&'restart':
 					_close()
 					get_tree().reload_current_scene()

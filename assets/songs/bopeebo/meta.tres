@@ -1,14 +1,24 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=4 format=3 uid="uid://c5d47mbdc14ja"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://c5d47mbdc14ja"]
 
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_i8til"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="1_ubbcs"]
-[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_vcagy"]
+[ext_resource type="Texture2D" uid="uid://c8gwllfuq3f1a" path="res://assets/game/characters/dad/icon.png" id="2_tnkgv"]
 
-[sub_resource type="Resource" id="Resource_1nmij"]
-script = ExtResource("1_vcagy")
-name = &"Kawai Sprite"
-role = &"Composer"
+[sub_resource type="Resource" id="Resource_78bgo"]
+script = ExtResource("1_i8til")
+texture = ExtResource("2_tnkgv")
+color = Color(0.686275, 0.4, 0.807843, 1)
+frames = Vector2i(1, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("1_ubbcs")
 display_name = &"Bopeebo"
-authors = Array[ExtResource("1_vcagy")]([SubResource("Resource_1nmij")])
+mix = &"Default"
+icon = SubResource("Resource_78bgo")
+difficulties = ["easy", "normal", "hard", "erect", "nightmare"]
+difficulty_song_overrides = Dictionary[String, StringName]({
+"erect": &"bopeebo_erect",
+"nightmare": &"bopeebo_erect"
+})

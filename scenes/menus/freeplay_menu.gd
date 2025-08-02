@@ -4,7 +4,7 @@ class_name FreeplayMenu extends Node2D
 static var index: int = 0
 static var difficulty_index: int = 0
 
-@export var list: Array[FreeplaySong] = []
+@export var list: Array[String] = []
 
 @onready var background: Sprite2D = %background
 var target_background_color: Color = Color.WHITE
@@ -13,22 +13,19 @@ var song_nodes: Array[FreeplaySongNode] = []
 
 @onready var tracks: Tracks = %tracks
 @onready var track_timer: Timer = %track_timer
-@onready var _info_panel: Panel = %info_panel
+@onready var info_panel: Panel = %info_panel
 
-var list_song: FreeplaySong:
+var list_song: String:
 	get:
 		return list[index]
 
 var current_song: String:
 	get:
-		if not is_instance_valid(list_song):
-			return ''
-
-		return _get_song_name(list_song, difficulty)
+		return get_song_name(list_song, difficulty)
 
 var difficulties: PackedStringArray:
 	get:
-		return list_song.song_difficulties
+		return get_song_difficulties(list_song)
 
 var difficulty: String:
 	get:
@@ -46,7 +43,7 @@ func _ready() -> void:
 	assert(not list.is_empty(), 'You need a list to have freeplay work correctly.')
 
 	for i: int in list.size():
-		_load_song(i)
+		load_song(i)
 
 	if song_nodes.is_empty():
 		active = false
@@ -59,7 +56,7 @@ func _ready() -> void:
 	tracks.finished.connect(_on_finished)
 
 	change_selection()
-	target_background_color = song_nodes[index].song.icon.color
+	target_background_color = song_nodes[index].meta.icon.color
 	background.modulate = target_background_color
 
 
@@ -94,11 +91,24 @@ func _input(event: InputEvent) -> void:
 		change_selection(randi_range(-song_nodes.size() + 1, song_nodes.size() - 1))
 
 
-func _get_song_name(song: FreeplaySong, diff: String) -> String:
-	if not is_instance_valid(song.difficulty_remap):
-		return song.song_name.to_lower()
+func get_song_name(song: String, diff: String) -> String:
+	if not ResourceLoader.exists('res://assets/songs/%s/meta.tres' % [song]):
+		printerr('Song does not have a metadata file! Probably add one lol.')
+		return song.to_lower()
 
-	return song.difficulty_remap.mapping.get(diff, song.song_name).to_lower()
+	var meta: SongMetadata =  load('res://assets/songs/%s/meta.tres' % [song])
+	if meta.difficulty_song_overrides.has(diff):
+		return meta.difficulty_song_overrides.get(diff).to_lower()
+
+	return song.to_lower()
+
+
+func get_song_difficulties(song: String) -> PackedStringArray:
+	if not ResourceLoader.exists('res://assets/songs/%s/meta.tres' % [song]):
+		printerr('Song does not have a metadata file! Add one!')
+		return []
+
+	return load('res://assets/songs/%s/meta.tres' % [song]).difficulties
 
 
 func change_selection(amount: int = 0) -> void:
@@ -116,12 +126,12 @@ func change_selection(amount: int = 0) -> void:
 		node.target_y = i - index
 		node.modulate.a = 1.0 if node.target_y == 0 else 0.6
 
-	target_background_color = song_nodes[index].song.icon.color
+	target_background_color = song_nodes[index].meta.icon.color
 
 
 func change_difficulty(amount: int = 0) -> void:
 	difficulty_index = wrapi(difficulty_index + amount, 0, difficulties.size())
-	_info_panel.difficulty_count = difficulties.size()
+	info_panel.difficulty_count = difficulties.size()
 	if difficulties.is_empty():
 		difficulty_changed.emit(&'N/A')
 	else:
@@ -152,20 +162,20 @@ func select_song() -> void:
 	SceneManager.switch_to('scenes/game/game.tscn')
 
 
-func _load_song(i: int) -> void:
-	var song: FreeplaySong = list[i]
-	if song.song_difficulties.size() < 1:
+func load_song(i: int) -> void:
+	var song: String = list[i]
+	var difficulties: PackedStringArray = get_song_difficulties(song)
+	if difficulties.is_empty():
 		printerr('Song is missing any difficulties!')
 		return
 
-	var song_name: String = _get_song_name(song, song.song_difficulties[0])
+	var song_name: String = get_song_name(song, '')
 	var meta_path: String = 'res://assets/songs/%s/meta.tres' % song_name
 	var meta_exists: bool = ResourceLoader.exists(meta_path)
 	if not meta_exists:
 		var missing_song: FreeplaySongNode = FreeplaySongNode.new()
 		missing_song.position = Vector2.ZERO
-		missing_song.song = song
-		missing_song.text = song.song_name
+		missing_song.text = song
 		missing_song.target_y = i
 		missing_song.modulate = Color.SALMON
 		song_nodes.push_back(missing_song)
@@ -178,20 +188,19 @@ func _load_song(i: int) -> void:
 		missing_song.add_child(lock)
 		return
 
-	song.song_meta = load(meta_path)
+	var meta: SongMetadata = load(meta_path)
+	if not is_instance_valid(meta.icon):
+		meta.icon = Icon.new()
 
 	var node: FreeplaySongNode = FreeplaySongNode.new()
 	node.position = Vector2.ZERO
-	node.song = song
-	node.text = song.song_meta.display_name
+	node.text = meta.get_full_name()
 	node.target_y = i
+	node.meta = meta
 	song_nodes.push_back(node)
 	songs.add_child(node)
 
-	if not is_instance_valid(song.icon):
-		song.icon = Icon.new()
-
-	var icon: Sprite2D = Icon.create_sprite(song.icon)
+	var icon: Sprite2D = Icon.create_sprite(meta.icon)
 	# 37.5 = 150.0 * 0.25
 	icon.position = Vector2(node.size.x + 75.0, 37.5)
 	node.add_child(icon)

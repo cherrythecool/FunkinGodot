@@ -30,6 +30,15 @@ func parse(difficulty: StringName) -> Chart:
 	# sucky fix but this happens more than once so
 	if not chart.events.is_empty() and chart.events[0] is CameraPan:
 		chart.events[0].time = floorf(chart.events[0].time)
+	
+	var found_starter: bool = false
+	for event: EventData in chart.events:
+		if event is CameraPan and event.time <= 0.0:
+			found_starter = true
+			break
+	
+	if not found_starter:
+		chart.events.push_front(CameraPan.new())
 
 	for note: Dictionary in json_chart.notes.get(difficulty):
 		var note_data: NoteData = NoteData.new()

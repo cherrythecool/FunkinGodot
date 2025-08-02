@@ -1,10 +1,25 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://bbjhujb00cq67"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://bbjhujb00cq67"]
 
-[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_c87b2"]
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_ovi2r"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_7b6qm"]
+[ext_resource type="Texture2D" uid="uid://qvp8tkrjr2l7" path="res://assets/game/characters/mom/icon.png" id="2_ji3gq"]
+
+[sub_resource type="Resource" id="Resource_25amm"]
+script = ExtResource("1_ovi2r")
+texture = ExtResource("2_ji3gq")
+color = Color(0.847059, 0.333333, 0.556863, 1)
+frames = Vector2i(2, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("2_7b6qm")
 display_name = &"Satin Panties"
-authors = Array[ExtResource("1_c87b2")]([])
-metadata/_custom_type_script = ExtResource("2_7b6qm")
+mix = &"Default"
+icon = SubResource("Resource_25amm")
+difficulties = ["easy", "normal", "hard", "erect", "nightmare"]
+difficulty_song_overrides = Dictionary[String, StringName]({
+"erect": &"satin_panties_erect",
+"nightmare": &"satin_panties_erect"
+})
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"

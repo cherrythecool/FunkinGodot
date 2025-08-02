@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/greyGradient.png-6f18dfa49734a7aa92cc02902c7f
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

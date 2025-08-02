@@ -1,10 +1,25 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://rlx37dy8iuf6"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://rlx37dy8iuf6"]
 
-[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_1mjah"]
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_t2xph"]
+[ext_resource type="Texture2D" uid="uid://5ad1jmxs576c" path="res://assets/game/characters/spooky/icon.png" id="2_fsesm"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_nxar5"]
+
+[sub_resource type="Resource" id="Resource_gegvq"]
+script = ExtResource("1_t2xph")
+texture = ExtResource("2_fsesm")
+color = Color(0.835294, 0.494118, 0, 1)
+frames = Vector2i(2, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("2_nxar5")
 display_name = &"Spookeez"
-authors = Array[ExtResource("1_1mjah")]([])
+mix = &"Default"
+icon = SubResource("Resource_gegvq")
+difficulties = ["easy", "normal", "hard", "erect", "nightmare"]
+difficulty_song_overrides = Dictionary[String, StringName]({
+"erect": &"spookeez_erect",
+"nightmare": &"spookeez_erect"
+})
 metadata/_custom_type_script = "uid://3bi6wwv6us1w"

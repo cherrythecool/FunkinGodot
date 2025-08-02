@@ -44,7 +44,7 @@ outline_color = Color(0, 0, 0, 1)
 [sub_resource type="LabelSettings" id="LabelSettings_6egcm"]
 font = ExtResource("8_in2av")
 font_size = 64
-outline_size = 18
+outline_size = 16
 outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_odcbh"]
@@ -195,7 +195,7 @@ position = Vector2(640, 360)
 [node name="song_label" type="Label" parent="."]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.74902)
-layout_mode = 1
+layout_mode = 0
 offset_top = 16.0
 offset_right = 1280.0
 offset_bottom = 32.0

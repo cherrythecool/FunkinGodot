@@ -6,7 +6,7 @@ var rate: float = 1.0
 var active: bool = true
 
 var raw_time: float = 0.0
-const MAX_DESYNC: float = 25.0 / 1000.0
+const MAX_DESYNC: float = 20.0 / 1000.0
 
 var tempo: float = 0.0
 var tempo_changes: Array[BPMChange] = []
@@ -98,8 +98,7 @@ func _process(delta: float) -> void:
 
 
 func sync_to_target(delta: float) -> void:
-	var mix_delta: float = AudioServer.get_time_since_last_mix()
-	var audio_time: float = target_audio.get_playback_position() + mix_delta
+	var audio_time: float = Global.get_accurate_time(target_audio)
 	var desync: float = absf(raw_time - audio_time)
 	if audio_time > raw_time or desync >= MAX_DESYNC:
 		raw_time = audio_time
@@ -136,7 +135,10 @@ func reset() -> void:
 
 
 func reset_offset() -> void:
-	offset = audio_offset - manual_offset
+	if OS.get_name() == 'Linux':
+		offset = audio_offset - manual_offset
+	else:
+		offset = -manual_offset
 
 
 func get_bpm_changes(events: Array[EventData], clear: bool = true) -> void:

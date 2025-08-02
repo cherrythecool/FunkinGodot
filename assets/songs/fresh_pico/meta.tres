@@ -1,10 +1,22 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://bqc742u7mu8g8"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://bqc742u7mu8g8"]
 
-[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_yyeyk"]
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_y4o0c"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_meecp"]
+[ext_resource type="Texture2D" uid="uid://c8gwllfuq3f1a" path="res://assets/game/characters/dad/icon.png" id="2_qnbq6"]
+
+[sub_resource type="Resource" id="Resource_cnk4x"]
+script = ExtResource("1_y4o0c")
+texture = ExtResource("2_qnbq6")
+color = Color(0.686275, 0.4, 0.807843, 1)
+frames = Vector2i(1, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("2_meecp")
-display_name = &"Fresh Pico Mix"
-authors = Array[ExtResource("1_yyeyk")]([])
-metadata/_custom_type_script = ExtResource("2_meecp")
+display_name = &"Fresh"
+mix = &"Pico"
+icon = SubResource("Resource_cnk4x")
+difficulties = ["easy", "normal", "hard"]
+difficulty_song_overrides = Dictionary[String, StringName]({})
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"

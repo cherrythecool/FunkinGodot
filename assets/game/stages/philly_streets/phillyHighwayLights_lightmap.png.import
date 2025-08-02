@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/phillyHighwayLights_lightmap.png-f1bc89a32d91
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

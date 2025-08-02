@@ -137,7 +137,7 @@ animation_name = &"storymode"
 position = Vector2(0, 61)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"storymode idle"
-frame_progress = 0.961881
+frame_progress = 0.648294
 script = ExtResource("4_emyfo")
 playing = true
 
@@ -152,7 +152,7 @@ animation_name = &"freeplay"
 position = Vector2(0, 61)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"freeplay idle"
-frame_progress = 0.312457
+frame_progress = 0.998861
 script = ExtResource("4_emyfo")
 playing = true
 
@@ -168,7 +168,7 @@ animation_name = &"credits"
 position = Vector2(0, 62)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"credits idle"
-frame_progress = 0.491205
+frame_progress = 0.177613
 script = ExtResource("4_emyfo")
 playing = true
 
@@ -184,7 +184,7 @@ animation_name = &"options"
 position = Vector2(0, 55)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"options idle"
-frame_progress = 0.0392905
+frame_progress = 0.725705
 script = ExtResource("4_emyfo")
 playing = true
 

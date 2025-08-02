@@ -137,8 +137,8 @@ func _import() -> Error:
 				var offsets: Rect2i = frame.offsets
 
 				margin = Rect2i(
-					-offsets.position.x, -offsets.position.y,
-					offsets.size.x - source.size.x, offsets.size.y - source.size.y)
+					-offsets.position,
+					source.size - offsets.size)
 
 				margin.size = margin.size.clamp(margin.position.abs(), Vector2i.MAX)
 				atlas.margin = margin
@@ -162,8 +162,8 @@ func _import() -> Error:
 					atlas.region = source
 
 					margin = Rect2i(
-						-offsets.position.x, -offsets.position.y,
-						offsets.size.x - source.size.x, offsets.size.y - source.size.y)
+						-offsets.position,
+						source.size - offsets.size)
 
 					atlas.margin = margin
 					frame.atlas = atlas

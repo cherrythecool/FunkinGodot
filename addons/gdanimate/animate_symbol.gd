@@ -69,22 +69,20 @@ func _process(delta: float) -> void:
 		frame = 0
 		return
 
-	if not playing:
-		return
-
-	_timer += delta * speed
-	while _timer >= 1.0 / _animation.framerate:
-		frame += 1
-		_timer -= 1.0 / _animation.framerate
-		if frame > _timeline.length - 1:
-			match loop_mode:
-				'Loop':
-					frame = 0
-				_:
-					if playing:
-						playing = false
-						finished.emit()
-					frame = _timeline.length - 1
+	if playing:
+		_timer += delta * speed
+		while _timer >= 1.0 / _animation.framerate:
+			frame += 1
+			_timer -= 1.0 / _animation.framerate
+			if frame > _timeline.length - 1:
+				match loop_mode:
+					'Loop':
+						frame = 0
+					_:
+						if playing:
+							playing = false
+							finished.emit()
+						frame = _timeline.length - 1
 
 
 func _cache_atlas() -> void:

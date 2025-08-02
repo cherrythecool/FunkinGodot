@@ -1,15 +1,18 @@
 class_name SongMetadata extends Resource
 
 
-@export_category('Display Information')
+@export var display_name: StringName = &'Song Name'
+@export var mix: StringName = &'Default'
+@export var icon: Icon = null
 
-@export var display_name: StringName = &'Test'
+@export var difficulties: PackedStringArray = [
+	'easy', 'normal', 'hard'
+]
+@export var difficulty_song_overrides: Dictionary[String, StringName] = {}
 
-@export_category('Credits')
 
-@export var authors: Array[SongAuthor]
+func get_full_name() -> StringName:
+	if mix != &'Default':
+		return &'%s [%s Mix]' % [display_name, mix]
 
-
-func _to_string() -> String:
-	return 'SongMetadata(display_name: %s, authors: %s)' \
-			% [display_name, authors]
+	return display_name

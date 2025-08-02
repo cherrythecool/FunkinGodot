@@ -1,10 +1,22 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://bj3i5srwdh6f2"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://bj3i5srwdh6f2"]
 
-[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_0ws1g"]
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_dils7"]
+[ext_resource type="Texture2D" uid="uid://cyns8uj2h4erl" path="res://assets/game/characters/monster/icon.png" id="2_1gkxv"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_tm0ls"]
+
+[sub_resource type="Resource" id="Resource_mnl25"]
+script = ExtResource("1_dils7")
+texture = ExtResource("2_1gkxv")
+color = Color(0.996078, 1, 0.466667, 1)
+frames = Vector2i(2, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("2_tm0ls")
 display_name = &"Monster"
-authors = Array[ExtResource("1_0ws1g")]([])
+mix = &"Default"
+icon = SubResource("Resource_mnl25")
+difficulties = ["easy", "normal", "hard"]
+difficulty_song_overrides = Dictionary[String, StringName]({})
 metadata/_custom_type_script = "uid://3bi6wwv6us1w"

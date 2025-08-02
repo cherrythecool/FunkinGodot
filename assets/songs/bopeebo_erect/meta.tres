@@ -1,14 +1,10 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=4 format=3 uid="uid://djsvc13ty8i26"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=2 format=3 uid="uid://djsvc13ty8i26"]
 
-[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_a0daw"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_bcala"]
-
-[sub_resource type="Resource" id="Resource_1nmij"]
-script = ExtResource("1_a0daw")
-name = &"Kawai Sprite"
-role = &"Composer"
 
 [resource]
 script = ExtResource("2_bcala")
-display_name = &"Bopeebo Erect"
-authors = Array[ExtResource("1_a0daw")]([SubResource("Resource_1nmij")])
+display_name = &"Bopeebo"
+mix = &"Erect"
+difficulties = ["easy", "normal", "hard"]
+difficulty_song_overrides = Dictionary[String, StringName]({})

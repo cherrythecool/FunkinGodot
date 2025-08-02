@@ -96,3 +96,4 @@ character_path = "res://scenes/game/assets/characters/gf.tscn"
 [node name="train_passes" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("9_6ah8b")
+bus = &"SFX"

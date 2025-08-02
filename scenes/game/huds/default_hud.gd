@@ -74,7 +74,10 @@ func setup() -> void:
 	rating_sprite.texture_filter = skin.rating_filter
 	countdown_container.scale = skin.countdown_scale
 
-	song_label.text = '%s • [%s]' % [game.metadata.display_name, Game.difficulty.to_upper()]
+	song_label.text = '%s • [%s]' % [
+			game.metadata.get_full_name(),
+			Game.difficulty.to_upper()
+	]
 
 	# we do this because I LOVE PRELOADING SHADERS GRAHHHH
 	_preload_splash(player_field.default_note_splash)
@@ -140,7 +143,7 @@ func _process(delta: float) -> void:
 		is_instance_valid(preloading_viewport)
 		and preloading_viewport.get_child_count() == 0
 	):
-		preloading_layer.free()
+		preloading_layer.queue_free()
 
 	scale = scale.lerp(Vector2.ONE, delta * 3.0)
 

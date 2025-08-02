@@ -56,7 +56,7 @@ func _process(_delta: float) -> void:
 	if not takes_input:
 		auto_input()
 
-	var receptor_ys: Array[float] = []
+	var receptor_ys: PackedFloat64Array = []
 	for i: int in lane_count:
 		receptor_ys.push_back(receptors[i].position.y)
 
@@ -298,7 +298,7 @@ func apply_skin_to_note(note: Note) -> void:
 
 	var animation: StringName = note.sprite.animation
 	note.sprite.sprite_frames = skin.note_frames
-	note.sprite.scale = skin.note_scale
+	note.scale = skin.note_scale
 	note.sprite.texture_filter = skin.note_filter
 	note.sprite.play(animation)
 	note.sprite.frame = 0

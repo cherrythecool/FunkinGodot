@@ -1,10 +1,25 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=3 format=3 uid="uid://bgg7iwbxwudm1"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://bgg7iwbxwudm1"]
 
-[ext_resource type="Script" uid="uid://b5vwuv0r4d1t4" path="res://scripts/resources/song_author.gd" id="1_hou11"]
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_5h4lu"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="2_5h4lu"]
+[ext_resource type="Texture2D" uid="uid://cbpmx024rn06u" path="res://assets/game/characters/pico/icon.png" id="2_7plau"]
+
+[sub_resource type="Resource" id="Resource_7kw2t"]
+script = ExtResource("1_5h4lu")
+texture = ExtResource("2_7plau")
+color = Color(0.717647, 0.847059, 0.333333, 1)
+frames = Vector2i(2, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("2_5h4lu")
 display_name = &"Pico"
-authors = Array[ExtResource("1_hou11")]([])
+mix = &"Default"
+icon = SubResource("Resource_7kw2t")
+difficulties = ["easy", "normal", "hard", "erect", "nightmare"]
+difficulty_song_overrides = Dictionary[String, StringName]({
+"erect": &"pico_erect",
+"nightmare": &"pico_erect"
+})
 metadata/_custom_type_script = "uid://3bi6wwv6us1w"

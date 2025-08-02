@@ -2,7 +2,7 @@
 class_name FreeplaySongNode extends ListedAlphabet
 
 
-var song: FreeplaySong
+@export var meta: SongMetadata = null
 
 
 func _process(delta: float) -> void:

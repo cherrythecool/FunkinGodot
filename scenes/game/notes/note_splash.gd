@@ -11,6 +11,8 @@ var note: Note
 
 
 func _ready() -> void:
+	animation_finished.connect(queue_free)
+	
 	if is_instance_valid(note):
 		modulate.a = note.field.note_splash_alpha
 

@@ -119,7 +119,7 @@ func change_selection(amount: int = 0) -> void:
 	for path: String in song_paths:
 		if ResourceLoader.exists('res://assets/songs/%s/meta.tres' % path):
 			var meta: SongMetadata = load('res://assets/songs/%s/meta.tres' % path)
-			song_names.push_back(meta.display_name)
+			song_names.push_back(meta.get_full_name())
 		else:
 			song_names.push_back(path)
 

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="2_getyr"]
 [ext_resource type="Script" uid="uid://baxbvvuf4ol2f" path="res://scenes/menus/options/preview_option.gd" id="3_uqgqk"]
 [ext_resource type="Script" uid="uid://1xupndy1w5yk" path="res://scenes/menus/options/checkbox_option.gd" id="4_2w5sj"]
-[ext_resource type="SpriteFrames" uid="uid://dfv5k6fikmo5r" path="res://assets/menus/options/checkbox.res" id="5_pu18o"]
+[ext_resource type="SpriteFrames" uid="uid://oksqh74ocs1w" path="res://assets/menus/options/checkbox.res" id="5_pu18o"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="6_ubeli"]
 [ext_resource type="Script" uid="uid://dpnfmug35vwfs" path="res://scenes/menus/options/number_option.gd" id="7_gp12a"]
 [ext_resource type="Script" uid="uid://be4ehaog85mta" path="res://scenes/menus/options/offset_option.gd" id="7_wvbcq"]
@@ -19,7 +19,7 @@ max_y = 320.0
 position = Vector2(0, -184)
 
 [node name="scroll_speed" type="Node2D" parent="the_list"]
-position = Vector2(0, 625)
+position = Vector2(-4, 511)
 script = ExtResource("2_getyr")
 text = "scroll speed"
 centered = true
@@ -90,26 +90,8 @@ position = Vector2(32, -34)
 script = ExtResource("2_getyr")
 text = "< 0 >"
 
-[node name="use_conductor_time" type="Node2D" parent="the_list/options"]
-position = Vector2(10, 381)
-script = ExtResource("4_2w5sj")
-key = &"use_conductor_time"
-
-[node name="alphabet" type="Node2D" parent="the_list/options/use_conductor_time"]
-script = ExtResource("2_getyr")
-text = "fps based ms"
-centered = true
-
-[node name="checkbox" type="AnimatedSprite2D" parent="the_list/options/use_conductor_time"]
-position = Vector2(375, 0)
-scale = Vector2(0.8, 0.8)
-sprite_frames = ExtResource("5_pu18o")
-animation = &"selected"
-offset = Vector2(-5, -35)
-script = ExtResource("6_ubeli")
-
 [node name="use_touch" type="Node2D" parent="the_list/options"]
-position = Vector2(63, 478)
+position = Vector2(63, 383)
 script = ExtResource("4_2w5sj")
 key = &"use_touch"
 
@@ -127,7 +109,7 @@ offset = Vector2(-5, -35)
 script = ExtResource("6_ubeli")
 
 [node name="method" type="Node2D" parent="the_list/options"]
-position = Vector2(0, 716)
+position = Vector2(0, 616)
 script = ExtResource("8_8o1re")
 list = Array[String](["chart", "constant"])
 display_raw = false
@@ -144,7 +126,7 @@ script = ExtResource("2_getyr")
 text = "chart"
 
 [node name="value" type="Node2D" parent="the_list/options" node_paths=PackedStringArray("root", "current_preview")]
-position = Vector2(-22, 812)
+position = Vector2(-22, 712)
 script = ExtResource("7_gp12a")
 key = &"custom_scroll_speed"
 integers = false
@@ -179,5 +161,4 @@ position = Vector2(240, 312)
 
 [connection signal="animation_finished" from="the_list/options/downscroll/checkbox" to="the_list/options/downscroll" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="the_list/options/middlescroll/checkbox" to="the_list/options/middlescroll" method="_on_checkbox_animation_finished"]
-[connection signal="animation_finished" from="the_list/options/use_conductor_time/checkbox" to="the_list/options/use_conductor_time" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="the_list/options/use_touch/checkbox" to="the_list/options/use_touch" method="_on_checkbox_animation_finished"]

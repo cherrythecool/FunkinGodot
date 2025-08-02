@@ -15,5 +15,3 @@ material = SubResource("ShaderMaterial_uaa61")
 sprite_frames = ExtResource("1_qpt8d")
 animation = &"splash 1"
 script = ExtResource("3_3s68y")
-
-[connection signal="animation_finished" from="." to="." method="queue_free"]

@@ -88,7 +88,7 @@ var default_configuration: Dictionary = {
 	'interface': {
 		'sustain_layer': 'below',
 		'cpu_strums_press': true,
-		'note_splash_alpha': 60.0,
+		'note_splash_alpha': 100.0,
 		'countdown_on_resume': false,
 		'scene_transitions': true,
 		'pause_blur': 100.0,

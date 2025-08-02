@@ -39,7 +39,7 @@ func _ready() -> void:
 
 
 func play_anim(anim: StringName, force: bool = false, special: bool = false) -> void:
-	if (in_special_anim and not force) and animation_player.is_playing():
+	if (in_special_anim and not special) and animation_player.is_playing():
 		return
 	if not has_anim(anim):
 		push_warning('Character missing animation "%s"!' % [anim])
@@ -109,7 +109,9 @@ func set_character_material(new_material: Material) -> void:
 
 
 func _process(delta: float) -> void:
-	if singing:
-		sing_timer += delta / Conductor.beat_delta
-		if sing_timer * 4.0 >= sing_steps or sing_steps <= 0.0:
-			dance(true)
+	if not singing:
+		return
+	
+	sing_timer += delta / Conductor.beat_delta
+	if sing_timer * 4.0 >= sing_steps or sing_steps <= 0.0:
+		dance(true)

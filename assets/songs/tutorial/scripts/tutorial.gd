@@ -23,7 +23,7 @@ func _ready() -> void:
 		camera.position = game.target_camera_position
 
 		game.hud.health_bar.reload_icons()
-		opponent_field.default_character = opponent
+		opponent_field.target_character = opponent
 
 
 func _process(_delta: float) -> void:
