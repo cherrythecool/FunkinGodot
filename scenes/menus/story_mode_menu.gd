@@ -19,8 +19,8 @@ func _ready() -> void:
 	if not music_player.playing:
 		Conductor.reset()
 		music_player.play()
-		Conductor.tempo = 102.0
-		Conductor.target_audio = music_player
+	Conductor.tempo = 102.0
+	Conductor.target_audio = music_player
 	Conductor.beat_hit.connect(_on_beat_hit)
 
 	change_selection()

@@ -22,9 +22,6 @@ func _ready() -> void:
 	# Clear color without effect in editor.
 	RenderingServer.set_default_clear_color(Color.BLACK)
 
-	# Slightly lower input latency. (probably)
-	Input.use_accumulated_input = false
-
 	# Might save a small amount of performance.
 	# Shouldn't be detrimental to this game specifically so...
 	PhysicsServer2D.set_active(false)
@@ -170,4 +167,4 @@ func convert_flixel_tween_trans(v: String) -> Tween.TransitionType:
 
 
 func get_accurate_time(player: AudioStreamPlayer) -> float:
-	return player.get_playback_position() + AudioServer.get_time_since_last_mix()
+	return player.get_playback_position() + (AudioServer.get_time_since_last_mix() * player.pitch_scale)

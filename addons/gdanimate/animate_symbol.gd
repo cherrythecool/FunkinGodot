@@ -22,29 +22,33 @@ class_name AnimateSymbol extends Node2D
 ## changed. (Resetting the current animation)
 @export var symbol: String = '':
 	set(v):
-		var last: String = symbol
+		if symbol != v:
+			queue_redraw()
 		symbol = v
 		symbol_changed.emit(v)
 		frame = 0
 		_timer = 0.0
-		if symbol != last:
-			queue_redraw()
 
 ## The current frame of the animation.
 ## [br][br][b]Note[/b]: This automatically redraws the entire
 ## atlas when changed.
 @export var frame: int = 0:
 	set(v):
-		var last: int = frame
-		frame = v
-		if frame != last:
+		if frame != v:
 			queue_redraw()
+		frame = v
 
 ## Defines what happens when the end of the animation is reached.
 ## [br][br]Loop loops the animation forever and Play Once just stops.
 @export_enum('Loop', 'Play Once') var loop_mode: String = 'Loop'
 
 @export_range(0.0, 10.0, 0.01, 'or_greater') var speed: float = 1.0
+
+@export var offset: Vector2 = Vector2.ZERO:
+	set(v):
+		if offset != v:
+			queue_redraw()
+		offset = v
 
 ## Keeps track of whether or not the sprite is being animated automatically.
 @export var playing: bool = false
@@ -69,20 +73,22 @@ func _process(delta: float) -> void:
 		frame = 0
 		return
 
-	if playing:
-		_timer += delta * speed
-		while _timer >= 1.0 / _animation.framerate:
-			frame += 1
-			_timer -= 1.0 / _animation.framerate
-			if frame > _timeline.length - 1:
-				match loop_mode:
-					'Loop':
-						frame = 0
-					_:
-						if playing:
-							playing = false
-							finished.emit()
-						frame = _timeline.length - 1
+	if not playing:
+		return
+	
+	_timer += delta * speed
+	while _timer >= 1.0 / _animation.framerate:
+		frame += 1
+		_timer -= 1.0 / _animation.framerate
+		if frame > _timeline.length - 1:
+			match loop_mode:
+				'Loop':
+					frame = 0
+				_:
+					if playing:
+						playing = false
+						finished.emit()
+					frame = _timeline.length - 1
 
 
 func _cache_atlas() -> void:
@@ -152,7 +158,7 @@ func _draw_symbol(element: Element) -> void:
 
 func _draw_sprite(element: Element) -> void:
 	draw_set_transform_matrix(_current_transform)
-	for collection in _collections:
+	for collection: SpriteCollection in _collections:
 		if not collection.map.has(element.name):
 			continue
 		var sprite: CollectedSprite = collection.map.get(element.name)
@@ -177,17 +183,20 @@ func _draw_sprite(element: Element) -> void:
 
 
 func _draw_timeline(timeline: Timeline, target_frame: int, loop: bool = false) -> void:
-	var layers: Array[Layer] = timeline.layers.duplicate()
-	layers.reverse()
-
+	var layers: Array[Layer] = timeline.layers
+	if layers.is_empty():
+		return
+	
 	var og_frame: int = target_frame
 	var layer_transform: Transform2D = _current_transform
-	for layer: Layer in layers:
+	var i: int = layers.size() - 1
+	while i >= 0:
+		var layer: Layer = layers[i]
 		if layer.length <= 0:
+			i -= 1
 			continue
 		if loop:
 			target_frame = og_frame % layer.length
-
 		for layer_frame in layer.frames:
 			if target_frame < layer_frame.index:
 				continue
@@ -202,6 +211,8 @@ func _draw_timeline(timeline: Timeline, target_frame: int, loop: bool = false) -
 					Element.ElementType.SPRITE:
 						_draw_sprite(element)
 			break
+		
+		i -= 1
 
 
 func _draw() -> void:
@@ -209,4 +220,6 @@ func _draw() -> void:
 		return
 
 	_current_transform = Transform2D.IDENTITY
+	if offset != Vector2.ZERO:
+		_current_transform = _current_transform.translated(offset)
 	_draw_timeline(_timeline, frame)

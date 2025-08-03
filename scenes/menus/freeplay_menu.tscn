@@ -36,7 +36,7 @@ font_size = 10
 
 [node name="freeplay_menu" type="Node2D"]
 script = ExtResource("1_p2lt6")
-list = Array[String](["tutorial", "bopeebo", "fresh", "dad_battle", "spookeez", "south", "monster", "pico", "philly_nice", "blammed", "satin_panties", "high", "milf", "darnell_bf", "test"])
+list = Array[String](["tutorial", "bopeebo", "fresh", "dad_battle", "spookeez", "south", "monster", "pico", "philly_nice", "blammed", "satin_panties", "high", "milf", "cocoa", "darnell_bf", "test"])
 
 [node name="track_timer" type="Timer" parent="."]
 unique_name_in_owner = true

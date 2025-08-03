@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/mistBack.png-c7a84b89de1edf969a5f990af73a8060
 
 [params]
 
-compress/mode=0
+compress/mode=4
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

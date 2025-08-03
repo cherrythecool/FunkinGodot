@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://5dlrqhx5jf3r"
-path.bptc="res://.godot/imported/skib.png-8d9fff9aa3bfcf1d3d59d9921c52a3ee.bptc.ctex"
-path.astc="res://.godot/imported/skib.png-8d9fff9aa3bfcf1d3d59d9921c52a3ee.astc.ctex"
+path="res://.godot/imported/skib.png-8d9fff9aa3bfcf1d3d59d9921c52a3ee.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/credits/skib.png"
-dest_files=["res://.godot/imported/skib.png-8d9fff9aa3bfcf1d3d59d9921c52a3ee.bptc.ctex", "res://.godot/imported/skib.png-8d9fff9aa3bfcf1d3d59d9921c52a3ee.astc.ctex"]
+dest_files=["res://.godot/imported/skib.png-8d9fff9aa3bfcf1d3d59d9921c52a3ee.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

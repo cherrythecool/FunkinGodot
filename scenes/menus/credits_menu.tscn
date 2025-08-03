@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://b6gvgi7qjy176"]
+[gd_scene load_steps=21 format=3 uid="uid://b6gvgi7qjy176"]
 
 [ext_resource type="Script" uid="uid://ck4pjp7k3k745" path="res://scenes/menus/credits_menu.gd" id="1_536xp"]
 [ext_resource type="Texture2D" uid="uid://coli0ye4bsyff" path="res://assets/menus/background.png" id="1_due5w"]
@@ -13,8 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://b4dt6w5nafr6p" path="res://assets/menus/credits/nebula.png" id="8_aave4"]
 [ext_resource type="Texture2D" uid="uid://n5kg83c7euef" path="res://assets/menus/credits/maru.jpg" id="10_0pp4y"]
 [ext_resource type="Texture2D" uid="uid://2pifvfo3wo25" path="res://assets/menus/credits/suokarts3.jpg" id="11_b34ng"]
-[ext_resource type="Texture2D" uid="uid://5dlrqhx5jf3r" path="res://assets/menus/credits/skib.png" id="12_33ree"]
+[ext_resource type="Script" uid="uid://bk4kpu0r530gd" path="res://scenes/menus/credits/swordcube.gd" id="13_aave4"]
 [ext_resource type="AudioStream" uid="uid://cdx006xagoh7x" path="res://assets/menus/pause_menu/pico_theme.ogg" id="13_b34ng"]
+[ext_resource type="Texture2D" uid="uid://cdtbh4yrt24tn" path="res://assets/menus/credits/sword.png" id="14_71dcr"]
 
 [sub_resource type="Shader" id="Shader_33ree"]
 code = "shader_type canvas_item;
@@ -176,10 +177,10 @@ metadata/_custom_type_script = "uid://bable6fjbwgrq"
 [node name="swordcube" type="Node2D" parent="list"]
 material = SubResource("ShaderMaterial_33ree")
 position = Vector2(-480, 1885)
-script = ExtResource("4_wywfy")
+script = ExtResource("13_aave4")
 link = "https://github.com/swordcube"
 role = "emotional support"
-texture = ExtResource("12_33ree")
+texture = ExtResource("14_71dcr")
 target_y = 10
 use_x = false
 offset = Vector2(-480, 0)

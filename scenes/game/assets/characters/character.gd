@@ -11,7 +11,7 @@ class_name Character extends Node2D
 var dance_step: int = 0
 
 @export_category('Death')
-@export_file('*.tscn') var death_character: String = 'res://scenes/game/assets/characters/bf-dead.tscn'
+@export_file('*.tscn') var death_character: String = 'uid://w4v0gymuehdt'
 @export var gameover_assets: GameoverAssets
 
 @warning_ignore('unused_private_class_variable')
@@ -50,7 +50,8 @@ func play_anim(anim: StringName, force: bool = false, special: bool = false) -> 
 	singing = animation.begins_with(&'sing_')
 
 	if animation_player.current_animation == anim and force:
-		animation_player.seek(0.0, true)
+		animation_player.seek(0.0)
+		animation_player.advance(0.0)
 		return
 
 	animation_player.play(anim)
@@ -111,7 +112,7 @@ func set_character_material(new_material: Material) -> void:
 func _process(delta: float) -> void:
 	if not singing:
 		return
-	
+
 	sing_timer += delta / Conductor.beat_delta
 	if sing_timer * 4.0 >= sing_steps or sing_steps <= 0.0:
 		dance(true)

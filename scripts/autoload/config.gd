@@ -97,7 +97,7 @@ var default_configuration: Dictionary = {
 	'performance': {
 		'quality': 'default',
 		'auto_pause': false,
-		'fps_cap': -1,
+		'fps_cap': 0.0,
 		'vsync_mode': 'disabled',
 		'debug_label': 'default',
 		'debug_label_visible': false,

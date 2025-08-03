@@ -90,6 +90,8 @@ func _init() -> void:
 
 func _enter_tree() -> void:
 	instance = self
+	# Slightly lower input latency. (probably)
+	Input.use_accumulated_input = false
 
 
 func _exit_tree() -> void:
@@ -97,6 +99,8 @@ func _exit_tree() -> void:
 		instance = null
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	# Maybe better for cpu usage? Ig
+	Input.use_accumulated_input = true
 
 
 func _ready() -> void:

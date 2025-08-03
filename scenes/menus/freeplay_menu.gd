@@ -164,8 +164,7 @@ func select_song() -> void:
 
 func load_song(i: int) -> void:
 	var song: String = list[i]
-	var difficulties: PackedStringArray = get_song_difficulties(song)
-	if difficulties.is_empty():
+	if get_song_difficulties(song).is_empty():
 		printerr('Song is missing any difficulties!')
 		return
 

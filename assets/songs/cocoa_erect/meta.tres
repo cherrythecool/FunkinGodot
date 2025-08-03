@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://b4nktln3gyhl8"]
+
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_6n60n"]
+[ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="1_lyyv7"]
+[ext_resource type="Texture2D" uid="uid://bfd6qv0m2yna6" path="res://assets/game/characters/parents_christmas/icon.png" id="2_suciw"]
+
+[sub_resource type="Resource" id="Resource_72hu3"]
+script = ExtResource("1_6n60n")
+texture = ExtResource("2_suciw")
+color = Color(0.660156, 0.263031, 0.598105, 1)
+frames = Vector2i(2, 1)
+filter = 0
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
+
+[resource]
+script = ExtResource("1_lyyv7")
+display_name = &"Cocoa"
+mix = &"Erect"
+icon = SubResource("Resource_72hu3")
+difficulties = ["erect", "nightmare"]
+difficulty_song_overrides = Dictionary[String, StringName]({})
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"

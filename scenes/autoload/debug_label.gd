@@ -66,12 +66,13 @@ func display() -> void:
 	]
 
 	if info_mode == 'debug':
-		text_output += '\n\n[Debug]\nScene: %s\n%s / %s <CPU>\n%d Nodes (%d Orphaned)\n\n[Conductor]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s' % [
+		text_output += '\n\n[Debug]\nScene: %s\n%s / %s <CPU>\n%d Nodes (%d Orphaned)\nInput Accumulation: %s\n\n[Conductor]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s' % [
 			scene_name,
 			String.humanize_size(floori(static_memory_current)),
 			String.humanize_size(floori(static_memory_peak)),
 			Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
 			Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT),
+			Input.use_accumulated_input,
 			-AudioServer.get_output_latency() * 1000.0,
 			Conductor.offset * 1000.0,
 			Conductor.manual_offset * 1000.0,
