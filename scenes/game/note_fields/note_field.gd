@@ -176,6 +176,7 @@ func hit_note(note: Note) -> void:
 		return
 
 	note_hit.emit(note)
+	note.note_hit()
 	note.hit = true
 
 	if note.is_sustain:
@@ -188,23 +189,27 @@ func miss_note(note: Note) -> void:
 	var target: Character = target_character
 	if is_instance_valid(note.character):
 		target = note.character
-
 	if is_instance_valid(target):
 		target.sing_miss(note, true)
 
 	note_miss.emit(note)
+	note.note_miss()
 	remove_note(note)
 
 
-func remove_note(note: Note) -> void:
-	note.hide()
-	note.queue_free()
+func remove_note(note: Note, instant: bool = false) -> void:
 	notes.erase(note)
+
+	if instant:
+		note.free()
+	else:
+		note.hide()
+		note.queue_free()
 
 
 func clear_notes() -> void:
 	while notes.size() > 0:
-		remove_note(note_container.get_child(0))
+		remove_note(note_container.get_child(0), true)
 
 
 func apply_chart(chart: Chart) -> void:
@@ -225,9 +230,9 @@ func spawn_note(data: NoteData) -> void:
 	if data.length > 0.0 and data.length < Conductor.step_delta:
 		data.length = 0.0
 
-	var scene: PackedScene = note_types.types.get(data.type)
+	var scene: PackedScene = note_types.types.get(data.type.to_snake_case())
 	if not is_instance_valid(scene):
-		scene = note_types.types.get('default')
+		scene = note_types.types.get(&'default')
 	if not is_instance_valid(scene):
 		printerr('Note field is missing either "%s" or "default" as a note type.' % [data.type])
 		return

@@ -1,6 +1,8 @@
 extends Node
 
 
+var last_time: int = 0
+
 var fullscreened: bool = false:
 	set(value):
 		if not Engine.is_embedded_in_editor():
@@ -35,6 +37,12 @@ func _ready() -> void:
 
 	Config.loaded.connect(_on_config_loaded)
 	Config.value_changed.connect(_on_value_changed)
+
+
+func _process(delta: float) -> void:
+	var time: int = Time.get_ticks_usec()
+	var delta_ns: float = (time - last_time) / 1_000_000.0
+	last_time = time
 
 
 func _on_focus_enter() -> void:
@@ -113,24 +121,6 @@ func free_from_array(nodes: Array[Node], immediate: bool = false) -> void:
 			child.free()
 		else:
 			child.queue_free()
-
-
-# NOTE: this method is VERY hacky and likely to stop working
-# at some point but i don't know of a better method rn? maybe
-# i should make a godot pr :p
-func get_rendering_api() -> String:
-	var api_version: String = RenderingServer.get_video_adapter_api_version()
-	if api_version.begins_with('12'):
-		return 'D3D12'
-	if api_version.begins_with('3'):
-		return 'OpenGL'
-	if api_version.begins_with('1'):
-		return 'Vulkan'
-
-	if OS.get_name() == 'Web':
-		return 'WebGL'
-
-	return 'Metal'
 
 
 # Shit from V-Slice mostly

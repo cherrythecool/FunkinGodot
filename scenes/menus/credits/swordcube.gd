@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	super(delta)
-	
+
 	if target_y == 0:
 		label.material = material
 		texture_rect.stretch_mode = TextureRect.STRETCH_SCALE

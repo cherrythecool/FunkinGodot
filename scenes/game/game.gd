@@ -129,7 +129,7 @@ func _ready() -> void:
 
 	# loading external types :3
 	for note: NoteData in chart.notes:
-		var type: StringName = note.type.to_lower()
+		var type: StringName = note.type.to_snake_case()
 		if note_types.types.has(type):
 			continue
 
@@ -161,6 +161,13 @@ func _ready() -> void:
 			assets.stage = load('uid://0ih6j18ov417')
 		if not is_instance_valid(assets.hud_skin):
 			assets.hud_skin = load('uid://oxo327xfxemo')
+
+		if is_instance_valid(assets.hud):
+			hud.free()
+			hud = assets.hud.instantiate()
+			hud_layer.add_child(hud)
+			_player_field = hud.player_field
+			_opponent_field = hud.opponent_field
 
 		# Instantiate the PackedScene(s) and add them to the scene.
 		player = assets.player.instantiate()
@@ -204,13 +211,6 @@ func _ready() -> void:
 		spectator.z_index += spectator_point.z_index
 		if is_instance_valid(spectator_point.material):
 			spectator.set_character_material(spectator_point.material)
-
-		if is_instance_valid(assets.hud):
-			hud.free()
-			hud = assets.hud.instantiate()
-			hud_layer.add_child(hud)
-			_player_field = hud.player_field
-			_opponent_field = hud.opponent_field
 
 		# Set the NoteField characters.
 		_player_field.target_character = player
@@ -313,7 +313,7 @@ func _process(delta: float) -> void:
 			return
 
 	if is_instance_valid(tracks) and not song_started:
-		if Conductor.raw_time >= 0.0 and not tracks.playing:
+		if Conductor.raw_time >= 0.0 and Conductor.active and not tracks.playing:
 			tracks.play()
 			Conductor.target_audio = tracks.player
 			song_start.emit()

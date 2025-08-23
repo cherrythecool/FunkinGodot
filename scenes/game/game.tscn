@@ -8,8 +8,8 @@
 
 [sub_resource type="Curve" id="Curve_5selw"]
 bake_resolution = 180
-_data = [Vector2(0.14, 1), 0.0, -1.36364, 0, 1, Vector2(0.25, 0.85), -1.78851, -1.78851, 0, 0, Vector2(0.5, 0.5), -1.54754, -1.6, 0, 1, Vector2(0.75, 0.1), -1.0, -0.4, 0, 1, Vector2(1, 0), -1.0, -0.4, 0, 1]
-point_count = 5
+_data = [Vector2(0.25, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), -5.0, -1.6, 0, 1, Vector2(0.75, 0.1), -1.0, -0.4, 0, 1, Vector2(1, 0), -1.0, -0.4, 0, 1]
+point_count = 4
 
 [node name="game" type="Node2D"]
 script = ExtResource("1_tneyb")

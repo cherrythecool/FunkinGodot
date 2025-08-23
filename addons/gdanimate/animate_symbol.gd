@@ -75,7 +75,7 @@ func _process(delta: float) -> void:
 
 	if not playing:
 		return
-	
+
 	_timer += delta * speed
 	while _timer >= 1.0 / _animation.framerate:
 		frame += 1
@@ -163,19 +163,21 @@ func _draw_sprite(element: Element) -> void:
 			continue
 		var sprite: CollectedSprite = collection.map.get(element.name)
 		if is_instance_valid(sprite.custom_texture):
-			draw_texture_rect(
-				sprite.custom_texture,
+			RenderingServer.canvas_item_add_texture_rect(
+				get_canvas_item(),
 				Rect2(
 					Vector2.ZERO,
 					Vector2(sprite.rect.size.y, sprite.rect.size.x) \
 							* (Vector2.ONE / collection.scale)
 				),
+				sprite.custom_texture,
 				false
 			)
 		else:
-			draw_texture_rect_region(
-				collection.texture,
+			RenderingServer.canvas_item_add_texture_rect_region(
+				get_canvas_item(),
 				Rect2(Vector2.ZERO, Vector2(sprite.rect.size) * (Vector2.ONE / collection.scale)),
+				collection.texture,
 				Rect2(sprite.rect)
 			)
 		return
@@ -186,7 +188,7 @@ func _draw_timeline(timeline: Timeline, target_frame: int, loop: bool = false) -
 	var layers: Array[Layer] = timeline.layers
 	if layers.is_empty():
 		return
-	
+
 	var og_frame: int = target_frame
 	var layer_transform: Transform2D = _current_transform
 	var i: int = layers.size() - 1
@@ -211,11 +213,13 @@ func _draw_timeline(timeline: Timeline, target_frame: int, loop: bool = false) -
 					Element.ElementType.SPRITE:
 						_draw_sprite(element)
 			break
-		
+
 		i -= 1
 
 
 func _draw() -> void:
+	RenderingServer.canvas_item_clear(get_canvas_item())
+
 	if not is_instance_valid(_timeline):
 		return
 

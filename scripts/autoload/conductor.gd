@@ -14,23 +14,23 @@ var tempo_changes: Array[BPMChange] = []
 var beat: float = 0.0
 
 ## TODO: Time signatures
-var step: float = 0.0:
+var step: float:
 	get:
 		return beat * 4.0
 
-var measure: float = 0.0:
+var measure: float:
 	get:
 		return beat / 4.0
 
-var beat_delta: float = 0.0:
+var beat_delta: float:
 	get:
 		return 60.0 / tempo
 
-var step_delta: float = 0.0:
+var step_delta: float:
 	get:
 		return beat_delta / 4.0
 
-var measure_delta: float = 0.0:
+var measure_delta: float:
 	get:
 		return beat_delta * 4.0
 
@@ -113,15 +113,16 @@ func calculate_beat() -> void:
 		return
 
 	beat = 0.0
+	tempo = tempo_changes[0].data[0]
 
 	var last_time: float = 0.0
 	for change: BPMChange in tempo_changes:
 		if maxf(time, 0.0) < change.time:
 			break
 
-		tempo = change.data[0]
 		beat += (change.time - last_time) / beat_delta
 		last_time = change.time
+		tempo = change.data[0]
 
 	beat += (time - last_time) / beat_delta
 

@@ -118,6 +118,14 @@ func _update_sustain() -> void:
 			(field.scroll_speed * absf(field.scroll_speed_modifier))
 
 
+func note_hit() -> void:
+	pass
+
+
+func note_miss() -> void:
+	pass
+
+
 func reload_sustain_sprites() -> void:
 	if not is_sustain:
 		return

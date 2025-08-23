@@ -35,3 +35,17 @@ func _draw() -> void:
 	if flipped:
 		character.scale.x *= -1.0
 	add_child(character)
+
+
+func instance_character() -> Character:
+	if not ResourceLoader.exists(character_path):
+		printerr("Couldn't find character at path %s!" % [character_path])
+		return null
+
+	var scene: PackedScene = load(character_path)
+	var instanced: Node = scene.instantiate()
+	if flipped and instanced is CanvasItem:
+		instanced.scale.x *= -1.0
+
+	add_sibling(instanced)
+	return instanced
