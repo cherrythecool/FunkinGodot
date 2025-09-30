@@ -15,7 +15,7 @@ config/description="Friday Night Funkin' remade in Godot for performance and sta
 config/version="2.0.0-week5"
 config/tags=PackedStringArray("2d", "modding", "rhythm")
 run/main_scene="res://scenes/menus/title_screen.tscn"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://assets/icon.png"
@@ -56,14 +56,14 @@ project/assembly_name="Friday Night Funkin-"
 
 [editor]
 
-movie_writer/mjpeg_quality=1.0
 movie_writer/movie_file="E:/user/apps/godot/projects/FunkinGodot/bin/test.avi"
 naming/node_name_num_separator=2
 naming/node_name_casing=2
+movie_writer/mjpeg_quality=1.0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdanimate/plugin.cfg")
+enabled=PackedStringArray("res://addons/funkin_tools/plugin.cfg", "res://addons/gdanimate/plugin.cfg")
 
 [file_customization]
 

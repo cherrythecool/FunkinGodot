@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://c1hkc3byawumw"]
+
+[node name="main_screen" type="TabContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Sparrow Importer" type="ScrollContainer" parent="."]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="margin_container" type="MarginContainer" parent="Sparrow Importer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="v_box" type="VBoxContainer" parent="Sparrow Importer/margin_container"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="Sparrow Importer/margin_container/v_box"]
+layout_mode = 2
+text = "Use this tool to convert Sparrow Atlases to Godot's native SpriteFrames resources!"
+
+[node name="h_separator" type="HSeparator" parent="Sparrow Importer/margin_container/v_box"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="import_label" type="Label" parent="Sparrow Importer/margin_container/v_box"]
+layout_mode = 2
+text = "Animation Import Settings"
+
+[node name="import_options" type="HBoxContainer" parent="Sparrow Importer/margin_container/v_box"]
+layout_mode = 2
+
+[node name="fps_box" type="SpinBox" parent="Sparrow Importer/margin_container/v_box/import_options"]
+layout_mode = 2
+value = 24.0
+
+[node name="label" type="Label" parent="Sparrow Importer/margin_container/v_box/import_options/fps_box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+text = "FPS"
+vertical_alignment = 1
