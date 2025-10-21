@@ -21,7 +21,7 @@ func _ready() -> void:
 	active = true
 
 	var value: int = randi_range(1, 1000)
-	if value == 273:
+	if value == 127:
 		active = false
 		secret.get_node(^'player').stream = load('uid://6jxbt142o25i')
 		secret.get_node(^'player').play()

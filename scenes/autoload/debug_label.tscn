@@ -30,5 +30,10 @@ label_settings = SubResource("LabelSettings_rqscu")
 unique_name_in_owner = true
 autostart = true
 
+[node name="video_stream_player" type="VideoStreamPlayer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+autoplay = true
+
 [connection signal="ready" from="." to="." method="display"]
 [connection signal="timeout" from="timer" to="." method="display"]

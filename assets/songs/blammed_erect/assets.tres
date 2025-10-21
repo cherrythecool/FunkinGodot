@@ -8,5 +8,4 @@
 script = ExtResource("1_cvlyl")
 opponent = ExtResource("1_bo12w")
 stage = ExtResource("3_qwc3t")
-scripts = Array[PackedScene]([])
 metadata/_custom_type_script = "uid://dk2lxfhv5lvf4"
