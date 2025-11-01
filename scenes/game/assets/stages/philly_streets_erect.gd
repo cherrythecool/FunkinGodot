@@ -25,8 +25,8 @@ var timer: float = 0.0
 
 
 func _ready() -> void:
-	game.player.camera_offset.position += Vector2(-250.0, -35.0)
-	game.opponent.camera_offset.position += Vector2(230.0, 75.0)
+	game.player.offset_camera_position(Vector2(-250.0, -35.0))
+	game.opponent.offset_camera_position(Vector2(230.0, 75.0))
 
 	var color_material: ShaderMaterial = ShaderMaterial.new()
 	color_material.shader = load('uid://bgwusoh6kicj3')

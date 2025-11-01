@@ -6,21 +6,19 @@ var player_field: NoteField
 var opponent_field: NoteField
 var game: Game
 
-var scroll_direction: StringName = &'up':
+var downscroll: bool = false:
 	set(value):
-		scroll_direction = value
-		_set_scroll_direction(value)
+		downscroll = value
+		set_downscroll(value)
 var centered_receptors: bool = false:
 	set(value):
 		centered_receptors = value
-		_set_centered_receptors(value)
+		set_centered_receptors(value)
 
 @export var bump_amount: Vector2 = Vector2(0.03, 0.03)
 
 @onready var note_fields: Node2D = %note_fields
 @onready var health_bar: HealthBar = %health_bar
-@onready var song_label: Label = %song_label
-@onready var countdown_container: Node2D = %countdown_container
 
 @onready var ratings_calculator: RatingsCalculator = %ratings_calculator
 @onready var rating_container: Node2D = %rating_container
@@ -29,104 +27,46 @@ var centered_receptors: bool = false:
 @onready var combo_node: Node2D = rating_container.get_node('combo')
 var rating_tween: Tween
 
-var pause_countdown: bool = false
-var _force_countdown: bool = false
-var countdown_offset: int = 0
-var tracks: Tracks
-var skin: HUDSkin
+var hud_skin: HUDSkin
 
-@onready var preloading_layer: CanvasLayer = %preloading_layer
-@onready var sub_viewport_container: SubViewportContainer = %sub_viewport_container
-@onready var preloading_viewport: SubViewport = %preloading_viewport
+signal on_setup
+signal note_hit(note: Note)
+signal note_miss(note: Note)
+signal downscroll_changed(downscroll: bool)
 
 
 func _ready() -> void:
 	if is_instance_valid(Game.instance):
 		game = Game.instance
+		game.hud_setup.connect(setup)
 	else:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		return
 
-	game.ready_post.connect(_ready_post)
-	Conductor.beat_hit.connect(_on_beat_hit)
 	Conductor.measure_hit.connect(_on_measure_hit)
 
-	player_field = note_fields.get_node('player')
-	opponent_field = note_fields.get_node('opponent')
+	if note_fields.has_node(^'player'):
+		player_field = note_fields.get_node(^'player')
+	if note_fields.has_node(^'opponent'):
+		opponent_field = note_fields.get_node(^'opponent')
+	
 	rating_container.visible = false
 
 	if not is_instance_valid(game):
 		return
 
-	scroll_direction = Config.get_value('gameplay', 'scroll_direction')
+	downscroll = Config.get_value('gameplay', 'scroll_direction') == &'down'
 	centered_receptors = Config.get_value('gameplay', 'centered_receptors')
 
 
 func setup() -> void:
-	player_field.note_hit.connect(_on_note_hit)
-	player_field.note_miss.connect(_on_note_miss)
-
-	skin = game.skin
-	tracks = game.tracks
-	combo_node.scale = skin.combo_scale
-	combo_node.texture_filter = skin.combo_filter
-	rating_sprite.scale = skin.rating_scale
-	rating_sprite.texture_filter = skin.rating_filter
-	countdown_container.scale = skin.countdown_scale
-
-	song_label.text = '%s • [%s]' % [
-			game.metadata.get_full_name(),
-			Game.difficulty.to_upper()
-	]
-
-	# we do this because I LOVE PRELOADING SHADERS GRAHHHH
-	_preload_splash(player_field.default_note_splash)
-	_preload_splash(opponent_field.default_note_splash)
-
-
-func countdown_resume() -> void:
-	if _force_countdown:
-		return
-
-	Conductor.target_audio.seek(
-		maxf(Conductor.raw_time - (4.0 * Conductor.beat_delta), 0.0)
-	)
-	countdown_offset = -floori(Conductor.beat) - 1
-	_force_countdown = true
-	pause_countdown = false
-
-	Conductor.target_audio.volume_linear = 0.0
-	create_tween().tween_property(
-		Conductor.target_audio,
-		^'volume_linear',
-		1.0,
-		4.0 * Conductor.beat_delta
-	)
-
-
-func _ready_post() -> void:
-	if not do_countdown:
-		Conductor.raw_time = 0.0
-
-
-func _on_beat_hit(beat: int) -> void:
-	if (not do_countdown) and not _force_countdown:
-		return
-	if (beat >= 0 or game.song_started) and not _force_countdown:
-		return
-
-	if pause_countdown:
-		Conductor.raw_time = -5.0 * Conductor.beat_delta
-		return
-
-	# countdown lol
-	beat += countdown_offset
-	if beat >= 0 and _force_countdown:
-		_force_countdown = false
-		return
-	var index: int = clampi(4 - absi(beat), 0, 3)
-	_display_countdown_sprite(index)
-	_play_countdown_sound(index)
+	on_setup.emit()
+	
+	if is_instance_valid(hud_skin):
+		combo_node.scale = hud_skin.combo_scale
+		combo_node.texture_filter = hud_skin.combo_filter
+		rating_sprite.scale = hud_skin.rating_scale
+		rating_sprite.texture_filter = hud_skin.rating_filter
 
 
 func _on_measure_hit(_measure: int) -> void:
@@ -139,11 +79,6 @@ func _on_measure_hit(_measure: int) -> void:
 func _process(delta: float) -> void:
 	if not (game.playing and game.camera_bumps):
 		return
-	if (
-		is_instance_valid(preloading_viewport)
-		and preloading_viewport.get_child_count() == 0
-	):
-		preloading_layer.queue_free()
 
 	scale = scale.lerp(Vector2.ONE, delta * 3.0)
 
@@ -168,17 +103,18 @@ func _on_note_hit(note: Note) -> void:
 		rating_tween.kill()
 
 	var rating: Rating = ratings_calculator.get_rating(absf(difference * 1000.0))
-	match rating.name:
-		&'marvelous':
-			rating_sprite.texture = skin.marvelous
-		&'sick':
-			rating_sprite.texture = skin.sick
-		&'good':
-			rating_sprite.texture = skin.good
-		&'bad':
-			rating_sprite.texture = skin.bad
-		&'shit':
-			rating_sprite.texture = skin.shit
+	if is_instance_valid(hud_skin):
+		match rating.name:
+			&'marvelous':
+				rating_sprite.texture = hud_skin.marvelous
+			&'sick':
+				rating_sprite.texture = hud_skin.sick
+			&'good':
+				rating_sprite.texture = hud_skin.good
+			&'bad':
+				rating_sprite.texture = hud_skin.bad
+			&'shit':
+				rating_sprite.texture = hud_skin.shit
 
 	if is_instance_valid(note.splash) and \
 			(rating.name == &'marvelous' or rating.name == &'sick'):
@@ -207,7 +143,11 @@ func _on_note_hit(note: Note) -> void:
 
 	var combo_str: String = str(game.combo).pad_zeros(3)
 	var num_count: int = combo_str.length()
-	combo_node.position.x = (-skin.combo_spacing / 4.0) * (num_count - 1)
+	var combo_spacing: float = 90.0
+	if is_instance_valid(hud_skin):
+		combo_spacing = hud_skin.combo_spacing
+	
+	combo_node.position.x = (-combo_spacing / 4.0) * (num_count - 1)
 
 	while combo_node.get_child_count() < num_count:
 		var node: Node = combo_node.get_child(0).duplicate()
@@ -216,89 +156,37 @@ func _on_note_hit(note: Note) -> void:
 
 	for i: int in combo_node.get_child_count():
 		var number: Sprite2D = combo_node.get_child(i)
-		if i < num_count:
-			number.texture = skin.combo_atlas
-			number.texture_filter = skin.combo_filter
+		if i < num_count and is_instance_valid(hud_skin):
+			number.texture = hud_skin.combo_atlas
+			number.texture_filter = hud_skin.combo_filter
 			number.frame = int(combo_str[i])
-			number.position.x = skin.combo_spacing * i
+			number.position.x = combo_spacing * i
 			number.visible = true
 		else:
 			number.visible = false
 
-	health_bar.update_score_label()
+	note_hit.emit(note)
 
 
-func _on_note_miss(_note: Note) -> void:
+func _on_note_miss(note: Note) -> void:
 	rating_container.visible = false
-	health_bar.update_score_label()
+	note_miss.emit(note)
 
 
-func _display_countdown_sprite(index: int) -> void:
-	# Don't display things that don't exist.
-	if not is_instance_valid(skin.countdown_textures[index]):
-		return
-
-	var sprite: Sprite2D = Sprite2D.new()
-	sprite.scale = Vector2(1.05, 1.05)
-	sprite.texture = skin.countdown_textures[index]
-	sprite.texture_filter = skin.rating_filter
-	countdown_container.add_child(sprite)
-
-	var tween: Tween = create_tween().set_trans(Tween.TRANS_SINE)\
-			.set_ease(Tween.EASE_OUT).set_parallel()
-	tween.tween_property(sprite, ^'modulate:a', 0.0, Conductor.beat_delta)
-	tween.tween_property(sprite, ^'scale', Vector2.ONE, Conductor.beat_delta)
-	tween.tween_callback(sprite.queue_free).set_delay(Conductor.beat_delta)
+func set_downscroll(value: bool) -> void:
+	if is_instance_valid(player_field):
+		player_field.scroll_speed_modifier = -1.0 if value else 1.0
+		player_field.position.y = 720.0 - 100.0 if value else 100.0
+	if is_instance_valid(opponent_field):
+		opponent_field.scroll_speed_modifier = -1.0 if value else 1.0
+		opponent_field.position.y = 720.0 - 100.0 if value else 100.0
+	
+	downscroll_changed.emit(value)
 
 
-func _play_countdown_sound(index: int) -> void:
-	# Don't play things that don't exist.
-	if not is_instance_valid(skin.countdown_sounds[index]):
-		return
-
-	var player: AudioStreamPlayer = AudioStreamPlayer.new()
-	player.stream = skin.countdown_sounds[index]
-	player.bus = &'SFX'
-	player.finished.connect(player.queue_free)
-	countdown_container.add_child(player)
-	player.play()
-
-
-func _set_scroll_direction(value: StringName) -> void:
-	if value != &'up' and value != &'down':
-		printerr('A scroll direction of %s is not supported at this time.' % [value])
-		return
-
-	player_field.scroll_speed_modifier = 1.0 if value == &'up' else -1.0
-	opponent_field.scroll_speed_modifier = player_field.scroll_speed_modifier
-
-	match value:
-		&'up':
-			player_field.position.y = 100.0
-			opponent_field.position.y = 100.0
-			health_bar.position.y = 720.0 - 80.0
-			song_label.position.y = 12.0
-		&'down':
-			player_field.position.y = 720.0 - 100.0
-			opponent_field.position.y = 720.0 - 100.0
-			health_bar.position.y = 80.0
-			song_label.position.y = 720.0 - 28.0
-
-
-func _set_centered_receptors(value: bool) -> void:
-	opponent_field.visible = not value
-	if value:
-		player_field.position.x = 640.0
-	else:
-		player_field.position.x = 960.0
+func set_centered_receptors(value: bool) -> void:
+	if is_instance_valid(opponent_field):
+		opponent_field.visible = not value
 		opponent_field.position.x = 320.0
-
-
-func _preload_splash(scene: PackedScene) -> void:
-	if not is_instance_valid(scene):
-		return
-	if not is_instance_valid(preloading_viewport):
-		return
-
-	var splash: AnimatedSprite = scene.instantiate()
-	preloading_viewport.add_child(splash)
+	if is_instance_valid(player_field):
+		player_field.position.x = 640.0 if value else 960.0

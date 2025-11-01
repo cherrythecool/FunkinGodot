@@ -20,7 +20,7 @@ func _exit_tree() -> void:
 
 
 func _ready() -> void:
-	game.spectator.camera_offset.position.y += 75.0
+	game.spectator.offset_camera_position(Vector2(0.0, 75.0))
 
 
 func _on_beat_hit(beat: int) -> void:

@@ -27,7 +27,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action(&'ui_cancel'):
 		music.stop()
 		GlobalAudio.music.play()
-		SceneManager.switch_to('res://scenes/menus/main_menu.tscn')
+		SceneManager.switch_to(load('res://scenes/menus/main_menu.tscn'))
 	if event.is_action(&'ui_accept'):
 		var item: ListedAlphabet = list.get_child(selected)
 		if item is CreditsContributor:

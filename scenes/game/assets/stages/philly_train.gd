@@ -27,7 +27,7 @@ func _ready() -> void:
 	_on_measure_hit(0)
 
 	if game.player.name == &'bf':
-		game.player.camera_offset.position.y -= 25.0
+		game.player.offset_camera_position(Vector2(0.0, -25.0))
 
 
 func _process(delta: float) -> void:

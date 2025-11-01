@@ -48,7 +48,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action('ui_cancel'):
 		active = false
 		GlobalAudio.get_player('MENU/CANCEL').play()
-		SceneManager.switch_to('scenes/menus/main_menu.tscn')
+		SceneManager.switch_to(load('res://scenes/menus/main_menu.tscn'))
 	if event.is_action('ui_accept'):
 		active = false
 		_load_active_playlist()
@@ -58,7 +58,7 @@ func _input(event: InputEvent) -> void:
 			if is_instance_valid(props.props[2]):
 				props.props[2].play_anim('confirm', true)
 
-			SceneManager.switch_to('scenes/game/game.tscn')
+			SceneManager.switch_to(load('res://scenes/game/game.tscn'))
 		else:
 			active = true
 	if event.is_action('ui_up') or event.is_action('ui_down'):

@@ -27,12 +27,6 @@ func _ready() -> void:
 		return
 
 	game = Game.instance
-	if not game.hud_setup.is_connected(_on_hud_setup):
-		game.hud_setup.connect(_on_hud_setup)
-
-
-func _on_hud_setup() -> void:
-	reload_icons()
 
 
 func _process(_delta: float) -> void:
@@ -115,3 +109,15 @@ func _icon_lerp() -> float:
 
 func _position_icons(health: float) -> void:
 	icons.position.x = 320.0 - (health * 6.4)
+
+
+func _on_hud_downscroll_changed(downscroll: bool) -> void:
+	position.y = 80.0 if downscroll else 720.0 - 80.0
+
+
+func _on_hud_note_hit(_note: Note) -> void:
+	update_score_label()
+
+
+func _on_hud_note_miss(_note: Note) -> void:
+	update_score_label()

@@ -33,9 +33,7 @@ var mist_timer: float = 0.0
 
 
 func _ready() -> void:
-	game.player.camera_offset.position.x -= 225.0
-	game.player.camera_offset.position.y -= 25.0
-
+	game.player.offset_camera_position(Vector2(-225.0, -25.0))
 	game.player.set_character_material(fast_car.material)
 	game.opponent.set_character_material(fast_car.material)
 	game.spectator.set_character_material(fast_car.material)

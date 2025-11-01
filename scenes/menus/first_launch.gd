@@ -19,9 +19,9 @@ func _input(event: InputEvent) -> void:
 		return
 	
 	if event.is_action('ui_left') or event.is_action('ui_right'):
-		_change_selection(Input.get_axis('ui_left', 'ui_right'))
+		_change_selection(roundi(Input.get_axis('ui_left', 'ui_right')))
 	if event.is_action('ui_up') or event.is_action('ui_down'):
-		_change_selection(Input.get_axis('ui_up', 'ui_down'))
+		_change_selection(roundi(Input.get_axis('ui_up', 'ui_down')))
 	if event.is_action('ui_accept'):
 		active = false
 		GlobalAudio.get_player('MENU/CONFIRM').play()
@@ -29,13 +29,13 @@ func _input(event: InputEvent) -> void:
 		match selected:
 			0:
 				OptionsMenu.target_scene = 'scenes/menus/title_screen.tscn'
-				SceneManager.switch_to('scenes/menus/options_menu.tscn')
+				SceneManager.switch_to(load('res://scenes/menus/options_menu.tscn'))
 			1:
-				SceneManager.switch_to('scenes/menus/title_screen.tscn')
+				SceneManager.switch_to(load('res://scenes/menus/title_screen.tscn'))
 	if event.is_action('ui_cancel'):
 		active = false
 		GlobalAudio.get_player('MENU/CANCEL').play()
-		SceneManager.switch_to('scenes/menus/title_screen.tscn')
+		SceneManager.switch_to(load('scenes/menus/title_screen.tscn'))
 
 
 func _change_selection(amount: int = 0) -> void:

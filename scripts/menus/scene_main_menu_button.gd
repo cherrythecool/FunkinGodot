@@ -7,6 +7,9 @@ class_name SceneButton extends MainMenuButton
 func accept() -> bool:
 	if not ResourceLoader.exists(scene_path):
 		return super()
-
-	SceneManager.switch_to(scene_path)
+	
+	if not scene_path.begins_with('res://'):
+		scene_path = 'res://%s' % [scene_path]
+	
+	SceneManager.switch_to(load(scene_path))
 	return true

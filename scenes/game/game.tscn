@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://da8mu3oqto3qq"]
+[gd_scene load_steps=6 format=3 uid="uid://da8mu3oqto3qq"]
 
 [ext_resource type="Script" uid="uid://dhv3phik4tia" path="res://scenes/game/game.gd" id="1_tneyb"]
 [ext_resource type="Script" uid="uid://bbfskuw2fyle3" path="res://scenes/game/tracks.gd" id="2_j74rm"]
 [ext_resource type="Script" uid="uid://cm308tpfbi72q" path="res://scenes/game/script_container.gd" id="2_oquto"]
-[ext_resource type="PackedScene" uid="uid://cr0c14kq4sye1" path="res://scenes/game/huds/default_hud.tscn" id="4_4k22v"]
 [ext_resource type="Script" uid="uid://1dwo0trw3je2" path="res://scripts/game/accuracy_calculator.gd" id="6_ur1sh"]
 
 [sub_resource type="Curve" id="Curve_5selw"]
@@ -29,9 +28,6 @@ unique_name_in_owner = true
 script = ExtResource("2_oquto")
 
 [node name="hud_layer" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-
-[node name="hud" parent="hud_layer" instance=ExtResource("4_4k22v")]
 unique_name_in_owner = true
 
 [node name="stage" type="Node2D" parent="."]

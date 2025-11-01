@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action('ui_cancel'):
 		GlobalAudio.get_player('MENU/CANCEL').play()
 		active = false
-		SceneManager.switch_to('scenes/menus/title_screen.tscn')
+		SceneManager.switch_to(load('res://scenes/menus/title_screen.tscn'))
 	if event.is_action('ui_accept'):
 		GlobalAudio.get_player('MENU/CONFIRM').play()
 		active = false

@@ -30,12 +30,21 @@ signal animation_finished(animation: StringName)
 
 func _ready() -> void:
 	if has_node(^'sprite'):
-		sprite = $sprite
+		sprite = get_node(^'sprite')
 
 	dance(true)
 	animation_player.animation_finished.connect(func(anim_name: StringName) -> void:
 		animation_finished.emit(anim_name)
 	)
+
+
+func _process(delta: float) -> void:
+	if not singing:
+		return
+
+	sing_timer += delta / Conductor.beat_delta
+	if sing_timer * 4.0 >= sing_steps or sing_steps <= 0.0:
+		dance(true)
 
 
 func play_anim(anim: StringName, force: bool = false, special: bool = false) -> void:
@@ -109,10 +118,15 @@ func set_character_material(new_material: Material) -> void:
 		sprite.material = new_material
 
 
-func _process(delta: float) -> void:
-	if not singing:
-		return
+func get_camera_position() -> Vector2:
+	if not is_instance_valid(camera_offset):
+		return Vector2.ZERO
+	
+	return camera_offset.global_position
 
-	sing_timer += delta / Conductor.beat_delta
-	if sing_timer * 4.0 >= sing_steps or sing_steps <= 0.0:
-		dance(true)
+
+func offset_camera_position(added: Vector2) -> void:
+	if not is_instance_valid(camera_offset):
+		return
+	
+	camera_offset.position += added

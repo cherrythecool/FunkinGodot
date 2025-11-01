@@ -100,7 +100,7 @@ func _input(event: InputEvent) -> void:
 
 			selector.play(&'idle')
 		else:
-			SceneManager.switch_to('res://scenes/menus/main_menu.tscn')
+			SceneManager.switch_to(load('res://scenes/menus/main_menu.tscn'))
 	if event.is_action(&'ui_accept') and not locked:
 		locked = true
 
@@ -119,7 +119,7 @@ func _input(event: InputEvent) -> void:
 				FreeplayMenu.index = 0
 				FreeplayMenu.difficulty_index = 0
 				MainMenu.freeplay_scene = 'res://scenes/menus/freeplay_menu.tscn'
-				SceneManager.switch_to(MainMenu.freeplay_scene)
+				SceneManager.switch_to(load(MainMenu.freeplay_scene))
 			'pico':
 				confirm.play()
 				player_anim.play(&'confirm')
@@ -131,7 +131,7 @@ func _input(event: InputEvent) -> void:
 				FreeplayMenu.index = 0
 				FreeplayMenu.difficulty_index = 0
 				MainMenu.freeplay_scene = 'res://scenes/menus/freeplay_menu_pico.tscn'
-				SceneManager.switch_to(MainMenu.freeplay_scene)
+				SceneManager.switch_to(load(MainMenu.freeplay_scene))
 			_:
 				locked = false
 				selector.play(&'denied')

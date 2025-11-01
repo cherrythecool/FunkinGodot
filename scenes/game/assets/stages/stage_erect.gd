@@ -12,9 +12,9 @@ func hue_character(character: Character, hue: float, sat: float, cont: float, br
 
 
 func _ready() -> void:
-	game.player.camera_offset.position += Vector2(-50.0, -50.0)
-	game.opponent.camera_offset.position += Vector2(210.0, 15.0)
-	game.spectator.camera_offset.position.y -= 150.0
+	game.player.offset_camera_position(Vector2(-50.0, -50.0))
+	game.opponent.offset_camera_position(Vector2(210.0, 15.0))
+	game.spectator.offset_camera_position(Vector2(0.0, -150.0))
 	hue_character(game.player, 12.0, 0.0, 7.0, -23.0)
 	hue_character(game.spectator, -9.0, 0.0, -4.0, -30.0)
 	hue_character(game.opponent, -32.0, 0.0, -23.0, -33.0)

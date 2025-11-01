@@ -1,6 +1,8 @@
 class_name Game extends Node2D
 
 
+const DEFAULT_NOTE_PATH: String = 'uid://f75xq2p53bpl'
+
 static var song: StringName = &'bopeebo'
 static var difficulty: StringName = &'hard'
 static var chart: Chart = null
@@ -12,6 +14,8 @@ static var instance: Game = null
 static var playlist: Array[GamePlaylistEntry] = []
 static var camera_position: Vector2 = Vector2.INF
 
+var events_index: int = 0
+
 @onready var pause_menu: PackedScene = load('res://scenes/game/pause_menu.tscn')
 
 @onready var accuracy_calculator: AccuracyCalculator = %accuracy_calculator
@@ -20,9 +24,9 @@ static var camera_position: Vector2 = Vector2.INF
 @onready var camera: Camera2D = $camera
 
 @onready var hud_layer: CanvasLayer = %hud_layer
-@onready var hud: Node = %hud
-@onready var _player_field: NoteField = hud.player_field
-@onready var _opponent_field: NoteField = hud.opponent_field
+var hud: Node
+var player_field: NoteField = null
+var opponent_field: NoteField = null
 
 var target_camera_position: Vector2 = Vector2.ZERO
 var target_camera_zoom: Vector2 = Vector2(1.05, 1.05)
@@ -33,10 +37,8 @@ var camera_speed: float = 1.0
 var song_started: bool = false
 var save_score: bool = true
 
-# Used for fixing lerping delta issues when restarting songs :p
-var _first_frame: bool = true
-@onready var _stage: Node2D = $stage
-@onready var _characters: Node2D = $characters
+@onready var stage_container: Node2D = $stage
+@onready var characters_container: Node2D = $characters
 
 ## Each note type is stored here for use in any note field.
 var note_types: NoteTypes = NoteTypes.new()
@@ -69,8 +71,9 @@ var rank: String:
 		return 'N/A'
 
 var skin: HUDSkin
-@onready var _default_note: PackedScene = load('uid://f75xq2p53bpl')
-var _event: int = 0
+
+# Used for fixing lerping delta issues when restarting songs :p
+var first_frame: bool = true
 
 signal hud_setup
 signal ready_post
@@ -81,6 +84,10 @@ signal event_hit(event: EventData)
 signal song_finished(event: CancellableEvent)
 signal scroll_speed_changed
 signal died(event: CancellableEvent)
+signal botplay_changed(botplay: bool)
+
+@warning_ignore('unused_signal')
+signal unpaused
 
 
 func _init() -> void:
@@ -125,7 +132,7 @@ func _ready() -> void:
 	Chart.sort_chart_notes(chart)
 	Chart.sort_chart_events(chart)
 
-	note_types.types['default'] = _default_note
+	note_types.types['default'] = load(DEFAULT_NOTE_PATH)
 
 	# loading external types :3
 	for note: NoteData in chart.notes:
@@ -161,24 +168,30 @@ func _ready() -> void:
 			assets.stage = load('uid://0ih6j18ov417')
 		if not is_instance_valid(assets.hud_skin):
 			assets.hud_skin = load('uid://oxo327xfxemo')
-
-		if is_instance_valid(assets.hud):
-			hud.free()
-			hud = assets.hud.instantiate()
-			hud_layer.add_child(hud)
-			_player_field = hud.player_field
-			_opponent_field = hud.opponent_field
+		if not is_instance_valid(assets.hud):
+			assets.hud = load('uid://cr0c14kq4sye1')
+		
+		hud = assets.hud.instantiate()
+		if 'hud_skin' in hud:
+			hud.hud_skin = assets.hud_skin
+		
+		hud_layer.add_child(hud)
+		
+		if 'player_field' in hud:
+			player_field = hud.player_field
+		if 'opponent_field' in hud:
+			opponent_field = hud.opponent_field
 
 		# Instantiate the PackedScene(s) and add them to the scene.
 		player = assets.player.instantiate()
 		opponent = assets.opponent.instantiate()
 		spectator = assets.spectator.instantiate()
-		_characters.add_child(spectator)
-		_characters.add_child(player)
-		_characters.add_child(opponent)
+		characters_container.add_child(spectator)
+		characters_container.add_child(player)
+		characters_container.add_child(opponent)
 
 		stage = assets.stage.instantiate()
-		_stage.add_child(stage)
+		stage_container.add_child(stage)
 		target_camera_zoom = Vector2(stage.default_zoom, stage.default_zoom)
 		camera.zoom = target_camera_zoom
 		camera_speed = stage.camera_speed
@@ -213,39 +226,38 @@ func _ready() -> void:
 			spectator.set_character_material(spectator_point.material)
 
 		# Set the NoteField characters.
-		_player_field.target_character = player
-		_player_field.skin = assets.player_skin
-		_player_field.reload_skin()
+		if is_instance_valid(player_field):
+			player_field.target_character = player
+			player_field.skin = assets.player_skin
+			player_field.reload_skin()
 
-		_opponent_field.target_character = opponent
-		_opponent_field.skin = assets.opponent_skin
-		_opponent_field.reload_skin()
+		if is_instance_valid(opponent_field):
+			opponent_field.target_character = opponent
+			opponent_field.skin = assets.opponent_skin
+			opponent_field.reload_skin()
 
-		skin = assets.hud_skin
-
-		if is_instance_valid(skin.pause_menu):
-			pause_menu = skin.pause_menu
+		if is_instance_valid(assets.hud_skin.pause_menu):
+			pause_menu = assets.hud_skin.pause_menu
 
 		# we're done using assets so not point keeping
 		# the references around
 		assets = null
-	else:
-		skin = load('uid://oxo327xfxemo')
 
-	_player_field.note_types = note_types
-	_player_field.scroll_speed = scroll_speed
-	_player_field.apply_chart(chart)
-	_player_field.note_miss.connect(_on_note_miss)
-	_player_field.note_hit.connect(_on_note_hit)
+	if is_instance_valid(player_field):
+		player_field.note_types = note_types
+		player_field.scroll_speed = scroll_speed
+		player_field.apply_chart(chart)
+		player_field.note_miss.connect(_on_note_miss)
+		player_field.note_hit.connect(_on_note_hit)
 
-	_opponent_field.note_types = note_types
-	_opponent_field.scroll_speed = scroll_speed
-	_opponent_field.apply_chart(chart)
-	_opponent_field.note_hit.connect(func(_note: Note) -> void:
-		camera_bumps = true
-	)
+	if is_instance_valid(opponent_field):
+		opponent_field.note_types = note_types
+		opponent_field.scroll_speed = scroll_speed
+		opponent_field.apply_chart(chart)
+		opponent_field.note_hit.connect(func(_note: Note) -> void:
+			camera_bumps = true
+		)
 
-	hud.setup()
 	hud_setup.emit()
 
 	Conductor.reset()
@@ -283,10 +295,10 @@ func _ready() -> void:
 		# we do int(time * 1000.0) because if it's less than 1 ms
 		# after the start of a song (i've seen this in base game charts before)
 		# then we should still call it lmfao (like camera pans)
-		while (not chart.events.is_empty()) and _event < chart.events.size() \
-				and int(chart.events[_event].time * 1000.0) <= 0.0:
-			_on_event_hit(chart.events[_event])
-			_event += 1
+		while (not chart.events.is_empty()) and events_index < chart.events.size() \
+				and int(chart.events[events_index].time * 1000.0) <= 0.0:
+			_on_event_hit(chart.events[events_index])
+			events_index += 1
 
 	if camera_position != Vector2.INF:
 		camera.position = camera_position
@@ -309,7 +321,7 @@ func _process(delta: float) -> void:
 			Gameover.camera_zoom = camera.zoom
 			Gameover.character_path = player.death_character
 			Gameover.character_position = player.global_position
-			SceneManager.switch_to('scenes/game/gameover.tscn', false)
+			SceneManager.switch_to(load('scenes/game/gameover.tscn'), false)
 			return
 
 	if is_instance_valid(tracks) and not song_started:
@@ -319,19 +331,19 @@ func _process(delta: float) -> void:
 			song_start.emit()
 			song_started = true
 
-	while _event < chart.events.size() and \
-			Conductor.time >= chart.events[_event].time:
-		var event: EventData = chart.events[_event]
+	while events_index < chart.events.size() and \
+			Conductor.time >= chart.events[events_index].time:
+		var event: EventData = chart.events[events_index]
 		_on_event_hit(event)
-		_event += 1
+		events_index += 1
 
-	if _first_frame:
-		_first_frame = false
+	if first_frame:
+		first_frame = false
 		return
 	if camera_lerps:
 		camera.position = camera.position.lerp(target_camera_position, delta * 3.0 * camera_speed)
-		if camera_bumps:
-			camera.zoom = camera.zoom.lerp(target_camera_zoom, delta * 3.0)
+	if camera_bumps:
+		camera.zoom = camera.zoom.lerp(target_camera_zoom, delta * 3.0)
 
 
 func _process_post(delta: float) -> void:
@@ -352,34 +364,31 @@ func _input(event: InputEvent) -> void:
 		add_child(menu)
 		process_mode = Node.PROCESS_MODE_DISABLED
 		Conductor.active = false
-	if event.is_action(&'toggle_botplay'):
+	if event.is_action(&'toggle_botplay') and is_instance_valid(player_field):
 		save_score = false
-		_player_field.takes_input = not _player_field.takes_input
+		player_field.takes_input = not player_field.takes_input
 
-		for receptor: Receptor in _player_field.receptors:
-			receptor.takes_input = _player_field.takes_input
-			receptor.automatically_play_static = not _player_field.takes_input
-
-		if 'song_label' in hud:
-			if not _player_field.takes_input:
-				hud.song_label.text += ' [BOT]'
-			elif hud.song_label.text.contains(' [BOT]'):
-				hud.song_label.text = hud.song_label.text.replace(' [BOT]', '')
+		for receptor: Receptor in player_field.receptors:
+			receptor.takes_input = player_field.takes_input
+			receptor.automatically_play_static = not player_field.takes_input
+		botplay_changed.emit(not player_field.takes_input)
 
 
 func skip_to(seconds: float) -> void:
-	if not Conductor.target_audio:
+	if not is_instance_valid(Conductor.target_audio):
 		Conductor.raw_time = seconds
 	else:
 		Conductor.target_audio.seek(seconds)
 		Conductor.sync_to_target(0.0)
 	Conductor.calculate_beat()
 
-	_opponent_field.try_spawning(true)
-	_opponent_field.clear_notes()
+	if is_instance_valid(opponent_field):
+		opponent_field.try_spawning(true)
+		opponent_field.clear_notes()
 
-	_player_field.try_spawning(true)
-	_player_field.clear_notes()
+	if is_instance_valid(player_field):
+		player_field.try_spawning(true)
+		player_field.clear_notes()
 
 
 func _on_beat_hit(_beat: int) -> void:
@@ -450,7 +459,7 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 			)
 			printerr('Song at path %s doesn\'t exist!' % json_path)
 			GlobalAudio.get_player('MENU/CANCEL').play()
-			SceneManager.switch_to('scenes/menus/main_menu.tscn')
+			SceneManager.switch_to(load('res://scenes/menus/main_menu.tscn'))
 			playlist.clear()
 			return
 
@@ -467,20 +476,16 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 		GlobalAudio.get_player('MENU/CANCEL').play()
 
 	if not exit_scene.is_empty():
-		SceneManager.switch_to(exit_scene)
+		SceneManager.switch_to(load(exit_scene))
 		exit_scene = ''
 		return
 	match mode:
 		PlayMode.STORY:
-			SceneManager.switch_to('scenes/menus/story_mode_menu.tscn')
+			SceneManager.switch_to(load('res://scenes/menus/story_mode_menu.tscn'))
 		PlayMode.FREEPLAY:
-			SceneManager.switch_to(MainMenu.freeplay_scene)
+			SceneManager.switch_to(load(MainMenu.freeplay_scene))
 		_:
-			SceneManager.switch_to('scenes/menus/title_screen.tscn')
-
-
-func countdown_resume() -> void:
-	hud.countdown_resume()
+			SceneManager.switch_to(load('res://scenes/menus/title_screen.tscn'))
 
 
 enum PlayMode {

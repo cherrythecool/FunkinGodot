@@ -41,8 +41,8 @@ func _ready() -> void:
 	if is_instance_valid(Game.instance):
 		game = Game.instance
 
-		player_field = game._player_field
-		opponent_field = game._opponent_field
+		player_field = game.player_field
+		opponent_field = game.opponent_field
 
 		camera = game.camera
 		game.song_start.connect(_on_song_start)

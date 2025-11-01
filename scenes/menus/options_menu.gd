@@ -1,7 +1,7 @@
 class_name OptionsMenu extends Node2D
 
 
-const default_target_scene: String = 'scenes/menus/main_menu.tscn'
+const default_target_scene: String = 'res://scenes/menus/main_menu.tscn'
 static var target_scene: String = default_target_scene
 
 @onready var interface: Control = %interface
@@ -42,7 +42,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action(&'ui_cancel'):
 		active = false
 		GlobalAudio.get_player('MENU/CANCEL').play()
-		SceneManager.switch_to(target_scene)
+		SceneManager.switch_to(load(target_scene))
 		target_scene = default_target_scene
 
 

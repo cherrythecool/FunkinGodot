@@ -1,8 +1,6 @@
 extends Node
 
 
-var last_time: int = 0
-
 var fullscreened: bool = false:
 	set(value):
 		if not Engine.is_embedded_in_editor():
@@ -33,16 +31,15 @@ func _ready() -> void:
 	main_window.focus_entered.connect(_on_focus_enter)
 	main_window.focus_exited.connect(_on_focus_exit)
 
-	version = ProjectSettings.get_setting('application/config/version', 'Unknown')
+	version = ProjectSettings.get_setting('application/config/version', '0.0.0')
 
 	Config.loaded.connect(_on_config_loaded)
 	Config.value_changed.connect(_on_value_changed)
-
-
-func _process(delta: float) -> void:
-	var time: int = Time.get_ticks_usec()
-	var delta_ns: float = (time - last_time) / 1_000_000.0
-	last_time = time
+	
+	var dpi_scale: float = DisplayServer.screen_get_scale()
+	if OS.has_feature('pc') and dpi_scale != 1.0:
+		get_window().size *= dpi_scale
+		get_window().move_to_center()
 
 
 func _on_focus_enter() -> void:

@@ -38,7 +38,7 @@ func _ready() -> void:
 	camera.position_smoothing_enabled = false
 	get_tree().create_timer(0.5).timeout.connect(func() -> void:
 		camera.position_smoothing_enabled = true
-		camera.position = character.position + character.camera_offset.position
+		camera.global_position = character.get_camera_position()
 	)
 
 	var scene: PackedScene = load(character_path)
@@ -84,11 +84,11 @@ func _input(event: InputEvent) -> void:
 		GlobalAudio.get_player('MENU/CANCEL').play()
 		match Game.mode:
 			Game.PlayMode.FREEPLAY:
-				SceneManager.switch_to(MainMenu.freeplay_scene)
+				SceneManager.switch_to(load(MainMenu.freeplay_scene))
 			Game.PlayMode.STORY:
-				SceneManager.switch_to('uid://dcf86iwg6mn3d')
+				SceneManager.switch_to(load('uid://dcf86iwg6mn3d'))
 			_:
-				SceneManager.switch_to('uid://cxk008iuw4n7u')
+				SceneManager.switch_to(load('uid://cxk008iuw4n7u'))
 	if event.is_action('ui_accept'):
 		active = false
 		character.play_anim(&'retry')
@@ -98,7 +98,7 @@ func _input(event: InputEvent) -> void:
 			var tween: Tween = create_tween()
 			tween.tween_property(self, 'modulate:a', 0.0, 2.0)
 			tween.tween_callback(func() -> void:
-				SceneManager.switch_to('uid://da8mu3oqto3qq')
+				SceneManager.switch_to(load('uid://da8mu3oqto3qq'))
 			)
 		)
 

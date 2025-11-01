@@ -99,9 +99,9 @@ func _input(event: InputEvent) -> void:
 					_close()
 					get_tree().reload_current_scene()
 				&'options':
-					OptionsMenu.target_scene = 'scenes/game/game.tscn'
+					OptionsMenu.target_scene = 'res://scenes/game/game.tscn'
 					_close()
-					SceneManager.switch_to('scenes/menus/options_menu.tscn')
+					SceneManager.switch_to(load('res://scenes/menus/options_menu.tscn'))
 				&'quit':
 					_close()
 					Game.instance._song_finished(true)
@@ -127,3 +127,6 @@ func _close() -> void:
 	visible = false
 	tree.current_scene.process_mode = Node.PROCESS_MODE_INHERIT
 	Conductor.active = true
+	
+	if is_instance_valid(Game.instance):
+		Game.instance.unpaused.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cr0c14kq4sye1"]
+[gd_scene load_steps=24 format=3 uid="uid://cr0c14kq4sye1"]
 
 [ext_resource type="Script" uid="uid://cuh3v6jw2ti70" path="res://scenes/game/huds/default_hud.gd" id="1_hv0yb"]
 [ext_resource type="PackedScene" uid="uid://3diy2p3nknpi" path="res://scenes/game/note_fields/4_lanes.tscn" id="2_0rw2j"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cn6fmp8et8ktw" path="res://assets/game/skins/default/ratings/marvelous.png" id="6_mktee"]
 [ext_resource type="Texture2D" uid="uid://ds3g63uwcq4jw" path="res://assets/game/skins/default/combo.png" id="7_7svf3"]
 [ext_resource type="FontFile" uid="uid://b5sq5n4iqxrih" path="res://assets/fonts/funkin.ttf" id="8_in2av"]
+[ext_resource type="Script" uid="uid://pc372g2dpnb3" path="res://scenes/game/huds/default_hud/countdown_container.gd" id="9_6w54d"]
+[ext_resource type="Script" uid="uid://rhmplnbdvgkx" path="res://scenes/game/huds/default_hud/song_label.gd" id="9_mucs8"]
 [ext_resource type="Script" uid="uid://ebr3nrqirlyd" path="res://scripts/game/ratings_calculator.gd" id="9_xshlu"]
 [ext_resource type="Script" uid="uid://dp70bbdhoqpo0" path="res://scripts/game/rating.gd" id="10_vo01y"]
 
@@ -75,17 +77,12 @@ health = 0.75
 
 [sub_resource type="Resource" id="Resource_jbop4"]
 script = ExtResource("10_vo01y")
-name = &"sick"
 timing = 45.0
-score = 350
 health = 1.0
 
 [sub_resource type="Resource" id="Resource_aj00i"]
 script = ExtResource("10_vo01y")
 name = &"marvelous"
-timing = 22.5
-score = 350
-health = 1.15
 
 [node name="hud" type="Control"]
 layout_mode = 3
@@ -188,9 +185,11 @@ label_settings = SubResource("LabelSettings_6egcm")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="countdown_container" type="Marker2D" parent="."]
+[node name="countdown_container" type="Marker2D" parent="." node_paths=PackedStringArray("hud")]
 unique_name_in_owner = true
 position = Vector2(640, 360)
+script = ExtResource("9_6w54d")
+hud = NodePath("..")
 
 [node name="song_label" type="Label" parent="."]
 unique_name_in_owner = true
@@ -204,23 +203,19 @@ text = "Test • [NORMAL]"
 label_settings = SubResource("LabelSettings_odcbh")
 horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_mucs8")
 
 [node name="ratings_calculator" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("9_xshlu")
 ratings = Array[ExtResource("10_vo01y")]([SubResource("Resource_ybh81"), SubResource("Resource_2xl48"), SubResource("Resource_u7x50"), SubResource("Resource_jbop4"), SubResource("Resource_aj00i")])
 
-[node name="preloading_layer" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-layer = -64
-
-[node name="sub_viewport_container" type="SubViewportContainer" parent="preloading_layer"]
-unique_name_in_owner = true
-offset_left = -512.0
-offset_top = -512.0
-
-[node name="preloading_viewport" type="SubViewport" parent="preloading_layer/sub_viewport_container"]
-unique_name_in_owner = true
-handle_input_locally = false
-gui_disable_input = true
-render_target_update_mode = 4
+[connection signal="downscroll_changed" from="." to="health_bar" method="_on_hud_downscroll_changed"]
+[connection signal="downscroll_changed" from="." to="song_label" method="_on_hud_downscroll_changed"]
+[connection signal="note_hit" from="." to="health_bar" method="_on_hud_note_hit"]
+[connection signal="note_miss" from="." to="health_bar" method="_on_hud_note_miss"]
+[connection signal="on_setup" from="." to="health_bar" method="reload_icons"]
+[connection signal="on_setup" from="." to="countdown_container" method="setup"]
+[connection signal="on_setup" from="." to="song_label" method="_on_hud_on_setup"]
+[connection signal="note_hit" from="note_fields/player" to="." method="_on_note_hit"]
+[connection signal="note_miss" from="note_fields/player" to="." method="_on_note_miss"]

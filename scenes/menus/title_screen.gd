@@ -28,7 +28,7 @@ var last_music_time: float = 0.0
 func _ready() -> void:
 	if Config.first_launch:
 		Config.first_launch = false
-		SceneManager.switch_to('scenes/menus/first_launch.tscn', false)
+		SceneManager.switch_to(load('res://scenes/menus/first_launch.tscn'), false)
 		return
 
 	enter_animation.play('loop')
@@ -106,7 +106,7 @@ func _input(event: InputEvent) -> void:
 
 		tween = create_tween()
 		tween.tween_property(flash, 'color:a', 0.0, 1.0)
-		tween.tween_callback(SceneManager.switch_to.bind('scenes/menus/main_menu.tscn'))
+		tween.tween_callback(SceneManager.switch_to.bind(load('res://scenes/menus/main_menu.tscn')))
 
 
 func _start_intro() -> void:

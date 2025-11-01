@@ -14,12 +14,9 @@ func _ready() -> void:
 	visible = false
 
 
-func switch_to(path: String, use_transition: bool = true) -> void:
+func switch_to(scene: PackedScene, use_transition: bool = true) -> void:
 	if not Config.get_value('interface', 'scene_transitions'):
 		use_transition = false
-
-	if (not path.begins_with('uid://')) and (not path.begins_with('res://')):
-		path = 'res://%s' % path
 
 	var tree: SceneTree = get_tree()
 	var killed: bool = is_instance_valid(tween) and tween.is_running()
@@ -35,8 +32,7 @@ func switch_to(path: String, use_transition: bool = true) -> void:
 			if is_instance_valid(tween) and tween.is_running():
 				tween.kill()
 
-			current_path = path
-			tree.call_deferred('change_scene_to_file', path)
+			tree.change_scene_to_packed.call_deferred(scene)
 			scene_changed.emit()
 
 			tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -49,6 +45,5 @@ func switch_to(path: String, use_transition: bool = true) -> void:
 			transition.material.set_shader_parameter('progress', 0.0)
 			visible = false
 
-		current_path = path
-		tree.call_deferred('change_scene_to_file', path)
+		tree.change_scene_to_packed.call_deferred(scene)
 		scene_changed.emit()

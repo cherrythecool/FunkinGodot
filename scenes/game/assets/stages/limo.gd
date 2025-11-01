@@ -19,8 +19,7 @@ var fast_car_vel: float = 0.0
 
 
 func _ready() -> void:
-	game.player.camera_offset.position.x -= 225.0
-	game.player.camera_offset.position.y -= 25.0
+	game.player.offset_camera_position(Vector2(-225.0, -25.0))
 	reset_fast_car()
 
 
