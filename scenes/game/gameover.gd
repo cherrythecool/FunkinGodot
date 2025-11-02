@@ -26,6 +26,12 @@ func _ready() -> void:
 		secret.get_node(^'player').stream = load('uid://6jxbt142o25i')
 		secret.get_node(^'player').play()
 		return
+	elif value == 67:
+		active = false
+		secret.get_node(^'player').stream = load("res://assets/game/gameover/sans.ogv")
+		secret.get_node(^'player').play()
+		secret.get_node(^'player').volume_db = 0.0
+		return
 	else:
 		secret.queue_free()
 
