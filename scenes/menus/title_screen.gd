@@ -74,9 +74,17 @@ func _on_beat_hit(beat: int) -> void:
 
 		var previous: String = alphabet.text
 		intro_animation.seek(float(beat), true)
+		alphabet.horizontal_alignment = "Center"
 		if alphabet.text == '!random':
 			alphabet.text = previous
 			_add_random_line()
+		if alphabet.text == '!randomall':
+			alphabet.text = previous
+			while random_line_index <= random_lines.size() - 1 and random_line_index > 0:
+				_add_random_line()
+			if alphabet.text.begins_with("#include"):
+				alphabet.horizontal_alignment = "Left"
+			
 		if alphabet.text == '!keep':
 			alphabet.text = previous
 
@@ -97,9 +105,14 @@ func _input(event: InputEvent) -> void:
 
 		active = false
 		GlobalAudio.get_player('MENU/CONFIRM').play()
-		enter_animation.play('press')
 
-		flash.color = Color.WHITE
+		if Config.get_value('accessibility', 'flashing_lights'):
+			enter_animation.play('press')
+			flash.color = Color.WHITE
+		else:
+			flash.color = Color.TRANSPARENT
+			enter_animation.play('press')
+			enter_animation.speed_scale = 0.0
 
 		if is_instance_valid(tween) and tween.is_running():
 			tween.kill()
@@ -110,15 +123,17 @@ func _input(event: InputEvent) -> void:
 
 
 func _start_intro() -> void:
-	randomize()
-
 	introing = true
 	intro_animation.play(&'intro')
 
 	var lines: String = FileAccess.get_file_as_string('uid://bcdqlk404scmd')
 	lines = lines.strip_edges()
 	var lines_array: PackedStringArray = lines.split('\n', false)
-	var index: int = randi_range(0, maxi(lines_array.size() - 1, 0))
+	if lines_array.is_empty():
+		random_lines = ["hey!", "why did...", "you remove..!", "intro_messages.txt", "??!"]
+		return
+	
+	var index: int = randi_range(0, lines_array.size() - 1)
 	random_lines = Array(lines_array[index].split('--'))
 
 

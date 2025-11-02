@@ -224,9 +224,15 @@ static func string_to_character(input: String) -> String:
 		'down':
 			return 'v'
 		'up':
-			return 'ô'
+			return 'î'
 		'right':
 			return '>'
+		'bracketright':
+			return ']'
+		'bracketleft':
+			return '['
+		'quoteleft':
+			return '~'
 
 	return input
 

@@ -73,9 +73,10 @@ _data = {
 }
 
 [sub_resource type="LabelSettings" id="LabelSettings_lig6g"]
+resource_local_to_scene = true
 font = ExtResource("4_7kxsk")
 font_size = 12
-outline_size = 8
+outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
 [node name="main_menu" type="Node2D"]
@@ -112,18 +113,33 @@ position_smoothing_speed = 3.0
 
 [node name="ui_layer" type="CanvasLayer" parent="."]
 
+[node name="version_label" type="Label" parent="ui_layer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 21.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Funkin' Godot v$VERSION"
+label_settings = SubResource("LabelSettings_lig6g")
+vertical_alignment = 2
+
 [node name="scroll_container" type="ScrollContainer" parent="ui_layer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_lock_ = true
 
 [node name="container" type="VBoxContainer" parent="ui_layer/scroll_container"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="story_mode" type="Control" parent="ui_layer/scroll_container/container"]
 custom_minimum_size = Vector2(0, 122)
@@ -137,7 +153,7 @@ animation_name = &"storymode"
 position = Vector2(0, 61)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"storymode idle"
-frame_progress = 0.648294
+frame_progress = 0.6275765
 script = ExtResource("4_emyfo")
 playing = true
 
@@ -152,7 +168,7 @@ animation_name = &"freeplay"
 position = Vector2(0, 61)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"freeplay idle"
-frame_progress = 0.998861
+frame_progress = 0.978163
 script = ExtResource("4_emyfo")
 playing = true
 
@@ -168,7 +184,7 @@ animation_name = &"credits"
 position = Vector2(0, 62)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"credits idle"
-frame_progress = 0.177613
+frame_progress = 0.15690911
 script = ExtResource("4_emyfo")
 playing = true
 
@@ -184,19 +200,6 @@ animation_name = &"options"
 position = Vector2(0, 55)
 sprite_frames = ExtResource("4_c5hes")
 animation = &"options idle"
-frame_progress = 0.725705
+frame_progress = 0.7049913
 script = ExtResource("4_emyfo")
 playing = true
-
-[node name="version_label" type="Label" parent="ui_layer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_bottom = -8.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Funkin' Godot v$VERSION"
-label_settings = SubResource("LabelSettings_lig6g")
-vertical_alignment = 2
-metadata/_edit_lock_ = true

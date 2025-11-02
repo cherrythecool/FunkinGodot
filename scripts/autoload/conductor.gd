@@ -26,6 +26,10 @@ var beat_delta: float:
 	get:
 		return 60.0 / tempo
 
+var sustain_release_delta: float:
+	get:
+		return beat_delta / 2.0
+
 var step_delta: float:
 	get:
 		return beat_delta / 4.0
@@ -39,8 +43,7 @@ var target_length: float:
 	get:
 		if is_instance_valid(target_audio) and is_instance_valid(target_audio.stream):
 			return target_audio.stream.get_length()
-
-		return -1.0
+		return 1.0
 
 var audio_offset: float:
 	get:

@@ -10,7 +10,6 @@ script = ExtResource("2_jrmk7")
 texture = ExtResource("3_2glvu")
 color = Color(0.647288, 0, 0.3019, 1)
 frames = Vector2i(1, 1)
-filter = 0
 
 [sub_resource type="Animation" id="Animation_bgpi6"]
 length = 0.001
@@ -640,4 +639,4 @@ libraries = {
 }
 
 [node name="camera_offset" type="Marker2D" parent="."]
-position = Vector2(-2, -229)
+position = Vector2(-31, -359)

@@ -75,5 +75,5 @@ func _handle_button(event: InputEventMouseButton) -> void:
 		return
 
 	selected = hovering
-	keys[selected].get_node('key').text = '_'
+	keys[selected].get_node('key').text = '#'
 	GlobalAudio.get_player(^'MENU/CONFIRM').play()

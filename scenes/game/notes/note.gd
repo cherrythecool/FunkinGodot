@@ -1,16 +1,19 @@
 class_name Note extends Node2D
 
 
+const DEFAULT_HIT_WINDOW: float = 0.18
+
 @export var sing_suffix: StringName = &''
 @export var use_skin: bool = true
 @export var splash: PackedScene = null
+@export var hit_window: float = DEFAULT_HIT_WINDOW
 
 var data: NoteData
 var lane: int = 0
 var length: float = 0.0:
 	set(v):
 		length = v
-		_update_sustain()
+		update_sustain()
 var is_sustain: bool = false
 
 const directions: PackedStringArray = ['left', 'down', 'up', 'right']
@@ -25,6 +28,13 @@ var sustain_offset: float = 0.0
 var field: NoteField = null
 var character: Character = null
 var previous_step: int = -128
+var sustain_timer: float = 0.0:
+	set(v):
+		if not is_sustain:
+			return
+		
+		sustain_timer = v
+		sustain.modulate.a = clampf(v / Conductor.sustain_release_delta, 0.0, 1.0)
 
 
 func _ready() -> void:
@@ -44,7 +54,7 @@ func _ready() -> void:
 		reload_sustain_sprites()
 		if Config.get_value('interface', 'sustain_layer') == 'below':
 			sustain.z_index -= 1
-		_update_sustain()
+		update_sustain()
 	else:
 		clip_rect.hide()
 		clip_rect.queue_free()
@@ -69,12 +79,14 @@ func _process(delta: float) -> void:
 			# the press animation over and over rather than
 			# actually trying to hit the same note multiple times.
 			field.hit_note(self)
-			field.get_receptor_from_lane(lane).hit_note(self)
+			
+			if field.is_receptor_held(lane):
+				field.get_receptor_from_lane(lane).hit_note(self)
 
 		previous_step = step
 
 
-func _update_sustain() -> void:
+func update_sustain() -> void:
 	if not is_instance_valid(field):
 		return
 	if not is_sustain:

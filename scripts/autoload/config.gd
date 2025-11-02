@@ -91,8 +91,6 @@ var default_configuration: Dictionary = {
 		'note_splash_alpha': 100.0,
 		'countdown_on_resume': false,
 		'scene_transitions': true,
-		'pause_blur': 100.0,
-		'simple_pause_blur': true,
 	},
 	'performance': {
 		'quality': 'default',

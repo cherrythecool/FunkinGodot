@@ -49,30 +49,12 @@ func _process(_delta: float) -> void:
 
 
 func update_score_label() -> void:
-	const ranks: Array = [
-		[0.0, &'F'],
-		[50.0, &'F+'],
-		[60.0, &'D'],
-		[70.0, &'C'],
-		[80.0, &'B'],
-		[90.0, &'A'],
-		[95.0, &'S'],
-		[100.0, &'S+'],
-	]
-	rank = &'N/A'
-
-	for rank_data: Array in ranks:
-		if game.accuracy >= rank_data[0]:
-			rank = rank_data[1]
-			continue
-		break
-
 	score_label.text = 'Score:%d • Misses:%d • Accuracy:%.3f%% (%s)' % [
 		game.score,
 		game.misses,
 		# fix pesky 99.9999999999% accuracy or whatever with this simple trick
 		int(game.accuracy * 1000.0) / 1000.0,
-		rank,
+		game.rank,
 	]
 
 

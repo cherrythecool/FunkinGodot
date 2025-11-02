@@ -24,6 +24,7 @@ var train_cars: int = 8
 
 
 func _ready() -> void:
+	train.visible = false
 	_on_measure_hit(0)
 
 	if game.player.name == &'bf':
@@ -31,7 +32,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	window_fade_value += Conductor.beat_delta * delta * 1.5
+	if Config.get_value('accessibility', 'flashing_lights'):
+		window_fade_value += Conductor.beat_delta * delta * 1.5
 	window.material.set_shader_parameter(&'fade', window_fade_value)
 
 	if not train_started:
@@ -77,6 +79,7 @@ func reset_train() -> void:
 	train_started = false
 	train_moving = false
 	train_finishing = false
+	train.visible = false
 	train_cars = 8
 
 
@@ -86,10 +89,12 @@ func update_train_position() -> void:
 		game.spectator.play_anim(&'hair_blow', false, true)
 
 	if train_moving:
+		train.visible = true
 		train.position.x -= 400.0
 
 		if train.position.x < -2000.0 and not train_finishing:
 			train.position.x = -1150.0
+			train.visible = false
 			train_cars -= 1
 
 			if train_cars == 0:

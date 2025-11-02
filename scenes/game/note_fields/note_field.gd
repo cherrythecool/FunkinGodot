@@ -50,7 +50,7 @@ func _ready() -> void:
 	reload_skin()
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	try_spawning()
 
 	if not takes_input:
@@ -61,19 +61,7 @@ func _process(_delta: float) -> void:
 		receptor_ys.push_back(receptors[i].position.y)
 
 	for note: Note in notes:
-		note.position.y = receptor_ys[note.lane]
-		note.position.y -= (Conductor.time - note.data.time) * 1000.0 * 0.45 \
-				* scroll_speed * scroll_speed_modifier
-
-		if note.hit:
-			continue
-		var difference: float = (
-			(note.data.time + note.data.length)
-			- Conductor.time
-		)
-
-		if difference < -Receptor.input_zone:
-			miss_note(note)
+		update_note(note, delta)
 
 	if not (takes_input and is_instance_valid(target_character)):
 		return
@@ -83,6 +71,35 @@ func _process(_delta: float) -> void:
 
 		target_character.sing_timer = 0.0
 		break
+
+
+func update_note(note: Note, delta: float = 0.0) -> void:
+	var receptor: Receptor = get_receptor_from_lane(note.lane)
+	note.position.y = receptor.position.y
+	note.position.y -= (Conductor.time - note.data.time) * 1000.0 * 0.45 \
+			* scroll_speed * scroll_speed_modifier
+
+	if note.is_sustain and note.hit:
+		if not is_receptor_held(note.lane):
+			note.sustain_timer -= delta
+		else:
+			note.sustain_timer = Conductor.sustain_release_delta
+			if (
+				receptor.play_confirm and
+				receptor.last_anim != &"confirm"
+			):
+				receptor.hit_note(null)
+		
+		if note.sustain_timer <= 0.0:
+			miss_note(note)
+			return
+
+	if note.hit:
+		return
+	var difference: float = (note.data.time + note.data.length - 
+			Conductor.time)
+	if difference < -note.hit_window:
+		miss_note(note)
 
 
 func auto_input() -> void:
@@ -124,7 +141,7 @@ func receptor_press(receptor: Receptor) -> void:
 	receptor.automatically_play_static = false
 
 	for note: Note in notes:
-		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
+		var before_zone: bool = Conductor.time < note.data.time - note.hit_window
 		if before_zone:
 			break
 		if note.hit:
@@ -132,7 +149,7 @@ func receptor_press(receptor: Receptor) -> void:
 		if note.lane != receptor.lane:
 			continue
 
-		var after_zone: bool = Conductor.time > note.data.time + Receptor.input_zone
+		var after_zone: bool = Conductor.time > note.data.time + note.hit_window
 		if not (before_zone or after_zone):
 			receptor.hit_note(note)
 			hit_note(note)
@@ -144,19 +161,14 @@ func receptor_release(receptor: Receptor) -> void:
 	receptor.play_anim(&'static')
 
 	for note: Note in notes:
-		var before_zone: bool = Conductor.time < note.data.time - Receptor.input_zone
+		var before_zone: bool = Conductor.time < note.data.time - note.hit_window
 		if before_zone:
 			break
+		if note.is_sustain:
+			continue
 		if not note.hit:
 			continue
 		if note.lane != receptor.lane:
-			continue
-
-		var lee_way: float = maxf(Conductor.beat_delta / 4.0, 0.1)
-		# give a bit of lee-way
-		if note.length < lee_way:
-			# we do this because the animations get funky sometimes lol
-			receptor.automatically_play_static = true
 			continue
 
 		if takes_input:
@@ -249,7 +261,7 @@ func spawn_note(data: NoteData) -> void:
 	note_container.add_child(note)
 	notes.append(note)
 	apply_skin_to_note(note)
-	note._update_sustain()
+	note.update_sustain()
 
 
 func try_spawning(skip: bool = false) -> void:
@@ -273,11 +285,23 @@ func try_spawning(skip: bool = false) -> void:
 
 
 func get_receptor_from_lane(lane: int) -> Receptor:
-	for receptor: Receptor in receptors:
-		if receptor.lane == lane:
-			return receptor
+	if receptors.is_empty():
+		return null
+	
+	return receptors[clampi(lane, 0, receptors.size() - 1)]
 
-	return null
+
+func is_receptor_held(lane: int) -> bool:
+	if not takes_input:
+		return true
+	
+	var receptor: Receptor = get_receptor_from_lane(lane)
+	if is_instance_valid(receptor):
+		return Input.is_action_pressed(&"input_%s" % [
+			receptor.direction
+		])
+	
+	return false
 
 
 func reload_skin() -> void:
@@ -313,7 +337,7 @@ func apply_skin_to_note(note: Note) -> void:
 		note.sustain.texture_filter = note.sprite.texture_filter
 		note.tail.texture_filter = note.sprite.texture_filter
 		note.reload_sustain_sprites()
-		note._update_sustain()
+		note.update_sustain()
 
 
 func _on_scroll_speed_changed() -> void:

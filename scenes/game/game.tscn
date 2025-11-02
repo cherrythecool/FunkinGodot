@@ -1,9 +1,45 @@
-[gd_scene load_steps=6 format=3 uid="uid://da8mu3oqto3qq"]
+[gd_scene load_steps=12 format=3 uid="uid://da8mu3oqto3qq"]
 
 [ext_resource type="Script" uid="uid://dhv3phik4tia" path="res://scenes/game/game.gd" id="1_tneyb"]
 [ext_resource type="Script" uid="uid://bbfskuw2fyle3" path="res://scenes/game/tracks.gd" id="2_j74rm"]
 [ext_resource type="Script" uid="uid://cm308tpfbi72q" path="res://scenes/game/script_container.gd" id="2_oquto"]
-[ext_resource type="Script" uid="uid://1dwo0trw3je2" path="res://scripts/game/accuracy_calculator.gd" id="6_ur1sh"]
+[ext_resource type="Script" uid="uid://dp70bbdhoqpo0" path="res://scripts/game/rating.gd" id="5_lfrn8"]
+[ext_resource type="Script" uid="uid://1dwo0trw3je2" path="res://scripts/game/rating_calculator.gd" id="6_ur1sh"]
+
+[sub_resource type="Resource" id="Resource_5i0tg"]
+script = ExtResource("5_lfrn8")
+name = &"shit"
+timing = 166.66
+score = 50
+health = 0.0
+metadata/_custom_type_script = "uid://dp70bbdhoqpo0"
+
+[sub_resource type="Resource" id="Resource_bdhmt"]
+script = ExtResource("5_lfrn8")
+name = &"bad"
+timing = 135.0
+score = 100
+health = 0.25
+metadata/_custom_type_script = "uid://dp70bbdhoqpo0"
+
+[sub_resource type="Resource" id="Resource_87uf6"]
+script = ExtResource("5_lfrn8")
+name = &"good"
+timing = 90.0
+score = 200
+health = 0.75
+metadata/_custom_type_script = "uid://dp70bbdhoqpo0"
+
+[sub_resource type="Resource" id="Resource_2a8rs"]
+script = ExtResource("5_lfrn8")
+name = &"sick"
+timing = 45.0
+health = 1.0
+metadata/_custom_type_script = "uid://dp70bbdhoqpo0"
+
+[sub_resource type="Resource" id="Resource_4j704"]
+script = ExtResource("5_lfrn8")
+metadata/_custom_type_script = "uid://dp70bbdhoqpo0"
 
 [sub_resource type="Curve" id="Curve_5selw"]
 bake_resolution = 180
@@ -34,7 +70,8 @@ unique_name_in_owner = true
 
 [node name="characters" type="Node2D" parent="."]
 
-[node name="accuracy_calculator" type="Node" parent="."]
+[node name="rating_calculator" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_ur1sh")
+ratings = Array[ExtResource("5_lfrn8")]([SubResource("Resource_5i0tg"), SubResource("Resource_bdhmt"), SubResource("Resource_87uf6"), SubResource("Resource_2a8rs"), SubResource("Resource_4j704")])
 accuracy_curve = SubResource("Curve_5selw")

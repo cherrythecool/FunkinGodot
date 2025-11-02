@@ -10,6 +10,7 @@ var downscroll: bool = false:
 	set(value):
 		downscroll = value
 		set_downscroll(value)
+
 var centered_receptors: bool = false:
 	set(value):
 		centered_receptors = value
@@ -20,7 +21,12 @@ var centered_receptors: bool = false:
 @onready var note_fields: Node2D = %note_fields
 @onready var health_bar: HealthBar = %health_bar
 
-@onready var ratings_calculator: RatingsCalculator = %ratings_calculator
+@onready var rating_calculator: RatingCalculator:
+	get:
+		if is_instance_valid(game) and is_instance_valid(game.rating_calculator):
+			return game.rating_calculator
+		else:
+			return null
 @onready var rating_container: Node2D = %rating_container
 @onready var difference_label: Label = rating_container.get_node('difference_label')
 @onready var rating_sprite: Sprite2D = rating_container.get_node('rating')
@@ -51,10 +57,6 @@ func _ready() -> void:
 		opponent_field = note_fields.get_node(^'opponent')
 	
 	rating_container.visible = false
-
-	if not is_instance_valid(game):
-		return
-
 	downscroll = Config.get_value('gameplay', 'scroll_direction') == &'down'
 	centered_receptors = Config.get_value('gameplay', 'centered_receptors')
 
@@ -89,7 +91,7 @@ func _on_note_hit(note: Note) -> void:
 	if not player_field.takes_input:
 		difference = 0.0
 
-	game.accuracy_calculator.record_hit(absf(difference))
+	game.rating_calculator.add_hit(absf(difference), note.hit_window)
 
 	if player_field.takes_input:
 		difference_label.text = '%.2fms' % [difference * 1000.0]
@@ -102,22 +104,16 @@ func _on_note_hit(note: Note) -> void:
 	if is_instance_valid(rating_tween) and rating_tween.is_running():
 		rating_tween.kill()
 
-	var rating: Rating = ratings_calculator.get_rating(absf(difference * 1000.0))
-	if is_instance_valid(hud_skin):
-		match rating.name:
-			&'marvelous':
-				rating_sprite.texture = hud_skin.marvelous
-			&'sick':
-				rating_sprite.texture = hud_skin.sick
-			&'good':
-				rating_sprite.texture = hud_skin.good
-			&'bad':
-				rating_sprite.texture = hud_skin.bad
-			&'shit':
-				rating_sprite.texture = hud_skin.shit
+	var rating: Rating = Rating.new()
+	if is_instance_valid(rating_calculator):
+		rating = rating_calculator.get_rating(absf(difference))
+	
+	if is_instance_valid(hud_skin) and rating.name in hud_skin:
+		rating_sprite.texture = hud_skin.get(rating.name)
 
-	if is_instance_valid(note.splash) and \
-			(rating.name == &'marvelous' or rating.name == &'sick'):
+	if (is_instance_valid(note.splash) and 
+		(rating.name == &'marvelous' or rating.name == &'sick')
+	):
 		var splash: AnimatedSprite = note.splash.instantiate()
 		splash.note = note
 		var player_skin: NoteSkin = player_field.skin

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dhtct6lrdao7r"]
+[gd_scene load_steps=24 format=3 uid="uid://dhtct6lrdao7r"]
 
 [ext_resource type="Script" uid="uid://co5ccgkvmutk5" path="res://scenes/game/assets/stages/philly_streets_erect.gd" id="1_hmgxw"]
 [ext_resource type="Texture2D" uid="uid://gai5mgxmcuw5" path="res://assets/game/stages/philly_streets/erect/phillySkyline.png" id="2_0jnji"]
@@ -19,6 +19,20 @@
 [ext_resource type="Texture2D" uid="uid://c1f1eyos87sev" path="res://assets/game/stages/philly_streets/erect/mistMid.png" id="16_8xh06"]
 [ext_resource type="Texture2D" uid="uid://bhhmtkl0te62f" path="res://assets/game/stages/philly_streets/erect/mistBack.png" id="17_gl3gy"]
 [ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/assets/stages/character_preview.gd" id="17_hydkt"]
+[ext_resource type="Shader" uid="uid://dk80a2761duv" path="res://assets/shaders/rain_shader.gdshader" id="19_26rwe"]
+[ext_resource type="Script" uid="uid://dufg5dnuu2huq" path="res://scenes/game/assets/stages/philly_streets_erect_rain.gd" id="19_enjn8"]
+
+[sub_resource type="Curve2D" id="Curve2D_xtlem"]
+_data = {
+"points": PackedVector2Array(-354.8989, 12.753403, 354.8989, -12.753403, -137, 2, -379.98193, -398.292, 379.98193, 398.292, 1196, 303)
+}
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enjn8"]
+shader = ExtResource("19_26rwe")
+shader_parameter/scale = 6.7
+shader_parameter/intensity = 0.1
+shader_parameter/distortionStrength = 0.6
 
 [node name="philly_streets_erect" type="Node2D"]
 script = ExtResource("1_hmgxw")
@@ -90,18 +104,38 @@ centered = false
 [node name="cars" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.9, 1)
 
-[node name="1" type="AnimatedSprite2D" parent="cars"]
+[node name="car_path_2" type="Path2D" parent="cars"]
+unique_name_in_owner = true
+position = Vector2(1718, 991)
+curve = SubResource("Curve2D_xtlem")
+
+[node name="car_follow" type="PathFollow2D" parent="cars/car_path_2"]
+position = Vector2(-137, 2)
+rotation = -0.03591986
+
+[node name="car" type="AnimatedSprite2D" parent="cars/car_path_2/car_follow"]
 z_index = 80
-position = Vector2(1748, 818)
+position = Vector2(-262.435, -107.669)
+rotation = -0.11121468
 sprite_frames = ExtResource("9_j1c5h")
 animation = &"car1"
 centered = false
 script = ExtResource("10_o5oj6")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
-[node name="2" type="AnimatedSprite2D" parent="cars"]
-z_index = 78
-position = Vector2(1748, 818)
+[node name="car_path_1" type="Path2D" parent="cars"]
+unique_name_in_owner = true
+position = Vector2(1718, 991)
+curve = SubResource("Curve2D_xtlem")
+
+[node name="car_follow" type="PathFollow2D" parent="cars/car_path_1"]
+position = Vector2(-137, 2)
+rotation = -0.03591986
+
+[node name="car" type="AnimatedSprite2D" parent="cars/car_path_1/car_follow"]
+z_index = 80
+position = Vector2(-262.4345, -107.669266)
+rotation = -0.11170107
 sprite_frames = ExtResource("9_j1c5h")
 animation = &"car1"
 centered = false
@@ -233,6 +267,19 @@ position = Vector2(-650, -100)
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("16_8xh06")
 centered = false
+
+[node name="rain_layer" type="CanvasLayer" parent="."]
+layer = 0
+script = ExtResource("19_enjn8")
+
+[node name="rain_shader" type="ColorRect" parent="rain_layer"]
+material = SubResource("ShaderMaterial_enjn8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="player" type="Marker2D" parent="."]
 z_index = 400

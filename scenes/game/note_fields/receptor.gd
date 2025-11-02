@@ -1,8 +1,6 @@
 class_name Receptor extends Node2D
 
 
-static var input_zone: float = 0.18
-
 @export var direction: StringName = &'left'
 @export var lane: int = 0
 @export var takes_input: bool = false:

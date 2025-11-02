@@ -18,7 +18,7 @@ var events_index: int = 0
 
 @onready var pause_menu: PackedScene = load('res://scenes/game/pause_menu.tscn')
 
-@onready var accuracy_calculator: AccuracyCalculator = %accuracy_calculator
+@onready var rating_calculator: RatingCalculator = %rating_calculator
 @onready var tracks: Tracks = %tracks
 @onready var scripts: ScriptContainer = %scripts
 @onready var camera: Camera2D = $camera
@@ -59,16 +59,16 @@ var misses: int = 0
 var combo: int = 0
 var accuracy: float = 0.0:
 	get:
-		if is_instance_valid(accuracy_calculator):
-			return accuracy_calculator.get_accuracy()
+		if is_instance_valid(rating_calculator):
+			return rating_calculator.accuracy
 
 		return 0.0
-var rank: String:
+var rank: StringName:
 	get:
-		if is_instance_valid(hud.health_bar):
-			return hud.health_bar.rank
+		if is_instance_valid(rating_calculator):
+			return rating_calculator.rank
 
-		return 'N/A'
+		return &'N/A'
 
 var skin: HUDSkin
 
@@ -411,8 +411,8 @@ func _on_event_hit(event: EventData) -> void:
 	event_hit.emit(event)
 
 
-func _on_note_miss(_note: Note) -> void:
-	accuracy_calculator.record_hit(Receptor.input_zone)
+func _on_note_miss(note: Note) -> void:
+	rating_calculator.add_hit(note.hit_window, note.hit_window)
 	health = clampf(health - 2.0, 0.0, 100.0)
 	misses += 1
 	score -= 10

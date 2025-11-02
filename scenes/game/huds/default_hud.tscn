@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cr0c14kq4sye1"]
+[gd_scene load_steps=17 format=3 uid="uid://cr0c14kq4sye1"]
 
 [ext_resource type="Script" uid="uid://cuh3v6jw2ti70" path="res://scenes/game/huds/default_hud.gd" id="1_hv0yb"]
 [ext_resource type="PackedScene" uid="uid://3diy2p3nknpi" path="res://scenes/game/note_fields/4_lanes.tscn" id="2_0rw2j"]
@@ -10,8 +10,6 @@
 [ext_resource type="FontFile" uid="uid://b5sq5n4iqxrih" path="res://assets/fonts/funkin.ttf" id="8_in2av"]
 [ext_resource type="Script" uid="uid://pc372g2dpnb3" path="res://scenes/game/huds/default_hud/countdown_container.gd" id="9_6w54d"]
 [ext_resource type="Script" uid="uid://rhmplnbdvgkx" path="res://scenes/game/huds/default_hud/song_label.gd" id="9_mucs8"]
-[ext_resource type="Script" uid="uid://ebr3nrqirlyd" path="res://scripts/game/ratings_calculator.gd" id="9_xshlu"]
-[ext_resource type="Script" uid="uid://dp70bbdhoqpo0" path="res://scripts/game/rating.gd" id="10_vo01y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vjxi"]
 bg_color = Color(0.529412, 0.545098, 0.545098, 1)
@@ -53,36 +51,6 @@ outline_color = Color(0, 0, 0, 1)
 font = ExtResource("5_gpwne")
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="Resource" id="Resource_ybh81"]
-script = ExtResource("10_vo01y")
-name = &"shit"
-timing = 166.66
-score = 50
-health = 0.0
-
-[sub_resource type="Resource" id="Resource_2xl48"]
-script = ExtResource("10_vo01y")
-name = &"bad"
-timing = 135.0
-score = 100
-health = 0.25
-
-[sub_resource type="Resource" id="Resource_u7x50"]
-script = ExtResource("10_vo01y")
-name = &"good"
-timing = 90.0
-score = 200
-health = 0.75
-
-[sub_resource type="Resource" id="Resource_jbop4"]
-script = ExtResource("10_vo01y")
-timing = 45.0
-health = 1.0
-
-[sub_resource type="Resource" id="Resource_aj00i"]
-script = ExtResource("10_vo01y")
-name = &"marvelous"
 
 [node name="hud" type="Control"]
 layout_mode = 3
@@ -204,11 +172,6 @@ label_settings = SubResource("LabelSettings_odcbh")
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("9_mucs8")
-
-[node name="ratings_calculator" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("9_xshlu")
-ratings = Array[ExtResource("10_vo01y")]([SubResource("Resource_ybh81"), SubResource("Resource_2xl48"), SubResource("Resource_u7x50"), SubResource("Resource_jbop4"), SubResource("Resource_aj00i")])
 
 [connection signal="downscroll_changed" from="." to="health_bar" method="_on_hud_downscroll_changed"]
 [connection signal="downscroll_changed" from="." to="song_label" method="_on_hud_downscroll_changed"]
