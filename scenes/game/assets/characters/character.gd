@@ -14,7 +14,6 @@ var dance_step: int = 0
 @export_file('*.tscn') var death_character: String = 'uid://w4v0gymuehdt'
 @export var gameover_assets: GameoverAssets
 
-@warning_ignore('unused_private_class_variable')
 @onready var camera_offset: Node2D = $camera_offset
 @onready var animation_player: AnimationPlayer = $animation_player
 

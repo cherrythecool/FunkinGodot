@@ -15,7 +15,7 @@ signal on_video_ended
 ## Whether to autoplay the video once its stream is set
 @export var autoplay: bool = true
 
-@onready var _video_player: VideoStreamPlayer = %player
+@onready var video_player: VideoStreamPlayer = %video_player
 
 func _ready() -> void:
 	super()
@@ -34,27 +34,27 @@ func _input(event: InputEvent) -> void:
 		return
 	if not event.is_pressed():
 		return
-	if event.is_action('ui_accept'):
+	if event.is_action(&"ui_accept"):
 		finish()
 
 ## Plays the video if it isn't already playing.[br]
 ## [param]force[/param] To force the video to play regardless of whether it is already.
 func play(force: bool = false) -> void:
-	if _video_player.is_playing():
+	if video_player.is_playing():
 		if not force:
 			return
-		_video_player.stop()
-	_video_player.show()
-	_video_player.play()
+		video_player.stop()
+	video_player.show()
+	video_player.play()
 
 ## Frees the cutscene and shows the game again
 ## if it was previously hidden.
 func finish() -> void:
 	super()
 
-	if _video_player.is_playing():
-		_video_player.stop()
-	_video_player.hide()
+	if video_player.is_playing():
+		video_player.stop()
+	video_player.hide()
 	on_video_ended.emit()
 
 	if game and hide_game:

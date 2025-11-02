@@ -11,7 +11,9 @@ func _on_event_hit(event: EventData) -> void:
 				target = player
 			CameraPan.Side.OPPONENT:
 				target = opponent
-
+		if not is_instance_valid(target):
+			return
+		
 		game.target_camera_position = target.get_camera_position()
 		if event.time <= 0.0:
 			camera.position = game.target_camera_position

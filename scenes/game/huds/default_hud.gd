@@ -1,7 +1,6 @@
 extends Control
 
 
-@export var do_countdown: bool = true
 var player_field: NoteField
 var opponent_field: NoteField
 var game: Game
@@ -33,7 +32,12 @@ var centered_receptors: bool = false:
 @onready var combo_node: Node2D = rating_container.get_node('combo')
 var rating_tween: Tween
 
-var hud_skin: HUDSkin
+var hud_skin: HUDSkin:
+	set(v):
+		hud_skin = v
+		rating_textures = hud_skin.get_rating_textures()
+
+var rating_textures: Dictionary[StringName, Texture2D] = {}
 
 signal on_setup
 signal note_hit(note: Note)
@@ -107,9 +111,8 @@ func _on_note_hit(note: Note) -> void:
 	var rating: Rating = Rating.new()
 	if is_instance_valid(rating_calculator):
 		rating = rating_calculator.get_rating(absf(difference))
-	
-	if is_instance_valid(hud_skin) and rating.name in hud_skin:
-		rating_sprite.texture = hud_skin.get(rating.name)
+	if rating_textures.has(rating.name):
+		rating_sprite.texture = rating_textures[rating.name]
 
 	if (is_instance_valid(note.splash) and 
 		(rating.name == &'marvelous' or rating.name == &'sick')

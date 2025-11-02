@@ -6,7 +6,7 @@
 layer = 32
 script = ExtResource("1_q08p3")
 
-[node name="player" type="VideoStreamPlayer" parent="."]
+[node name="video_player" type="VideoStreamPlayer" parent="."]
 unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,4 +15,4 @@ grow_horizontal = 2
 grow_vertical = 2
 expand = true
 
-[connection signal="finished" from="player" to="." method="finish"]
+[connection signal="finished" from="video_player" to="." method="finish"]

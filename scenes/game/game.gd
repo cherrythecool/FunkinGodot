@@ -1,12 +1,9 @@
 class_name Game extends Node2D
 
 
-const DEFAULT_NOTE_PATH: String = 'uid://f75xq2p53bpl'
-
 static var song: StringName = &'bopeebo'
 static var difficulty: StringName = &'hard'
 static var chart: Chart = null
-static var scroll_speed: float = 3.3
 static var mode: PlayMode = PlayMode.FREEPLAY
 static var exit_scene: String = ''
 
@@ -14,6 +11,7 @@ static var instance: Game = null
 static var playlist: Array[GamePlaylistEntry] = []
 static var camera_position: Vector2 = Vector2.INF
 
+var persistent_camera_position: bool = true
 var events_index: int = 0
 
 @onready var pause_menu: PackedScene = load('res://scenes/game/pause_menu.tscn')
@@ -41,9 +39,13 @@ var save_score: bool = true
 @onready var characters_container: Node2D = $characters
 
 ## Each note type is stored here for use in any note field.
-var note_types: NoteTypes = NoteTypes.new()
+var note_types: Dictionary[StringName, PackedScene] = {}
 
 var playing: bool = true
+var scroll_speed: float = 3.3:
+	set(v):
+		scroll_speed = v
+		scroll_speed_changed.emit()
 
 var assets: SongAssets
 var metadata: SongMetadata
@@ -81,24 +83,35 @@ signal process_post(delta: float)
 signal song_start
 signal event_prepare(event: EventData)
 signal event_hit(event: EventData)
-signal song_finished(event: CancellableEvent)
+signal song_finished
 signal scroll_speed_changed
-signal died(event: CancellableEvent)
+signal died
 signal botplay_changed(botplay: bool)
-
-@warning_ignore('unused_signal')
-signal unpaused
+@warning_ignore('unused_signal') signal unpaused
 
 
-func _init() -> void:
-	if not chart:
-		chart = Chart.load_song(song, difficulty)
-
-
-func _enter_tree() -> void:
+func _ready() -> void:
 	instance = self
-	# Slightly lower input latency. (probably)
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	Input.use_accumulated_input = false
+	GlobalAudio.music.stop()
+	tracks.load_tracks(song)
+	tracks.finished.connect(_song_finished.bind(false, false))
+
+	load_chart()
+	reset_conductor()
+
+	load_assets()
+	load_from_assets()
+	setup_hud()
+
+	scripts.load_scripts(song)
+	load_events()
+	
+	# Carries camera position between songs
+	if camera_position != Vector2.INF:
+		camera.position = camera_position
+	ready_post.emit()
 
 
 func _exit_tree() -> void:
@@ -106,223 +119,24 @@ func _exit_tree() -> void:
 		instance = null
 
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	# Maybe better for cpu usage? Ig
 	Input.use_accumulated_input = true
 
 
-func _ready() -> void:
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
-	GlobalAudio.music.stop()
-	tracks.load_tracks(song)
-	tracks.finished.connect(_song_finished.bind(false, false))
-
-	var custom_speed: float = Config.get_value('gameplay', 'custom_scroll_speed')
-	match Config.get_value('gameplay', 'scroll_speed_method'):
-		'chart':
-			scroll_speed = chart.scroll_speed * custom_speed
-		'constant':
-			scroll_speed = custom_speed
-
-	scroll_speed_changed.emit()
-
-	if ResourceLoader.exists('res://assets/songs/%s/events.tres' % song):
-		var events: SongEvents = load('res://assets/songs/%s/events.tres' % song)
-		chart.events.append_array(events.events)
-
-	Chart.sort_chart_notes(chart)
-	Chart.sort_chart_events(chart)
-
-	note_types.types['default'] = load(DEFAULT_NOTE_PATH)
-
-	# loading external types :3
-	for note: NoteData in chart.notes:
-		var type: StringName = note.type.to_snake_case()
-		if note_types.types.has(type):
-			continue
-
-		var path: String = 'res://scenes/game/notes/%s.tscn' % type
-		if not ResourceLoader.exists(path):
-			continue
-
-		note_types.types[type] = load(path)
-
-	if ResourceLoader.exists('res://assets/songs/%s/meta.tres' % song):
-		metadata = load('res://assets/songs/%s/meta.tres' % song)
-
-	if ResourceLoader.exists('res://assets/songs/%s/assets.tres' % song):
-		# Load SongAssets tres.
-		var path: String = 'res://assets/songs/%s/assets.tres' % song
-		# Multithreaded loading code that seems to cause gpu memory leaks
-		# leaving it out for now just in case, sorry :[
-		#ResourceLoader.load_threaded_request(path, '', true)
-		#assets = ResourceLoader.load_threaded_get(path)
-		assets = load(path)
-
-		if not is_instance_valid(assets.player):
-			assets.player = load('uid://bu44d2he2dxm3')
-		if not is_instance_valid(assets.opponent):
-			assets.opponent = load('uid://cdlt4jc7j8122')
-		if not is_instance_valid(assets.spectator):
-			assets.spectator = load('uid://bragoy3tisav2')
-		if not is_instance_valid(assets.stage):
-			assets.stage = load('uid://0ih6j18ov417')
-		if not is_instance_valid(assets.hud_skin):
-			assets.hud_skin = load('uid://oxo327xfxemo')
-		if not is_instance_valid(assets.hud):
-			assets.hud = load('uid://cr0c14kq4sye1')
-		
-		hud = assets.hud.instantiate()
-		if 'hud_skin' in hud:
-			hud.hud_skin = assets.hud_skin
-		
-		hud_layer.add_child(hud)
-		
-		if 'player_field' in hud:
-			player_field = hud.player_field
-		if 'opponent_field' in hud:
-			opponent_field = hud.opponent_field
-
-		# Instantiate the PackedScene(s) and add them to the scene.
-		player = assets.player.instantiate()
-		opponent = assets.opponent.instantiate()
-		spectator = assets.spectator.instantiate()
-		characters_container.add_child(spectator)
-		characters_container.add_child(player)
-		characters_container.add_child(opponent)
-
-		stage = assets.stage.instantiate()
-		stage_container.add_child(stage)
-		target_camera_zoom = Vector2(stage.default_zoom, stage.default_zoom)
-		camera.zoom = target_camera_zoom
-		camera_speed = stage.camera_speed
-
-		# Setup the characters.
-		if not player.starts_as_player:
-			player.scale *= Vector2(-1.0, 1.0)
-		if opponent.starts_as_player:
-			opponent.scale *= Vector2(-1.0, 1.0)
-
-		var player_point: Node2D = stage.get_node('player')
-		player.global_position = player_point.global_position
-		player.scale *= player_point.scale
-		player.z_index += player_point.z_index
-		if is_instance_valid(player_point.material):
-			player.set_character_material(player_point.material)
-
-		player.is_player = true
-
-		var opponent_point: Node2D = stage.get_node('opponent')
-		opponent.global_position = opponent_point.global_position
-		opponent.scale *= opponent_point.scale
-		opponent.z_index += opponent_point.z_index
-		if is_instance_valid(opponent_point.material):
-			opponent.set_character_material(opponent_point.material)
-
-		var spectator_point: Node2D = stage.get_node('spectator')
-		spectator.global_position = spectator_point.global_position
-		spectator.scale *= spectator_point.scale
-		spectator.z_index += spectator_point.z_index
-		if is_instance_valid(spectator_point.material):
-			spectator.set_character_material(spectator_point.material)
-
-		# Set the NoteField characters.
-		if is_instance_valid(player_field):
-			player_field.target_character = player
-			player_field.skin = assets.player_skin
-			player_field.reload_skin()
-
-		if is_instance_valid(opponent_field):
-			opponent_field.target_character = opponent
-			opponent_field.skin = assets.opponent_skin
-			opponent_field.reload_skin()
-
-		if is_instance_valid(assets.hud_skin.pause_menu):
-			pause_menu = assets.hud_skin.pause_menu
-
-		# we're done using assets so not point keeping
-		# the references around
-		assets = null
-
-	if is_instance_valid(player_field):
-		player_field.note_types = note_types
-		player_field.scroll_speed = scroll_speed
-		player_field.apply_chart(chart)
-		player_field.note_miss.connect(_on_note_miss)
-		player_field.note_hit.connect(_on_note_hit)
-
-	if is_instance_valid(opponent_field):
-		opponent_field.note_types = note_types
-		opponent_field.scroll_speed = scroll_speed
-		opponent_field.apply_chart(chart)
-		opponent_field.note_hit.connect(func(_note: Note) -> void:
-			camera_bumps = true
-		)
-
-	hud_setup.emit()
-
-	Conductor.reset()
-	Conductor.beat_hit.connect(_on_beat_hit)
-	Conductor.measure_hit.connect(_on_measure_hit)
-	Conductor.get_bpm_changes(chart.events)
-	Conductor.calculate_beat()
-	Conductor.raw_time = -5.0 * Conductor.beat_delta
-
-	scripts.load_scripts(song)
-
-	if not chart.events.is_empty():
-		# Note: this means all custom events just act as normal scripts
-		# which should be fine for 99.9% of use cases.
-		# it also means you have to manually check for event names
-		# but it's fine :p
-		var exceptions: Array[StringName] = []
-		for event: EventData in chart.events:
-			var event_name: StringName = event.name.to_lower()
-			if exceptions.has(event_name):
-				continue
-			exceptions.push_back(event_name)
-
-			var path: String = 'res://scenes/game/events/%s.tscn' % [event_name]
-			if not ResourceLoader.exists(path):
-				continue
-
-			var scene: PackedScene = load(path)
-			var node: Node = scene.instantiate()
-			scripts.add_child(node)
-
-		for event: EventData in chart.events:
-			event_prepare.emit(event)
-
-		# we do int(time * 1000.0) because if it's less than 1 ms
-		# after the start of a song (i've seen this in base game charts before)
-		# then we should still call it lmfao (like camera pans)
-		while (not chart.events.is_empty()) and events_index < chart.events.size() \
-				and int(chart.events[events_index].time * 1000.0) <= 0.0:
-			_on_event_hit(chart.events[events_index])
-			events_index += 1
-
-	if camera_position != Vector2.INF:
-		camera.position = camera_position
-	ready_post.emit()
-
-
 func _process(delta: float) -> void:
-	call_deferred('_process_post', delta)
+	_process_post.call_deferred(delta)
 	camera_position = camera.position
 
 	if not playing:
 		return
 
 	if health <= 0.0:
-		var event: CancellableEvent = CancellableEvent.new()
-		died.emit(event)
-
-		if event.status == CancellableEvent.EventStatus.CONTINUE:
-			Gameover.camera_position = camera.global_position
-			Gameover.camera_zoom = camera.zoom
-			Gameover.character_path = player.death_character
-			Gameover.character_position = player.global_position
-			SceneManager.switch_to(load('scenes/game/gameover.tscn'), false)
-			return
+		died.emit()
+		Gameover.camera_position = camera.global_position
+		Gameover.camera_zoom = camera.zoom
+		Gameover.character_path = player.death_character
+		Gameover.character_position = player.global_position
+		SceneManager.switch_to(load('uid://c05dah5aarqg8'), false)
+		return
 
 	if is_instance_valid(tracks) and not song_started:
 		if Conductor.raw_time >= 0.0 and Conductor.active and not tracks.playing:
@@ -334,7 +148,7 @@ func _process(delta: float) -> void:
 	while events_index < chart.events.size() and \
 			Conductor.time >= chart.events[events_index].time:
 		var event: EventData = chart.events[events_index]
-		_on_event_hit(event)
+		event_hit.emit(event)
 		events_index += 1
 
 	if first_frame:
@@ -374,23 +188,6 @@ func _input(event: InputEvent) -> void:
 		botplay_changed.emit(not player_field.takes_input)
 
 
-func skip_to(seconds: float) -> void:
-	if not is_instance_valid(Conductor.target_audio):
-		Conductor.raw_time = seconds
-	else:
-		Conductor.target_audio.seek(seconds)
-		Conductor.sync_to_target(0.0)
-	Conductor.calculate_beat()
-
-	if is_instance_valid(opponent_field):
-		opponent_field.try_spawning(true)
-		opponent_field.clear_notes()
-
-	if is_instance_valid(player_field):
-		player_field.try_spawning(true)
-		player_field.clear_notes()
-
-
 func _on_beat_hit(_beat: int) -> void:
 	if is_instance_valid(player):
 		player.dance()
@@ -405,10 +202,6 @@ func _on_measure_hit(_measure: int) -> void:
 		return
 
 	camera.zoom += camera_bump_amount
-
-
-func _on_event_hit(event: EventData) -> void:
-	event_hit.emit(event)
 
 
 func _on_note_miss(note: Note) -> void:
@@ -426,15 +219,9 @@ func _on_note_hit(_note: Note) -> void:
 func _song_finished(force: bool = false, sound: bool = true) -> void:
 	if not playing:
 		return
-
-	var event: CancellableEvent = CancellableEvent.new()
-	if not force:
-		song_finished.emit(event)
-	else:
+	song_finished.emit()
+	if force:
 		save_score = false
-
-	if event.status == CancellableEvent.EventStatus.CANCEL:
-		return
 
 	playing = false
 	if save_score:
@@ -446,6 +233,11 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 				'accuracy': accuracy,
 				'rank': rank
 			})
+
+	# For some songs / mods you might not want this,
+	# but for base game it works well enough
+	if not persistent_camera_position:
+		camera_position = Vector2.INF
 
 	if not (playlist.is_empty() or force):
 		var new_song: StringName = playlist[0].name
@@ -459,7 +251,7 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 			)
 			printerr('Song at path %s doesn\'t exist!' % json_path)
 			GlobalAudio.get_player('MENU/CANCEL').play()
-			SceneManager.switch_to(load('res://scenes/menus/main_menu.tscn'))
+			SceneManager.switch_to(load('uid://b7fwxsepnt38j'))
 			playlist.clear()
 			return
 
@@ -481,11 +273,207 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 		return
 	match mode:
 		PlayMode.STORY:
-			SceneManager.switch_to(load('res://scenes/menus/story_mode_menu.tscn'))
+			SceneManager.switch_to(load('uid://dcf86iwg6mn3d'))
 		PlayMode.FREEPLAY:
 			SceneManager.switch_to(load(MainMenu.freeplay_scene))
 		_:
-			SceneManager.switch_to(load('res://scenes/menus/title_screen.tscn'))
+			SceneManager.switch_to(load('uid://cxk008iuw4n7u'))
+
+
+func load_chart() -> void:
+	if not is_instance_valid(chart):
+		chart = Chart.load_song(song, difficulty)
+	
+	var custom_speed: float = Config.get_value('gameplay', 'custom_scroll_speed')
+	match Config.get_value('gameplay', 'scroll_speed_method'):
+		'chart':
+			scroll_speed = chart.scroll_speed * custom_speed
+		'constant':
+			scroll_speed = custom_speed
+
+	Chart.sort_chart_notes(chart)
+	Chart.sort_chart_events(chart)
+
+	note_types[&'default'] = load(Note.DEFAULT_PATH)
+
+	# loading external types :3
+	for note: NoteData in chart.notes:
+		var type: StringName = note.type
+		if (note_types.has(type) or
+			note_types.has(type.to_snake_case())):
+			continue
+
+		# check both full name and snake_case version
+		var path: String = 'res://scenes/game/notes/%s.tscn' % [type]
+		if not ResourceLoader.exists(path):
+			type = type.to_snake_case()
+			path = 'res://scenes/game/notes/%s.tscn' % [type]
+			if not ResourceLoader.exists(path):
+				continue
+
+		note_types[type] = load(path)
+
+
+func load_assets() -> void:
+	if ResourceLoader.exists('res://assets/songs/%s/meta.tres' % song):
+		metadata = load('res://assets/songs/%s/meta.tres' % song)
+	else:
+		metadata = SongMetadata.new()
+	
+	if ResourceLoader.exists('res://assets/songs/%s/assets.tres' % song):
+		assets = load('res://assets/songs/%s/assets.tres' % song)
+	else:
+		assets = SongAssets.new()
+
+
+func load_from_assets() -> void:
+	## Gameplay assets
+	player = assets.get_player().instantiate()
+	player.is_player = true
+	opponent = assets.get_opponent().instantiate()
+	spectator = assets.get_spectator().instantiate()
+	characters_container.add_child(spectator)
+	characters_container.add_child(player)
+	characters_container.add_child(opponent)
+
+	stage = assets.get_stage().instantiate()
+
+	# Setup the characters.
+	if stage.has_node(^"player"):
+		var player_point: CharacterPlacement = stage.get_node(^"player")
+		if is_instance_valid(player_point):
+			player_point.adjust_character(player)
+	else:
+		if not player.starts_as_player:
+			player.scale *= Vector2(-1.0, 1.0)
+	if stage.has_node(^"opponent"):
+		var opponent_point: CharacterPlacement = stage.get_node(^"opponent")
+		if is_instance_valid(opponent_point):
+			opponent_point.adjust_character(opponent)
+	else:
+		if opponent.starts_as_player:
+			opponent.scale *= Vector2(-1.0, 1.0)
+	
+	if stage.has_node(^"spectator"):
+		var spectator_point: CharacterPlacement = stage.get_node(^"spectator")
+		if is_instance_valid(spectator_point):
+			spectator_point.adjust_character(spectator)
+	
+	stage_container.add_child(stage)
+	target_camera_zoom = Vector2.ONE * stage.default_zoom
+	camera.zoom = target_camera_zoom
+	camera_speed = stage.camera_speed
+
+	## HUD Assets
+	hud = assets.get_hud().instantiate()
+	if 'hud_skin' in hud:
+		hud.hud_skin = assets.get_hud_skin()
+	hud_layer.add_child(hud)
+	
+	if 'player_field' in hud:
+		player_field = hud.player_field
+	if 'opponent_field' in hud:
+		opponent_field = hud.opponent_field
+
+	# Set the NoteField characters.
+	if is_instance_valid(player_field):
+		player_field.target_character = player
+		player_field.skin = assets.player_skin
+		player_field.reload_skin()
+	if is_instance_valid(opponent_field):
+		opponent_field.target_character = opponent
+		opponent_field.skin = assets.opponent_skin
+		opponent_field.reload_skin()
+
+	if is_instance_valid(assets.get_hud_skin().pause_menu):
+		pause_menu = assets.get_hud_skin().pause_menu
+
+	for key: StringName in assets.note_types.keys():
+		var scene: PackedScene = assets.note_types.get(key)
+		if is_instance_valid(scene):
+			note_types[key] = scene
+
+	# we're done using assets so not point keeping
+	# the references around
+	assets = null
+
+
+func setup_hud() -> void:
+	if is_instance_valid(player_field):
+		player_field.note_types = note_types
+		player_field.scroll_speed = scroll_speed
+		player_field.append_chart(chart)
+		player_field.note_miss.connect(_on_note_miss)
+		player_field.note_hit.connect(_on_note_hit)
+
+	if is_instance_valid(opponent_field):
+		opponent_field.note_types = note_types
+		opponent_field.scroll_speed = scroll_speed
+		opponent_field.append_chart(chart)
+		opponent_field.note_hit.connect(func(_note: Note) -> void:
+			camera_bumps = true
+		)
+
+	hud_setup.emit()
+
+
+func reset_conductor() -> void:
+	Conductor.reset()
+	Conductor.beat_hit.connect(_on_beat_hit)
+	Conductor.measure_hit.connect(_on_measure_hit)
+	Conductor.get_bpm_changes(chart.events)
+	Conductor.calculate_beat()
+	Conductor.raw_time = -5.0 * Conductor.beat_delta
+
+
+func load_events() -> void:
+	if not chart.events.is_empty():
+		# Note: this means all custom events just act as normal scripts
+		# which should be fine for 99.9% of use cases.
+		# it also means you have to manually check for event names
+		# but it's fine :p
+		var exceptions: Array[StringName] = []
+		for event: EventData in chart.events:
+			var event_name: StringName = event.name.to_lower()
+			if exceptions.has(event_name):
+				continue
+			exceptions.push_back(event_name)
+
+			var path: String = 'res://scenes/game/events/%s.tscn' % [event_name]
+			if not ResourceLoader.exists(path):
+				continue
+
+			var scene: PackedScene = load(path)
+			var node: Node = scene.instantiate()
+			scripts.add_child(node)
+
+		for event: EventData in chart.events:
+			event_prepare.emit(event)
+
+		# we do int(time * 1000.0) because if it's less than 1 ms
+		# after the start of a song (i've seen this in base game charts before)
+		# then we should still call it lmfao (like camera pans)
+		while (not chart.events.is_empty()) and events_index < chart.events.size() \
+				and int(chart.events[events_index].time * 1000.0) <= 0.0:
+			event_hit.emit(chart.events[events_index])
+			events_index += 1
+
+
+func skip_to(seconds: float) -> void:
+	if not is_instance_valid(Conductor.target_audio):
+		Conductor.raw_time = seconds
+	else:
+		Conductor.target_audio.seek(seconds)
+		Conductor.sync_to_target(0.0)
+	Conductor.calculate_beat()
+
+	if is_instance_valid(opponent_field):
+		opponent_field.try_spawning(true)
+		opponent_field.clear_notes()
+
+	if is_instance_valid(player_field):
+		player_field.try_spawning(true)
+		player_field.clear_notes()
 
 
 enum PlayMode {

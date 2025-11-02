@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+class_name CharacterPlacement extends Node2D
 
 
 @export_file('*.tscn') var character_path: String = 'res://scenes/game/assets/characters/bf.tscn':
@@ -37,15 +37,44 @@ func _draw() -> void:
 	add_child(character)
 
 
-func instance_character() -> Character:
+func adjust_character(input: Character, set_player: bool = false) -> void:
+	input.global_position = global_position
+	if flipped:
+		input.scale.x *= -1.0
+	if set_player:
+		input.is_player = set_player
+	input.scale *= scale
+	input.z_index += z_index
+	
+	if is_instance_valid(material):
+		input.set_character_material(material)
+	if has_node(^"camera_offset"):
+		if is_instance_valid(input.camera_offset):
+			input.camera_offset.queue_free()
+		input.camera_offset = get_node(^"camera_offset")
+		input.camera_offset.reparent(input)
+
+
+func instance_character(player: bool = false, insert: bool = true) -> Character:
 	if not ResourceLoader.exists(character_path):
 		printerr("Couldn't find character at path %s!" % [character_path])
 		return null
 
 	var scene: PackedScene = load(character_path)
-	var instanced: Node = scene.instantiate()
-	if flipped and instanced is CanvasItem:
+	var instanced: Character = scene.instantiate()
+	if flipped:
 		instanced.scale.x *= -1.0
-
-	add_sibling(instanced)
+	instanced.is_player = player
+	instanced.scale *= scale
+	instanced.z_index += z_index
+	if insert:
+		add_sibling(instanced)
+	
+	if is_instance_valid(material):
+		instanced.set_character_material(material)
+	if has_node(^"camera_offset"):
+		if is_instance_valid(instanced.camera_offset):
+			instanced.camera_offset.queue_free()
+		instanced.camera_offset = get_node(^"camera_offset")
+	
 	return instanced

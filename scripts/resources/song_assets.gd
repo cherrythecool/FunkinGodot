@@ -20,6 +20,7 @@ class_name SongAssets extends Resource
 @export_category('Misc')
 
 @export var scripts: Array[PackedScene] = []
+@export var note_types: Dictionary[StringName, PackedScene] = {}
 
 
 func get_player() -> PackedScene:
@@ -46,6 +47,13 @@ func get_stage() -> PackedScene:
 	return load('uid://0ih6j18ov417')
 
 
-func _to_string() -> String:
-	return 'SongAssets(player: %s, opponent: %s, spectator: %s, stage: %s, scripts: %s)' \
-			% [player, opponent, spectator, stage, scripts]
+func get_hud_skin() -> HUDSkin:
+	if is_instance_valid(hud_skin):
+		return hud_skin
+	return load('uid://oxo327xfxemo')
+
+
+func get_hud() -> PackedScene:
+	if is_instance_valid(hud):
+		return hud
+	return load('uid://cr0c14kq4sye1')

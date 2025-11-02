@@ -6,7 +6,7 @@ class_name SongMetadata extends Resource
 @export var icon: Icon = null
 
 @export var difficulties: PackedStringArray = [
-	'easy', 'normal', 'hard'
+	'easy', 'normal', 'hard',
 ]
 @export var difficulty_song_overrides: Dictionary[String, StringName] = {}
 

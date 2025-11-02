@@ -2,6 +2,7 @@ class_name Note extends Node2D
 
 
 const DEFAULT_HIT_WINDOW: float = 0.18
+const DEFAULT_PATH: String = 'uid://f75xq2p53bpl'
 
 @export var sing_suffix: StringName = &''
 @export var use_skin: bool = true

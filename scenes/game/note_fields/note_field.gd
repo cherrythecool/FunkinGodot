@@ -4,7 +4,7 @@ class_name NoteField extends Node2D
 @export_category('Gameplay')
 @export var takes_input: bool = false
 @export_enum('Opponent', 'Player') var side: int = 0
-@export var note_types: NoteTypes = NoteTypes.new()
+@export var note_types: Dictionary[StringName, PackedScene] = {}
 
 @export_category('Visuals')
 @export var default_note_splash: PackedScene = null
@@ -37,6 +37,9 @@ func _ready() -> void:
 		game.scroll_speed_changed.connect(_on_scroll_speed_changed)
 	note_splash_alpha = Config.get_value('interface', 'note_splash_alpha') / 100.0
 
+	if note_types.is_empty():
+		note_types[&"default"] = load(Note.DEFAULT_PATH)
+
 	# If you have another node in here that isn't a Node2D
 	# that is just currently not supported.
 	receptors = receptors_node.get_children()
@@ -52,7 +55,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	try_spawning()
-
 	if not takes_input:
 		auto_input()
 
@@ -224,7 +226,7 @@ func clear_notes() -> void:
 		remove_note(note_container.get_child(0), true)
 
 
-func apply_chart(chart: Chart) -> void:
+func append_chart(chart: Chart) -> void:
 	note_data.append_array(chart.notes)
 	note_data.sort_custom(func(a: NoteData, b: NoteData) -> bool:
 		return a.time < b.time)
@@ -242,11 +244,11 @@ func spawn_note(data: NoteData) -> void:
 	if data.length > 0.0 and data.length < Conductor.step_delta:
 		data.length = 0.0
 
-	var scene: PackedScene = note_types.types.get(data.type.to_snake_case())
+	var scene: PackedScene = note_types.get(data.type.to_snake_case())
 	if not is_instance_valid(scene):
-		scene = note_types.types.get(&'default')
+		scene = note_types.get(&'default')
 	if not is_instance_valid(scene):
-		printerr('Note field is missing either "%s" or "default" as a note type.' % [data.type])
+		printerr('Note field is missing both "%s" and "default" as a note type, it needs either to at least spawn something!' % [data.type])
 		return
 
 	var note: Note = scene.instantiate()
@@ -343,4 +345,4 @@ func apply_skin_to_note(note: Note) -> void:
 func _on_scroll_speed_changed() -> void:
 	if ignore_speed_changes:
 		return
-	scroll_speed = Game.scroll_speed
+	scroll_speed = game.scroll_speed

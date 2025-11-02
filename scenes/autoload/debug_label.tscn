@@ -7,7 +7,7 @@
 line_spacing = -4.0
 font = ExtResource("2_uhwfu")
 font_size = 14
-outline_size = 8
+outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [node name="debug_label" type="CanvasLayer"]
@@ -16,10 +16,10 @@ layer = 64
 script = ExtResource("1_itebg")
 
 [node name="label" type="Label" parent="."]
-offset_left = 8.0
-offset_top = 4.0
-offset_right = 177.0
-offset_bottom = 72.0
+offset_left = 7.0
+offset_top = 3.0
+offset_right = 176.0
+offset_bottom = 71.0
 text = "0FPS (0.00ms)
 0MiB / 0MiB (GPU)
 0MiB / 0MiB (CPU)

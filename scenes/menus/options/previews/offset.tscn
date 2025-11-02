@@ -1,16 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://ctp6qq4w60hkd"]
+[gd_scene load_steps=4 format=3 uid="uid://ctp6qq4w60hkd"]
 
 [ext_resource type="Script" uid="uid://2441ftrjfyr7" path="res://scenes/menus/options/previews/offset.gd" id="1_508hw"]
 [ext_resource type="PackedScene" uid="uid://3diy2p3nknpi" path="res://scenes/game/note_fields/4_lanes.tscn" id="2_5bgr3"]
-[ext_resource type="Script" uid="uid://cq5i06rfsw66b" path="res://scripts/game/note_types.gd" id="3_br271"]
 [ext_resource type="PackedScene" uid="uid://f75xq2p53bpl" path="res://scenes/game/notes/note.tscn" id="4_e1622"]
-
-[sub_resource type="Resource" id="Resource_e1622"]
-script = ExtResource("3_br271")
-types = Dictionary[StringName, PackedScene]({
-&"default": ExtResource("4_e1622")
-})
-metadata/_custom_type_script = "uid://cq5i06rfsw66b"
 
 [node name="offset" type="Node2D"]
 script = ExtResource("1_508hw")
@@ -18,4 +10,6 @@ script = ExtResource("1_508hw")
 [node name="notes" parent="." instance=ExtResource("2_5bgr3")]
 position = Vector2(0, -240)
 side = 1
-note_types = SubResource("Resource_e1622")
+note_types = Dictionary[StringName, PackedScene]({
+&"default": ExtResource("4_e1622")
+})

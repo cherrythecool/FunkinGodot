@@ -47,7 +47,6 @@ func display() -> void:
 
 	var scene_name: StringName = &'N/A'
 	var current_scene: Node = get_tree().current_scene
-
 	if is_instance_valid(current_scene):
 		scene_name = current_scene.name.to_pascal_case()
 
@@ -58,31 +57,32 @@ func display() -> void:
 
 	label.size = Vector2.ZERO
 	var text_output: String = \
-		'%d FPS (%.2fms)\n%s / %s (CPU + GPU)\nFunkin\' Godot v%s' % [
+		'%d FPS (%.2fms)\n%s / %s %s\nFunkin\' Godot v%s' % [
 		Performance.get_monitor(Performance.TIME_FPS),
 		avg * 1000.0,
 		String.humanize_size(floori(total_memory_current)),
 		String.humanize_size(floori(total_memory_peak)),
+		"(CPU + GPU)" if static_memory_current > 0.0 else "<GPU>",
 		Global.version,
 	]
 
 	if info_mode == 'debug':
-		text_output += '\n\n[Memory]\n%s / %s <GPU>\n%s / %s <TEX>\n%s / %s <CPU>\n\n[Godot]\nScene Name: %s\n%d Nodes (%d Orphaned)\nInput Accumulation: %s\n\n[Conductor]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s (%s)' % [
+		text_output += '\n\n[Usage]\n%s / %s <GPU>\n%s / %s <TEX>\n%s / %s <CPU>\n\n[Music]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM\n\n[Engine]\nScene: %s\n%d Nodes (%d Orphaned)\nInput Accumulation: %s\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s (%s)' % [
 			String.humanize_size(floori(video_memory_current)),
 			String.humanize_size(floori(video_memory_peak)),
 			String.humanize_size(floori(texture_memory_current)),
 			String.humanize_size(floori(texture_memory_peak)),
 			String.humanize_size(floori(static_memory_current)),
 			String.humanize_size(floori(static_memory_peak)),
-			scene_name,
-			Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
-			Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT),
-			Input.use_accumulated_input,
 			-AudioServer.get_output_latency() * 1000.0,
 			Conductor.offset * 1000.0,
 			Conductor.manual_offset * 1000.0,
 			Conductor.time, Conductor.beat, Conductor.step, Conductor.measure,
 			Conductor.tempo,
+			scene_name,
+			Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
+			Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT),
+			"on" if Input.use_accumulated_input else "off",
 			Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME),
 			Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME),
 			RenderingServer.get_current_rendering_driver_name(),

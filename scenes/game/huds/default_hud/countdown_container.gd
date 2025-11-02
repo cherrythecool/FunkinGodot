@@ -7,7 +7,14 @@ extends Marker2D
 @export var hud: Node
 
 var countdown_offset: int = 0
-var hud_skin: HUDSkin
+var hud_skin: HUDSkin:
+	set(v):
+		hud_skin = v
+		countdown_textures = hud_skin.get_countdown_textures()
+		countdown_sounds = hud_skin.get_countdown_sounds()
+
+var countdown_textures: Array[Texture2D] = []
+var countdown_sounds: Array[AudioStream] = []
 
 
 func setup() -> void:
@@ -16,16 +23,20 @@ func setup() -> void:
 	Conductor.beat_hit.connect(_on_beat_hit)
 	
 	var found: Resource = null
-	if is_instance_valid(hud):
-		if 'hud_skin' in hud:
-			found = hud.hud_skin
+	if is_instance_valid(hud) and 'hud_skin' in hud:
+		found = hud.hud_skin
 	
-	hud_skin = found if is_instance_valid(found) else load('uid://oxo327xfxemo')
+	hud_skin = (
+		found if is_instance_valid(found) else
+		load('uid://oxo327xfxemo')
+	)
 	scale = hud_skin.countdown_scale
 
 
 func countdown_resume() -> void:
 	if not Config.get_value('interface', 'countdown_on_resume'):
+		return
+	if not is_instance_valid(Game.instance):
 		return
 	if not Game.instance.song_started:
 		return
@@ -46,7 +57,7 @@ func countdown_resume() -> void:
 		Conductor.target_audio,
 		^'volume_linear',
 		1.0,
-		4.0 * Conductor.beat_delta
+		3.5 * Conductor.beat_delta
 	)
 
 
@@ -56,6 +67,8 @@ func _ready_post() -> void:
 
 
 func _on_beat_hit(beat: int) -> void:
+	if not is_instance_valid(Game.instance):
+		return
 	if (not do_countdown) and not force_countdown:
 		return
 	if (beat >= 0 or Game.instance.song_started) and not force_countdown:
@@ -71,21 +84,21 @@ func _on_beat_hit(beat: int) -> void:
 		force_countdown = false
 		return
 	var index: int = clampi(4 - absi(beat), 0, 3)
-	_display_countdown_sprite(index)
-	_play_countdown_sound(index)
+	display_countdown_sprite(index)
+	play_countdown_sound(index)
 
 
-func _display_countdown_sprite(index: int) -> void:
+func display_countdown_sprite(index: int) -> void:
 	if not is_instance_valid(hud_skin):
 		return
-	
-	# Don't display things that don't exist.
-	if not is_instance_valid(hud_skin.countdown_textures[index]):
+	if index > countdown_textures.size() - 1:
+		return
+	if not is_instance_valid(countdown_textures[index]):
 		return
 
 	var sprite: Sprite2D = Sprite2D.new()
 	sprite.scale = Vector2(1.05, 1.05)
-	sprite.texture = hud_skin.countdown_textures[index]
+	sprite.texture = countdown_textures[index]
 	sprite.texture_filter = hud_skin.rating_filter
 	add_child(sprite)
 
@@ -96,16 +109,14 @@ func _display_countdown_sprite(index: int) -> void:
 	tween.tween_callback(sprite.queue_free).set_delay(Conductor.beat_delta)
 
 
-func _play_countdown_sound(index: int) -> void:
-	if not is_instance_valid(hud_skin):
+func play_countdown_sound(index: int) -> void:
+	if index > countdown_sounds.size() - 1:
 		return
-	
-	# Don't play things that don't exist.
-	if not is_instance_valid(hud_skin.countdown_sounds[index]):
+	if not is_instance_valid(countdown_sounds[index]):
 		return
 
 	var player: AudioStreamPlayer = AudioStreamPlayer.new()
-	player.stream = hud_skin.countdown_sounds[index]
+	player.stream = countdown_sounds[index]
 	player.bus = &'SFX'
 	player.finished.connect(player.queue_free)
 	add_child(player)
