@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://b0qhyxlpd3kr2"]
+
+[ext_resource type="SpriteFrames" path="res://assets/game/skins/default/notes.res" id="1_ht4he"]
+[ext_resource type="Script" uid="uid://bh221xvm2cb8b" path="res://scenes/tools/charter/charter_note.gd" id="2_ht4he"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ht4he"]
+size = Vector2(143.46155, 123.07693)
+
+[node name="note" type="AnimatedSprite2D"]
+scale = Vector2(0.26, 0.26)
+sprite_frames = ExtResource("1_ht4he")
+animation = &"down note"
+script = ExtResource("2_ht4he")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="area" type="Area2D" parent="."]
+priority = 900
+
+[node name="collision_shape_2d" type="CollisionShape2D" parent="area"]
+position = Vector2(0, 1.8339891e-06)
+shape = SubResource("RectangleShape2D_ht4he")
+
+[connection signal="mouse_shape_entered" from="area" to="." method="_on_area_mouse_shape_entered"]

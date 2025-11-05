@@ -8,8 +8,12 @@ extends Control
 @export var columns: int = 8
 @export var rows: int = 16
 
+var grid_size: Vector2:
+	get():
+		return size / Vector2(columns, rows)
 
-func _process(delta: float) -> void:
+
+func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		queue_redraw()
 		return
@@ -19,7 +23,6 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	var grid_size: Vector2 = size / Vector2(columns, rows)
 	for x in columns:
 		for y in rows:
 			var color: Color = primary_color
