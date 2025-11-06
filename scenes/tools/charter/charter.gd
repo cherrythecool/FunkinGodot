@@ -12,8 +12,7 @@ var opponent_icon: Sprite2D = null
 @onready var player_icon_point: Node2D = %player_icon
 var player_icon: Sprite2D = null
 
-@onready var dummy_arrow: ColorRect = $%dummy_arrow
-
+@onready var strum_line: ColorRect = %strum_line
 var rendered_notes: Array[Node] = []
 
 func _ready() -> void:
@@ -38,7 +37,6 @@ func _ready() -> void:
 	
 	reload_note_render()
 
-
 func load_icon(point: Node2D, icon_res: Icon) -> Sprite2D:
 	if point.has_node(^'icon'):
 		point.get_node(^'icon').queue_free()
@@ -49,8 +47,8 @@ func load_icon(point: Node2D, icon_res: Icon) -> Sprite2D:
 	return icon
 	
 func reload_note_render() -> void:
-	for child in opponent_grid.get_children(): child.queue_free()
-	for child in player_grid.get_children(): child.queue_free()
+	for note in rendered_notes: note.queue_free()
+	rendered_notes.clear()
 	
 	for data: NoteData in chart.notes:
 		add_note_object(data)
@@ -63,25 +61,19 @@ func add_note_object(note_data: NoteData) -> void:
 	if note_data.direction < 4:
 		target_grid = player_grid
 	
-	note.position.x = floor(target_grid.grid_size.x * (note_data.direction % 4)) + 22
+	note.position.x = floor(target_grid.grid_size.x * (note_data.direction % 4)) + 23
 	note.position.y = target_grid.grid_size.y / 2
 	note.position.y += Conductor.get_time_in_step(note_data.time*1000) * target_grid.grid_size.y
 	
 	rendered_notes.push_back(note)
 	target_grid.add_child(note)
 
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		if player_grid.get_rect().has_point(event.position):
-			dummy_arrow.visible = true
-			dummy_arrow.position.x = (floor(event.position.x / opponent_grid.grid_size.x) * opponent_grid.grid_size.x) + 5
-			dummy_arrow.position.y = floor(event.position.y / opponent_grid.grid_size.y) * opponent_grid.grid_size.y
-		if opponent_grid.get_rect().has_point(event.position):
-			dummy_arrow.visible = true
-			dummy_arrow.position.x = (floor(event.position.x / opponent_grid.grid_size.x) * opponent_grid.grid_size.x) + 15
-			dummy_arrow.position.y = floor(event.position.y / player_grid.grid_size.y) * player_grid.grid_size.y
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		var note_data = NoteData.new()
-		note_data.direction = floor(event.position.x / opponent_grid.grid_size.x)
-		note_data.time = ((dummy_arrow.position.y / opponent_grid.grid_size.y) * Conductor.step_delta) * 1000
-		print(note_data)
+func _process(delta: float) -> void:
+	strum_line.global_position.y = 192 + Conductor.get_time_in_step(Conductor.time*1000) * opponent_grid.grid_size.y
+	$camera.global_position.y = strum_line.global_position.y
+	
+	for note in rendered_notes:
+		if note.data.time <= Conductor.time:
+			note.modulate.a = 0.5
+		else:
+			note.modulate.a = 1
