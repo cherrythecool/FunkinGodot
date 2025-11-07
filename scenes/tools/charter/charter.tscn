@@ -12,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 script = ExtResource("1_2slaa")
 
 [node name="tracks" type="Node" parent="."]
@@ -40,11 +41,19 @@ unique_name_in_owner = true
 position = Vector2(933, 75)
 
 [node name="camera" type="Camera2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(640, 360)
 limit_top = 0
 
-[node name="opponent_grid" type="Control" parent="."]
+[node name="grid_parallax" type="Parallax2D" parent="."]
 unique_name_in_owner = true
+repeat_size = Vector2(0, 1440)
+repeat_times = 2
+limit_begin = Vector2(0, 0)
+
+[node name="opponent_grid" type="Control" parent="grid_parallax"]
+unique_name_in_owner = true
+layout_mode = 3
 anchors_preset = 0
 offset_left = 416.0
 offset_top = 192.0
@@ -55,8 +64,9 @@ script = ExtResource("4_gvgc3")
 columns = 4
 rows = 32
 
-[node name="player_grid" type="Control" parent="."]
+[node name="player_grid" type="Control" parent="grid_parallax"]
 unique_name_in_owner = true
+layout_mode = 3
 anchors_preset = 0
 offset_left = 680.0
 offset_top = 192.0
@@ -66,6 +76,10 @@ pivot_offset = Vector2(180, 360)
 script = ExtResource("4_gvgc3")
 columns = 4
 rows = 32
+
+[node name="notes" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, 192)
 
 [node name="strum_line" type="ColorRect" parent="."]
 unique_name_in_owner = true

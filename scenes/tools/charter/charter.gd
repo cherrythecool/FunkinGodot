@@ -4,6 +4,9 @@ extends Control
 @onready var tracks: Tracks = %tracks
 var chart: Chart = null
 
+@onready var camera: Camera2D = %camera
+@onready var grid_parallax: Parallax2D = %grid_parallax
+
 @onready var opponent_grid: Control = %opponent_grid
 @onready var opponent_icon_point: Node2D = %opponent_icon
 var opponent_icon: Sprite2D = null
@@ -13,17 +16,20 @@ var opponent_icon: Sprite2D = null
 var player_icon: Sprite2D = null
 
 @onready var strum_line: ColorRect = %strum_line
+@onready var notes_group: Node2D = %notes
+
+var note_data_lookup: Dictionary = {}
 var rendered_notes: Array[Node] = []
 
 func _ready() -> void:
 	Conductor.reset()
 	chart = Chart.load_song(&'bopeebo_erect', &'nightmare')
 	Conductor.get_bpm_changes(chart.events)
-	Conductor.calculate_beat()
+	Conductor.active = false
 
 	tracks.load_tracks(&'bopeebo_erect')
 	Conductor.target_audio = tracks.player
-	tracks.play()
+	#tracks.play()
 
 	var assets: SongAssets = load('res://assets/songs/%s/assets.tres' % [&'bopeebo_erect'])
 	var temp_player: Character = assets.get_player().instantiate()
@@ -61,19 +67,60 @@ func add_note_object(note_data: NoteData) -> void:
 	if note_data.direction < 4:
 		target_grid = player_grid
 	
-	note.position.x = floor(target_grid.grid_size.x * (note_data.direction % 4)) + 23
+	note.position.x = target_grid.global_position.x + floor(target_grid.grid_size.x * (note_data.direction % 4)) + 23
 	note.position.y = target_grid.grid_size.y / 2
 	note.position.y += Conductor.get_time_in_step(note_data.time*1000) * target_grid.grid_size.y
 	
 	rendered_notes.push_back(note)
-	target_grid.add_child(note)
+	notes_group.add_child(note)
+	note_data_lookup.set(note, note_data)
 
 func _process(delta: float) -> void:
+	if Conductor.time < 0:
+		Conductor.time = 0
 	strum_line.global_position.y = 192 + Conductor.get_time_in_step(Conductor.time*1000) * opponent_grid.grid_size.y
-	$camera.global_position.y = strum_line.global_position.y
+	camera.position.y = strum_line.global_position.y
 	
 	for note in rendered_notes:
 		if note.data.time <= Conductor.time:
 			note.modulate.a = 0.5
 		else:
 			note.modulate.a = 1
+	# make top of grids not looping
+	if camera.position.y >= Global.game_size.y:
+		grid_parallax.repeat_times = 2
+	elif grid_parallax.repeat_times != 1:
+		grid_parallax.repeat_times = 1
+	
+	opponent_icon.scale = Vector2(0.9, 0.9).lerp(Vector2(0.8, 0.8), _icon_lerp())
+	player_icon.scale = Vector2(0.9, 0.9).lerp(Vector2(0.8, 0.8), _icon_lerp())
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		if event.pressed && !event.echo:
+			if event.keycode == KEY_SPACE:
+				if tracks.playing:
+					Conductor.active = false
+					tracks.stop()
+				else:
+					tracks.play(Conductor.time)
+					Conductor.active = true
+					Conductor.calculate_beat()
+		
+	if event is InputEventMouseButton:
+		if event.pressed:
+			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+				Conductor.time -= 0.01
+			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+				Conductor.time += 0.01
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				for note in rendered_notes:
+					if note.mouse_overlaps:
+						print(note.data)
+	if event is InputEventPanGesture: # trackpad gesture
+		Conductor.time -= event.delta.y/10
+# ease out sine
+func _icon_ease(x: float) -> float:
+	return sin((x * PI) / 2.0)
+func _icon_lerp() -> float:
+	return _icon_ease(Conductor.beat - floorf(Conductor.beat))
