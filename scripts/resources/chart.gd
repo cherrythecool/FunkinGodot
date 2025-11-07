@@ -17,13 +17,12 @@ static func load_song(name: StringName, difficulty: StringName) -> Chart:
 
 	var chart: Chart = null
 	var base_path: String = 'res://assets/songs/%s' % name
-
-	chart = _try_legacy(base_path, difficulty)
+	chart = try_legacy(base_path, difficulty)
 	if is_instance_valid(chart):
 		_print_time_elapsed(start)
 		return chart
 
-	chart = _try_fnfc(base_path, difficulty)
+	chart = try_fnfc(base_path, difficulty)
 	if is_instance_valid(chart):
 		_print_time_elapsed(start)
 		return chart
@@ -70,7 +69,7 @@ static func remove_stacked_notes(chart: Chart) -> int:
 	return stacked_notes
 
 
-static func _try_legacy(base_path: String, difficulty: StringName) -> Chart:
+static func try_legacy(base_path: String, difficulty: StringName) -> Chart:
 	var legacy_exists: bool = ResourceLoader.exists('%s/charts/%s.json' % [base_path, difficulty])
 	if not legacy_exists:
 		return null
@@ -103,9 +102,9 @@ static func _try_legacy(base_path: String, difficulty: StringName) -> Chart:
 	return chart
 
 
-static func _try_fnfc(base_path: String, difficulty: StringName) -> Chart:
+static func try_fnfc(base_path: String, difficulty: StringName) -> Chart:
 	var fnfc_exists: bool = ResourceLoader.exists('%s/charts/chart.json' % [base_path]) and \
-			ResourceLoader.exists('%s/charts/meta.json' % [base_path])
+			(ResourceLoader.exists('%s/charts/meta.json' % [base_path]) or ResourceLoader.exists('%s/charts/metadata.json' % [base_path]))
 	if not fnfc_exists:
 		return null
 
@@ -116,15 +115,18 @@ static func _try_fnfc(base_path: String, difficulty: StringName) -> Chart:
 	fnfc.json_chart = JSON.parse_string(chart_data)
 
 	var meta_path: String = '%s/charts/meta.json' % [base_path]
+	if not ResourceLoader.exists(meta_path):
+		meta_path = '%s/charts/metadata.json' % [base_path]
 	var meta_data: String = FileAccess.get_file_as_string(meta_path)
 	fnfc.json_meta = JSON.parse_string(meta_data)
 
-	if fnfc.json_chart.scrollSpeed is float:
-		fnfc.scroll_speed = fnfc.json_chart.scrollSpeed
-	else:
-		if fnfc.json_chart.scrollSpeed.has(difficulty.to_lower()):
-			fnfc.scroll_speed = fnfc.json_chart.scrollSpeed.get(difficulty.to_lower(), 1.0)
+	if 'scrollSpeed' in fnfc.json_chart:
+		if fnfc.json_chart.scrollSpeed is float:
+			fnfc.scroll_speed = fnfc.json_chart.scrollSpeed
 		else:
-			fnfc.scroll_speed = fnfc.json_chart.scrollSpeed.get('default', 1.0)
+			if fnfc.json_chart.scrollSpeed.has(difficulty.to_lower()):
+				fnfc.scroll_speed = fnfc.json_chart.scrollSpeed.get(difficulty.to_lower(), 1.0)
+			else:
+				fnfc.scroll_speed = fnfc.json_chart.scrollSpeed.get('default', 1.0)
 
 	return fnfc.parse(difficulty)

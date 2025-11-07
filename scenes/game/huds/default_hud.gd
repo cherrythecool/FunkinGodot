@@ -53,7 +53,7 @@ func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		return
 
-	Conductor.measure_hit.connect(_on_measure_hit)
+	game.conductor.measure_hit.connect(_on_measure_hit)
 
 	if note_fields.has_node(^'player'):
 		player_field = note_fields.get_node(^'player')
@@ -91,7 +91,7 @@ func _process(delta: float) -> void:
 
 func _on_note_hit(note: Note) -> void:
 	var health: float = game.health
-	var difference: float = Conductor.time - note.data.time
+	var difference: float = game.conductor.time - note.data.time
 	if not player_field.takes_input:
 		difference = 0.0
 

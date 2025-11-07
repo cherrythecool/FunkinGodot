@@ -16,11 +16,15 @@ var hud_skin: HUDSkin:
 var countdown_textures: Array[Texture2D] = []
 var countdown_sounds: Array[AudioStream] = []
 
+var game: Game
+
 
 func setup() -> void:
-	Game.instance.ready_post.connect(_ready_post)
-	Game.instance.unpaused.connect(countdown_resume)
-	Conductor.beat_hit.connect(_on_beat_hit)
+	game = Game.instance
+	
+	game.ready_post.connect(_ready_post)
+	game.unpaused.connect(countdown_resume)
+	game.conductor.beat_hit.connect(_on_beat_hit)
 	
 	var found: Resource = null
 	if is_instance_valid(hud) and 'hud_skin' in hud:
@@ -36,34 +40,34 @@ func setup() -> void:
 func countdown_resume() -> void:
 	if not Config.get_value('interface', 'countdown_on_resume'):
 		return
-	if not is_instance_valid(Game.instance):
+	if not is_instance_valid(game):
 		return
-	if not Game.instance.song_started:
+	if not game.song_started:
 		return
-	if Conductor.beat < 4.0:
+	if game.conductor.beat < 4.0:
 		return
 	if force_countdown:
 		return
 
-	Conductor.target_audio.seek(
-		maxf(Conductor.raw_time - (4.0 * Conductor.beat_delta), 0.0)
+	game.conductor.target_audio.seek(
+		maxf(game.conductor.raw_time - (4.0 * game.conductor.beat_delta), 0.0)
 	)
-	countdown_offset = -floori(Conductor.beat) - 1
+	countdown_offset = -floori(game.conductor.beat) - 1
 	force_countdown = true
 	pause_countdown = false
 
-	Conductor.target_audio.volume_linear = 0.0
+	game.conductor.target_audio.volume_linear = 0.0
 	create_tween().tween_property(
-		Conductor.target_audio,
+		game.conductor.target_audio,
 		^'volume_linear',
 		1.0,
-		3.5 * Conductor.beat_delta
+		3.5 * game.conductor.beat_delta
 	)
 
 
 func _ready_post() -> void:
 	if not do_countdown:
-		Conductor.raw_time = 0.0
+		game.conductor.raw_time = 0.0
 
 
 func _on_beat_hit(beat: int) -> void:
@@ -75,7 +79,7 @@ func _on_beat_hit(beat: int) -> void:
 		return
 
 	if pause_countdown:
-		Conductor.raw_time = -5.0 * Conductor.beat_delta
+		game.conductor.raw_time = -5.0 * game.conductor.beat_delta
 		return
 
 	# countdown lol
@@ -104,9 +108,9 @@ func display_countdown_sprite(index: int) -> void:
 
 	var tween: Tween = create_tween().set_trans(Tween.TRANS_SINE)\
 			.set_ease(Tween.EASE_OUT).set_parallel()
-	tween.tween_property(sprite, ^'modulate:a', 0.0, Conductor.beat_delta)
-	tween.tween_property(sprite, ^'scale', Vector2.ONE, Conductor.beat_delta)
-	tween.tween_callback(sprite.queue_free).set_delay(Conductor.beat_delta)
+	tween.tween_property(sprite, ^'modulate:a', 0.0, game.conductor.beat_delta)
+	tween.tween_property(sprite, ^'scale', Vector2.ONE, game.conductor.beat_delta)
+	tween.tween_callback(sprite.queue_free).set_delay(game.conductor.beat_delta)
 
 
 func play_countdown_sound(index: int) -> void:

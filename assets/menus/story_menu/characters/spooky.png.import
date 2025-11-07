@@ -2,21 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cebpbhg2jc6ic"
-path="res://.godot/imported/week3.png-3037c6512d7e3b11ecf4b59f80c6a7f3.ctex"
+uid="uid://dlgsyaam0hvm4"
+path="res://.godot/imported/spooky.png-371ef6e545d31a9b731ce4113027f692.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menus/story_menu/week_sprites/week3.png"
-dest_files=["res://.godot/imported/week3.png-3037c6512d7e3b11ecf4b59f80c6a7f3.ctex"]
+source_file="res://assets/menus/story_menu/characters/spooky.png"
+dest_files=["res://.godot/imported/spooky.png-371ef6e545d31a9b731ce4113027f692.ctex"]
 
 [params]
 
 compress/mode=0
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

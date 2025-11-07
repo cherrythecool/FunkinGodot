@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://hs0eb1ifd534"]
 
 [ext_resource type="Script" uid="uid://ca2370vvlh2g8" path="res://scenes/menus/story_menu/props/story_menu_prop.gd" id="1_oyyu8"]
-[ext_resource type="SpriteFrames" path="res://assets/menus/story_menu/props/pico.res" id="2_oyyu8"]
+[ext_resource type="SpriteFrames" path="res://assets/menus/story_menu/characters/pico.res" id="2_oyyu8"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="3_j5p2k"]
 
 [sub_resource type="Animation" id="Animation_mynvx"]

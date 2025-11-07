@@ -41,7 +41,7 @@ func _process(delta: float) -> void:
 	if not singing:
 		return
 
-	sing_timer += delta / Conductor.beat_delta
+	sing_timer += delta / Conductor.instance.beat_delta
 	if sing_timer * 4.0 >= sing_steps or sing_steps <= 0.0:
 		dance(true)
 

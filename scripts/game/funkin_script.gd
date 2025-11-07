@@ -34,22 +34,25 @@ var camera: Camera2D
 
 
 func _ready() -> void:
-	Conductor.beat_hit.connect(_on_beat_hit)
-	Conductor.step_hit.connect(_on_step_hit)
-	Conductor.measure_hit.connect(_on_measure_hit)
+	if is_instance_valid(Conductor.instance):
+		Conductor.instance.beat_hit.connect(_on_beat_hit)
+		Conductor.instance.step_hit.connect(_on_step_hit)
+		Conductor.instance.measure_hit.connect(_on_measure_hit)
+	
+	if not is_instance_valid(Game.instance):
+		return
+	
+	game = Game.instance
 
-	if is_instance_valid(Game.instance):
-		game = Game.instance
+	player_field = game.player_field
+	opponent_field = game.opponent_field
 
-		player_field = game.player_field
-		opponent_field = game.opponent_field
-
-		camera = game.camera
-		game.song_start.connect(_on_song_start)
-		game.event_prepare.connect(_on_event_prepare)
-		game.event_hit.connect(_on_event_hit)
-		game.ready_post.connect(_ready_post)
-		game.process_post.connect(_process_post)
+	camera = game.camera
+	game.song_start.connect(_on_song_start)
+	game.event_prepare.connect(_on_event_prepare)
+	game.event_hit.connect(_on_event_hit)
+	game.ready_post.connect(_ready_post)
+	game.process_post.connect(_process_post)
 
 
 func _ready_post() -> void:

@@ -32,11 +32,16 @@ func _process(_delta: float) -> void:
 func _on_song_changed(index: int) -> void:
 	song_index = index
 	song_meta = parent.song_nodes[song_index].meta
-	song_label.text = song_meta.get_full_name()
+	if is_instance_valid(song_meta):
+		song_label.text = song_meta.get_full_name()
+	else:
+		song_label.text = parent.song_nodes[song_index].text
 
 
 func _on_difficulty_changed(new_difficulty: StringName) -> void:
-	var difficulty_map: Dictionary[String, StringName] = song_meta.difficulty_song_overrides
+	var difficulty_map: Dictionary[String, StringName] = {}
+	if is_instance_valid(song_meta):
+		difficulty_map = song_meta.difficulty_song_overrides
 	difficulty = new_difficulty
 
 	if difficulty_map.has(difficulty):

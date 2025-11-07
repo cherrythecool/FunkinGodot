@@ -3,21 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4sb7d2chuirx"
-path.bptc="res://.godot/imported/hard.png-ea068f5f889dbccaa02c85f7dec60a97.bptc.ctex"
-path.astc="res://.godot/imported/hard.png-ea068f5f889dbccaa02c85f7dec60a97.astc.ctex"
+path="res://.godot/imported/hard.png-ea068f5f889dbccaa02c85f7dec60a97.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/menus/story_menu/difficulties/hard.png"
-dest_files=["res://.godot/imported/hard.png-ea068f5f889dbccaa02c85f7dec60a97.bptc.ctex", "res://.godot/imported/hard.png-ea068f5f889dbccaa02c85f7dec60a97.astc.ctex"]
+dest_files=["res://.godot/imported/hard.png-ea068f5f889dbccaa02c85f7dec60a97.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

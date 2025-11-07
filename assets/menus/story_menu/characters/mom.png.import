@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://butmkemg2qi0g"
-path.bptc="res://.godot/imported/week2.png-753d6c6f7659ceb4e726e621fe1b2ced.bptc.ctex"
-path.astc="res://.godot/imported/week2.png-753d6c6f7659ceb4e726e621fe1b2ced.astc.ctex"
+uid="uid://delswlfyeq06h"
+path="res://.godot/imported/mom.png-2821da14f7cfc04e230b61d652639805.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menus/story_menu/week_sprites/week2.png"
-dest_files=["res://.godot/imported/week2.png-753d6c6f7659ceb4e726e621fe1b2ced.bptc.ctex", "res://.godot/imported/week2.png-753d6c6f7659ceb4e726e621fe1b2ced.astc.ctex"]
+source_file="res://assets/menus/story_menu/characters/mom.png"
+dest_files=["res://.godot/imported/mom.png-2821da14f7cfc04e230b61d652639805.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

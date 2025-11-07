@@ -37,7 +37,7 @@ func _ready() -> void:
 	Config.value_changed.connect(_on_value_changed)
 	
 	var dpi_scale: float = DisplayServer.screen_get_scale()
-	if OS.has_feature('pc') and dpi_scale != 1.0:
+	if OS.has_feature('pc') and dpi_scale != 1.0 and not Engine.is_embedded_in_editor():
 		get_window().size *= dpi_scale
 		get_window().move_to_center()
 

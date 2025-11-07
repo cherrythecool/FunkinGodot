@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bmjlw8331xjs2"]
 
 [ext_resource type="Script" uid="uid://ca2370vvlh2g8" path="res://scenes/menus/story_menu/props/story_menu_prop.gd" id="1_lq57p"]
-[ext_resource type="SpriteFrames" uid="uid://cgmlpe20xxn4o" path="res://assets/menus/story_menu/props/dad.res" id="2_8lm2c"]
+[ext_resource type="SpriteFrames" uid="uid://cgmlpe20xxn4o" path="res://assets/menus/story_menu/characters/dad.res" id="2_8lm2c"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="3_gek0x"]
 
 [sub_resource type="Animation" id="Animation_mynvx"]

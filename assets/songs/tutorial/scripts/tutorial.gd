@@ -11,7 +11,7 @@ func _ready() -> void:
 	spectator.offset_camera_position(Vector2(50.0, -200.0))
 
 	create_tween().set_trans(Tween.TRANS_ELASTIC).tween_property(
-		camera, 'zoom', Vector2(1.3, 1.3), Conductor.beat_delta)
+		camera, 'zoom', Vector2(1.3, 1.3), game.conductor.beat_delta)
 
 	if opponent.name == &'null':
 		game.opponent = spectator
@@ -35,7 +35,7 @@ func _on_event_hit(event: EventData) -> void:
 		return
 	if event.data[0] == CameraPan.Side.PLAYER:
 		create_tween().set_trans(Tween.TRANS_ELASTIC).tween_property(
-			camera, 'zoom', Vector2.ONE, Conductor.beat_delta)
+			camera, 'zoom', Vector2.ONE, game.conductor.beat_delta)
 	else:
 		create_tween().set_trans(Tween.TRANS_ELASTIC).tween_property(
-			camera, 'zoom', Vector2(1.3, 1.3), Conductor.beat_delta)
+			camera, 'zoom', Vector2(1.3, 1.3), game.conductor.beat_delta)

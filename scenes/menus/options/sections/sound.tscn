@@ -1,37 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://dd76grrhumccf"]
+[gd_scene load_steps=4 format=3 uid="uid://dd76grrhumccf"]
 
 [ext_resource type="Script" uid="uid://c7iq5ek2ivhku" path="res://scenes/menus/options/sections/interface.gd" id="1_fujo8"]
-[ext_resource type="Script" uid="uid://1xupndy1w5yk" path="res://scenes/menus/options/checkbox_option.gd" id="2_efc3u"]
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="2_rqn5q"]
-[ext_resource type="SpriteFrames" uid="uid://dfv5k6fikmo5r" path="res://assets/menus/options/checkbox.res" id="4_7jjcu"]
-[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_54qat"]
 [ext_resource type="Script" uid="uid://bfvypstga7ch8" path="res://scenes/menus/options/volume_slider.gd" id="6_efc3u"]
 
 [node name="sound" type="Node2D" node_paths=PackedStringArray("options")]
 script = ExtResource("1_fujo8")
-options = [NodePath("recalculate_output_latency"), NodePath("master_volume"), NodePath("music_volume"), NodePath("sfx_volume")]
-
-[node name="recalculate_output_latency" type="Node2D" parent="."]
-position = Vector2(-53, -155)
-script = ExtResource("2_efc3u")
-section = &"sound"
-key = &"recalculate_output_latency"
-
-[node name="alphabet" type="Node2D" parent="recalculate_output_latency"]
-script = ExtResource("2_rqn5q")
-text = "update driver latency"
-centered = true
-
-[node name="checkbox" type="AnimatedSprite2D" parent="recalculate_output_latency"]
-position = Vector2(570, 0)
-scale = Vector2(0.8, 0.8)
-sprite_frames = ExtResource("4_7jjcu")
-animation = &"selected"
-offset = Vector2(-5, -35)
-script = ExtResource("5_54qat")
+options = [NodePath("master_volume"), NodePath("music_volume"), NodePath("sfx_volume")]
+max_distance = 0.0
 
 [node name="master_volume" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(-264, -10)
+position = Vector2(-264, -60)
 script = ExtResource("6_efc3u")
 section = &"sound"
 key = &"buses"
@@ -54,7 +33,7 @@ script = ExtResource("2_rqn5q")
 text = "< 0% >"
 
 [node name="music_volume" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(-287, 86)
+position = Vector2(-287, 36)
 script = ExtResource("6_efc3u")
 bus = &"Music"
 section = &"sound"
@@ -78,7 +57,7 @@ script = ExtResource("2_rqn5q")
 text = "< 0% >"
 
 [node name="sfx_volume" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(-336, 184)
+position = Vector2(-336, 134)
 script = ExtResource("6_efc3u")
 bus = &"SFX"
 section = &"sound"
@@ -100,5 +79,3 @@ centered = true
 position = Vector2(109, -33)
 script = ExtResource("2_rqn5q")
 text = "< 0% >"
-
-[connection signal="animation_finished" from="recalculate_output_latency/checkbox" to="recalculate_output_latency" method="_on_checkbox_animation_finished"]

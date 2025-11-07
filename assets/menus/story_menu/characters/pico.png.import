@@ -2,23 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fhvvucyr44c7"
-path.bptc="res://.godot/imported/bf.png-ba3f3d756e01b9e6fd96cef24df45ea2.bptc.ctex"
-path.astc="res://.godot/imported/bf.png-ba3f3d756e01b9e6fd96cef24df45ea2.astc.ctex"
+uid="uid://c3iudknbga6nr"
+path="res://.godot/imported/pico.png-a2574ea6b248987e3b4294a277ba3709.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menus/story_menu/props/bf.png"
-dest_files=["res://.godot/imported/bf.png-ba3f3d756e01b9e6fd96cef24df45ea2.bptc.ctex", "res://.godot/imported/bf.png-ba3f3d756e01b9e6fd96cef24df45ea2.astc.ctex"]
+source_file="res://assets/menus/story_menu/characters/pico.png"
+dest_files=["res://.godot/imported/pico.png-a2574ea6b248987e3b4294a277ba3709.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

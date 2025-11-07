@@ -1,13 +1,14 @@
-[gd_scene load_steps=34 format=3 uid="uid://dcf86iwg6mn3d"]
+[gd_scene load_steps=35 format=3 uid="uid://dcf86iwg6mn3d"]
 
 [ext_resource type="Script" uid="uid://df3do7nvg4as7" path="res://scenes/menus/story_mode_menu.gd" id="1_el8f4"]
 [ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="2_3esc8"]
+[ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="2_nlhku"]
 [ext_resource type="Script" uid="uid://bfydji5l6juhk" path="res://scenes/menus/story_menu/props_container.gd" id="3_64j2x"]
 [ext_resource type="Script" uid="uid://ceghwb3yjt8wp" path="res://scenes/menus/story_menu/songs_label.gd" id="3_552ey"]
-[ext_resource type="Texture2D" uid="uid://vbft4ijb0s4b" path="res://assets/menus/story_menu/week_sprites/tutorial.png" id="4_3r44s"]
+[ext_resource type="Texture2D" uid="uid://vbft4ijb0s4b" path="res://assets/menus/story_menu/weeks/tutorial.png" id="4_3r44s"]
 [ext_resource type="Texture2D" uid="uid://bsjowh7qqed78" path="res://assets/menus/story_menu/difficulties/normal.png" id="4_j0vh7"]
 [ext_resource type="Script" uid="uid://bp07frgyvgscl" path="res://scenes/menus/story_menu/weeks.gd" id="4_owtj4"]
-[ext_resource type="Texture2D" uid="uid://g4kew3bfwjeq" path="res://assets/menus/story_menu/week_sprites/week1.png" id="5_1dfdl"]
+[ext_resource type="Texture2D" uid="uid://g4kew3bfwjeq" path="res://assets/menus/story_menu/weeks/week1.png" id="5_1dfdl"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_61vqd"]
 [ext_resource type="SpriteFrames" uid="uid://dgm7jwe1ek04e" path="res://assets/menus/story_menu/arrows.res" id="6_kynlf"]
 [ext_resource type="Script" uid="uid://btmma2a3qu1e6" path="res://scenes/menus/story_menu/week_node.gd" id="6_qh5s5"]
@@ -17,11 +18,11 @@
 [ext_resource type="Script" uid="uid://df2o86ah3b60w" path="res://scripts/resources/difficulty_map.gd" id="13_8k8d1"]
 [ext_resource type="PackedScene" uid="uid://dltbn2kviddy8" path="res://scenes/menus/story_menu/props/gf.tscn" id="13_h6fec"]
 [ext_resource type="Script" uid="uid://y50dwtv7v34j" path="res://scenes/menus/story_menu/difficulties.gd" id="13_w5bhr"]
-[ext_resource type="Texture2D" uid="uid://ci8xeupe8nkh6" path="res://assets/menus/story_menu/week_sprites/week4.png" id="14_4twhc"]
-[ext_resource type="Texture2D" uid="uid://butmkemg2qi0g" path="res://assets/menus/story_menu/week_sprites/week2.png" id="14_6iroa"]
+[ext_resource type="Texture2D" uid="uid://ci8xeupe8nkh6" path="res://assets/menus/story_menu/weeks/week4.png" id="14_4twhc"]
+[ext_resource type="Texture2D" uid="uid://butmkemg2qi0g" path="res://assets/menus/story_menu/weeks/week2.png" id="14_6iroa"]
 [ext_resource type="PackedScene" uid="uid://bl4osqppv4p3j" path="res://scenes/menus/story_menu/props/mom.tscn" id="15_h4pin"]
 [ext_resource type="PackedScene" uid="uid://eeh8q36snnag" path="res://scenes/menus/story_menu/props/spooky.tscn" id="15_nakdl"]
-[ext_resource type="Texture2D" uid="uid://cebpbhg2jc6ic" path="res://assets/menus/story_menu/week_sprites/week3.png" id="16_rx72u"]
+[ext_resource type="Texture2D" uid="uid://cebpbhg2jc6ic" path="res://assets/menus/story_menu/weeks/week3.png" id="16_rx72u"]
 [ext_resource type="PackedScene" uid="uid://hs0eb1ifd534" path="res://scenes/menus/story_menu/props/pico.tscn" id="17_5noim"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kq7xu"]
@@ -92,6 +93,11 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_el8f4")
 metadata/_edit_lock_ = true
+
+[node name="conductor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_nlhku")
+metadata/_custom_type_script = "uid://djsxumpddydxq"
 
 [node name="background_color" type="ColorRect" parent="."]
 layout_mode = 1
@@ -234,7 +240,7 @@ grow_vertical = 2
 script = ExtResource("4_owtj4")
 
 [node name="tutorial" type="TextureRect" parent="bottom/weeks"]
-layout_mode = 2
+layout_mode = 0
 offset_right = 456.0
 offset_bottom = 82.0
 grow_horizontal = 2
@@ -247,7 +253,7 @@ display_name = &"Teaching Time"
 props = SubResource("Resource_imiqu")
 
 [node name="week_1" type="TextureRect" parent="bottom/weeks"]
-layout_mode = 2
+layout_mode = 0
 offset_top = 90.0
 offset_right = 456.0
 offset_bottom = 179.0
@@ -262,7 +268,7 @@ props = SubResource("Resource_ru6mx")
 difficulty_suffixes = SubResource("Resource_81ca5")
 
 [node name="week_2" type="TextureRect" parent="bottom/weeks"]
-layout_mode = 2
+layout_mode = 0
 offset_top = 191.0
 offset_right = 456.0
 offset_bottom = 280.0
@@ -277,7 +283,7 @@ props = SubResource("Resource_5noim")
 difficulty_suffixes = SubResource("Resource_81ca5")
 
 [node name="week_3" type="TextureRect" parent="bottom/weeks"]
-layout_mode = 2
+layout_mode = 0
 offset_top = 255.0
 offset_right = 456.0
 offset_bottom = 344.0
@@ -292,7 +298,7 @@ props = SubResource("Resource_nlhku")
 difficulty_suffixes = SubResource("Resource_81ca5")
 
 [node name="week_4" type="TextureRect" parent="bottom/weeks"]
-layout_mode = 2
+layout_mode = 0
 offset_top = 374.0
 offset_right = 456.0
 offset_bottom = 463.0

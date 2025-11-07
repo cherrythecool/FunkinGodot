@@ -25,6 +25,6 @@ func _on_event_hit(event: EventData) -> void:
 	tween.set_ease(Global.convert_flixel_tween_ease(ease_string))
 	tween.set_trans(Global.convert_flixel_tween_trans(ease_string))
 	tween.tween_property(game, ^'target_camera_zoom', Vector2(zoom, zoom),
-			Conductor.beat_delta / 4.0 * float(steps))
+			game.conductor.beat_delta / 4.0 * float(steps))
 	tween.tween_property(camera, ^'zoom', Vector2(zoom, zoom),
-			Conductor.beat_delta / 4.0 * float(steps))
+			game.conductor.beat_delta / 4.0 * float(steps))

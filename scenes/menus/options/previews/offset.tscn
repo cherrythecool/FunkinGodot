@@ -7,9 +7,10 @@
 [node name="offset" type="Node2D"]
 script = ExtResource("1_508hw")
 
-[node name="notes" parent="." instance=ExtResource("2_5bgr3")]
+[node name="notes" parent="." node_paths=PackedStringArray("conductor") instance=ExtResource("2_5bgr3")]
 position = Vector2(0, -240)
 side = 1
 note_types = Dictionary[StringName, PackedScene]({
 &"default": ExtResource("4_e1622")
 })
+conductor = NodePath("")

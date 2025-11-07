@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlgsyaam0hvm4"
-path.bptc="res://.godot/imported/spooky.png-2fb7a58460a0c97294bfbb47b9a03a94.bptc.ctex"
-path.astc="res://.godot/imported/spooky.png-2fb7a58460a0c97294bfbb47b9a03a94.astc.ctex"
+uid="uid://dml4yygojyp4m"
+path="res://.godot/imported/gf.png-f5bc34889185861b04d670e252483aad.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menus/story_menu/props/spooky.png"
-dest_files=["res://.godot/imported/spooky.png-2fb7a58460a0c97294bfbb47b9a03a94.bptc.ctex", "res://.godot/imported/spooky.png-2fb7a58460a0c97294bfbb47b9a03a94.astc.ctex"]
+source_file="res://assets/menus/story_menu/characters/gf.png"
+dest_files=["res://.godot/imported/gf.png-f5bc34889185861b04d670e252483aad.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

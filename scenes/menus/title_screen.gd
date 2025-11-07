@@ -5,6 +5,8 @@ static var first_open: bool = true
 
 @export var swag_material: ShaderMaterial
 
+@onready var conductor: Conductor = %conductor
+
 @onready var post_intro: Node2D = $post_intro
 @onready var girlfriend_animation: AnimationPlayer = $post_intro/girlfriend/animation_player
 @onready var logo_sprite: AnimatedSprite = $post_intro/logo/sprite
@@ -33,13 +35,13 @@ func _ready() -> void:
 
 	enter_animation.play('loop')
 
-	Conductor.tempo = 102.0
+	conductor.tempo = 102.0
 	var music_player: AudioStreamPlayer = GlobalAudio.music
 	if not music_player.playing:
-		Conductor.reset()
+		conductor.reset()
 		music_player.play()
 		last_music_time = music_player.get_playback_position()
-		Conductor.target_audio = music_player
+		conductor.target_audio = music_player
 
 	if first_open:
 		_start_intro()
@@ -48,7 +50,7 @@ func _ready() -> void:
 		post_intro.visible = true
 
 	first_open = false
-	Conductor.beat_hit.connect(_on_beat_hit)
+	conductor.beat_hit.connect(_on_beat_hit)
 	_on_beat_hit(0)
 
 
@@ -126,7 +128,7 @@ func _start_intro() -> void:
 	introing = true
 	intro_animation.play(&'intro')
 
-	var lines: String = FileAccess.get_file_as_string('uid://bcdqlk404scmd')
+	var lines: String = FileAccess.get_file_as_string('res://assets/intro_messages.txt')
 	lines = lines.strip_edges()
 	var lines_array: PackedStringArray = lines.split('\n', false)
 	if lines_array.is_empty():

@@ -10,6 +10,7 @@ static var camera_position: Vector2 = Vector2.ZERO
 @onready var music_player: AudioStreamPlayer = %music
 @onready var on_death: AudioStreamPlayer = %on_death
 @onready var retry: AudioStreamPlayer = %retry
+@onready var conductor: Conductor = %conductor
 @onready var secret: CanvasLayer = $secret
 
 var character: Character
@@ -35,9 +36,9 @@ func _ready() -> void:
 	else:
 		secret.queue_free()
 
-	Conductor.reset()
-	Conductor.tempo = 100.0
-	Conductor.target_audio = music_player
+	conductor.reset()
+	conductor.tempo = 100.0
+	conductor.target_audio = music_player
 
 	camera.zoom = camera_zoom
 	camera.global_position = camera_position
@@ -58,7 +59,7 @@ func _ready() -> void:
 			on_death.stream = assets.on_death
 		if is_instance_valid(assets.looping_music):
 			music_player.stream = assets.looping_music
-			Conductor.tempo = assets.music_bpm # hehe
+			conductor.tempo = assets.music_bpm
 		if is_instance_valid(assets.retry):
 			retry.stream = assets.retry
 
@@ -69,9 +70,8 @@ func _ready() -> void:
 		character.animation_finished.connect(_on_animation_finished)
 		on_death.play()
 	else:
+		on_death.finished.connect(_on_animation_finished.bind(&"death"))
 		on_death.play()
-		await on_death.finished
-		_on_animation_finished(&'death')
 
 
 func _input(event: InputEvent) -> void:

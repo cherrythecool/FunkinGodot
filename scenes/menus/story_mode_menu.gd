@@ -1,6 +1,8 @@
 extends Control
 
 
+@onready var conductor: Conductor = %conductor
+
 @onready var songs: Control = %songs
 @onready var songs_label: Label = songs.get_node('songs_label')
 
@@ -17,11 +19,11 @@ var active: bool = true
 func _ready() -> void:
 	var music_player: AudioStreamPlayer = GlobalAudio.music
 	if not music_player.playing:
-		Conductor.reset()
+		conductor.reset()
 		music_player.play()
-	Conductor.tempo = 102.0
-	Conductor.target_audio = music_player
-	Conductor.beat_hit.connect(_on_beat_hit)
+	conductor.tempo = 102.0
+	conductor.target_audio = music_player
+	conductor.beat_hit.connect(_on_beat_hit)
 
 	change_selection()
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bl4osqppv4p3j"]
 
 [ext_resource type="Script" uid="uid://ca2370vvlh2g8" path="res://scenes/menus/story_menu/props/story_menu_prop.gd" id="1_eqxtc"]
-[ext_resource type="SpriteFrames" uid="uid://g30v5atgkbtw" path="res://assets/menus/story_menu/props/mom.res" id="2_eqxtc"]
+[ext_resource type="SpriteFrames" uid="uid://g30v5atgkbtw" path="res://assets/menus/story_menu/characters/mom.res" id="2_eqxtc"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="3_jwe03"]
 
 [sub_resource type="Animation" id="Animation_mynvx"]

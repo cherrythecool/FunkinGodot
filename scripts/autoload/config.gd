@@ -68,8 +68,6 @@ var default_configuration: Dictionary = {
 		'manual_offset': 0.0,
 		'scroll_speed_method': 'chart_based',
 		'custom_scroll_speed': 1.0,
-		'use_conductor_time': true,
-		'use_touch': true,
 		'binds': {
 			'left': KEY_D,
 			'down': KEY_F,
@@ -83,7 +81,6 @@ var default_configuration: Dictionary = {
 			'Music': 100.0,
 			'SFX': 100.0,
 		},
-		'recalculate_output_latency': true,
 	},
 	'interface': {
 		'sustain_layer': 'below',

@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://da8mu3oqto3qq"]
+[gd_scene load_steps=13 format=3 uid="uid://da8mu3oqto3qq"]
 
 [ext_resource type="Script" uid="uid://dhv3phik4tia" path="res://scenes/game/game.gd" id="1_tneyb"]
+[ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="2_5i0tg"]
 [ext_resource type="Script" uid="uid://bbfskuw2fyle3" path="res://scenes/game/tracks.gd" id="2_j74rm"]
 [ext_resource type="Script" uid="uid://cm308tpfbi72q" path="res://scenes/game/script_container.gd" id="2_oquto"]
 [ext_resource type="Script" uid="uid://dp70bbdhoqpo0" path="res://scripts/game/rating.gd" id="5_lfrn8"]
@@ -10,16 +11,16 @@
 script = ExtResource("5_lfrn8")
 name = &"shit"
 timing = 166.66
-score = 50
-health = 0.0
+score = -10
+health = -2.0
 metadata/_custom_type_script = "uid://dp70bbdhoqpo0"
 
 [sub_resource type="Resource" id="Resource_bdhmt"]
 script = ExtResource("5_lfrn8")
 name = &"bad"
 timing = 135.0
-score = 100
-health = 0.25
+score = 10
+health = 0.0
 metadata/_custom_type_script = "uid://dp70bbdhoqpo0"
 
 [sub_resource type="Resource" id="Resource_87uf6"]
@@ -52,6 +53,11 @@ script = ExtResource("1_tneyb")
 [node name="camera" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 position_smoothing_speed = 4.0
+
+[node name="conductor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_5i0tg")
+metadata/_custom_type_script = "uid://djsxumpddydxq"
 
 [node name="tracks" type="Node" parent="."]
 unique_name_in_owner = true

@@ -9,6 +9,8 @@ static var target_scene: String = default_target_scene
 @onready var section: Node2D = %section
 @onready var options_label: AnimatedSprite2D = %options_label
 @onready var section_label: Alphabet = %section_label
+@onready var conductor: Conductor = %conductor
+
 var section_tween: Tween
 
 var selected: int = 0
@@ -19,10 +21,10 @@ func _ready() -> void:
 	var music_player: AudioStreamPlayer = GlobalAudio.music
 	music_player.stream = load('uid://ddoyqrhrcjw1j')
 	music_player.play()
-	Conductor.reset()
-	Conductor.tempo = 137.0
-	#Conductor.target_audio = music_player
-	Conductor.beat_hit.connect(_on_beat_hit)
+	conductor.reset()
+	conductor.tempo = 137.0
+	conductor.target_audio = music_player
+	conductor.beat_hit.connect(_on_beat_hit)
 	change_selection()
 
 
@@ -107,5 +109,3 @@ func _on_beat_hit(_beat: int) -> void:
 func _exit_tree() -> void:
 	GlobalAudio.music.stream = load('uid://dergcpn8f5cju')
 	GlobalAudio.music.play()
-	Conductor.reset()
-	Conductor.tempo = 107.0

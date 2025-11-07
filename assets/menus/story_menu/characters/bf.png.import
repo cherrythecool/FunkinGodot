@@ -2,22 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://g4kew3bfwjeq"
-path.bptc="res://.godot/imported/week1.png-c4fabaccb0c22e20c24ad9db0bd76492.bptc.ctex"
-path.astc="res://.godot/imported/week1.png-c4fabaccb0c22e20c24ad9db0bd76492.astc.ctex"
+uid="uid://fhvvucyr44c7"
+path="res://.godot/imported/bf.png-6b63a6b43d4555b9367b5e512857659f.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menus/story_menu/week_sprites/week1.png"
-dest_files=["res://.godot/imported/week1.png-c4fabaccb0c22e20c24ad9db0bd76492.bptc.ctex", "res://.godot/imported/week1.png-c4fabaccb0c22e20c24ad9db0bd76492.astc.ctex"]
+source_file="res://assets/menus/story_menu/characters/bf.png"
+dest_files=["res://.godot/imported/bf.png-6b63a6b43d4555b9367b5e512857659f.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

@@ -127,7 +127,6 @@ func _import() -> Error:
 			atlas.region = frame.source
 
 			var margin: Rect2i = Rect2i(-1, -1, -1, -1)
-
 			if frame.has_offsets:
 				if frame.offsets.size == Vector2i.ZERO:
 					frame.offsets.size = frame.source.size
@@ -138,7 +137,8 @@ func _import() -> Error:
 
 				margin = Rect2i(
 					-offsets.position,
-					source.size - offsets.size)
+					source.size - offsets.size
+				)
 
 				margin.size = margin.size.clamp(margin.position.abs(), Vector2i.MAX)
 				atlas.margin = margin
@@ -148,7 +148,6 @@ func _import() -> Error:
 				atlas_image.rotate_90(COUNTERCLOCKWISE)
 
 				var atlas_texture: ImageTexture = ImageTexture.create_from_image(atlas_image)
-
 				if margin != Rect2i(-1, -1, -1, -1):
 					# source is based on the frame, not the whole texture.
 					# This is because rotating the image messes with the offests,
@@ -163,7 +162,8 @@ func _import() -> Error:
 
 					margin = Rect2i(
 						-offsets.position,
-						source.size - offsets.size)
+						source.size - offsets.size
+					)
 
 					atlas.margin = margin
 					frame.atlas = atlas

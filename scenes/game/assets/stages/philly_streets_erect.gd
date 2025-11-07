@@ -83,7 +83,7 @@ func reset_cars(left: bool, right: bool) -> void:
 
 
 func change_lights() -> void:
-	last_change = floori(Conductor.beat)
+	last_change = floori(game.conductor.beat)
 	light_state = not light_state
 	if light_state:
 		traffic.play(&'greentored')
