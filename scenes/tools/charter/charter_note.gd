@@ -1,8 +1,6 @@
-@tool
-extends AnimatedSprite
+extends AnimatedSprite2D
 
-var mouse_overlaps: bool = false
-
+@onready var rect: Control = %rect
 var data: NoteData = null
 var lane: int = 0
 

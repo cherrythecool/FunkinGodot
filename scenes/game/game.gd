@@ -14,6 +14,8 @@ static var camera_position: Vector2 = Vector2.INF
 var persistent_camera_position: bool = true
 var events_index: int = 0
 
+static var initial_song_time: float = 0
+
 @onready var pause_menu: PackedScene = load('res://scenes/game/pause_menu.tscn')
 
 @onready var rating_calculator: RatingCalculator = %rating_calculator
@@ -144,6 +146,10 @@ func _process(delta: float) -> void:
 			Conductor.target_audio = tracks.player
 			song_start.emit()
 			song_started = true
+			
+			if initial_song_time > 0:
+				skip_to(initial_song_time)
+				initial_song_time = 0
 
 	while events_index < chart.events.size() and \
 			Conductor.time >= chart.events[events_index].time:
@@ -276,6 +282,8 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 			SceneManager.switch_to(load('uid://dcf86iwg6mn3d'))
 		PlayMode.FREEPLAY:
 			SceneManager.switch_to(load(MainMenu.freeplay_scene))
+		PlayMode.CHARTER:
+			SceneManager.switch_to(load('uid://csnprcxwpw805'))
 		_:
 			SceneManager.switch_to(load('uid://cxk008iuw4n7u'))
 
@@ -418,6 +426,7 @@ func setup_hud() -> void:
 
 
 func reset_conductor() -> void:
+	Conductor.active = true
 	Conductor.reset()
 	Conductor.beat_hit.connect(_on_beat_hit)
 	Conductor.measure_hit.connect(_on_measure_hit)
@@ -479,5 +488,6 @@ func skip_to(seconds: float) -> void:
 enum PlayMode {
 	FREEPLAY = 0,
 	STORY = 1,
-	OTHER = 2,
+	CHARTER = 2,
+	OTHER = 3
 }

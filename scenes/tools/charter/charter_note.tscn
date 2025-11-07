@@ -19,6 +19,15 @@ animation = &"down note"
 script = ExtResource("2_ht4he")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
+[node name="rect" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -61.538464
+offset_top = -61.538464
+offset_right = 61.538464
+offset_bottom = 61.538464
+
 [node name="sustain" type="TextureRect" parent="."]
 unique_name_in_owner = true
 show_behind_parent = true

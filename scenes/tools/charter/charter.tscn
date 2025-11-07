@@ -88,11 +88,3 @@ offset_left = 416.0
 offset_top = 192.0
 offset_right = 864.0
 offset_bottom = 196.0
-
-[node name="strum_line_2" type="ColorRect" parent="."]
-unique_name_in_owner = true
-layout_mode = 0
-offset_left = 416.0
-offset_top = 237.0
-offset_right = 462.0
-offset_bottom = 283.0

@@ -2,7 +2,9 @@ extends Control
 
 
 @onready var tracks: Tracks = %tracks
-var chart: Chart = null
+static var chart: Chart = null
+
+static var previous_song_position: float = 0
 
 @onready var camera: Camera2D = %camera
 @onready var grid_parallax: Parallax2D = %grid_parallax
@@ -23,9 +25,11 @@ var rendered_notes: Array[Node] = []
 
 func _ready() -> void:
 	Conductor.reset()
-	chart = Chart.load_song(&'bopeebo_erect', &'nightmare')
+	if chart == null:
+		chart = Chart.load_song(&'bopeebo_erect', &'nightmare')
 	Conductor.get_bpm_changes(chart.events)
 	Conductor.active = false
+	Conductor.time = previous_song_position
 
 	tracks.load_tracks(&'bopeebo_erect')
 	Conductor.target_audio = tracks.player
@@ -99,13 +103,20 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed && !event.echo:
 			if event.keycode == KEY_SPACE:
-				if tracks.playing:
-					Conductor.active = false
-					tracks.stop()
-				else:
-					tracks.play(Conductor.time)
-					Conductor.active = true
-					Conductor.calculate_beat()
+				if tracks.playing: _pause_song()
+				else: _resume_song()
+			if event.keycode == KEY_ENTER:
+				_pause_song()
+				previous_song_position = Conductor.time
+				
+				Game.playlist.clear()
+				Game.song = &"bopeebo_erect"
+				Game.difficulty = &"nightmare"
+				Game.mode = Game.PlayMode.CHARTER
+				Game.chart = chart
+				if Input.is_key_label_pressed(KEY_SHIFT):
+					Game.initial_song_time = Conductor.time
+				SceneManager.switch_to(load('res://scenes/game/game.tscn'))
 		
 	if event is InputEventMouseButton:
 		if event.pressed:
@@ -115,8 +126,10 @@ func _input(event: InputEvent) -> void:
 				Conductor.time += 0.01
 			if event.button_index == MOUSE_BUTTON_RIGHT:
 				for note in rendered_notes:
-					if note.mouse_overlaps:
-						print(note.data)
+					if note.rect.get_rect().has_point(note.get_local_mouse_position()):
+						chart.notes.erase(note_data_lookup.get(note))
+						rendered_notes.erase(note)
+						note.queue_free()
 	if event is InputEventPanGesture: # trackpad gesture
 		Conductor.time -= event.delta.y/10
 # ease out sine
@@ -124,3 +137,13 @@ func _icon_ease(x: float) -> float:
 	return sin((x * PI) / 2.0)
 func _icon_lerp() -> float:
 	return _icon_ease(Conductor.beat - floorf(Conductor.beat))
+
+
+func _pause_song() -> void:
+	Conductor.active = false
+	tracks.stop()
+	
+func _resume_song() -> void:
+	tracks.play(Conductor.time)
+	Conductor.active = true
+	Conductor.calculate_beat()
