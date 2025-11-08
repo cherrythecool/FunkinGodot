@@ -35,7 +35,6 @@ Keybinds="*res://scripts/autoload/keybinds.gd"
 DebugLabel="*res://scenes/autoload/debug_label.tscn"
 MixerControl="*res://scenes/autoload/mixer_control.tscn"
 SceneManager="*res://scenes/autoload/scene_manager.tscn"
-Conductor="*res://scripts/autoload/conductor.gd"
 TouchControls="*res://scenes/autoload/touch_controls.tscn"
 
 [debug]

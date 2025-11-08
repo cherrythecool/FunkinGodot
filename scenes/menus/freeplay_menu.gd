@@ -52,7 +52,6 @@ func _ready() -> void:
 		printerr('Freeplay has no songs, returning.')
 		return
 
-	Conductor.reset()
 	tracks.finished.connect(_on_finished)
 
 	change_selection()
@@ -93,7 +92,6 @@ func _input(event: InputEvent) -> void:
 
 func get_song_name(song: String, diff: String) -> String:
 	if not ResourceLoader.exists('res://assets/songs/%s/meta.tres' % [song]):
-		printerr('Song does not have a metadata file! Probably add one lol.')
 		return song.to_lower()
 
 	var meta: SongMetadata =  load('res://assets/songs/%s/meta.tres' % [song])
@@ -105,8 +103,7 @@ func get_song_name(song: String, diff: String) -> String:
 
 func get_song_difficulties(song: String) -> PackedStringArray:
 	if not ResourceLoader.exists('res://assets/songs/%s/meta.tres' % [song]):
-		printerr('Song does not have a metadata file! Add one!')
-		return []
+		return ['easy', 'normal', 'hard']
 
 	return load('res://assets/songs/%s/meta.tres' % [song]).difficulties
 
@@ -126,7 +123,10 @@ func change_selection(amount: int = 0) -> void:
 		node.target_y = i - index
 		node.modulate.a = 1.0 if node.target_y == 0 else 0.6
 
-	target_background_color = song_nodes[index].meta.icon.color
+	if is_instance_valid(song_nodes[index].meta):
+		target_background_color = song_nodes[index].meta.icon.color
+	else:
+		target_background_color = Color('a1a1a1')
 
 
 func change_difficulty(amount: int = 0) -> void:
@@ -171,23 +171,13 @@ func load_song(i: int) -> void:
 	var song_name: String = get_song_name(song, '')
 	var meta_path: String = 'res://assets/songs/%s/meta.tres' % song_name
 	var meta_exists: bool = ResourceLoader.exists(meta_path)
-	if not meta_exists:
-		var missing_song: FreeplaySongNode = FreeplaySongNode.new()
-		missing_song.position = Vector2.ZERO
-		missing_song.text = song
-		missing_song.target_y = i
-		missing_song.modulate = Color.SALMON
-		song_nodes.push_back(missing_song)
-		songs.add_child(missing_song)
-
-		var lock: Sprite2D = Sprite2D.new()
-		lock.texture = load('uid://df3ndhqghncac')
-		lock.position = Vector2(missing_song.size.x + 75.0, 35.0)
-		lock.modulate = Color.WHITE / missing_song.modulate
-		missing_song.add_child(lock)
-		return
-
-	var meta: SongMetadata = load(meta_path)
+	var meta: SongMetadata
+	if meta_exists:
+		meta = load(meta_path)
+	else:
+		meta = SongMetadata.new()
+		meta.display_name = song_name.to_pascal_case()
+	
 	if not is_instance_valid(meta.icon):
 		meta.icon = Icon.new()
 
@@ -210,12 +200,9 @@ func _load_tracks() -> void:
 		return
 
 	GlobalAudio.music.stop()
-	Conductor.reset()
-	Conductor.target_audio = tracks.player
 	tracks.load_tracks(current_song, 'res://assets/songs')
 	tracks.play()
 
 
 func _on_finished() -> void:
-	Conductor.reset()
 	tracks.play()

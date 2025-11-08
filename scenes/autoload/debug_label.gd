@@ -67,18 +67,13 @@ func display() -> void:
 	]
 
 	if info_mode == 'debug':
-		text_output += '\n\n[Usage]\n%s / %s <GPU>\n%s / %s <TEX>\n%s / %s <CPU>\n\n[Music]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM\n\n[Engine]\nScene: %s\n%d Nodes (%d Orphaned)\nInput Accumulation: %s\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s (%s)' % [
+		text_output += '\n\n[Usage]\n%s / %s <GPU>\n%s / %s <TEX>\n%s / %s <CPU>\n\n[Engine]\nScene: %s\n%d Nodes (%d Orphaned)\nInput Accumulation: %s\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s (%s)' % [
 			String.humanize_size(floori(video_memory_current)),
 			String.humanize_size(floori(video_memory_peak)),
 			String.humanize_size(floori(texture_memory_current)),
 			String.humanize_size(floori(texture_memory_peak)),
 			String.humanize_size(floori(static_memory_current)),
 			String.humanize_size(floori(static_memory_peak)),
-			-AudioServer.get_output_latency() * 1000.0,
-			Conductor.offset * 1000.0,
-			Conductor.manual_offset * 1000.0,
-			Conductor.time, Conductor.beat, Conductor.step, Conductor.measure,
-			Conductor.tempo,
 			scene_name,
 			Performance.get_monitor(Performance.OBJECT_NODE_COUNT),
 			Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT),
@@ -88,6 +83,15 @@ func display() -> void:
 			RenderingServer.get_current_rendering_driver_name(),
 			RenderingServer.get_current_rendering_method(),
 		]
+		
+		if is_instance_valid(Conductor.instance):
+			text_output += '\n\n[Music]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM' % [
+				-AudioServer.get_output_latency() * 1000.0,
+				Conductor.instance.offset * 1000.0,
+				Conductor.instance.manual_offset * 1000.0,
+				Conductor.instance.time, Conductor.instance.beat, Conductor.instance.step, Conductor.instance.measure,
+				Conductor.instance.tempo,
+			]
 
 	label.text = text_output
 

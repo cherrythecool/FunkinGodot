@@ -2,21 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3iudknbga6nr"
-path="res://.godot/imported/pico.png-e6bda31f6c3a4ac10030614ab04de536.ctex"
+uid="uid://g4kew3bfwjeq"
+path="res://.godot/imported/week1.png-17e1bafbaddf4cb60d95496f35c337e6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menus/story_menu/props/pico.png"
-dest_files=["res://.godot/imported/pico.png-e6bda31f6c3a4ac10030614ab04de536.ctex"]
+source_file="res://assets/menus/story_menu/weeks/week1.png"
+dest_files=["res://.godot/imported/week1.png-17e1bafbaddf4cb60d95496f35c337e6.ctex"]
 
 [params]
 
 compress/mode=0
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

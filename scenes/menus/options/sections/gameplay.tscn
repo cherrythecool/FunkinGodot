@@ -13,13 +13,12 @@
 [node name="gameplay" type="Node2D"]
 position = Vector2(-320, 0)
 script = ExtResource("1_dvmij")
-max_y = 320.0
 
 [node name="the_list" type="Node2D" parent="."]
 position = Vector2(0, -184)
 
 [node name="scroll_speed" type="Node2D" parent="the_list"]
-position = Vector2(-4, 511)
+position = Vector2(-4, 429)
 script = ExtResource("2_getyr")
 text = "scroll speed"
 centered = true
@@ -90,26 +89,8 @@ position = Vector2(32, -34)
 script = ExtResource("2_getyr")
 text = "< 0 >"
 
-[node name="use_touch" type="Node2D" parent="the_list/options"]
-position = Vector2(63, 383)
-script = ExtResource("4_2w5sj")
-key = &"use_touch"
-
-[node name="alphabet" type="Node2D" parent="the_list/options/use_touch"]
-script = ExtResource("2_getyr")
-text = "use touch input"
-centered = true
-
-[node name="checkbox" type="AnimatedSprite2D" parent="the_list/options/use_touch"]
-position = Vector2(413, 0)
-scale = Vector2(0.8, 0.8)
-sprite_frames = ExtResource("5_pu18o")
-animation = &"selected"
-offset = Vector2(-5, -35)
-script = ExtResource("6_ubeli")
-
 [node name="method" type="Node2D" parent="the_list/options"]
-position = Vector2(0, 616)
+position = Vector2(0, 533)
 script = ExtResource("8_8o1re")
 list = Array[String](["chart", "constant"])
 display_raw = false
@@ -126,7 +107,7 @@ script = ExtResource("2_getyr")
 text = "chart"
 
 [node name="value" type="Node2D" parent="the_list/options" node_paths=PackedStringArray("root", "current_preview")]
-position = Vector2(-22, 712)
+position = Vector2(-22, 629)
 script = ExtResource("7_gp12a")
 key = &"custom_scroll_speed"
 integers = false
@@ -161,4 +142,3 @@ position = Vector2(240, 312)
 
 [connection signal="animation_finished" from="the_list/options/downscroll/checkbox" to="the_list/options/downscroll" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="the_list/options/middlescroll/checkbox" to="the_list/options/middlescroll" method="_on_checkbox_animation_finished"]
-[connection signal="animation_finished" from="the_list/options/use_touch/checkbox" to="the_list/options/use_touch" method="_on_checkbox_animation_finished"]

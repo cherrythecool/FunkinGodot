@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://cxk008iuw4n7u"]
+[gd_scene load_steps=21 format=3 uid="uid://cxk008iuw4n7u"]
 
 [ext_resource type="Script" uid="uid://dno3ea8v3s7gx" path="res://scenes/menus/title_screen.gd" id="1_0m8ln"]
 [ext_resource type="SpriteFrames" uid="uid://dkgusfub7fbij" path="res://assets/menus/title/gf.res" id="1_ii0wr"]
 [ext_resource type="Material" uid="uid://bo61teq831cd6" path="res://assets/shaders/title_screen.tres" id="2_grdy1"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="3_s2rvo"]
+[ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="3_ssxho"]
 [ext_resource type="SpriteFrames" uid="uid://srbxpow67jf1" path="res://assets/menus/title/logo.res" id="5_nv456"]
 [ext_resource type="SpriteFrames" uid="uid://diaqnypewr3ov" path="res://assets/menus/title/enter.res" id="6_hraot"]
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="7_al1xt"]
@@ -364,6 +365,11 @@ _data = {
 [node name="title_screen" type="Node2D"]
 script = ExtResource("1_0m8ln")
 swag_material = ExtResource("2_grdy1")
+
+[node name="conductor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_ssxho")
+metadata/_custom_type_script = "uid://djsxumpddydxq"
 
 [node name="post_intro" type="Node2D" parent="."]
 visible = false

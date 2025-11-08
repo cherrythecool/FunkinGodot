@@ -1,7 +1,8 @@
 extends Node2D
 
 
-@onready var CHARACTER_SELECT: AudioStream = load('uid://b234a5vj6k6')
+static var selected_x: int = 1
+static var selected_y: int = 1
 
 @onready var character_selector: Node2D = %character_selector
 @onready var dipshit_blur: AnimatedSprite = %dipshit_blur
@@ -16,6 +17,7 @@ var player_anim: AnimationPlayer
 
 @onready var speakers: AnimateSymbol = $speakers/sprite
 
+@onready var conductor: Conductor = %conductor
 @onready var music: AudioStreamPlayer = %music
 @onready var select: AudioStreamPlayer = %select
 @onready var confirm: AudioStreamPlayer = %confirm
@@ -26,8 +28,6 @@ var player_anim: AnimationPlayer
 @onready var atlas_characters: Node2D = %atlas_characters
 
 @onready var selector: AnimatedSprite = %selector
-static var selected_x: int = 1
-static var selected_y: int = 1
 var locked: bool = false
 
 var dipshit_tween: Tween
@@ -36,11 +36,10 @@ var dipshit_tween: Tween
 func _ready() -> void:
 	GlobalAudio.music.stop()
 
-	Conductor.reset()
-	Conductor.target_audio = music
-	Conductor.tempo = 90.0
-	Conductor.beat_hit.connect(_on_beat_hit)
-	music.stream = CHARACTER_SELECT
+	conductor.reset()
+	conductor.target_audio = music
+	conductor.tempo = 90.0
+	conductor.beat_hit.connect(_on_beat_hit)
 	music.play()
 
 	dipshit_tween = create_tween().set_trans(Tween.TRANS_EXPO)\
@@ -207,13 +206,3 @@ func _on_beat_hit(beat: int) -> void:
 			player_anim.play(&'idle')
 		if spectator_anim.has_animation(&'dance_left'):
 			spectator_anim.play(&'dance_left' if beat % 2 == 0 else &'dance_right')
-
-
-func _on_music_finished() -> void:
-	if music.stream != CHARACTER_SELECT:
-		music.stream = CHARACTER_SELECT
-
-	Conductor.reset()
-	Conductor.target_audio = music
-	Conductor.tempo = 90.0
-	music.play()

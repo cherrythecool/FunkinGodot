@@ -2,23 +2,21 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://delswlfyeq06h"
-path.bptc="res://.godot/imported/mom.png-07f4847b518a790add76c2ea4df6b7c6.bptc.ctex"
-path.astc="res://.godot/imported/mom.png-07f4847b518a790add76c2ea4df6b7c6.astc.ctex"
+uid="uid://cebpbhg2jc6ic"
+path="res://.godot/imported/week3.png-6f7c8258369e883abd943d0c40a7a6e5.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc", "etc2_astc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/menus/story_menu/props/mom.png"
-dest_files=["res://.godot/imported/mom.png-07f4847b518a790add76c2ea4df6b7c6.bptc.ctex", "res://.godot/imported/mom.png-07f4847b518a790add76c2ea4df6b7c6.astc.ctex"]
+source_file="res://assets/menus/story_menu/weeks/week3.png"
+dest_files=["res://.godot/imported/week3.png-6f7c8258369e883abd943d0c40a7a6e5.ctex"]
 
 [params]
 
-compress/mode=2
-compress/high_quality=true
+compress/mode=0
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0

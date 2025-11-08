@@ -31,8 +31,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	bar.value = game.health
-	icons.scale = Vector2(1.2, 1.2).lerp(Vector2.ONE, _icon_lerp())
-	_position_icons(game.health)
+	icons.scale = Vector2(1.2, 1.2).lerp(Vector2.ONE, icon_lerp())
+	position_icons(game.health)
 
 	var player_frames: int = player_icon.hframes * player_icon.vframes
 	var opponent_frames: int = opponent_icon.hframes * opponent_icon.vframes
@@ -81,15 +81,15 @@ func reload_icon_colors() -> void:
 
 
 # ease out sine
-func _icon_ease(x: float) -> float:
+func icon_ease(x: float) -> float:
 	return sin((x * PI) / 2.0)
 
 
-func _icon_lerp() -> float:
-	return _icon_ease(Conductor.beat - floorf(Conductor.beat))
+func icon_lerp() -> float:
+	return icon_ease(game.conductor.beat - floorf(game.conductor.beat))
 
 
-func _position_icons(health: float) -> void:
+func position_icons(health: float) -> void:
 	icons.position.x = 320.0 - (health * 6.4)
 
 

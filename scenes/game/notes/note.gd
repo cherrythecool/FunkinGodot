@@ -35,7 +35,7 @@ var sustain_timer: float = 0.0:
 			return
 		
 		sustain_timer = v
-		sustain.modulate.a = clampf(v / Conductor.sustain_release_delta, 0.0, 1.0)
+		sustain.modulate.a = clampf(v / Conductor.instance.sustain_release_delta, 0.0, 1.0)
 
 
 func _ready() -> void:
@@ -73,7 +73,7 @@ func _process(delta: float) -> void:
 	sprite.visible = false
 	length -= delta
 
-	var step: int = floori(Conductor.step)
+	var step: int = floori(Conductor.instance.step)
 	if step > previous_step:
 		if is_instance_valid(field):
 			# Because of how this is coded this will simply play

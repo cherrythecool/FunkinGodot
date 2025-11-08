@@ -10,8 +10,8 @@
 [node name="interface" type="Node2D" node_paths=PackedStringArray("options")]
 position = Vector2(-320, 0)
 script = ExtResource("1_6p62e")
-options = [NodePath("splash_alpha"), NodePath("sustain_layer"), NodePath("cpu_strums_press"), NodePath("scene_transitions"), NodePath("countdown_on_resume"), NodePath(""), NodePath("")]
-max_distance = -300.0
+options = [NodePath("splash_alpha"), NodePath("sustain_layer"), NodePath("cpu_strums_press"), NodePath("scene_transitions"), NodePath("countdown_on_resume")]
+max_distance = 0.0
 
 [node name="splash_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
 position = Vector2(165, -183)

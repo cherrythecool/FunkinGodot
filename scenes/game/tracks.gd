@@ -31,7 +31,7 @@ func _ready() -> void:
 
 
 ## Sets the looping value of all tracks in use.
-func set_tracks_looping(_looping: bool) -> void:
+func set_tracks_looping(new_looping: bool) -> void:
 	if not (is_instance_valid(player) and is_instance_valid(player.stream)):
 		return
 	var tracks: Array[AudioStream] = []
@@ -43,10 +43,12 @@ func set_tracks_looping(_looping: bool) -> void:
 
 	for track: AudioStream in tracks:
 		if track is AudioStreamMP3 or track is AudioStreamOggVorbis:
-			track.loop = _looping
+			track.loop = new_looping
 		elif track is AudioStreamWAV:
-			track.loop_mode = AudioStreamWAV.LOOP_FORWARD \
-					if _looping else AudioStreamWAV.LOOP_DISABLED
+			track.loop_mode = (
+				AudioStreamWAV.LOOP_FORWARD if new_looping
+				else AudioStreamWAV.LOOP_DISABLED
+			)
 
 
 ## Tries to find tracks of the specified song and path,
@@ -114,7 +116,7 @@ func stop() -> void:
 ## Gets the playback position (factoring in offset) from the track specified.
 func get_playback_position() -> float:
 	if not is_instance_valid(player.stream) or not player.is_playing():
-		return Conductor.time
+		return 0.0
 
 	return player.get_playback_position() + AudioServer.get_time_since_last_mix()\
 			 + Conductor.offset

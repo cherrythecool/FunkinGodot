@@ -15,7 +15,7 @@ var states: Array[bool] = [false, false, false, false]
 
 
 func _ready() -> void:
-	if (not DisplayServer.is_touchscreen_available()) or not Config.get_value('gameplay', 'use_touch'):
+	if not DisplayServer.is_touchscreen_available():
 		queue_free()
 		return
 

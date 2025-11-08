@@ -11,13 +11,15 @@ var note: Note
 
 
 func _ready() -> void:
-	animation_finished.connect(queue_free)
+	if not Engine.is_editor_hint():
+		animation_finished.connect(queue_free)
 	
 	if is_instance_valid(note):
 		modulate.a = note.field.note_splash_alpha
 
 	if modulate.a <= 0.0:
-		queue_free()
+		if not Engine.is_editor_hint():
+			queue_free()
 		return
 
 	speed_scale = randf_range(0.9, 1.1)

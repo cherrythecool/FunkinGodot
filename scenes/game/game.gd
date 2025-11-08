@@ -19,6 +19,7 @@ static var initial_song_time: float = 0
 @onready var pause_menu: PackedScene = load('res://scenes/game/pause_menu.tscn')
 
 @onready var rating_calculator: RatingCalculator = %rating_calculator
+@onready var conductor: Conductor = %conductor
 @onready var tracks: Tracks = %tracks
 @onready var scripts: ScriptContainer = %scripts
 @onready var camera: Camera2D = $camera
@@ -93,7 +94,9 @@ signal botplay_changed(botplay: bool)
 
 
 func _ready() -> void:
-	instance = self
+	if not is_instance_valid(instance):
+		instance = self
+	
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	Input.use_accumulated_input = false
 	GlobalAudio.music.stop()
@@ -141,9 +144,9 @@ func _process(delta: float) -> void:
 		return
 
 	if is_instance_valid(tracks) and not song_started:
-		if Conductor.raw_time >= 0.0 and Conductor.active and not tracks.playing:
+		if conductor.raw_time >= 0.0 and conductor.active and not tracks.playing:
 			tracks.play()
-			Conductor.target_audio = tracks.player
+			conductor.target_audio = tracks.player
 			song_start.emit()
 			song_started = true
 			
@@ -152,7 +155,7 @@ func _process(delta: float) -> void:
 				initial_song_time = 0
 
 	while events_index < chart.events.size() and \
-			Conductor.time >= chart.events[events_index].time:
+			conductor.time >= chart.events[events_index].time:
 		var event: EventData = chart.events[events_index]
 		event_hit.emit(event)
 		events_index += 1
@@ -183,7 +186,7 @@ func _input(event: InputEvent) -> void:
 		var menu: CanvasLayer = pause_menu.instantiate()
 		add_child(menu)
 		process_mode = Node.PROCESS_MODE_DISABLED
-		Conductor.active = false
+		conductor.active = false
 	if event.is_action(&'toggle_botplay') and is_instance_valid(player_field):
 		save_score = false
 		player_field.takes_input = not player_field.takes_input
@@ -327,6 +330,7 @@ func load_assets() -> void:
 		metadata = load('res://assets/songs/%s/meta.tres' % song)
 	else:
 		metadata = SongMetadata.new()
+		metadata.display_name = song.to_pascal_case()
 	
 	if ResourceLoader.exists('res://assets/songs/%s/assets.tres' % song):
 		assets = load('res://assets/songs/%s/assets.tres' % song)
@@ -426,13 +430,12 @@ func setup_hud() -> void:
 
 
 func reset_conductor() -> void:
-	Conductor.active = true
-	Conductor.reset()
-	Conductor.beat_hit.connect(_on_beat_hit)
-	Conductor.measure_hit.connect(_on_measure_hit)
-	Conductor.get_bpm_changes(chart.events)
-	Conductor.calculate_beat()
-	Conductor.raw_time = -5.0 * Conductor.beat_delta
+	conductor.reset()
+	conductor.beat_hit.connect(_on_beat_hit)
+	conductor.measure_hit.connect(_on_measure_hit)
+	conductor.get_bpm_changes(chart.events)
+	conductor.calculate_beat()
+	conductor.raw_time = -5.0 * conductor.beat_delta
 
 
 func load_events() -> void:
@@ -469,12 +472,12 @@ func load_events() -> void:
 
 
 func skip_to(seconds: float) -> void:
-	if not is_instance_valid(Conductor.target_audio):
-		Conductor.raw_time = seconds
+	if not is_instance_valid(conductor.target_audio):
+		conductor.raw_time = seconds
 	else:
-		Conductor.target_audio.seek(seconds)
-		Conductor.sync_to_target(0.0)
-	Conductor.calculate_beat()
+		conductor.target_audio.seek(seconds)
+		conductor.sync_to_target(0.0)
+	conductor.calculate_beat()
 
 	if is_instance_valid(opponent_field):
 		opponent_field.try_spawning(true)

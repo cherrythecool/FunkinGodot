@@ -1,10 +1,12 @@
-[gd_scene load_steps=41 format=3 uid="uid://62vvv8x8t7nm"]
+[gd_scene load_steps=43 format=3 uid="uid://62vvv8x8t7nm"]
 
 [ext_resource type="Texture2D" uid="uid://uy8oihb6pd4m" path="res://assets/menus/character_select/stage/bg.png" id="1_oablf"]
 [ext_resource type="Script" uid="uid://p52omju8wqak" path="res://scenes/menus/character_select.gd" id="1_tjis5"]
+[ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="2_7dv0l"]
 [ext_resource type="Script" uid="uid://diqmdngjb60u2" path="res://addons/gdanimate/animate_symbol.gd" id="2_rptr7"]
 [ext_resource type="AudioStream" uid="uid://dagd7ek6gmogr" path="res://assets/menus/character_select/scroll.ogg" id="2_twrlh"]
 [ext_resource type="AudioStream" uid="uid://b41lp4n5nd3dk" path="res://assets/menus/character_select/confirm.ogg" id="3_0awtx"]
+[ext_resource type="AudioStream" uid="uid://b234a5vj6k6" path="res://assets/menus/character_select/character_select.ogg" id="3_4fbts"]
 [ext_resource type="AudioStream" uid="uid://6wvkbito7xw2" path="res://assets/menus/character_select/cancel.ogg" id="4_1u4p0"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_xae3q"]
 [ext_resource type="Texture2D" uid="uid://cavibbv2delc2" path="res://assets/menus/character_select/stage/curtains.png" id="5_xae3q"]
@@ -105,8 +107,14 @@ shader_parameter/block_size = Vector2(1, 1)
 [node name="character_select" type="Node2D"]
 script = ExtResource("1_tjis5")
 
+[node name="conductor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_7dv0l")
+metadata/_custom_type_script = "uid://djsxumpddydxq"
+
 [node name="music" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
+stream = ExtResource("3_4fbts")
 bus = &"Music"
 
 [node name="select" type="AudioStreamPlayer" parent="."]
@@ -137,7 +145,7 @@ scroll_scale = Vector2(0.3, 0.3)
 position = Vector2(-75, 209)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/crowd"
-frame = 10
+frame = 11
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -145,7 +153,7 @@ metadata/_custom_type_script = "uid://diqmdngjb60u2"
 position = Vector2(-40, 391)
 sprite_frames = ExtResource("7_5ydai")
 animation = &"stage full instance 1"
-frame_progress = 0.292883
+frame_progress = 0.045807164
 centered = false
 script = ExtResource("4_xae3q")
 playing = true
@@ -167,7 +175,7 @@ material = SubResource("CanvasItemMaterial_xae3q")
 position = Vector2(0, 55)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/bar"
-frame = 2
+frame = 1
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -349,5 +357,3 @@ material = SubResource("ShaderMaterial_5akvo")
 position = Vector2(1008, 100)
 scale = Vector2(0.77, 0.77)
 texture = ExtResource("16_3ax17")
-
-[connection signal="finished" from="music" to="." method="_on_music_finished"]

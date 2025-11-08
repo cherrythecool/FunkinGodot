@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c05dah5aarqg8"]
+[gd_scene load_steps=6 format=3 uid="uid://c05dah5aarqg8"]
 
 [ext_resource type="Script" uid="uid://dxe2rk2ymwaek" path="res://scenes/game/gameover.gd" id="1_drfcy"]
 [ext_resource type="AudioStream" uid="uid://dj3krjnstguwg" path="res://assets/game/gameover/bf/theme.ogg" id="2_rrri4"]
+[ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="2_syxyh"]
 [ext_resource type="AudioStream" uid="uid://m36stqbwyc5k" path="res://assets/game/gameover/bf/on_death.ogg" id="3_3j1mk"]
 [ext_resource type="AudioStream" uid="uid://cglpk5tuq0rha" path="res://assets/game/gameover/bf/retry.ogg" id="3_x0mbf"]
 
@@ -12,6 +13,11 @@ script = ExtResource("1_drfcy")
 unique_name_in_owner = true
 position = Vector2(640, 360)
 position_smoothing_speed = 2.4
+
+[node name="conductor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_syxyh")
+metadata/_custom_type_script = "uid://djsxumpddydxq"
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -40,7 +46,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-volume_db = 23.999994
+volume_db = 23.999992
 expand = true
 bus = &"Music"
 

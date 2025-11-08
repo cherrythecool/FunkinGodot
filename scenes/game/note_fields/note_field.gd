@@ -5,6 +5,7 @@ class_name NoteField extends Node2D
 @export var takes_input: bool = false
 @export_enum('Opponent', 'Player') var side: int = 0
 @export var note_types: Dictionary[StringName, PackedScene] = {}
+@export var conductor: Conductor = null
 
 @export_category('Visuals')
 @export var default_note_splash: PackedScene = null
@@ -35,6 +36,9 @@ func _ready() -> void:
 	if is_instance_valid(Game.instance):
 		game = Game.instance
 		game.scroll_speed_changed.connect(_on_scroll_speed_changed)
+	if is_instance_valid(Conductor.instance):
+		conductor = Conductor.instance
+	
 	note_splash_alpha = Config.get_value('interface', 'note_splash_alpha') / 100.0
 
 	if note_types.is_empty():
@@ -78,14 +82,14 @@ func _process(delta: float) -> void:
 func update_note(note: Note, delta: float = 0.0) -> void:
 	var receptor: Receptor = get_receptor_from_lane(note.lane)
 	note.position.y = receptor.position.y
-	note.position.y -= (Conductor.time - note.data.time) * 1000.0 * 0.45 \
+	note.position.y -= (conductor.time - note.data.time) * 1000.0 * 0.45 \
 			* scroll_speed * scroll_speed_modifier
 
 	if note.is_sustain and note.hit:
 		if not is_receptor_held(note.lane):
 			note.sustain_timer -= delta
 		else:
-			note.sustain_timer = Conductor.sustain_release_delta
+			note.sustain_timer = conductor.sustain_release_delta
 			if (
 				receptor.play_confirm and
 				receptor.last_anim != &"confirm"
@@ -99,14 +103,14 @@ func update_note(note: Note, delta: float = 0.0) -> void:
 	if note.hit:
 		return
 	var difference: float = (note.data.time + note.data.length - 
-			Conductor.time)
+			conductor.time)
 	if difference < -note.hit_window:
 		miss_note(note)
 
 
 func auto_input() -> void:
 	for note: Note in notes:
-		if Conductor.time < note.data.time:
+		if conductor.time < note.data.time:
 			break
 		if note.hit:
 			continue
@@ -143,7 +147,7 @@ func receptor_press(receptor: Receptor) -> void:
 	receptor.automatically_play_static = false
 
 	for note: Note in notes:
-		var before_zone: bool = Conductor.time < note.data.time - note.hit_window
+		var before_zone: bool = conductor.time < note.data.time - note.hit_window
 		if before_zone:
 			break
 		if note.hit:
@@ -151,7 +155,7 @@ func receptor_press(receptor: Receptor) -> void:
 		if note.lane != receptor.lane:
 			continue
 
-		var after_zone: bool = Conductor.time > note.data.time + note.hit_window
+		var after_zone: bool = conductor.time > note.data.time + note.hit_window
 		if not (before_zone or after_zone):
 			receptor.hit_note(note)
 			hit_note(note)
@@ -163,7 +167,7 @@ func receptor_release(receptor: Receptor) -> void:
 	receptor.play_anim(&'static')
 
 	for note: Note in notes:
-		var before_zone: bool = Conductor.time < note.data.time - note.hit_window
+		var before_zone: bool = conductor.time < note.data.time - note.hit_window
 		if before_zone:
 			break
 		if note.is_sustain:
@@ -194,8 +198,8 @@ func hit_note(note: Note) -> void:
 	note.hit = true
 
 	if note.is_sustain:
-		note.sustain_offset = -(Conductor.time - note.data.time)
-		note.length -= Conductor.time - note.data.time
+		note.sustain_offset = -(conductor.time - note.data.time)
+		note.length -= conductor.time - note.data.time
 		note.data.length = note.length
 
 
@@ -241,7 +245,7 @@ func spawn_note(data: NoteData) -> void:
 		return
 
 	data = data.duplicate()
-	if data.length > 0.0 and data.length < Conductor.step_delta:
+	if data.length > 0.0 and data.length < conductor.step_delta:
 		data.length = 0.0
 
 	var scene: PackedScene = note_types.get(data.type.to_snake_case())
@@ -277,7 +281,7 @@ func try_spawning(skip: bool = false) -> void:
 	while true:
 		if note_data_index > note_data.size() - 1:
 			return
-		if note_data[note_data_index].time - Conductor.time > spawn_time:
+		if note_data[note_data_index].time - conductor.time > spawn_time:
 			return
 		if skip:
 			note_data_index += 1

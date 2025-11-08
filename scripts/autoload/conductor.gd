@@ -1,15 +1,26 @@
-extends Node
+class_name Conductor extends Node
 
 
-var time: float = 0.0
-var rate: float = 1.0
-var active: bool = true
+static var instance: Conductor = null
+
+static var audio_offset: float:
+	get:
+		return -AudioServer.get_output_latency()
+static var manual_offset: float = 0.0
+static var offset: float = audio_offset - manual_offset
+
+var time: float:
+	get:
+		return raw_time + offset
+
+@export var rate: float = 1.0
+@export var active: bool = true
 
 var raw_time: float = 0.0
 const MAX_DESYNC: float = 20.0 / 1000.0
 
-var tempo: float = 0.0
-var tempo_changes: Array[BPMChange] = []
+@export var tempo: float = 0.0
+@export var tempo_changes: Array[BPMChange] = []
 
 var beat: float = 0.0
 
@@ -45,38 +56,29 @@ var target_length: float:
 			return target_audio.stream.get_length()
 		return 1.0
 
-var audio_offset: float:
-	get:
-		return -AudioServer.get_output_latency()
-
-var manual_offset: float = 0.0
-var offset: float = audio_offset - manual_offset
-
-var last_mix: float = 0.0
-var resync_latency: bool = false
-
 signal step_hit(step: int)
 signal beat_hit(beat: int)
 signal measure_hit(measure: int)
 
 
+func _exit_tree() -> void:
+	if instance == self:
+		instance = null
+
+
 func _ready() -> void:
+	if not is_instance_valid(instance):
+		instance = self
+	
 	Config.value_changed.connect(_on_config_value_changed)
 	_on_config_value_changed('gameplay', 'manual_offset',
 			Config.get_value('gameplay', 'manual_offset'))
-	_on_config_value_changed('sound', 'recalculate_output_latency',
-			Config.get_value('sound', 'recalculate_output_latency'))
+	SceneManager.scene_changed.connect(_on_scene_changed)
 
 
 func _process(delta: float) -> void:
 	if not active:
 		return
-
-	var mix_delta: float = AudioServer.get_time_since_last_mix()
-	if resync_latency:
-		if mix_delta < last_mix:
-			reset_offset()
-		last_mix = mix_delta
 
 	var last_step: int = floori(step)
 	var last_beat: int = floori(beat)
@@ -138,7 +140,9 @@ func reset() -> void:
 	calculate_beat()
 
 
-func reset_offset() -> void:
+static func reset_offset() -> void:
+	## NOTE: If Godot adds proper device latency
+	## on other platforms, this code should be changed.
 	if OS.get_name() == 'Linux':
 		offset = audio_offset - manual_offset
 	else:
@@ -160,8 +164,9 @@ func get_bpm_changes(events: Array[EventData], clear: bool = true) -> void:
 func _on_config_value_changed(section: String, key: String, value: Variant) -> void:
 	if section == 'gameplay' and key == 'manual_offset':
 		manual_offset = value / 1000.0
-	if section == 'sound' and key == 'recalculate_output_latency':
-		resync_latency = value
+
+func _on_scene_changed() -> void:
+	reset_offset()
 
 func get_time_in_step(ms:float) -> float:
 	if tempo_changes.is_empty():

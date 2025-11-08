@@ -23,6 +23,9 @@ func load_scripts(song: StringName, song_path: String = '') -> void:
 				add_child(script_instance)
 				loaded_from_dir.push_back(script)
 
+	if not ResourceLoader.exists('%s/%s/assets.tres' % [song_path, song]):
+		return
+	
 	var assets: SongAssets = load('%s/%s/assets.tres' % [song_path, song])
 	if assets.scripts.is_empty():
 		return

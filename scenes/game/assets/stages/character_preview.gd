@@ -52,6 +52,7 @@ func adjust_character(input: Character, set_player: bool = false) -> void:
 		if is_instance_valid(input.camera_offset):
 			input.camera_offset.queue_free()
 		input.camera_offset = get_node(^"camera_offset")
+		input.camera_offset.owner = null
 		input.camera_offset.reparent(input)
 
 

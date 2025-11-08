@@ -7,9 +7,10 @@ class_name Stage extends Node2D
 
 
 func _init() -> void:
-	Conductor.beat_hit.connect(_on_beat_hit)
-	Conductor.step_hit.connect(_on_step_hit)
-	Conductor.measure_hit.connect(_on_measure_hit)
+	if is_instance_valid(Conductor.instance):
+		Conductor.instance.beat_hit.connect(_on_beat_hit)
+		Conductor.instance.step_hit.connect(_on_step_hit)
+		Conductor.instance.measure_hit.connect(_on_measure_hit)
 
 
 func _on_beat_hit(_beat: int) -> void:

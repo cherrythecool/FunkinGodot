@@ -22,7 +22,7 @@ func _input(event: InputEvent) -> void:
 		return
 	if not event.is_pressed():
 		return
-	if event.is_action('ui_cancel'):
+	if event.is_action(&'ui_cancel'):
 		get_viewport().set_input_as_handled()
 		active = false
 		get_tree().current_scene.deselect_current()

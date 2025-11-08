@@ -2,7 +2,7 @@ extends BaseOptionsSection
 
 
 @export var options: Array[Option] = []
-@export var max_distance: float = -200.0
+@export var max_distance: float = 200.0
 
 @onready var selected_option: Option
 
@@ -54,7 +54,7 @@ func _update_items(delta: float) -> void:
 	delta = minf(delta, 0.0714)
 	position.y = lerpf(
 			position.y,
-			clampf(-selected_option.position.y, max_distance, 0.0),
+			clampf(-selected_option.position.y, -max_distance, 0.0),
 			delta * 4.0)
 
 	for i: int in options.size():
