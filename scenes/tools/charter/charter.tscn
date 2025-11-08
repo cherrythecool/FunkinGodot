@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://csnprcxwpw805"]
+[gd_scene load_steps=7 format=3 uid="uid://csnprcxwpw805"]
 
 [ext_resource type="Script" uid="uid://bxs0wqnkit3f3" path="res://scenes/tools/charter/charter.gd" id="1_2slaa"]
 [ext_resource type="Texture2D" uid="uid://c3x06i25jm34a" path="res://assets/tools/background_inverted.png" id="1_imc64"]
 [ext_resource type="Script" uid="uid://bbfskuw2fyle3" path="res://scenes/game/tracks.gd" id="2_sxe3p"]
+[ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="3_ien6p"]
 [ext_resource type="Script" uid="uid://druy6vgnold57" path="res://scenes/tools/charter/grid.gd" id="4_gvgc3"]
+[ext_resource type="PackedScene" uid="uid://b0qhyxlpd3kr2" path="res://scenes/tools/charter/charter_note.tscn" id="5_lkymj"]
 
 [node name="charter" type="Control"]
 layout_mode = 3
@@ -19,6 +21,11 @@ script = ExtResource("1_2slaa")
 unique_name_in_owner = true
 script = ExtResource("2_sxe3p")
 metadata/_custom_type_script = "uid://bbfskuw2fyle3"
+
+[node name="conductor" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_ien6p")
+metadata/_custom_type_script = "uid://djsxumpddydxq"
 
 [node name="background_layer" type="CanvasLayer" parent="."]
 layer = -1
@@ -88,3 +95,9 @@ offset_left = 416.0
 offset_top = 192.0
 offset_right = 864.0
 offset_bottom = 196.0
+color = Color(0.87, 0, 0, 1)
+
+[node name="cursor_note" parent="." instance=ExtResource("5_lkymj")]
+unique_name_in_owner = true
+modulate = Color(0.65, 0.65, 0.65, 0.16862746)
+position = Vector2(440, 216)

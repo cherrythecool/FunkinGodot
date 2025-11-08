@@ -170,13 +170,13 @@ func _on_scene_changed() -> void:
 
 func get_time_in_step(ms:float) -> float:
 	if tempo_changes.is_empty():
-		return ms / Conductor.step_delta
+		return ms / step_delta
 		
 	var result_step: float = 0
 	var last_change: BPMChange = tempo_changes[0]
 	for change in tempo_changes:
 		if ms >= change.time:
-			result_step = change.time / Conductor.step_delta
+			result_step = change.time / step_delta
 			last_change = change
 		else: break
 	

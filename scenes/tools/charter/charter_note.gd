@@ -3,12 +3,13 @@ extends AnimatedSprite2D
 @onready var rect: Control = %rect
 var data: NoteData = null
 var lane: int = 0
+var selected: bool = false
 
 var length: float = 0:
 	set(value):
 		length = value
 		$sustain.visible = value != 0
-		$sustain.size.y = (123*1.5) *Conductor.get_time_in_step(length*1000)
+		$sustain.size.y = (123*1.5) *Conductor.instance.get_time_in_step(length*1000)
 			
 
 func setup(note_data:NoteData) -> void:

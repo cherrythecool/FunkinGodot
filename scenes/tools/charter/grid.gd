@@ -18,7 +18,7 @@ func _process(_delta: float) -> void:
 		queue_redraw()
 		return
 
-	if Conductor.active:
+	if Conductor.instance.active:
 		queue_redraw()
 
 

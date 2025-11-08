@@ -30,6 +30,7 @@ offset_bottom = 61.538464
 
 [node name="sustain" type="TextureRect" parent="."]
 unique_name_in_owner = true
+visible = false
 show_behind_parent = true
 anchors_preset = 5
 anchor_left = 0.5

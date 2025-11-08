@@ -1,6 +1,6 @@
 extends Control
 
-
+@onready var conductor: Conductor = %conductor
 @onready var tracks: Tracks = %tracks
 static var chart: Chart = null
 
@@ -19,21 +19,22 @@ var player_icon: Sprite2D = null
 
 @onready var strum_line: ColorRect = %strum_line
 @onready var notes_group: Node2D = %notes
+@onready var cursor_note: Node2D = %cursor_note
 
 var note_data_lookup: Dictionary = {}
 var rendered_notes: Array[Node] = []
 
 func _ready() -> void:
-	Conductor.reset()
+	conductor.reset()
 	if chart == null:
 		chart = Chart.load_song(&'bopeebo_erect', &'nightmare')
-	Conductor.get_bpm_changes(chart.events)
-	Conductor.active = false
-	Conductor.time = previous_song_position
+	conductor.get_bpm_changes(chart.events)
+	conductor.time = previous_song_position
 
 	tracks.load_tracks(&'bopeebo_erect')
-	Conductor.target_audio = tracks.player
+	conductor.target_audio = tracks.player
 	#tracks.play()
+	_pause_song()
 
 	var assets: SongAssets = load('res://assets/songs/%s/assets.tres' % [&'bopeebo_erect'])
 	var temp_player: Character = assets.get_player().instantiate()
@@ -71,22 +72,22 @@ func add_note_object(note_data: NoteData) -> void:
 	if note_data.direction < 4:
 		target_grid = player_grid
 	
-	note.position.x = target_grid.global_position.x + floor(target_grid.grid_size.x * (note_data.direction % 4)) + 23
+	note.position.x = target_grid.position.x + floor(target_grid.grid_size.x * (note_data.direction % 4)) + 23
 	note.position.y = target_grid.grid_size.y / 2
-	note.position.y += Conductor.get_time_in_step(note_data.time*1000) * target_grid.grid_size.y
+	note.position.y += conductor.get_time_in_step(note_data.time*1000) * target_grid.grid_size.y
 	
 	rendered_notes.push_back(note)
 	notes_group.add_child(note)
 	note_data_lookup.set(note, note_data)
 
 func _process(delta: float) -> void:
-	if Conductor.time < 0:
-		Conductor.time = 0
-	strum_line.global_position.y = 192 + Conductor.get_time_in_step(Conductor.time*1000) * opponent_grid.grid_size.y
+	if conductor.raw_time < 0:
+		conductor.raw_time = 0
+	strum_line.global_position.y = 192 + conductor.get_time_in_step(conductor.time*1000) * opponent_grid.grid_size.y
 	camera.position.y = strum_line.global_position.y
 	
 	for note in rendered_notes:
-		if note.data.time <= Conductor.time:
+		if note.selected:
 			note.modulate.a = 0.5
 		else:
 			note.modulate.a = 1
@@ -107,7 +108,7 @@ func _input(event: InputEvent) -> void:
 				else: _resume_song()
 			if event.keycode == KEY_ENTER:
 				_pause_song()
-				previous_song_position = Conductor.time
+				previous_song_position = conductor.time
 				
 				Game.playlist.clear()
 				Game.song = &"bopeebo_erect"
@@ -115,15 +116,24 @@ func _input(event: InputEvent) -> void:
 				Game.mode = Game.PlayMode.CHARTER
 				Game.chart = chart
 				if Input.is_key_label_pressed(KEY_SHIFT):
-					Game.initial_song_time = Conductor.time
+					Game.initial_song_time = conductor.time
 				SceneManager.switch_to(load('res://scenes/game/game.tscn'))
-		
+	if event is InputEventMouseMotion:
+		if opponent_grid.get_global_rect().has_point(event.position):
+			cursor_note.visible = true
+			cursor_note.position.x = opponent_grid.grid_size.x/2 + floor(event.position.x / opponent_grid.grid_size.x) * opponent_grid.grid_size.x
+			cursor_note.position.y = floor(event.position.y / opponent_grid.grid_size.y) * opponent_grid.grid_size.y
+		elif player_grid.get_global_rect().has_point(event.position):
+			cursor_note.visible = true
+			cursor_note.position.x = player_grid.global_position.x
+		else:
+			cursor_note.visible = false
 	if event is InputEventMouseButton:
 		if event.pressed:
 			if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-				Conductor.time -= 0.01
+				conductor.raw_time -= 0.01
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-				Conductor.time += 0.01
+				conductor.raw_time += 0.01
 			if event.button_index == MOUSE_BUTTON_RIGHT:
 				for note in rendered_notes:
 					if note.rect.get_rect().has_point(note.get_local_mouse_position()):
@@ -131,19 +141,20 @@ func _input(event: InputEvent) -> void:
 						rendered_notes.erase(note)
 						note.queue_free()
 	if event is InputEventPanGesture: # trackpad gesture
-		Conductor.time -= event.delta.y/10
+		_pause_song()
+		conductor.raw_time -= event.delta.y/8
 # ease out sine
 func _icon_ease(x: float) -> float:
 	return sin((x * PI) / 2.0)
 func _icon_lerp() -> float:
-	return _icon_ease(Conductor.beat - floorf(Conductor.beat))
+	return _icon_ease(conductor.beat - floorf(conductor.beat))
 
 
 func _pause_song() -> void:
-	Conductor.active = false
+	conductor.active = false
 	tracks.stop()
 	
 func _resume_song() -> void:
-	tracks.play(Conductor.time)
-	Conductor.active = true
-	Conductor.calculate_beat()
+	tracks.play(conductor.time)
+	conductor.active = true
+	conductor.calculate_beat()
