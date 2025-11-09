@@ -30,7 +30,7 @@ var stage: Stage:
 var player_field: NoteField
 var opponent_field: NoteField
 
-var camera: Camera2D
+var camera: GameCamera2D
 
 
 func _ready() -> void:
@@ -47,7 +47,7 @@ func _ready() -> void:
 	player_field = game.player_field
 	opponent_field = game.opponent_field
 
-	camera = game.camera
+	camera = GameCamera2D.instance
 	game.song_start.connect(_on_song_start)
 	game.event_prepare.connect(_on_event_prepare)
 	game.event_hit.connect(_on_event_hit)

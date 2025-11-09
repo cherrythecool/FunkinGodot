@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://l1dqw6ovt7lg"]
+
+[ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/characters/character.gd" id="1_ym6ae"]
+
+[sub_resource type="Animation" id="Animation_bgpi6"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_ud1jc"]
+resource_name = "idle"
+length = 0.500004
+step = 0.0416667
+
+[sub_resource type="Animation" id="Animation_wgt05"]
+resource_name = "sing_down"
+length = 0.500004
+step = 0.0416667
+
+[sub_resource type="Animation" id="Animation_0v5yh"]
+resource_name = "sing_left"
+length = 0.500004
+step = 0.0416667
+
+[sub_resource type="Animation" id="Animation_2i71f"]
+resource_name = "sing_right"
+length = 0.500004
+step = 0.0416667
+
+[sub_resource type="Animation" id="Animation_m87l6"]
+resource_name = "sing_up"
+length = 0.500004
+step = 0.0416667
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mki60"]
+_data = {
+"RESET": SubResource("Animation_bgpi6"),
+"idle": SubResource("Animation_ud1jc"),
+"sing_down": SubResource("Animation_wgt05"),
+"sing_left": SubResource("Animation_0v5yh"),
+"sing_right": SubResource("Animation_2i71f"),
+"sing_up": SubResource("Animation_m87l6")
+}
+
+[node name="null" type="Node2D"]
+script = ExtResource("1_ym6ae")
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mki60")
+}
+
+[node name="camera_offset" type="Marker2D" parent="."]

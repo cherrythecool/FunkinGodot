@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="SongAssets" load_steps=4 format=3 uid="uid://cqufkj0ei2ei3"]
 
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_68rpn"]
-[ext_resource type="PackedScene" uid="uid://dr24tjg5bcvow" path="res://scenes/game/assets/characters/pico.tscn" id="1_881v3"]
-[ext_resource type="PackedScene" uid="uid://b1g35ux81f5hh" path="res://scenes/game/assets/stages/philly_train_erect.tscn" id="3_a7nh1"]
+[ext_resource type="PackedScene" uid="uid://dr24tjg5bcvow" path="res://scenes/game/characters/pico.tscn" id="1_881v3"]
+[ext_resource type="PackedScene" uid="uid://b1g35ux81f5hh" path="res://scenes/game/stages/philly_train_erect.tscn" id="3_a7nh1"]
 
 [resource]
 script = ExtResource("1_68rpn")

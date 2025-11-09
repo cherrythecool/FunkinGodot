@@ -1,10 +1,19 @@
-[gd_resource type="Resource" script_class="SongMetadata" load_steps=2 format=3 uid="uid://ctkoy62lb5r70"]
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://ctkoy62lb5r70"]
 
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_33gq3"]
 [ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="1_jfu1m"]
+[ext_resource type="Texture2D" uid="uid://827umg3700yo" path="res://assets/game/characters/bf_pixel/icon.png" id="2_d4kt2"]
+
+[sub_resource type="Resource" id="Resource_5ho70"]
+script = ExtResource("1_33gq3")
+texture = ExtResource("2_d4kt2")
+color = Color(0.48235294, 0.8392157, 0.9647059, 1)
+filter = 1
+internal_scale = Vector2(4.688, 4.688)
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("1_jfu1m")
 display_name = &"Test"
-mix = &"Default"
+icon = SubResource("Resource_5ho70")
 difficulties = ["normal"]
-difficulty_song_overrides = Dictionary[String, StringName]({})

@@ -1,4 +1,4 @@
-class_name Game extends Node2D
+class_name Game extends Node
 
 
 static var song: StringName = &'bopeebo'
@@ -9,30 +9,22 @@ static var exit_scene: String = ''
 
 static var instance: Game = null
 static var playlist: Array[GamePlaylistEntry] = []
-static var camera_position: Vector2 = Vector2.INF
 
 var persistent_camera_position: bool = true
 var events_index: int = 0
 
-@onready var pause_menu: PackedScene = load('res://scenes/game/pause_menu.tscn')
+var pause_menu: PackedScene
 
 @onready var rating_calculator: RatingCalculator = %rating_calculator
 @onready var conductor: Conductor = %conductor
 @onready var tracks: Tracks = %tracks
-@onready var scripts: ScriptContainer = %scripts
-@onready var camera: Camera2D = $camera
+@onready var scripts: Scripts = %scripts
 
 @onready var hud_layer: CanvasLayer = %hud_layer
 var hud: Node
 var player_field: NoteField = null
 var opponent_field: NoteField = null
 
-var target_camera_position: Vector2 = Vector2.ZERO
-var target_camera_zoom: Vector2 = Vector2(1.05, 1.05)
-var camera_bump_amount: Vector2 = Vector2(0.015, 0.015)
-var camera_lerps: bool = true
-var camera_bumps: bool = false
-var camera_speed: float = 1.0
 var song_started: bool = false
 var save_score: bool = true
 
@@ -85,6 +77,7 @@ signal song_start
 signal event_prepare(event: EventData)
 signal event_hit(event: EventData)
 signal song_finished
+signal song_exited
 signal scroll_speed_changed
 signal died
 signal botplay_changed(botplay: bool)
@@ -110,10 +103,6 @@ func _ready() -> void:
 
 	scripts.load_scripts(song)
 	load_events()
-	
-	# Carries camera position between songs
-	if camera_position != Vector2.INF:
-		camera.position = camera_position
 	ready_post.emit()
 
 
@@ -127,15 +116,12 @@ func _exit_tree() -> void:
 
 func _process(delta: float) -> void:
 	_process_post.call_deferred(delta)
-	camera_position = camera.position
 
 	if not playing:
 		return
 
 	if health <= 0.0:
 		died.emit()
-		Gameover.camera_position = camera.global_position
-		Gameover.camera_zoom = camera.zoom
 		Gameover.character_path = player.death_character
 		Gameover.character_position = player.global_position
 		SceneManager.switch_to(load('uid://c05dah5aarqg8'), false)
@@ -157,10 +143,6 @@ func _process(delta: float) -> void:
 	if first_frame:
 		first_frame = false
 		return
-	if camera_lerps:
-		camera.position = camera.position.lerp(target_camera_position, delta * 3.0 * camera_speed)
-	if camera_bumps:
-		camera.zoom = camera.zoom.lerp(target_camera_zoom, delta * 3.0)
 
 
 func _process_post(delta: float) -> void:
@@ -200,13 +182,6 @@ func _on_beat_hit(_beat: int) -> void:
 		spectator.dance()
 
 
-func _on_measure_hit(_measure: int) -> void:
-	if not camera_bumps:
-		return
-
-	camera.zoom += camera_bump_amount
-
-
 func _on_note_miss(note: Note) -> void:
 	rating_calculator.add_hit(note.hit_window, note.hit_window)
 	health = clampf(health - 2.0, 0.0, 100.0)
@@ -237,11 +212,6 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 				'rank': rank
 			})
 
-	# For some songs / mods you might not want this,
-	# but for base game it works well enough
-	if not persistent_camera_position:
-		camera_position = Vector2.INF
-
 	if not (playlist.is_empty() or force):
 		var new_song: StringName = playlist[0].name
 		var new_difficulty: StringName = playlist[0].difficulty
@@ -254,6 +224,7 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 			)
 			printerr('Song at path %s doesn\'t exist!' % json_path)
 			GlobalAudio.get_player('MENU/CANCEL').play()
+			song_exited.emit()
 			SceneManager.switch_to(load('uid://b7fwxsepnt38j'))
 			playlist.clear()
 			return
@@ -266,10 +237,10 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 
 	chart = null
 	playlist.clear()
-	camera_position = Vector2.INF
 	if sound:
 		GlobalAudio.get_player('MENU/CANCEL').play()
 
+	song_exited.emit()
 	if not exit_scene.is_empty():
 		SceneManager.switch_to(load(exit_scene))
 		exit_scene = ''
@@ -347,16 +318,15 @@ func load_from_assets() -> void:
 		var player_point: CharacterPlacement = stage.get_node(^"player")
 		if is_instance_valid(player_point):
 			player_point.adjust_character(player)
-	else:
-		if not player.starts_as_player:
-			player.scale *= Vector2(-1.0, 1.0)
+	if not player.starts_as_player:
+		player.scale *= Vector2(-1.0, 1.0)
+	
 	if stage.has_node(^"opponent"):
 		var opponent_point: CharacterPlacement = stage.get_node(^"opponent")
 		if is_instance_valid(opponent_point):
 			opponent_point.adjust_character(opponent)
-	else:
-		if opponent.starts_as_player:
-			opponent.scale *= Vector2(-1.0, 1.0)
+	if opponent.starts_as_player:
+		opponent.scale *= Vector2(-1.0, 1.0)
 	
 	if stage.has_node(^"spectator"):
 		var spectator_point: CharacterPlacement = stage.get_node(^"spectator")
@@ -364,9 +334,6 @@ func load_from_assets() -> void:
 			spectator_point.adjust_character(spectator)
 	
 	stage_container.add_child(stage)
-	target_camera_zoom = Vector2.ONE * stage.default_zoom
-	camera.zoom = target_camera_zoom
-	camera_speed = stage.camera_speed
 
 	## HUD Assets
 	hud = assets.get_hud().instantiate()
@@ -391,6 +358,8 @@ func load_from_assets() -> void:
 
 	if is_instance_valid(assets.get_hud_skin().pause_menu):
 		pause_menu = assets.get_hud_skin().pause_menu
+	else:
+		pause_menu = load("uid://d3n853hu8o3ik")
 
 	for key: StringName in assets.note_types.keys():
 		var scene: PackedScene = assets.note_types.get(key)
@@ -409,14 +378,10 @@ func setup_hud() -> void:
 		player_field.append_chart(chart)
 		player_field.note_miss.connect(_on_note_miss)
 		player_field.note_hit.connect(_on_note_hit)
-
 	if is_instance_valid(opponent_field):
 		opponent_field.note_types = note_types
 		opponent_field.scroll_speed = scroll_speed
 		opponent_field.append_chart(chart)
-		opponent_field.note_hit.connect(func(_note: Note) -> void:
-			camera_bumps = true
-		)
 
 	hud_setup.emit()
 
@@ -424,7 +389,6 @@ func setup_hud() -> void:
 func reset_conductor() -> void:
 	conductor.reset()
 	conductor.beat_hit.connect(_on_beat_hit)
-	conductor.measure_hit.connect(_on_measure_hit)
 	conductor.get_bpm_changes(chart.events)
 	conductor.calculate_beat()
 	conductor.raw_time = -5.0 * conductor.beat_delta

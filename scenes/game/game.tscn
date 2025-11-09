@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://da8mu3oqto3qq"]
+[gd_scene load_steps=14 format=3 uid="uid://da8mu3oqto3qq"]
 
 [ext_resource type="Script" uid="uid://dhv3phik4tia" path="res://scenes/game/game.gd" id="1_tneyb"]
 [ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="2_5i0tg"]
+[ext_resource type="Script" uid="uid://b1ln7ad72xey4" path="res://scenes/game/camera_2d.gd" id="2_bdhmt"]
 [ext_resource type="Script" uid="uid://bbfskuw2fyle3" path="res://scenes/game/tracks.gd" id="2_j74rm"]
-[ext_resource type="Script" uid="uid://cm308tpfbi72q" path="res://scenes/game/script_container.gd" id="2_oquto"]
+[ext_resource type="Script" uid="uid://cm308tpfbi72q" path="res://scenes/game/scripts.gd" id="2_oquto"]
 [ext_resource type="Script" uid="uid://dp70bbdhoqpo0" path="res://scripts/game/rating.gd" id="5_lfrn8"]
 [ext_resource type="Script" uid="uid://1dwo0trw3je2" path="res://scripts/game/rating_calculator.gd" id="6_ur1sh"]
 
@@ -50,9 +51,12 @@ point_count = 4
 [node name="game" type="Node2D"]
 script = ExtResource("1_tneyb")
 
-[node name="camera" type="Camera2D" parent="."]
+[node name="camera_2d" type="Camera2D" parent="."]
 position = Vector2(640, 360)
-position_smoothing_speed = 4.0
+limit_enabled = false
+position_smoothing_enabled = true
+script = ExtResource("2_bdhmt")
+bumps = false
 
 [node name="conductor" type="Node" parent="."]
 unique_name_in_owner = true
@@ -81,3 +85,8 @@ unique_name_in_owner = true
 script = ExtResource("6_ur1sh")
 ratings = Array[ExtResource("5_lfrn8")]([SubResource("Resource_5i0tg"), SubResource("Resource_bdhmt"), SubResource("Resource_87uf6"), SubResource("Resource_2a8rs"), SubResource("Resource_4j704")])
 accuracy_curve = SubResource("Curve_5selw")
+
+[connection signal="event_hit" from="." to="camera_2d" method="_on_game_event_hit"]
+[connection signal="ready_post" from="." to="camera_2d" method="_on_game_ready_post"]
+[connection signal="song_exited" from="." to="camera_2d" method="_on_game_song_exited"]
+[connection signal="beat_hit" from="conductor" to="camera_2d" method="_on_beat_hit"]

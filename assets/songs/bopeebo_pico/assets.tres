@@ -2,9 +2,9 @@
 
 [ext_resource type="Resource" uid="uid://b50qb5a7wlrmn" path="res://assets/game/hud_skins/pico_mixes.tres" id="1_k7xdi"]
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_qfriw"]
-[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/assets/characters/pico_player.tscn" id="2_a2jfj"]
-[ext_resource type="PackedScene" uid="uid://s7la6mup6cwb" path="res://scenes/game/assets/characters/nene.tscn" id="3_ny3uq"]
-[ext_resource type="PackedScene" uid="uid://8gvi1td3sh2t" path="res://scenes/game/assets/stages/stage_erect.tscn" id="4_h83u0"]
+[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/characters/pico_player.tscn" id="2_a2jfj"]
+[ext_resource type="PackedScene" uid="uid://s7la6mup6cwb" path="res://scenes/game/characters/nene.tscn" id="3_ny3uq"]
+[ext_resource type="PackedScene" uid="uid://8gvi1td3sh2t" path="res://scenes/game/stages/stage_erect.tscn" id="4_h83u0"]
 
 [resource]
 script = ExtResource("1_qfriw")

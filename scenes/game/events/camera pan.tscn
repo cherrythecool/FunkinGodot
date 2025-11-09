@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bevcbyat7wcil"]
-
-[ext_resource type="Script" uid="uid://ccygr6542u5ga" path="res://scripts/game/funkin_script.gd" id="1_0y0ro"]
-[ext_resource type="Script" uid="uid://bbc0vww7j2mb5" path="res://scenes/game/events/camera_pan.gd" id="1_prbh8"]
-
-[node name="camera_pan" type="Node"]
-script = ExtResource("1_prbh8")
-metadata/_custom_type_script = ExtResource("1_0y0ro")

@@ -1,23 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://c05dah5aarqg8"]
+[gd_scene load_steps=7 format=3 uid="uid://c05dah5aarqg8"]
 
 [ext_resource type="Script" uid="uid://dxe2rk2ymwaek" path="res://scenes/game/gameover.gd" id="1_drfcy"]
 [ext_resource type="AudioStream" uid="uid://dj3krjnstguwg" path="res://assets/game/gameover/bf/theme.ogg" id="2_rrri4"]
 [ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="2_syxyh"]
+[ext_resource type="Script" uid="uid://b1ln7ad72xey4" path="res://scenes/game/camera_2d.gd" id="2_wio1r"]
 [ext_resource type="AudioStream" uid="uid://m36stqbwyc5k" path="res://assets/game/gameover/bf/on_death.ogg" id="3_3j1mk"]
 [ext_resource type="AudioStream" uid="uid://cglpk5tuq0rha" path="res://assets/game/gameover/bf/retry.ogg" id="3_x0mbf"]
 
 [node name="gameover" type="Node2D"]
 script = ExtResource("1_drfcy")
 
-[node name="camera" type="Camera2D" parent="."]
+[node name="camera_2d" type="Camera2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(640, 360)
-position_smoothing_speed = 2.4
+limit_enabled = false
+script = ExtResource("2_wio1r")
+position_lerps = false
+zoom_lerps = false
+bumps = false
+metadata/_custom_type_script = "uid://b1ln7ad72xey4"
 
 [node name="conductor" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("2_syxyh")
 metadata/_custom_type_script = "uid://djsxumpddydxq"
+
+[node name="initial_focus_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.5
+one_shot = true
+
+[node name="fade_out_delay" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.7
+one_shot = true
 
 [node name="music" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -38,6 +54,7 @@ bus = &"SFX"
 parameters/looping = false
 
 [node name="secret" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 layer = 128
 
 [node name="player" type="VideoStreamPlayer" parent="secret"]
@@ -50,4 +67,6 @@ volume_db = 23.999992
 expand = true
 bus = &"Music"
 
+[connection signal="timeout" from="initial_focus_timer" to="." method="_on_initial_focus_timer_timeout"]
+[connection signal="timeout" from="fade_out_delay" to="." method="_on_fade_out_timer_timeout"]
 [connection signal="finished" from="secret/player" to="." method="_ready"]

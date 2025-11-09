@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="SongAssets" load_steps=6 format=3 uid="uid://ddafw62uqdn8r"]
 
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_xpfxe"]
-[ext_resource type="PackedScene" uid="uid://cdxxht68lxv1a" path="res://scenes/game/assets/characters/mom.tscn" id="2_6mtc7"]
-[ext_resource type="PackedScene" uid="uid://ctwq5qb8rpv66" path="res://scenes/game/assets/characters/bf_car.tscn" id="3_y5lld"]
-[ext_resource type="PackedScene" uid="uid://cfd0vee7ua8k7" path="res://scenes/game/assets/characters/gf_car.tscn" id="4_bakyh"]
-[ext_resource type="PackedScene" uid="uid://k1d367s1as6d" path="res://scenes/game/assets/stages/limo.tscn" id="5_rc4nr"]
+[ext_resource type="PackedScene" uid="uid://cdxxht68lxv1a" path="res://scenes/game/characters/mom.tscn" id="2_6mtc7"]
+[ext_resource type="PackedScene" uid="uid://ctwq5qb8rpv66" path="res://scenes/game/characters/bf_car.tscn" id="3_y5lld"]
+[ext_resource type="PackedScene" uid="uid://cfd0vee7ua8k7" path="res://scenes/game/characters/gf_car.tscn" id="4_bakyh"]
+[ext_resource type="PackedScene" uid="uid://k1d367s1as6d" path="res://scenes/game/stages/limo.tscn" id="5_rc4nr"]
 
 [resource]
 script = ExtResource("1_xpfxe")

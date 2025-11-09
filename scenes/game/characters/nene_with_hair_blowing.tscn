@@ -1,0 +1,523 @@
+[gd_scene load_steps=14 format=3 uid="uid://chcrerdnievt5"]
+
+[ext_resource type="Script" uid="uid://cbvhb58xsq20k" path="res://scenes/game/characters/nene.gd" id="1_3rmg0"]
+[ext_resource type="Script" uid="uid://diqmdngjb60u2" path="res://addons/gdanimate/animate_symbol.gd" id="2_00dwk"]
+[ext_resource type="Script" uid="uid://cn4vvfu6y4fwp" path="res://scenes/game/characters/nene_visualizer.gd" id="3_naqiu"]
+[ext_resource type="SpriteFrames" uid="uid://t7blpt6jvqhd" path="res://assets/game/characters/nene/abot/visualizer.res" id="4_oieip"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_18xhm"]
+[ext_resource type="SpriteFrames" uid="uid://bpi8lfn6j81x1" path="res://assets/game/characters/nene/character_with_hair_blowing.res" id="6_3rmg0"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wgx2l"]
+blend_mode = 1
+
+[sub_resource type="Animation" id="Animation_bgpi6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite:offset")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("speakers:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("speakers:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ud1jc"]
+resource_name = "dance_left"
+length = 0.583338
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.583333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 14]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("speakers:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("speakers:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_2gr36"]
+resource_name = "dance_right"
+length = 0.583338
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"Idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.583333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [15, 29]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("speakers:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("speakers:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_3rmg0"]
+resource_name = "hair_blow"
+length = 0.166671
+loop_mode = 1
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"HairBlow"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("speakers:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("speakers:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_00dwk"]
+resource_name = "hair_fall"
+length = 0.666671
+step = 0.0416667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"HairBlow"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 16]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprite:offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("sprite:playing")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("speakers:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("speakers:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mki60"]
+_data = {
+&"RESET": SubResource("Animation_bgpi6"),
+&"dance_left": SubResource("Animation_ud1jc"),
+&"dance_right": SubResource("Animation_2gr36"),
+&"hair_blow": SubResource("Animation_3rmg0"),
+&"hair_fall": SubResource("Animation_00dwk")
+}
+
+[node name="nene_with_hair_blowing" type="Node2D"]
+script = ExtResource("1_3rmg0")
+dance_steps = Array[StringName]([&"dance_left", &"dance_right"])
+
+[node name="eye_whites" type="ColorRect" parent="."]
+offset_left = -373.0
+offset_top = -90.0
+offset_right = -248.0
+offset_bottom = -45.0
+
+[node name="eyes" type="Node2D" parent="."]
+position = Vector2(-356, -98)
+script = ExtResource("2_00dwk")
+atlas = "res://assets/game/characters/nene/abot/eyes"
+loop_mode = "Play Once"
+metadata/_custom_type_script = "uid://diqmdngjb60u2"
+
+[node name="background" type="ColorRect" parent="."]
+offset_left = -230.0
+offset_top = -293.0
+offset_right = 218.0
+offset_bottom = -30.0
+color = Color(0.109804, 0.117647, 0.14902, 1)
+
+[node name="visualizer" type="Node2D" parent="."]
+position = Vector2(-3, -159)
+script = ExtResource("3_naqiu")
+
+[node name="1" type="AnimatedSprite2D" parent="visualizer"]
+material = SubResource("CanvasItemMaterial_wgx2l")
+position = Vector2(-173, 6.5)
+sprite_frames = ExtResource("4_oieip")
+animation = &"viz1"
+frame = 5
+script = ExtResource("5_18xhm")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="2" type="AnimatedSprite2D" parent="visualizer"]
+material = SubResource("CanvasItemMaterial_wgx2l")
+position = Vector2(-115, 6.5)
+sprite_frames = ExtResource("4_oieip")
+animation = &"viz2"
+frame = 5
+frame_progress = 1.0
+script = ExtResource("5_18xhm")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="3" type="AnimatedSprite2D" parent="visualizer"]
+material = SubResource("CanvasItemMaterial_wgx2l")
+position = Vector2(-57, 3.5)
+sprite_frames = ExtResource("4_oieip")
+animation = &"viz3"
+frame = 5
+frame_progress = 1.0
+script = ExtResource("5_18xhm")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="4" type="AnimatedSprite2D" parent="visualizer"]
+material = SubResource("CanvasItemMaterial_wgx2l")
+position = Vector2(5, 4.5)
+sprite_frames = ExtResource("4_oieip")
+animation = &"viz4"
+frame = 5
+frame_progress = 1.0
+script = ExtResource("5_18xhm")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="5" type="AnimatedSprite2D" parent="visualizer"]
+material = SubResource("CanvasItemMaterial_wgx2l")
+position = Vector2(62, 6.5)
+sprite_frames = ExtResource("4_oieip")
+animation = &"viz5"
+frame = 5
+frame_progress = 1.0
+script = ExtResource("5_18xhm")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="6" type="AnimatedSprite2D" parent="visualizer"]
+material = SubResource("CanvasItemMaterial_wgx2l")
+position = Vector2(115, 6.5)
+sprite_frames = ExtResource("4_oieip")
+animation = &"viz6"
+frame = 5
+frame_progress = 1.0
+script = ExtResource("5_18xhm")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="7" type="AnimatedSprite2D" parent="visualizer"]
+material = SubResource("CanvasItemMaterial_wgx2l")
+position = Vector2(168, 7.5)
+sprite_frames = ExtResource("4_oieip")
+animation = &"viz7"
+frame = 5
+frame_progress = 1.0
+script = ExtResource("5_18xhm")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="speakers" type="Node2D" parent="."]
+position = Vector2(-413, -337)
+script = ExtResource("2_00dwk")
+atlas = "res://assets/game/characters/nene/abot/speaker"
+loop_mode = "Play Once"
+metadata/_custom_type_script = "uid://diqmdngjb60u2"
+
+[node name="sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(-284, -649)
+sprite_frames = ExtResource("6_3rmg0")
+animation = &"Idle"
+centered = false
+script = ExtResource("5_18xhm")
+
+[node name="animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_mki60")
+}
+
+[node name="camera_offset" type="Marker2D" parent="."]
+position = Vector2(11, -346)

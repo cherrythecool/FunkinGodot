@@ -1,0 +1,299 @@
+[gd_scene load_steps=24 format=3 uid="uid://dhtct6lrdao7r"]
+
+[ext_resource type="Script" uid="uid://co5ccgkvmutk5" path="res://scenes/game/stages/philly_streets_erect.gd" id="1_hmgxw"]
+[ext_resource type="Texture2D" uid="uid://gai5mgxmcuw5" path="res://assets/game/stages/philly_streets/erect/phillySkyline.png" id="2_0jnji"]
+[ext_resource type="Texture2D" uid="uid://bna8cxh2gukil" path="res://assets/game/stages/philly_streets/erect/phillyForegroundCity.png" id="3_m2qjp"]
+[ext_resource type="Texture2D" uid="uid://be12ikf5oq4o" path="res://assets/game/stages/philly_streets/erect/phillyConstruction.png" id="4_c6ct7"]
+[ext_resource type="Texture2D" uid="uid://cxmqq6n3nx612" path="res://assets/game/stages/philly_streets/erect/phillyHighwayLights.png" id="5_m2qjp"]
+[ext_resource type="Texture2D" uid="uid://t8s6k254wn6b" path="res://assets/game/stages/philly_streets/phillyHighwayLights_lightmap.png" id="6_c6ct7"]
+[ext_resource type="Texture2D" uid="uid://b37pfa52ec02" path="res://assets/game/stages/philly_streets/erect/phillyHighway.png" id="7_yi70h"]
+[ext_resource type="Texture2D" uid="uid://b5l64riaq05l0" path="res://assets/game/stages/philly_streets/erect/greyGradient.png" id="8_ubkch"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/philly_streets/erect/phillyCars.res" id="9_j1c5h"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="10_o5oj6"]
+[ext_resource type="Material" uid="uid://dusbajrs5d28b" path="res://assets/shaders/multiply.tres" id="10_xtlem"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/philly_streets/erect/phillyTraffic.res" id="11_o5oj6"]
+[ext_resource type="Texture2D" uid="uid://bkb7c6uj1fafq" path="res://assets/game/stages/philly_streets/erect/phillyTraffic_lightmap.png" id="12_fcxpl"]
+[ext_resource type="Texture2D" uid="uid://c05kfndvl1v01" path="res://assets/game/stages/philly_streets/erect/phillyForeground.png" id="13_dkt1u"]
+[ext_resource type="Material" uid="uid://h6uy4lto3tyx" path="res://assets/shaders/additive.tres" id="15_hydkt"]
+[ext_resource type="Texture2D" uid="uid://i7wldmqqojxv" path="res://assets/game/stages/philly_streets/erect/phillySkybox.png" id="15_j2dnk"]
+[ext_resource type="Texture2D" uid="uid://c1f1eyos87sev" path="res://assets/game/stages/philly_streets/erect/mistMid.png" id="16_8xh06"]
+[ext_resource type="Texture2D" uid="uid://bhhmtkl0te62f" path="res://assets/game/stages/philly_streets/erect/mistBack.png" id="17_gl3gy"]
+[ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/stages/character_preview.gd" id="17_hydkt"]
+[ext_resource type="Shader" uid="uid://dk80a2761duv" path="res://assets/shaders/rain_shader.gdshader" id="19_26rwe"]
+[ext_resource type="Script" uid="uid://dufg5dnuu2huq" path="res://scenes/game/stages/philly_streets_erect_rain.gd" id="19_enjn8"]
+
+[sub_resource type="Curve2D" id="Curve2D_xtlem"]
+_data = {
+"points": PackedVector2Array(-354.8989, 12.753403, 354.8989, -12.753403, -137, 2, -379.98193, -398.292, 379.98193, 398.292, 1196, 303)
+}
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_enjn8"]
+shader = ExtResource("19_26rwe")
+shader_parameter/scale = 6.7
+shader_parameter/intensity = 0.1
+shader_parameter/distortionStrength = 0.6
+
+[node name="philly_streets_erect" type="Node2D"]
+script = ExtResource("1_hmgxw")
+default_zoom = 0.77
+
+[node name="skyline" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.2, 0.2)
+
+[node name="sprite" type="Sprite2D" parent="skyline"]
+z_index = 20
+position = Vector2(-545, -273)
+texture = ExtResource("2_0jnji")
+centered = false
+
+[node name="fg_city" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.3, 0.3)
+
+[node name="sprite" type="Sprite2D" parent="fg_city"]
+z_index = 30
+position = Vector2(600, 69)
+texture = ExtResource("3_m2qjp")
+centered = false
+
+[node name="construction" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.7, 1)
+
+[node name="sprite" type="Sprite2D" parent="construction"]
+z_index = 40
+position = Vector2(1795, 360)
+texture = ExtResource("4_c6ct7")
+centered = false
+
+[node name="highway_lights" type="Sprite2D" parent="."]
+z_index = 50
+position = Vector2(284, 305)
+texture = ExtResource("5_m2qjp")
+centered = false
+
+[node name="highway_lights_lightmap" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.6)
+z_index = 50
+material = ExtResource("15_hydkt")
+position = Vector2(284, 305)
+texture = ExtResource("6_c6ct7")
+centered = false
+
+[node name="highway" type="Sprite2D" parent="."]
+z_index = 60
+position = Vector2(139, 209)
+texture = ExtResource("7_yi70h")
+centered = false
+
+[node name="grey" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.3)
+z_index = 91
+material = ExtResource("15_hydkt")
+position = Vector2(88, 317)
+texture = ExtResource("8_ubkch")
+centered = false
+
+[node name="grey_2" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.8)
+z_index = 91
+material = ExtResource("10_xtlem")
+position = Vector2(88, 317)
+texture = ExtResource("8_ubkch")
+centered = false
+
+[node name="cars" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.9, 1)
+
+[node name="car_path_2" type="Path2D" parent="cars"]
+unique_name_in_owner = true
+position = Vector2(1718, 991)
+curve = SubResource("Curve2D_xtlem")
+
+[node name="car_follow" type="PathFollow2D" parent="cars/car_path_2"]
+position = Vector2(-137, 2)
+rotation = -0.03591986
+
+[node name="car" type="AnimatedSprite2D" parent="cars/car_path_2/car_follow"]
+z_index = 80
+position = Vector2(-262.435, -107.669)
+rotation = -0.11121468
+sprite_frames = ExtResource("9_j1c5h")
+animation = &"car1"
+centered = false
+script = ExtResource("10_o5oj6")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="car_path_1" type="Path2D" parent="cars"]
+unique_name_in_owner = true
+position = Vector2(1718, 991)
+curve = SubResource("Curve2D_xtlem")
+
+[node name="car_follow" type="PathFollow2D" parent="cars/car_path_1"]
+position = Vector2(-137, 2)
+rotation = -0.03591986
+
+[node name="car" type="AnimatedSprite2D" parent="cars/car_path_1/car_follow"]
+z_index = 80
+position = Vector2(-262.4345, -107.669266)
+rotation = -0.11170107
+sprite_frames = ExtResource("9_j1c5h")
+animation = &"car1"
+centered = false
+script = ExtResource("10_o5oj6")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="traffic" type="AnimatedSprite2D" parent="cars"]
+z_index = 90
+position = Vector2(1840, 608)
+sprite_frames = ExtResource("11_o5oj6")
+animation = &"redtogreen"
+centered = false
+script = ExtResource("10_o5oj6")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="traffic_lightmap" type="Sprite2D" parent="cars"]
+modulate = Color(1, 1, 1, 0.6)
+z_index = 90
+material = ExtResource("15_hydkt")
+position = Vector2(1840, 608)
+texture = ExtResource("12_fcxpl")
+centered = false
+
+[node name="fg" type="Sprite2D" parent="."]
+z_index = 100
+position = Vector2(88, 317)
+texture = ExtResource("13_dkt1u")
+centered = false
+
+[node name="skybox" type="Parallax2D" parent="."]
+scale = Vector2(0.65, 0.65)
+scroll_scale = Vector2(0.1, 0.1)
+repeat_size = Vector2(1899.19, 0)
+autoscroll = Vector2(-22, 0)
+repeat_times = 2
+
+[node name="sprite" type="Sprite2D" parent="skybox"]
+z_index = 10
+position = Vector2(-650, -375)
+scale = Vector2(1.159, 1.001)
+texture = ExtResource("15_j2dnk")
+centered = false
+region_rect = Rect2(0, 0, 2521, 717)
+
+[node name="mist_one" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.2, 1.2)
+scroll_offset = Vector2(2048, 0)
+repeat_size = Vector2(2048, 0)
+autoscroll = Vector2(172, 0)
+repeat_times = 3
+
+[node name="sprite" type="Sprite2D" parent="mist_one"]
+modulate = Color(0.360784, 0.360784, 0.360784, 0.6)
+z_index = 1000
+material = ExtResource("15_hydkt")
+position = Vector2(-650, -100)
+texture = ExtResource("16_8xh06")
+centered = false
+
+[node name="mist_two" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.1, 1.1)
+repeat_size = Vector2(2048, 0)
+autoscroll = Vector2(150, 0)
+repeat_times = 3
+
+[node name="sprite" type="Sprite2D" parent="mist_two"]
+modulate = Color(0.360784, 0.360784, 0.360784, 0.6)
+z_index = 1000
+material = ExtResource("15_hydkt")
+position = Vector2(-650, -100)
+texture = ExtResource("16_8xh06")
+centered = false
+
+[node name="mist_three" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.2, 1.2)
+repeat_size = Vector2(2048, 0)
+autoscroll = Vector2(-80, 0)
+repeat_times = 3
+
+[node name="sprite" type="Sprite2D" parent="mist_three"]
+modulate = Color(0.361, 0.361, 0.361, 0.8)
+z_index = 1001
+material = ExtResource("15_hydkt")
+position = Vector2(-650, -100)
+texture = ExtResource("17_gl3gy")
+centered = false
+
+[node name="mist_four" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.95, 0.95)
+repeat_size = Vector2(1638.4, 0)
+autoscroll = Vector2(-50, 0)
+repeat_times = 3
+
+[node name="sprite" type="Sprite2D" parent="mist_four"]
+modulate = Color(0.361, 0.361, 0.361, 0.5)
+z_index = 99
+material = ExtResource("15_hydkt")
+position = Vector2(-650, -100)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("16_8xh06")
+centered = false
+
+[node name="mist_five" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.8, 0.8)
+repeat_size = Vector2(1433.6, 0)
+autoscroll = Vector2(40, 0)
+repeat_times = 3
+
+[node name="sprite" type="Sprite2D" parent="mist_five"]
+modulate = Color(0.361, 0.361, 0.361, 1)
+z_index = 88
+material = ExtResource("15_hydkt")
+position = Vector2(-650, -100)
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("17_gl3gy")
+centered = false
+
+[node name="mist_six" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.5, 0.5)
+repeat_size = Vector2(2252.8, 0)
+autoscroll = Vector2(20, 0)
+repeat_times = 3
+
+[node name="sprite" type="Sprite2D" parent="mist_six"]
+modulate = Color(0.361, 0.361, 0.361, 1)
+z_index = 39
+material = ExtResource("15_hydkt")
+position = Vector2(-650, -100)
+scale = Vector2(1.1, 1.1)
+texture = ExtResource("16_8xh06")
+centered = false
+
+[node name="rain_layer" type="CanvasLayer" parent="."]
+layer = 0
+script = ExtResource("19_enjn8")
+
+[node name="rain_shader" type="ColorRect" parent="rain_layer"]
+material = SubResource("ShaderMaterial_enjn8")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="player" type="Marker2D" parent="."]
+z_index = 400
+position = Vector2(2138, 1216)
+script = ExtResource("17_hydkt")
+
+[node name="opponent" type="Marker2D" parent="."]
+z_index = 350
+position = Vector2(826, 1175)
+script = ExtResource("17_hydkt")
+character_path = "res://scenes/game/assets/characters/darnell.tscn"
+
+[node name="spectator" type="Marker2D" parent="."]
+z_index = 300
+position = Vector2(1531, 1089)
+script = ExtResource("17_hydkt")
+character_path = "res://scenes/game/assets/characters/gf.tscn"
