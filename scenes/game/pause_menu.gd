@@ -93,6 +93,7 @@ func _close() -> void:
 	active = false
 	visible = false
 	tree.current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+	Engine.time_scale = 1.0
 	
 	if is_instance_valid(Game.instance):
 		Game.instance.conductor.active = true

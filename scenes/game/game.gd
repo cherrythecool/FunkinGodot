@@ -181,6 +181,7 @@ func _input(event: InputEvent) -> void:
 		add_child(menu)
 		process_mode = Node.PROCESS_MODE_DISABLED
 		conductor.active = false
+		Engine.time_scale = 0.0
 	if event.is_action(&'toggle_botplay') and is_instance_valid(player_field):
 		save_score = false
 		player_field.takes_input = not player_field.takes_input
