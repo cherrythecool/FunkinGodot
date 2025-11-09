@@ -54,7 +54,6 @@ script = ExtResource("1_tneyb")
 [node name="camera_2d" type="Camera2D" parent="."]
 position = Vector2(640, 360)
 limit_enabled = false
-position_smoothing_enabled = true
 script = ExtResource("2_bdhmt")
 bumps = false
 
