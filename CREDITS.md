@@ -6,8 +6,6 @@
 	* [Godot Game Engine](https://godotengine.org)
 - [MaybeMaru](https://github.com/MaybeMaru)
 	* Improved Alphabet Font
-- [SuokArts3](https://twitter.com/SuokArts3)
-	* null / face character sprites.
 - [Vortex](https://github.com/Vortex2Oblivion)
 	* Contributor
 - [Sinco](https://github.com/sphis-Sinco)

@@ -167,8 +167,7 @@ func _draw_sprite(element: Element) -> void:
 				get_canvas_item(),
 				Rect2(
 					Vector2.ZERO,
-					Vector2(sprite.rect.size.y, sprite.rect.size.x) \
-							* (Vector2.ONE / collection.scale)
+					Vector2(sprite.rect.size.y, sprite.rect.size.x)
 				),
 				sprite.custom_texture,
 				false
@@ -176,7 +175,7 @@ func _draw_sprite(element: Element) -> void:
 		else:
 			RenderingServer.canvas_item_add_texture_rect_region(
 				get_canvas_item(),
-				Rect2(Vector2.ZERO, Vector2(sprite.rect.size) * (Vector2.ONE / collection.scale)),
+				Rect2(Vector2.ZERO, Vector2(sprite.rect.size)),
 				collection.texture,
 				Rect2(sprite.rect)
 			)

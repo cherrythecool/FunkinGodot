@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SongAssets" load_steps=3 format=3 uid="uid://b62s07hsmb0cm"]
 
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_0hytj"]
-[ext_resource type="PackedScene" uid="uid://bm0fb28jg0uki" path="res://scenes/game/assets/characters/parents_christmas.tscn" id="1_db1q6"]
+[ext_resource type="PackedScene" uid="uid://bm0fb28jg0uki" path="res://scenes/game/characters/parents_christmas.tscn" id="1_db1q6"]
 
 [resource]
 script = ExtResource("1_0hytj")

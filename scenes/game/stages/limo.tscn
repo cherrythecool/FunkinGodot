@@ -1,0 +1,144 @@
+[gd_scene load_steps=14 format=3 uid="uid://k1d367s1as6d"]
+
+[ext_resource type="Script" uid="uid://b6pvuwsnfdwtj" path="res://scenes/game/stages/limo.gd" id="1_11vc5"]
+[ext_resource type="AudioStream" uid="uid://d3dsst4t3xlnc" path="res://assets/game/stages/limo/car_0.ogg" id="2_8o2p2"]
+[ext_resource type="Texture2D" uid="uid://dgyy58asxhwwl" path="res://assets/game/stages/limo/limoSunset.png" id="2_potqh"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/limo/bgLimo.res" id="3_8o2p2"]
+[ext_resource type="AudioStream" uid="uid://c4uwi5d31prdc" path="res://assets/game/stages/limo/car_1.ogg" id="3_xtsds"]
+[ext_resource type="Shader" uid="uid://5wjcw14c4ehl" path="res://assets/shaders/overlay_shader.gdshader" id="4_2gosj"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_xtsds"]
+[ext_resource type="Texture2D" uid="uid://beyfiss15cjmj" path="res://assets/game/stages/limo/limoOverlay.png" id="5_1nyvw"]
+[ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/stages/character_preview.gd" id="5_8o2p2"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/limo/limoDrive.res" id="5_axglq"]
+[ext_resource type="Texture2D" uid="uid://2vt2m2655uu" path="res://assets/game/stages/limo/fastCarLol.png" id="7_2gosj"]
+[ext_resource type="SpriteFrames" uid="uid://co1ft38yoprcq" path="res://assets/game/stages/limo/henchmen.res" id="9_xtsds"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ylkxk"]
+shader = ExtResource("4_2gosj")
+shader_parameter/funnyShit = ExtResource("5_1nyvw")
+
+[node name="limo" type="Node2D"]
+script = ExtResource("1_11vc5")
+car_sounds = Array[AudioStream]([ExtResource("2_8o2p2"), ExtResource("3_xtsds")])
+default_zoom = 0.9
+
+[node name="sunset" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 0.1)
+
+[node name="sprite" type="Sprite2D" parent="sunset"]
+z_index = 10
+material = SubResource("ShaderMaterial_ylkxk")
+position = Vector2(-120, -50)
+texture = ExtResource("2_potqh")
+centered = false
+
+[node name="bg_limo" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0.4)
+
+[node name="sprite" type="AnimatedSprite2D" parent="bg_limo"]
+z_index = 20
+position = Vector2(-200, 480)
+sprite_frames = ExtResource("3_8o2p2")
+animation = &"background limo pink"
+frame_progress = 0.306864
+centered = false
+script = ExtResource("4_xtsds")
+playing = true
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="fg_limo" type="AnimatedSprite2D" parent="."]
+z_index = 150
+position = Vector2(-120, 550)
+sprite_frames = ExtResource("5_axglq")
+animation = &"Limo stage"
+frame_progress = 0.807351
+centered = false
+script = ExtResource("4_xtsds")
+playing = true
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="fast_car" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 500
+position = Vector2(-26000, 160)
+texture = ExtResource("7_2gosj")
+centered = false
+
+[node name="car_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[node name="car_pass" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
+[node name="dancers" type="Parallax2D" parent="."]
+unique_name_in_owner = true
+scroll_scale = Vector2(0.4, 0.4)
+
+[node name="0" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+position = Vector2(100, 100)
+sprite_frames = ExtResource("9_xtsds")
+animation = &"right"
+centered = false
+script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="1" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+position = Vector2(400, 100)
+sprite_frames = ExtResource("9_xtsds")
+animation = &"hench dancing"
+centered = false
+script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="2" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+position = Vector2(700, 100)
+sprite_frames = ExtResource("9_xtsds")
+animation = &"hench dancing"
+centered = false
+script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="3" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+position = Vector2(1000, 100)
+sprite_frames = ExtResource("9_xtsds")
+animation = &"hench dancing"
+centered = false
+script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="4" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+position = Vector2(1300, 100)
+sprite_frames = ExtResource("9_xtsds")
+animation = &"left"
+centered = false
+script = ExtResource("4_xtsds")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="player" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 300
+position = Vector2(1274, 595)
+script = ExtResource("5_8o2p2")
+
+[node name="spectator" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 100
+position = Vector2(755, 790)
+script = ExtResource("5_8o2p2")
+character_path = "uid://cfd0vee7ua8k7"
+
+[node name="opponent" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 200
+position = Vector2(263, 831)
+script = ExtResource("5_8o2p2")
+character_path = "uid://cdxxht68lxv1a"
+
+[connection signal="timeout" from="car_timer" to="." method="reset_fast_car"]

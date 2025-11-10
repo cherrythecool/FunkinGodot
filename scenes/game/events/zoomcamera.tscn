@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://7qbdk7fhc4bw"]
-
-[ext_resource type="Script" uid="uid://c53gucuao8sh1" path="res://scenes/game/events/zoomcamera.gd" id="1_sphdt"]
-[ext_resource type="Script" uid="uid://ccygr6542u5ga" path="res://scripts/game/funkin_script.gd" id="1_uw3eq"]
-
-[node name="zoomcamera" type="Node"]
-script = ExtResource("1_sphdt")
-metadata/_custom_type_script = ExtResource("1_uw3eq")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="SongAssets" load_steps=3 format=3 uid="uid://c30ffb6qbq5jg"]
 
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_jyxbl"]
-[ext_resource type="PackedScene" uid="uid://8gvi1td3sh2t" path="res://scenes/game/assets/stages/stage_erect.tscn" id="2_ea61x"]
+[ext_resource type="PackedScene" uid="uid://8gvi1td3sh2t" path="res://scenes/game/stages/stage_erect.tscn" id="2_ea61x"]
 
 [resource]
 script = ExtResource("1_jyxbl")

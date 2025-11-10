@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="SongAssets" load_steps=4 format=3 uid="uid://bkpmothden5ls"]
 
-[ext_resource type="Script" path="res://scripts/resources/song_assets.gd" id="1_ruvv4"]
-[ext_resource type="PackedScene" uid="uid://dx13k6w54if1l" path="res://scenes/game/assets/characters/darnell.tscn" id="2_g4hj6"]
-[ext_resource type="PackedScene" uid="uid://dhtct6lrdao7r" path="res://scenes/game/assets/stages/philly_streets_erect.tscn" id="3_2eaya"]
+[ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_ruvv4"]
+[ext_resource type="PackedScene" uid="uid://dx13k6w54if1l" path="res://scenes/game/characters/darnell.tscn" id="2_g4hj6"]
+[ext_resource type="PackedScene" uid="uid://dhtct6lrdao7r" path="res://scenes/game/stages/philly_streets_erect.tscn" id="3_2eaya"]
 
 [resource]
 script = ExtResource("1_ruvv4")

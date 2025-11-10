@@ -58,6 +58,12 @@ func _parse_default_as_config() -> ConfigFile:
 		for key: String in section_value.keys():
 			new_file.set_value(section, key, section_value.get(key, null))
 
+	var refresh_rate: float = DisplayServer.screen_get_refresh_rate()
+	if refresh_rate > 0.0:
+		new_file.set_value("performance", "fps_cap", refresh_rate * 2.0)
+	else:
+		new_file.set_value("performance", "fps_cap", 0.0)
+
 	return new_file
 
 

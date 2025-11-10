@@ -13,7 +13,7 @@ func _ready() -> void:
 	starting_texture_filter = texture_rect.texture_filter
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if target_y == 0:
 		texture_rect.position = (
 			Vector2(8.0, 56.0) +

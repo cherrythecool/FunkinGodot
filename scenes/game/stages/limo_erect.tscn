@@ -1,0 +1,277 @@
+[gd_scene load_steps=22 format=3 uid="uid://dvw6bjqx07lwq"]
+
+[ext_resource type="Script" uid="uid://cfcm0avtkih5m" path="res://scenes/game/stages/limo_erect.gd" id="1_kku1o"]
+[ext_resource type="AudioStream" uid="uid://d3dsst4t3xlnc" path="res://assets/game/stages/limo/car_0.ogg" id="2_bfmtg"]
+[ext_resource type="AudioStream" uid="uid://c4uwi5d31prdc" path="res://assets/game/stages/limo/car_1.ogg" id="3_cr4ss"]
+[ext_resource type="Material" uid="uid://h6uy4lto3tyx" path="res://assets/shaders/additive.tres" id="4_6tkr4"]
+[ext_resource type="Texture2D" uid="uid://l6g6nongsi4t" path="res://assets/game/stages/limo_erect/limoSunset.png" id="4_rgi3v"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/limo_erect/shooting star.res" id="5_dqopq"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/limo_erect/bg_limo.res" id="7_dqopq"]
+[ext_resource type="SpriteFrames" path="res://assets/game/stages/limo_erect/limo_drive.res" id="8_dqopq"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="8_gyo08"]
+[ext_resource type="Shader" uid="uid://bgwusoh6kicj3" path="res://assets/shaders/adjust_hsv.gdshader" id="10_cr4ss"]
+[ext_resource type="Texture2D" uid="uid://2vt2m2655uu" path="res://assets/game/stages/limo/fastCarLol.png" id="10_gwn6i"]
+[ext_resource type="SpriteFrames" uid="uid://co1ft38yoprcq" path="res://assets/game/stages/limo/henchmen.res" id="11_g8tp8"]
+[ext_resource type="Texture2D" uid="uid://bdvbvk2gtlsac" path="res://assets/game/stages/limo_erect/mistMid.png" id="12_bfmtg"]
+[ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/stages/character_preview.gd" id="12_re7xl"]
+[ext_resource type="Texture2D" uid="uid://bf0yvjn8cji58" path="res://assets/game/stages/limo_erect/mistBack.png" id="13_bfmtg"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4vvd"]
+shader = ExtResource("10_cr4ss")
+shader_parameter/hue = -30.0
+shader_parameter/saturation = -20.0
+shader_parameter/contrast = 0.0
+shader_parameter/brightness = -30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17t55"]
+shader = ExtResource("10_cr4ss")
+shader_parameter/hue = -30.0
+shader_parameter/saturation = -20.0
+shader_parameter/contrast = 0.0
+shader_parameter/brightness = -30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6bf0j"]
+shader = ExtResource("10_cr4ss")
+shader_parameter/hue = -30.0
+shader_parameter/saturation = -20.0
+shader_parameter/contrast = 0.0
+shader_parameter/brightness = -30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_afjqi"]
+shader = ExtResource("10_cr4ss")
+shader_parameter/hue = -30.0
+shader_parameter/saturation = -20.0
+shader_parameter/contrast = 0.0
+shader_parameter/brightness = -30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gyo08"]
+shader = ExtResource("10_cr4ss")
+shader_parameter/hue = -30.0
+shader_parameter/saturation = -20.0
+shader_parameter/contrast = 0.0
+shader_parameter/brightness = -30.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_if4vr"]
+shader = ExtResource("10_cr4ss")
+shader_parameter/hue = -30.0
+shader_parameter/saturation = -20.0
+shader_parameter/contrast = 0.0
+shader_parameter/brightness = -30.0
+
+[node name="limo_erect" type="Node2D"]
+script = ExtResource("1_kku1o")
+car_sounds = Array[AudioStream]([ExtResource("2_bfmtg"), ExtResource("3_cr4ss")])
+default_zoom = 0.9
+
+[node name="sunset" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 0.1)
+
+[node name="sprite" type="Sprite2D" parent="sunset"]
+z_index = 10
+position = Vector2(-120, -50)
+texture = ExtResource("4_rgi3v")
+centered = false
+
+[node name="mist_5" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.2, 0.2)
+repeat_size = Vector2(3072, 0)
+autoscroll = Vector2(100, 0)
+repeat_times = 2
+
+[node name="sprite" type="Sprite2D" parent="mist_5"]
+modulate = Color(0.905882, 0.643137, 0.501961, 1)
+z_index = 98
+material = ExtResource("4_6tkr4")
+position = Vector2(-650, -400)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("12_bfmtg")
+centered = false
+
+[node name="stars" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.12, 0.12)
+
+[node name="sprite" type="AnimatedSprite2D" parent="stars"]
+z_index = 20
+material = ExtResource("4_6tkr4")
+position = Vector2(200, 0)
+sprite_frames = ExtResource("5_dqopq")
+animation = &"shooting star"
+centered = false
+script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="bg_limo" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 0.4)
+
+[node name="sprite" type="AnimatedSprite2D" parent="bg_limo"]
+z_index = 20
+position = Vector2(-200, 480)
+sprite_frames = ExtResource("7_dqopq")
+animation = &"background limo blue"
+frame_progress = 0.53629
+centered = false
+script = ExtResource("8_gyo08")
+playing = true
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="fg_limo" type="AnimatedSprite2D" parent="."]
+z_index = 150
+position = Vector2(-120, 550)
+sprite_frames = ExtResource("8_dqopq")
+animation = &"Limo stage"
+frame_progress = 0.358204
+centered = false
+script = ExtResource("8_gyo08")
+playing = true
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="fast_car" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+z_index = 500
+material = SubResource("ShaderMaterial_l4vvd")
+position = Vector2(-26000, 160)
+texture = ExtResource("10_gwn6i")
+centered = false
+
+[node name="car_timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
+[node name="car_pass" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
+[node name="dancers" type="Parallax2D" parent="."]
+unique_name_in_owner = true
+scroll_scale = Vector2(0.4, 0.4)
+
+[node name="0" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+material = SubResource("ShaderMaterial_17t55")
+position = Vector2(100, 100)
+sprite_frames = ExtResource("11_g8tp8")
+animation = &"left"
+centered = false
+script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="1" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+material = SubResource("ShaderMaterial_6bf0j")
+position = Vector2(400, 100)
+sprite_frames = ExtResource("11_g8tp8")
+animation = &"hench dancing"
+centered = false
+script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="2" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+material = SubResource("ShaderMaterial_afjqi")
+position = Vector2(700, 100)
+sprite_frames = ExtResource("11_g8tp8")
+animation = &"hench dancing"
+centered = false
+script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="3" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+material = SubResource("ShaderMaterial_gyo08")
+position = Vector2(1000, 100)
+sprite_frames = ExtResource("11_g8tp8")
+animation = &"hench dancing"
+centered = false
+script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="4" type="AnimatedSprite2D" parent="dancers"]
+z_index = 30
+material = SubResource("ShaderMaterial_if4vr")
+position = Vector2(1300, 100)
+sprite_frames = ExtResource("11_g8tp8")
+animation = &"left"
+centered = false
+script = ExtResource("8_gyo08")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="mist_4" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.6, 0.6)
+repeat_size = Vector2(3072, 0)
+autoscroll = Vector2(700, 0)
+repeat_times = 2
+
+[node name="sprite" type="Sprite2D" parent="mist_4"]
+modulate = Color(0.611765, 0.466667, 0.780392, 1)
+z_index = 98
+material = ExtResource("4_6tkr4")
+position = Vector2(-650, -380)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("13_bfmtg")
+centered = false
+
+[node name="mist_3" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.8, 0.8)
+repeat_size = Vector2(3072, 0)
+autoscroll = Vector2(900, 0)
+repeat_times = 2
+
+[node name="sprite" type="Sprite2D" parent="mist_3"]
+modulate = Color(0.655, 0.851, 0.745, 0.5)
+z_index = 99
+material = ExtResource("4_6tkr4")
+position = Vector2(-650, -100)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("12_bfmtg")
+centered = false
+
+[node name="player" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 300
+position = Vector2(1274, 595)
+script = ExtResource("12_re7xl")
+
+[node name="spectator" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 100
+position = Vector2(755, 790)
+script = ExtResource("12_re7xl")
+character_path = "uid://cfd0vee7ua8k7"
+
+[node name="opponent" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 200
+position = Vector2(263, 831)
+script = ExtResource("12_re7xl")
+character_path = "uid://cdxxht68lxv1a"
+
+[node name="mist_1" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.1, 1.1)
+repeat_size = Vector2(2048, 0)
+autoscroll = Vector2(1700, 0)
+repeat_times = 3
+
+[node name="sprite" type="Sprite2D" parent="mist_1"]
+modulate = Color(0.776471, 0.74902, 0.870588, 0.4)
+z_index = 400
+material = ExtResource("4_6tkr4")
+position = Vector2(-650, -100)
+texture = ExtResource("12_bfmtg")
+centered = false
+
+[node name="mist_2" type="Parallax2D" parent="."]
+scroll_scale = Vector2(1.2, 1.2)
+repeat_size = Vector2(2662.4, 0)
+autoscroll = Vector2(2100, 0)
+repeat_times = 2
+
+[node name="sprite" type="Sprite2D" parent="mist_2"]
+modulate = Color(0.415686, 0.301961, 0.631373, 1)
+z_index = 400
+material = ExtResource("4_6tkr4")
+position = Vector2(-650, -100)
+scale = Vector2(1.3, 1.3)
+texture = ExtResource("13_bfmtg")
+centered = false
+
+[connection signal="timeout" from="car_timer" to="." method="reset_fast_car"]

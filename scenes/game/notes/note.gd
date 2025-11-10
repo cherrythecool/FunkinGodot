@@ -29,13 +29,14 @@ var sustain_offset: float = 0.0
 var field: NoteField = null
 var character: Character = null
 var previous_step: int = -128
+var sustain_release_when_hit: float = 0.0
 var sustain_timer: float = 0.0:
 	set(v):
 		if not is_sustain:
 			return
 		
 		sustain_timer = v
-		sustain.modulate.a = clampf(v / Conductor.instance.sustain_release_delta, 0.0, 1.0)
+		sustain.modulate.a = clampf(v / sustain_release_when_hit, 0.0, 1.0)
 
 
 func _ready() -> void:

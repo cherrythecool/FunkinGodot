@@ -1,8 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy7f1knbir4ub"]
+[gd_scene load_steps=2 format=3 uid="uid://dy7f1knbir4ub"]
 
 [ext_resource type="Script" uid="uid://cqhwgvh2e5u26" path="res://scenes/game/events/playanimation.gd" id="1_6kpoa"]
-[ext_resource type="Script" uid="uid://ccygr6542u5ga" path="res://scripts/game/funkin_script.gd" id="1_ym1l0"]
 
 [node name="playanimation" type="Node"]
 script = ExtResource("1_6kpoa")
-metadata/_custom_type_script = ExtResource("1_ym1l0")
+metadata/_custom_type_script = "uid://ccygr6542u5ga"

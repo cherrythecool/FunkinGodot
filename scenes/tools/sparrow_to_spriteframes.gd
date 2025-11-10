@@ -39,9 +39,9 @@ func _import() -> Error:
 	var sprite_frames: SpriteFrames = SpriteFrames.new()
 	sprite_frames.remove_animation('default')
 
-	var texture = null
-	var image: Image
-	var image_texture: ImageTexture
+	var texture: Texture2D = null
+	var image: Image = null
+	var image_texture: ImageTexture = null
 
 	# This is done to prevent reuse of atlas textures.
 	# The actual difference this makes may be unnoticable but it is still done.
@@ -79,7 +79,7 @@ func _import() -> Error:
 		if texture == null:
 			return ERR_FILE_MISSING_DEPENDENCIES
 
-		var frame = SparrowFrame.new()
+		var frame: SparrowFrame = SparrowFrame.new()
 		frame.name = xml.get_named_attribute_value_safe('name')
 
 		if frame.name == '':
@@ -98,7 +98,7 @@ func _import() -> Error:
 		frame.has_offsets = xml.has_attribute('frameX') and options.get('use_offsets', true)
 
 		var frame_data: Array = _get_frame_name_and_number(frame)
-		for sparrow_frame in sparrow_frames:
+		for sparrow_frame: SparrowFrame in sparrow_frames:
 			if sparrow_frame.source == frame.source and \
 					sparrow_frame.offsets == frame.offsets:
 				frame.atlas = sparrow_frame.atlas
@@ -111,9 +111,8 @@ func _import() -> Error:
 
 			# Just used to not have to reference frame 24/7.
 			var atlas: AtlasTexture = frame.atlas
-
 			if rotated:
-				if not (image and image_texture):
+				if not is_instance_valid(image_texture):
 					image = texture.get_image()
 					image.decompress()
 					image_texture = ImageTexture.create_from_image(image)
@@ -181,7 +180,7 @@ func _import() -> Error:
 
 	sparrow_frames.sort_custom(_sort_frames)
 
-	for frame in sparrow_frames:
+	for frame: SparrowFrame in sparrow_frames:
 		sprite_frames.add_frame(frame.animation, frame.atlas)
 
 	var filename: StringName = &'%s.res' % [source_file.get_basename()]
@@ -189,7 +188,7 @@ func _import() -> Error:
 	return ResourceSaver.save(sprite_frames, filename, ResourceSaver.FLAG_COMPRESS)
 
 
-func _get_frame_name_and_number(frame) -> Array:
+func _get_frame_name_and_number(frame: SparrowFrame) -> Array:
 	var frame_number: StringName = frame.name.right(4)
 	var animation_name: StringName = frame.name.left(frame.name.length() - 4)
 
@@ -201,7 +200,7 @@ func _get_frame_name_and_number(frame) -> Array:
 	return [frame_number.to_int() if frame_number.is_valid_int() else -1, animation_name]
 
 
-func _sort_frames(a_frame, b_frame) -> bool:
+func _sort_frames(a_frame: SparrowFrame, b_frame: SparrowFrame) -> bool:
 	var a: Array = _get_frame_name_and_number(a_frame)
 	var b: Array = _get_frame_name_and_number(b_frame)
 	return a[0] < b[0]

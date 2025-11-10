@@ -4,7 +4,7 @@ class_name SparrowFrame extends RefCounted
 var name: StringName
 var animation: StringName
 
-var atlas = null
+var atlas: Texture2D = null
 
 var source: Rect2i
 

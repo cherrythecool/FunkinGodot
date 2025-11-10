@@ -15,7 +15,10 @@ var centered_receptors: bool = false:
 		centered_receptors = value
 		set_centered_receptors(value)
 
+@export var bumps: bool = false
 @export var bump_amount: Vector2 = Vector2(0.03, 0.03)
+@export var bump_interval: int = 4
+@export var zoom_lerping: bool = true
 
 @onready var note_fields: Node2D = %note_fields
 @onready var health_bar: HealthBar = %health_bar
@@ -53,7 +56,7 @@ func _ready() -> void:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		return
 
-	game.conductor.measure_hit.connect(_on_measure_hit)
+	game.conductor.beat_hit.connect(_on_beat_hit)
 
 	if note_fields.has_node(^'player'):
 		player_field = note_fields.get_node(^'player')
@@ -73,20 +76,32 @@ func setup() -> void:
 		combo_node.texture_filter = hud_skin.combo_filter
 		rating_sprite.scale = hud_skin.rating_scale
 		rating_sprite.texture_filter = hud_skin.rating_filter
+	if is_instance_valid(opponent_field):
+		opponent_field.note_hit.connect(
+			_on_first_opponent_note,
+			CONNECT_ONE_SHOT
+		)
 
 
-func _on_measure_hit(_measure: int) -> void:
-	if not (game.playing and game.camera_bumps):
+func _on_beat_hit(beat: int) -> void:
+	if not (game.playing and bumps):
+		return
+	if beat <= 0:
 		return
 
-	scale += bump_amount
+	if beat % bump_interval == 0:
+		scale += bump_amount
 
 
 func _process(delta: float) -> void:
-	if not (game.playing and game.camera_bumps):
+	if not (game.playing and zoom_lerping):
 		return
 
 	scale = scale.lerp(Vector2.ONE, delta * 3.0)
+
+
+func _on_first_opponent_note(_note: Note) -> void:
+	bumps = true
 
 
 func _on_note_hit(note: Note) -> void:

@@ -3,9 +3,14 @@ extends Node
 
 var fullscreened: bool = false:
 	set(value):
+		if main_window.unresizable:
+			return
 		if not Engine.is_embedded_in_editor():
 			main_window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN if value else Window.MODE_WINDOWED
-		fullscreened = value
+	get:
+		if Engine.is_embedded_in_editor():
+			return false
+		return main_window.mode != Window.MODE_WINDOWED
 
 var game_size: Vector2:
 	get:
@@ -35,7 +40,7 @@ func _ready() -> void:
 
 	Config.loaded.connect(_on_config_loaded)
 	Config.value_changed.connect(_on_value_changed)
-	
+
 	var dpi_scale: float = DisplayServer.screen_get_scale()
 	if OS.has_feature('pc') and dpi_scale != 1.0 and not Engine.is_embedded_in_editor():
 		get_window().size *= dpi_scale

@@ -134,9 +134,8 @@ stream = ExtResource("4_1u4p0")
 scroll_scale = Vector2(0.1, 0.1)
 
 [node name="sprite" type="Sprite2D" parent="bg"]
-position = Vector2(-153, -106)
+position = Vector2(633.5, 204)
 texture = ExtResource("1_oablf")
-centered = false
 
 [node name="crowd" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.3, 0.3)
@@ -145,7 +144,7 @@ scroll_scale = Vector2(0.3, 0.3)
 position = Vector2(-75, 209)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/crowd"
-frame = 11
+frame = 3
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -153,7 +152,7 @@ metadata/_custom_type_script = "uid://diqmdngjb60u2"
 position = Vector2(-40, 391)
 sprite_frames = ExtResource("7_5ydai")
 animation = &"stage full instance 1"
-frame_progress = 0.045807164
+frame_progress = 0.8157965
 centered = false
 script = ExtResource("4_xae3q")
 playing = true
@@ -175,7 +174,7 @@ material = SubResource("CanvasItemMaterial_xae3q")
 position = Vector2(0, 55)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/bar"
-frame = 1
+frame = 2
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 

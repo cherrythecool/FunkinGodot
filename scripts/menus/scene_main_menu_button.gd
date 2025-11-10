@@ -1,7 +1,7 @@
 class_name SceneButton extends MainMenuButton
 
 
-@export_file('*.tscn') var scene_path: String
+@export_file("*.tscn") var scene_path: String
 
 
 func accept() -> bool:

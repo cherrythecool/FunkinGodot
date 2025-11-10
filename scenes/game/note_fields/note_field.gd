@@ -90,6 +90,7 @@ func update_note(note: Note, delta: float = 0.0) -> void:
 			note.sustain_timer -= delta
 		else:
 			note.sustain_timer = conductor.sustain_release_delta
+			note.sustain_release_when_hit = conductor.sustain_release_delta
 			if (
 				receptor.play_confirm and
 				receptor.last_anim != &"confirm"
@@ -102,8 +103,7 @@ func update_note(note: Note, delta: float = 0.0) -> void:
 
 	if note.hit:
 		return
-	var difference: float = (note.data.time + note.data.length - 
-			conductor.time)
+	var difference: float = note.data.time - conductor.time
 	if difference < -note.hit_window:
 		miss_note(note)
 

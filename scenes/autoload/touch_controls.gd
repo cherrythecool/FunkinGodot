@@ -15,7 +15,7 @@ var states: Array[bool] = [false, false, false, false]
 
 
 func _ready() -> void:
-	if not DisplayServer.is_touchscreen_available():
+	if (not DisplayServer.is_touchscreen_available()) or not OS.has_feature('mobile'):
 		queue_free()
 		return
 

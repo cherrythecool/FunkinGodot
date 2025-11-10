@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="SongAssets" load_steps=5 format=3 uid="uid://dsujgwpj373gg"]
 
-[ext_resource type="PackedScene" uid="uid://d4dbyolh86dgm" path="res://scenes/game/assets/characters/spooky.tscn" id="1_l6j4e"]
+[ext_resource type="PackedScene" uid="uid://d4dbyolh86dgm" path="res://scenes/game/characters/spooky.tscn" id="1_l6j4e"]
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_r1or1"]
-[ext_resource type="PackedScene" uid="uid://dli1xwrsjwn5h" path="res://scenes/game/assets/characters/bf_spooky.tscn" id="2_cm13r"]
-[ext_resource type="PackedScene" uid="uid://be43de6mqy3ia" path="res://scenes/game/assets/stages/spooky.tscn" id="3_pa7xj"]
+[ext_resource type="PackedScene" uid="uid://dli1xwrsjwn5h" path="res://scenes/game/characters/bf_spooky.tscn" id="2_cm13r"]
+[ext_resource type="PackedScene" uid="uid://be43de6mqy3ia" path="res://scenes/game/stages/spooky.tscn" id="3_pa7xj"]
 
 [resource]
 script = ExtResource("1_r1or1")
