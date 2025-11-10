@@ -3,7 +3,6 @@ class_name SpriteCollection extends Resource
 
 @export var map: Dictionary[StringName, CollectedSprite] = {}
 @export var size: Vector2i = Vector2i.ZERO
-@export var scale: int = 1
 @export var texture: Texture2D
 
 
@@ -44,6 +43,5 @@ static func load_from_json(input: Dictionary, texture: Texture2D) -> SpriteColle
 	if metadata.has('size'):
 		var raw_size: Dictionary = metadata.get('size', {})
 		collection.size = Vector2i(raw_size.get('w', 0), raw_size.get('h', 0))
-	collection.scale = int(metadata.get('resolution', '1'))
 	
 	return collection
