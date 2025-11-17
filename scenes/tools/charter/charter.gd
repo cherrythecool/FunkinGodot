@@ -3,12 +3,12 @@ extends Control
 @onready var conductor: Conductor = %conductor
 @onready var tracks: Tracks = %tracks
 
-static var song_data: Dictionary = {"n": "", "d": "hard"}
+static var song_data: Dictionary = {"n": null, "d": null}
 static var chart: Chart = null
 
 static var previous_song_position: float = 0
 
-var selected_notes:Array[Node2D] = []
+var selected_notes:Array[CharterNote] = []
 var clipboard:CharterClipboard
 
 @onready var camera: Camera2D = %camera
@@ -24,7 +24,7 @@ var player_icon: Sprite2D = null
 
 @onready var event_grid: Control = %event_grid
 
-@onready var cursor_note: Node2D = %cursor_note
+@onready var cursor_note: CharterNote = %cursor_note
 @onready var strum_line: ColorRect = %strum_line
 @onready var note_group: Node2D = %notes
 @onready var separator_group: Node2D = %separators
@@ -40,7 +40,7 @@ func _ready() -> void:
 	conductor.reset()
 
 	if chart == null:
-		load_song(&'fresh_erect', &'nightmare')
+		load_song(&'darnell_bf', &'hard')
 	conductor.get_bpm_changes(chart.events)
 	conductor.raw_time = previous_song_position
 
@@ -73,7 +73,7 @@ func load_icon(point: Node2D, icon_res: Icon) -> Sprite2D:
 	return icon
 	
 func reload_notes() -> void:
-	for note: Node2D in rendered_notes: note.queue_free()
+	for note: CharterNote in rendered_notes: note.queue_free()
 	rendered_notes.clear()
 	
 	for data: NoteData in chart.notes:
@@ -83,8 +83,8 @@ func reload_notes() -> void:
 		if (event.time == 0 && event is not BPMChange) || event.time > 0:  # ignore first bpm change so they don't accidentally delete it
 			add_event_object(event)
 
-func add_note_object(note_data: NoteData) -> Node2D:
-	var note: Node = load('res://scenes/tools/charter/charter_note.tscn').instantiate()
+func add_note_object(note_data: NoteData) -> CharterNote:
+	var note: CharterNote = load('res://scenes/tools/charter/charter_note.tscn').instantiate()
 	note.setup(note_data)
 	
 	var target_grid: Node = opponent_grid
@@ -99,8 +99,8 @@ func add_note_object(note_data: NoteData) -> Node2D:
 	note_group.add_child(note)
 	return note
 	
-func add_event_object(event_data: EventData) -> Node2D:
-	var note: Node = load('res://scenes/tools/charter/charter_note.tscn').instantiate()
+func add_event_object(event_data: EventData) -> CharterNote:
+	var note: CharterNote = load('res://scenes/tools/charter/charter_note.tscn').instantiate()
 	note.setup_event(event_data)
 	
 	note.position.x = event_grid.position.x + 23
@@ -117,7 +117,7 @@ func _process(_delta: float) -> void:
 	strum_line.position.y = 192 + conductor.get_time_in_step(conductor.time*1000) * opponent_grid.grid_size.y
 	camera.position.y = strum_line.global_position.y
 	
-	for note: Node2D in rendered_notes:
+	for note: CharterNote in rendered_notes:
 		if selected_notes.has(note):
 			note.modulate.a = 0.6
 		else:
@@ -134,7 +134,7 @@ func _process(_delta: float) -> void:
 	# Optimization????
 	var copy_notes_to_clipboard: Callable = func() -> void:
 		clipboard = CharterClipboard.new(conductor.raw_time)
-		for note: Node2D in selected_notes:
+		for note: CharterNote in selected_notes:
 			if note.is_event:
 				clipboard.events.push_back(note.event_data.duplicate_deep())
 			else:
@@ -157,21 +157,21 @@ func _process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("charter_select_all"):
 		selected_notes.clear()
-		for note: Node2D in rendered_notes:
+		for note: CharterNote in rendered_notes:
 			selected_notes.push_back(note)
 	if Input.is_action_just_pressed("charter_select_all_note"):
 		selected_notes.clear()
-		for note: Node2D in rendered_notes:
+		for note: CharterNote in rendered_notes:
 			if !note.is_event:
 				selected_notes.push_back(note)
 	if Input.is_action_just_pressed("charter_select_all_event"):
 		selected_notes.clear()
-		for note: Node2D in rendered_notes:
+		for note: CharterNote in rendered_notes:
 			if note.is_event:
 				selected_notes.push_back(note)
 	if Input.is_action_just_pressed("charter_cut"):
 		copy_notes_to_clipboard.call()
-		for note: Node2D in selected_notes:
+		for note: CharterNote in selected_notes:
 			remove_note(note)
 	
 func reload_grid_separator() -> void:
@@ -198,12 +198,12 @@ func _input(event: InputEvent) -> void:
 				conductor.calculate_beat()
 				
 			if event.keycode == KEY_E:
-				for note: Node2D in selected_notes:
+				for note: CharterNote in selected_notes:
 					if !note.is_event:
 						note.length += conductor.step_delta
 						note.data.length = note.length
 			if event.keycode == KEY_Q:
-				for note: Node2D in selected_notes:
+				for note: CharterNote in selected_notes:
 					if !note.is_event:
 						note.length -= conductor.step_delta
 						note.data.length = note.length
@@ -242,11 +242,11 @@ func _input(event: InputEvent) -> void:
 			if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 				conductor.raw_time += 0.01
 			if event.button_index == MOUSE_BUTTON_RIGHT:
-				for note: Node2D in rendered_notes:
+				for note: CharterNote in rendered_notes:
 					if note.rect.get_rect().has_point(note.get_local_mouse_position()):
 						remove_note(note)
 			if event.button_index == MOUSE_BUTTON_LEFT:
-				for note: Node2D in rendered_notes:
+				for note: CharterNote in rendered_notes:
 					if note.rect.get_rect().has_point(note.get_local_mouse_position()):
 						if !Input.is_key_label_pressed(KEY_SHIFT):
 							selected_notes.clear()
@@ -287,7 +287,7 @@ func _icon_ease(x: float) -> float:
 func _icon_lerp() -> float:
 	return _icon_ease(conductor.beat - floorf(conductor.beat))
 
-func remove_note(note: Node2D) -> void:
+func remove_note(note: CharterNote) -> void:
 	if note.is_event:
 		chart.events.erase(note.event_data)
 	else:

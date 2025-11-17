@@ -1,4 +1,5 @@
 extends AnimatedSprite2D
+class_name CharterNote
 
 @onready var rect: Control = %rect
 var data: NoteData = null
