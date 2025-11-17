@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b3mjv4e8vba4d"]
+
+[node name="strum_line" type="ColorRect"]
+offset_right = 368.0
+offset_bottom = 4.0
+color = Color(0.31, 0.31, 0.31, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://csnprcxwpw805"]
+[gd_scene load_steps=8 format=3 uid="uid://csnprcxwpw805"]
 
 [ext_resource type="Script" uid="uid://bxs0wqnkit3f3" path="res://scenes/tools/charter/charter.gd" id="1_2slaa"]
 [ext_resource type="Texture2D" uid="uid://c3x06i25jm34a" path="res://assets/tools/background_inverted.png" id="1_imc64"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="3_ien6p"]
 [ext_resource type="Script" uid="uid://druy6vgnold57" path="res://scenes/tools/charter/grid.gd" id="4_gvgc3"]
 [ext_resource type="PackedScene" uid="uid://b0qhyxlpd3kr2" path="res://scenes/tools/charter/charter_note.tscn" id="5_lkymj"]
+[ext_resource type="PackedScene" uid="uid://b3mjv4e8vba4d" path="res://scenes/tools/charter/charter_line.tscn" id="6_ien6p"]
 
 [node name="charter" type="Control"]
 layout_mode = 3
@@ -55,16 +56,15 @@ limit_top = 0
 [node name="grid_parallax" type="Parallax2D" parent="."]
 unique_name_in_owner = true
 repeat_size = Vector2(0, 1440)
-repeat_times = 2
 limit_begin = Vector2(0, 0)
 
 [node name="opponent_grid" type="Control" parent="grid_parallax"]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = 416.0
+offset_left = 456.0
 offset_top = 192.0
-offset_right = 600.0
+offset_right = 640.0
 offset_bottom = 1632.0
 pivot_offset = Vector2(180, 360)
 script = ExtResource("4_gvgc3")
@@ -75,29 +75,60 @@ rows = 32
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
-offset_left = 680.0
+offset_left = 640.0
 offset_top = 192.0
-offset_right = 864.0
+offset_right = 824.0
 offset_bottom = 1632.0
 pivot_offset = Vector2(180, 360)
 script = ExtResource("4_gvgc3")
 columns = 4
 rows = 32
 
+[node name="event_grid" type="Control" parent="grid_parallax"]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = 824.0
+offset_top = 192.0
+offset_right = 870.0
+offset_bottom = 1632.0
+pivot_offset = Vector2(180, 360)
+script = ExtResource("4_gvgc3")
+columns = 1
+rows = 32
+
+[node name="separator" type="ColorRect" parent="grid_parallax"]
+offset_left = 638.0
+offset_top = 192.0
+offset_right = 642.0
+offset_bottom = 1632.0
+color = Color(0, 0, 0, 1)
+
+[node name="separator_2" type="ColorRect" parent="grid_parallax"]
+offset_left = 822.0
+offset_top = 192.0
+offset_right = 826.0
+offset_bottom = 1632.0
+color = Color(0.48, 0.48, 0.48, 1)
+
+[node name="separators" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(456, 192)
+
 [node name="notes" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(0, 192)
 
-[node name="strum_line" type="ColorRect" parent="."]
+[node name="strum_line" parent="." instance=ExtResource("6_ien6p")]
 unique_name_in_owner = true
 layout_mode = 0
-offset_left = 416.0
+offset_left = 456.0
 offset_top = 192.0
-offset_right = 864.0
+offset_right = 824.0
 offset_bottom = 196.0
-color = Color(0.87, 0, 0, 1)
+color = Color(1, 0, 0, 1)
 
 [node name="cursor_note" parent="." instance=ExtResource("5_lkymj")]
 unique_name_in_owner = true
-modulate = Color(0.65, 0.65, 0.65, 0.16862746)
-position = Vector2(440, 216)
+modulate = Color(1, 1, 1, 0.14509805)
+position = Vector2(479, 216)

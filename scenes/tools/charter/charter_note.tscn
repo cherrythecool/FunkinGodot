@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://b0qhyxlpd3kr2"]
+[gd_scene load_steps=7 format=3 uid="uid://b0qhyxlpd3kr2"]
 
 [ext_resource type="SpriteFrames" path="res://assets/game/skins/default/notes.res" id="1_ht4he"]
 [ext_resource type="Script" uid="uid://bh221xvm2cb8b" path="res://scenes/tools/charter/charter_note.gd" id="2_ht4he"]
 [ext_resource type="Texture2D" uid="uid://bbc06fsifnyro" path="res://assets/game/skins/default/notes.png" id="3_i1tih"]
+[ext_resource type="Texture2D" uid="uid://cwbsiifitpfty" path="res://assets/tools/charter/events/default.png" id="3_y7qq5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y7qq5"]
 atlas = ExtResource("3_i1tih")
@@ -18,6 +19,11 @@ sprite_frames = ExtResource("1_ht4he")
 animation = &"down note"
 script = ExtResource("2_ht4he")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="event" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("3_y7qq5")
 
 [node name="rect" type="Control" parent="."]
 unique_name_in_owner = true

@@ -6,6 +6,4 @@
 script = ExtResource("2_2sp4a")
 display_name = &"High"
 mix = &"Erect"
-difficulties = ["easy", "normal", "hard"]
-difficulty_song_overrides = Dictionary[String, StringName]({})
 metadata/_custom_type_script = "uid://3bi6wwv6us1w"
