@@ -27,6 +27,8 @@ var timer: float = 0.0
 
 
 func _ready() -> void:
+	super()
+	
 	game.player.offset_camera_position(Vector2(-250.0, -35.0))
 	game.opponent.offset_camera_position(Vector2(230.0, 75.0))
 
