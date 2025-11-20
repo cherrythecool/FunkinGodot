@@ -11,11 +11,30 @@
 [node name="performance" type="Node2D" node_paths=PackedStringArray("options")]
 position = Vector2(-320, 0)
 script = ExtResource("1_lsu8b")
-options = [NodePath("fps_cap"), NodePath("vsync_mode"), NodePath("auto_pause"), NodePath("debug_label_visible"), NodePath("debug_label")]
-max_distance = 0.0
+options = [NodePath("intensive_visuals"), NodePath("fps_cap"), NodePath("vsync_mode"), NodePath("auto_pause"), NodePath("debug_label_visible"), NodePath("debug_label")]
+max_distance = 100.0
+
+[node name="intensive_visuals" type="Node2D" parent="."]
+position = Vector2(144, -169)
+script = ExtResource("2_4cqv6")
+section = &"performance"
+key = &"intensive_visuals"
+
+[node name="alphabet" type="Node2D" parent="intensive_visuals"]
+script = ExtResource("3_p1may")
+text = "intensive visuals"
+centered = true
+
+[node name="checkbox" type="AnimatedSprite2D" parent="intensive_visuals"]
+position = Vector2(462, 0)
+scale = Vector2(0.8, 0.8)
+sprite_frames = ExtResource("4_j1leb")
+animation = &"selected"
+offset = Vector2(-5, -35)
+script = ExtResource("5_7omr5")
 
 [node name="fps_cap" type="Node2D" parent="."]
-position = Vector2(66, -180)
+position = Vector2(66, -70)
 script = ExtResource("2_a8kn0")
 list = Array[float]([0.0, 30.0, 60.0, 120.0, 144.0, 165.0, 240.0, 360.0, 1000.0])
 display_float = false
@@ -32,7 +51,7 @@ script = ExtResource("3_p1may")
 text = "< 0 >"
 
 [node name="vsync_mode" type="Node2D" parent="."]
-position = Vector2(139, -77)
+position = Vector2(139, 27)
 script = ExtResource("7_a8kn0")
 section = &"performance"
 key = &"vsync_mode"
@@ -50,7 +69,7 @@ script = ExtResource("3_p1may")
 text = "disabled"
 
 [node name="auto_pause" type="Node2D" parent="."]
-position = Vector2(-17, 70)
+position = Vector2(-17, 174)
 script = ExtResource("2_4cqv6")
 section = &"performance"
 key = &"auto_pause"
@@ -69,7 +88,7 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_7omr5")
 
 [node name="debug_label_visible" type="Node2D" parent="."]
-position = Vector2(2, 173)
+position = Vector2(2, 277)
 script = ExtResource("2_4cqv6")
 section = &"performance"
 key = &"debug_label_visible"
@@ -88,7 +107,7 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_7omr5")
 
 [node name="debug_label" type="Node2D" parent="."]
-position = Vector2(131, 270)
+position = Vector2(131, 374)
 script = ExtResource("7_a8kn0")
 section = &"performance"
 key = &"debug_label"
@@ -105,5 +124,6 @@ position = Vector2(152, -34)
 script = ExtResource("3_p1may")
 text = "disabled"
 
+[connection signal="animation_finished" from="intensive_visuals/checkbox" to="intensive_visuals" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="auto_pause/checkbox" to="auto_pause" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="debug_label_visible/checkbox" to="debug_label_visible" method="_on_checkbox_animation_finished"]

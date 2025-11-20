@@ -67,7 +67,7 @@ func display() -> void:
 	]
 
 	if info_mode == 'debug':
-		text_output += '\n\n[Usage]\n%s / %s <GPU>\n%s / %s <TEX>\n%s / %s <CPU>\n\n[Engine]\nScene: %s\n%d Nodes (%d Orphaned)\nInput Accumulation: %s\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s (%s)' % [
+		text_output += '\n\n[Usage]\n%s / %s <GPU>\n%s / %s <TEX>\n%s / %s <CPU>\n\n[Engine]\nScene: %s\n%d Nodes (%d Orphaned)\nInput Accumulation: %s\n\n[Rendering]\n%d Draw Calls (%d Drawn Objects)\nAPI: %s (%s)\nGPU: %s' % [
 			String.humanize_size(floori(video_memory_current)),
 			String.humanize_size(floori(video_memory_peak)),
 			String.humanize_size(floori(texture_memory_current)),
@@ -82,6 +82,7 @@ func display() -> void:
 			Performance.get_monitor(Performance.RENDER_TOTAL_OBJECTS_IN_FRAME),
 			RenderingServer.get_current_rendering_driver_name(),
 			RenderingServer.get_current_rendering_method(),
+			RenderingServer.get_video_adapter_name(),
 		]
 		
 		if is_instance_valid(Conductor.instance):
