@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_314fo"]
 [ext_resource type="Texture2D" uid="uid://827umg3700yo" path="res://assets/game/characters/bf_pixel/icon.png" id="3_rjicp"]
 [ext_resource type="SpriteFrames" uid="uid://b2wgxn7lqcp6q" path="res://assets/game/characters/bf_pixel/bfPixelsDEAD.res" id="4_rjicp"]
-[ext_resource type="AudioStream" uid="uid://bix35f5l13smb" path="res://assets/game/gameover/bf/pixel/theme.ogg" id="4_yw7xa"]
-[ext_resource type="AudioStream" uid="uid://nc8jlc5o3cbq" path="res://assets/game/gameover/bf/pixel/on_death.ogg" id="5_u3tih"]
+[ext_resource type="AudioStream" uid="uid://bix35f5l13smb" path="res://assets/game/characters/bf_pixel/gameover/theme.ogg" id="4_yw7xa"]
+[ext_resource type="AudioStream" uid="uid://nc8jlc5o3cbq" path="res://assets/game/characters/bf_pixel/gameover/on_death.ogg" id="5_u3tih"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_yw7xa"]
-[ext_resource type="AudioStream" uid="uid://c5bs6b76dbkw8" path="res://assets/game/gameover/bf/pixel/retry.ogg" id="6_0h8j6"]
+[ext_resource type="AudioStream" uid="uid://c5bs6b76dbkw8" path="res://assets/game/characters/bf_pixel/gameover/retry.ogg" id="6_0h8j6"]
 [ext_resource type="Script" uid="uid://be3817vx78fju" path="res://scenes/game/characters/gameover_assets.gd" id="7_krrd3"]
 
 [sub_resource type="Resource" id="Resource_314fo"]

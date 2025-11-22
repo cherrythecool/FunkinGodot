@@ -173,13 +173,16 @@ func _on_game_ready_post() -> void:
 	
 	if camera_position != Vector2.INF and persistent_position:
 		position = camera_position
-	camera_position = Vector2.INF
-	
 	if camera_zoom != Vector2.INF and persistent_zoom:
 		zoom = camera_zoom
-	camera_zoom = Vector2.INF
+	
+	reset_persistent_values()
 
 
 func _on_game_song_exited() -> void:
+	reset_persistent_values()
+
+
+static func reset_persistent_values() -> void:
 	camera_position = Vector2.INF
 	camera_zoom = Vector2.INF
