@@ -17,16 +17,26 @@ var light_state: bool = false
 var last_change: int = 0
 var change_interval: int = 8
 
-@onready var mist_one: Sprite2D = $mist_one.get_node(^'sprite')
-@onready var mist_two: Sprite2D = $mist_two.get_node(^'sprite')
-@onready var mist_three: Sprite2D = $mist_three.get_node(^'sprite')
-@onready var mist_four: Sprite2D = $mist_four.get_node(^'sprite')
-@onready var mist_five: Sprite2D = $mist_five.get_node(^'sprite')
-@onready var mist_six: Sprite2D = $mist_six.get_node(^'sprite')
+@onready var mists: Array[Sprite2D] = [
+	$mist_one.get_node(^'sprite'),
+	$mist_two.get_node(^'sprite'),
+	$mist_three.get_node(^'sprite'),
+	$mist_four.get_node(^'sprite'),
+	$mist_five.get_node(^'sprite'),
+	$mist_six.get_node(^'sprite'),
+]
+
 var timer: float = 0.0
 
 
 func _ready() -> void:
+	super()
+	
+	if not Config.get_value("performance", "intensive_visuals"):
+		for mist: Node2D in mists:
+			mist.free()
+		mists.clear()
+	
 	game.player.offset_camera_position(Vector2(-250.0, -35.0))
 	game.opponent.offset_camera_position(Vector2(230.0, 75.0))
 
@@ -63,12 +73,16 @@ func _on_beat_hit(beat: int) -> void:
 
 func _process(delta: float) -> void:
 	timer += delta
-	mist_one.position.y = 660.0 + (sin(timer * 0.35) * 70.0) + 50.0
-	mist_two.position.y = 500.0 + (sin(timer * 0.3) * 80.0) + 100.0
-	mist_three.position.y = 540.0 + (sin(timer * 0.4) * 50.0) + 80.0
-	mist_four.position.y = 230.0 + (sin(timer * 0.3) * 70.0) + 50.0
-	mist_five.position.y = 170.0 + (sin(timer * 0.35) * 50.0) + 125.0
-	mist_six.position.y = -80.0 + (sin(timer * 0.08) * 100.0)
+	
+	if mists.is_empty():
+		return
+	
+	mists[0].position.y = 660.0 + (sin(timer * 0.35) * 70.0) + 50.0
+	mists[1].position.y = 500.0 + (sin(timer * 0.3) * 80.0) + 100.0
+	mists[2].position.y = 540.0 + (sin(timer * 0.4) * 50.0) + 80.0
+	mists[3].position.y = 230.0 + (sin(timer * 0.3) * 70.0) + 50.0
+	mists[4].position.y = 170.0 + (sin(timer * 0.35) * 50.0) + 125.0
+	mists[5].position.y = -80.0 + (sin(timer * 0.08) * 100.0)
 
 
 func reset_cars(left: bool, right: bool) -> void:

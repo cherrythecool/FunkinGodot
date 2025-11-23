@@ -18,8 +18,14 @@ func parse(difficulty: StringName) -> Chart:
 			if event.get('e') == 'FocusCamera':
 				# jesus christ focus camera
 				if event.get('v') is Dictionary:
-					chart.events.push_back(CameraPan.new(event.get('t') / 1000.0,
-							int(event.get('v').get('char', 0))))
+					chart.events.push_back(
+						CameraPan.new(
+							event.get('t') / 1000.0,
+							int(event.get('v').get('char', 0)),
+							event.get('v').get('ease', 'CLASSIC'),
+							event.get('v').get('duration', 32.0),
+						)
+					)
 				else:
 					chart.events.push_back(CameraPan.new(event.get('t') / 1000.0,
 							int(event.get('v'))))

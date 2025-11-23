@@ -12,6 +12,8 @@ func hue_character(character: Character, hue: float, sat: float, cont: float, br
 
 
 func _ready() -> void:
+	super()
+	
 	game.player.offset_camera_position(Vector2(-50.0, -50.0))
 	game.opponent.offset_camera_position(Vector2(210.0, 15.0))
 	game.spectator.offset_camera_position(Vector2(0.0, -150.0))

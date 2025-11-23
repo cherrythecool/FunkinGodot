@@ -28,6 +28,8 @@ var game: Game:
 	get:
 		return Game.instance
 var zoom_tween: Tween
+var pan_tween: Tween
+var pan_lerped: bool
 
 
 func _ready() -> void:
@@ -84,9 +86,43 @@ func _on_game_event_hit(event: EventData) -> void:
 			if not is_instance_valid(target):
 				return
 			
+			if is_instance_valid(pan_tween) and pan_tween.is_running():
+				pan_tween.kill()
+			
+			var ease_string: String = event.data[1]
 			position_target = target.get_camera_position()
-			if event.time <= 0.0:
+			if event.time <= 0.0 or ease_string == "INSTANT":
 				position = position_target
+			if ease_string == "CLASSIC" or ease_string == "INSTANT":
+				return
+			
+			var steps: float = event.data[2]
+			pan_tween = create_tween()
+			pan_tween.set_ease(Global.convert_flixel_tween_ease(ease_string))
+			pan_tween.set_trans(Global.convert_flixel_tween_trans(ease_string))
+			pan_lerped = position_lerps
+			if pan_lerped:
+				pan_tween.tween_property(
+					self,
+					^"position_lerps",
+					false,
+					0.0
+				)
+			
+			pan_tween.tween_property(
+				self,
+				^"position",
+				position_target,
+				conductor.beat_delta / 4.0 * float(steps)
+			)
+			
+			if pan_lerped:
+				pan_tween.tween_property(
+					self,
+					^"position_lerps",
+					true,
+					0.0
+				)
 		&"zoomcamera":
 			var data: Dictionary = event.data[0]
 			var steps: int = data.get("duration", 32)
@@ -95,7 +131,7 @@ func _on_game_event_hit(event: EventData) -> void:
 			if is_instance_valid(zoom_tween):
 				zoom_tween.kill()
 
-			if ease_string == "INSTANT":
+			if ease_string == "INSTANT" or event.time <= 0.0:
 				zoom_target = Vector2.ONE * data_zoom
 				zoom = Vector2.ONE * data_zoom
 				return

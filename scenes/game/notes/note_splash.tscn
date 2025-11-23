@@ -13,5 +13,5 @@ shader_parameter/base_color = Color(1, 0, 1, 1)
 modulate = Color(1, 1, 1, 0.75)
 material = SubResource("ShaderMaterial_uaa61")
 sprite_frames = ExtResource("1_qpt8d")
-animation = &"splash 1"
+animation = &"splash 2"
 script = ExtResource("3_3s68y")

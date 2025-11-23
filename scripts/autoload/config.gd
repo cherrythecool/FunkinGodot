@@ -9,8 +9,8 @@ signal value_changed(section: String, key: String, value: Variant)
 
 
 func _ready() -> void:
-	file = _parse_default_as_config()
-	_load_user_config()
+	file = parse_default_as_config()
+	load_user_config()
 	save()
 	loaded.emit()
 
@@ -31,7 +31,7 @@ func set_value(section: String, key: String, value: Variant, autosave: bool = tr
 		save()
 
 
-func _load_user_config() -> Error:
+func load_user_config() -> Error:
 	if FileAccess.file_exists('user://config.cfg'):
 		var user_cfg: ConfigFile = ConfigFile.new()
 		var error: Error = user_cfg.load('user://config.cfg')
@@ -50,7 +50,7 @@ func _load_user_config() -> Error:
 	return ERR_FILE_NOT_FOUND
 
 
-func _parse_default_as_config() -> ConfigFile:
+func parse_default_as_config() -> ConfigFile:
 	var new_file: ConfigFile = ConfigFile.new()
 
 	for section: String in default_configuration.keys():
@@ -96,7 +96,7 @@ var default_configuration: Dictionary = {
 		'scene_transitions': true,
 	},
 	'performance': {
-		'quality': 'default',
+		'intensive_visuals': true,
 		'auto_pause': false,
 		'fps_cap': 0.0,
 		'vsync_mode': 'disabled',

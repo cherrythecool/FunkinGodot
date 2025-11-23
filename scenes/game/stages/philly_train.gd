@@ -24,6 +24,8 @@ var train_cars: int = 8
 
 
 func _ready() -> void:
+	super()
+	
 	train.visible = false
 	_on_measure_hit(0)
 
