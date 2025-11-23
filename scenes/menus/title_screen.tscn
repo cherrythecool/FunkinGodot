@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cxk008iuw4n7u"]
+[gd_scene load_steps=22 format=3 uid="uid://cxk008iuw4n7u"]
 
 [ext_resource type="Script" uid="uid://dno3ea8v3s7gx" path="res://scenes/menus/title_screen.gd" id="1_0m8ln"]
 [ext_resource type="SpriteFrames" uid="uid://dkgusfub7fbij" path="res://assets/menus/title/gf.res" id="1_ii0wr"]
@@ -10,7 +10,6 @@
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="7_al1xt"]
 [ext_resource type="Texture2D" uid="uid://d1ovx7oy0v4qy" path="res://assets/menus/title/newgrounds_logo.png" id="7_fhw6b"]
 [ext_resource type="Resource" uid="uid://5kr5cxye6wyn" path="res://assets/fonts/alphabet/skin_bold.tres" id="10_30q4t"]
-[ext_resource type="Resource" uid="uid://br1jxqfifysrp" path="res://assets/fonts/alphabet/skin_regular.tres" id="11_4tc24"]
 
 [sub_resource type="Animation" id="Animation_6rots"]
 length = 0.001
@@ -445,15 +444,3 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 metadata/_edit_lock_ = true
-
-[node name="alphabet" type="Node2D" parent="."]
-script = ExtResource("7_al1xt")
-suffix = ""
-skin = ExtResource("11_4tc24")
-text = "~~Spongebob Dude Fucking~~
-
-Dude... fuck,
-
-I LOVE SEX!!! BIG SEX!!!"
-vertical_alignment = "Bottom"
-metadata/_custom_type_script = "uid://b6ydf4mbyjiwc"
