@@ -78,6 +78,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action(&"ui_cancel"):
 		active = false
 		GlobalAudio.get_player(^"MENU/CANCEL").play()
+		GameCamera2D.reset_persistent_values()
 		
 		match Game.mode:
 			Game.PlayMode.FREEPLAY:

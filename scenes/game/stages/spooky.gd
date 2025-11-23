@@ -38,12 +38,12 @@ func strike(beat: int, play_sound: bool = true) -> void:
 	lightning_offset = randi_range(8, 24)
 
 	if play_sound:
-		var player: AudioStreamPlayer = AudioStreamPlayer.new()
-		player.stream = sounds.pick_random()
-		add_child(player)
+		var thunder: AudioStreamPlayer = AudioStreamPlayer.new()
+		thunder.stream = sounds.pick_random()
+		add_child(thunder)
 
-		player.play()
-		player.finished.connect(player.queue_free)
+		thunder.play()
+		thunder.finished.connect(thunder.queue_free)
 
 	background.play(&'halloweem bg lightning strike')
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhv3phik4tia" path="res://scenes/game/game.gd" id="1_tneyb"]
 [ext_resource type="Script" uid="uid://djsxumpddydxq" path="res://scripts/autoload/conductor.gd" id="2_5i0tg"]
-[ext_resource type="Script" uid="uid://b1ln7ad72xey4" path="res://scenes/game/camera_2d.gd" id="2_bdhmt"]
+[ext_resource type="Script" uid="uid://b1ln7ad72xey4" path="res://scenes/game/game_camera_2d.gd" id="2_bdhmt"]
 [ext_resource type="Script" uid="uid://bbfskuw2fyle3" path="res://scenes/game/tracks.gd" id="2_j74rm"]
 [ext_resource type="Script" uid="uid://cm308tpfbi72q" path="res://scenes/game/scripts.gd" id="2_oquto"]
 [ext_resource type="Script" uid="uid://dp70bbdhoqpo0" path="res://scripts/game/rating.gd" id="5_lfrn8"]

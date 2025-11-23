@@ -1,20 +1,46 @@
-[gd_scene load_steps=7 format=3 uid="uid://w4x38w0bt6n1"]
+[gd_scene load_steps=8 format=3 uid="uid://w4x38w0bt6n1"]
 
 [ext_resource type="Script" uid="uid://c7iq5ek2ivhku" path="res://scenes/menus/options/sections/interface.gd" id="1_6p62e"]
 [ext_resource type="Script" uid="uid://1xupndy1w5yk" path="res://scenes/menus/options/checkbox_option.gd" id="2_422dy"]
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="3_ih51s"]
 [ext_resource type="SpriteFrames" uid="uid://oksqh74ocs1w" path="res://assets/menus/options/checkbox.res" id="4_abqtr"]
+[ext_resource type="Resource" uid="uid://5kr5cxye6wyn" path="res://assets/fonts/alphabet/skin_bold.tres" id="4_fkvco"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_fu6tn"]
 [ext_resource type="Script" uid="uid://dpnfmug35vwfs" path="res://scenes/menus/options/number_option.gd" id="6_1836p"]
 
 [node name="interface" type="Node2D" node_paths=PackedStringArray("options")]
 position = Vector2(-320, 0)
 script = ExtResource("1_6p62e")
-options = [NodePath("splash_alpha"), NodePath("sustain_layer"), NodePath("cpu_strums_press"), NodePath("scene_transitions"), NodePath("countdown_on_resume")]
-max_distance = 0.0
+options = [NodePath("underlay_alpha"), NodePath("splash_alpha"), NodePath("sustain_layer"), NodePath("cpu_strums_press"), NodePath("scene_transitions"), NodePath("countdown_on_resume")]
+max_distance = 90.0
+
+[node name="underlay_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
+position = Vector2(222, -173)
+script = ExtResource("6_1836p")
+section = &"interface"
+key = &"underlay_alpha"
+ranged = true
+minimum = 0.0
+maximum = 100.0
+value_suffix = &"%"
+root = NodePath("..")
+PREVIEW = ""
+
+[node name="label" type="Node2D" parent="underlay_alpha"]
+position = Vector2(-237, 0)
+script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
+text = "LANE ALPHA:"
+centered = true
+
+[node name="value" type="Node2D" parent="underlay_alpha"]
+position = Vector2(35, -34)
+script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
+text = "0%"
 
 [node name="splash_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(165, -183)
+position = Vector2(170, -87)
 script = ExtResource("6_1836p")
 section = &"interface"
 key = &"note_splash_alpha"
@@ -28,16 +54,18 @@ PREVIEW = ""
 [node name="label" type="Node2D" parent="splash_alpha"]
 position = Vector2(-140, 0)
 script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
 text = "SPLASH ALPHA:"
 centered = true
 
 [node name="value" type="Node2D" parent="splash_alpha"]
 position = Vector2(179, -34)
 script = ExtResource("3_ih51s")
-text = "0"
+skin = ExtResource("4_fkvco")
+text = "0%"
 
 [node name="sustain_layer" type="Node2D" parent="."]
-position = Vector2(227, -90)
+position = Vector2(227, 6)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"sustain_layer"
@@ -45,6 +73,7 @@ strings = Array[String](["above", "below"])
 
 [node name="alphabet" type="Node2D" parent="sustain_layer"]
 script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
 text = "sustains below strums"
 centered = true
 
@@ -57,13 +86,14 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="cpu_strums_press" type="Node2D" parent="."]
-position = Vector2(72, 76)
+position = Vector2(72, 172)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"cpu_strums_press"
 
 [node name="alphabet" type="Node2D" parent="cpu_strums_press"]
 script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
 text = "cpu strum glow"
 centered = true
 
@@ -76,13 +106,14 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="scene_transitions" type="Node2D" parent="."]
-position = Vector2(126, 176)
+position = Vector2(126, 272)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"scene_transitions"
 
 [node name="alphabet" type="Node2D" parent="scene_transitions"]
 script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
 text = "scene transitions"
 centered = true
 
@@ -95,13 +126,14 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="countdown_on_resume" type="Node2D" parent="."]
-position = Vector2(186, 276)
+position = Vector2(186, 372)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"countdown_on_resume"
 
 [node name="alphabet" type="Node2D" parent="countdown_on_resume"]
 script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
 text = "countdown on resume"
 centered = true
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bna3a7c4yfpq1"
-path="res://.godot/imported/alphabet.png-ac5f1dd9e6fcf27ea7d7afd73da296c2.ctex"
+uid="uid://cvvt8gfjmvgvd"
+path="res://.godot/imported/alphabet_regular.png-c9296448a81f5003fc1fa584dba1e5ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/fonts/alphabet_psych/alphabet.png"
-dest_files=["res://.godot/imported/alphabet.png-ac5f1dd9e6fcf27ea7d7afd73da296c2.ctex"]
+source_file="res://assets/fonts/alphabet/alphabet_regular.png"
+dest_files=["res://.godot/imported/alphabet_regular.png-c9296448a81f5003fc1fa584dba1e5ef.ctex"]
 
 [params]
 

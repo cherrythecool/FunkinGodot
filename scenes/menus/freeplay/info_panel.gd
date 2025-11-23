@@ -25,6 +25,10 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+	size.x = maxf(256.0, song_label.size.x)
+	position.x = Global.game_size.x - size.x
+	difficulty_label.size.x = size.x
+	
 	score_panel.position.y = size.y + 24.0
 	reset_panel.position.y = score_panel.position.y + score_panel.size.y + 16.0
 

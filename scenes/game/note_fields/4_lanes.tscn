@@ -1,10 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://3diy2p3nknpi"]
+[gd_scene load_steps=4 format=3 uid="uid://3diy2p3nknpi"]
 
 [ext_resource type="Script" uid="uid://bkslv5tb4mquc" path="res://scenes/game/note_fields/note_field.gd" id="1_amido"]
 [ext_resource type="PackedScene" uid="uid://cmvbodmvsglsw" path="res://scenes/game/note_fields/receptor.tscn" id="2_7p0kv"]
+[ext_resource type="Script" uid="uid://ct185h8rx7nai" path="res://scenes/game/note_fields/underlay.gd" id="2_xfsr1"]
 
 [node name="4_lanes" type="Node2D"]
 script = ExtResource("1_amido")
+
+[node name="underlay" type="ColorRect" parent="."]
+unique_name_in_owner = true
+z_index = -1
+offset_left = -230.0
+offset_top = -2695.0
+offset_right = 230.0
+offset_bottom = 2970.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+script = ExtResource("2_xfsr1")
 
 [node name="receptors" type="Node2D" parent="."]
 unique_name_in_owner = true

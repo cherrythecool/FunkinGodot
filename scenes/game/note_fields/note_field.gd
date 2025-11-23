@@ -13,6 +13,7 @@ class_name NoteField extends Node2D
 @export var ignore_speed_changes: bool = false
 @export var skin: NoteSkin = null
 
+@onready var underlay: ColorRect = %underlay
 @onready var receptors_node: Node2D = $receptors
 @onready var receptors: Array = []
 var lane_count: int = 0
