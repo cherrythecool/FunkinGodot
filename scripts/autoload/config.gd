@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func save() -> void:
-	file.save('user://config.cfg')
+	file.save("user://config.cfg")
 
 
 func get_value(section: String, key: String) -> Variant:
@@ -32,11 +32,11 @@ func set_value(section: String, key: String, value: Variant, autosave: bool = tr
 
 
 func load_user_config() -> Error:
-	if FileAccess.file_exists('user://config.cfg'):
+	if FileAccess.file_exists("user://config.cfg"):
 		var user_cfg: ConfigFile = ConfigFile.new()
-		var error: Error = user_cfg.load('user://config.cfg')
+		var error: Error = user_cfg.load("user://config.cfg")
 		if error != OK:
-			push_error('Config could not be loaded with error code %s!' % error)
+			push_error("Config could not be loaded with error code %s!" % error)
 			return error
 
 		for section: String in user_cfg.get_sections():
@@ -68,43 +68,44 @@ func parse_default_as_config() -> ConfigFile:
 
 
 var default_configuration: Dictionary = {
-	'gameplay': {
-		'scroll_direction': 'up',
-		'centered_receptors': false,
-		'manual_offset': 0.0,
-		'scroll_speed_method': 'chart_based',
-		'custom_scroll_speed': 1.0,
-		'binds': {
-			'left': KEY_D,
-			'down': KEY_F,
-			'up': KEY_J,
-			'right': KEY_K,
+	"gameplay": {
+		"scroll_direction": "up",
+		"centered_receptors": false,
+		"manual_offset": 0.0,
+		"scroll_speed_method": "chart_based",
+		"custom_scroll_speed": 1.0,
+		"binds": {
+			"left": KEY_D,
+			"down": KEY_F,
+			"up": KEY_J,
+			"right": KEY_K,
 		},
 	},
-	'sound': {
-		'buses': {
-			'Master': 10.0,
-			'Music': 100.0,
-			'SFX': 100.0,
+	"sound": {
+		"buses": {
+			"Master": 10.0,
+			"Music": 100.0,
+			"SFX": 100.0,
 		},
 	},
-	'interface': {
-		'sustain_layer': 'below',
-		'cpu_strums_press': true,
-		'note_splash_alpha': 100.0,
-		'countdown_on_resume': false,
-		'scene_transitions': true,
+	"interface": {
+		"underlay_alpha": 0.0,
+		"sustain_layer": "below",
+		"cpu_strums_press": true,
+		"note_splash_alpha": 100.0,
+		"countdown_on_resume": false,
+		"scene_transitions": true,
 	},
-	'performance': {
-		'intensive_visuals': true,
-		'auto_pause': false,
-		'fps_cap': 0.0,
-		'vsync_mode': 'disabled',
-		'debug_label': 'default',
-		'debug_label_visible': false,
+	"performance": {
+		"intensive_visuals": true,
+		"auto_pause": false,
+		"fps_cap": 0.0,
+		"vsync_mode": "disabled",
+		"debug_label": "default",
+		"debug_label_visible": false,
 	},
-	'accessibility': {
-		'flashing_lights': true,
-		'locale': 'en',
+	"accessibility": {
+		"flashing_lights": true,
+		"locale": "en",
 	},
 }

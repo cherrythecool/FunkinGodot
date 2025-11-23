@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://b6gvgi7qjy176"]
+[gd_scene load_steps=24 format=3 uid="uid://b6gvgi7qjy176"]
 
 [ext_resource type="Script" uid="uid://ck4pjp7k3k745" path="res://scenes/menus/credits_menu.gd" id="1_536xp"]
 [ext_resource type="Texture2D" uid="uid://coli0ye4bsyff" path="res://assets/menus/background.png" id="1_due5w"]
 [ext_resource type="Script" uid="uid://bable6fjbwgrq" path="res://scenes/interface/listed_alphabet.gd" id="3_xtkoc"]
+[ext_resource type="Resource" uid="uid://5kr5cxye6wyn" path="res://assets/fonts/alphabet/skin_bold.tres" id="4_0ng60"]
 [ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="4_d74go"]
 [ext_resource type="Script" uid="uid://xex6ryb2bo7" path="res://scenes/menus/credits/contributor.gd" id="4_wywfy"]
 [ext_resource type="Texture2D" uid="uid://boevu3c5gntxa" path="res://assets/menus/credits/cherry.jpg" id="5_0ng60"]
@@ -63,12 +64,13 @@ unique_name_in_owner = true
 position = Vector2(520, -90)
 
 [node name="project_contributors" type="Node2D" parent="list"]
-position = Vector2(-480, 136.5)
+position = Vector2(-480, 137)
 scale = Vector2(1.2, 1.2)
 script = ExtResource("3_xtkoc")
 target_y = -1
 use_x = false
 offset = Vector2(-480, -32)
+skin = ExtResource("4_0ng60")
 text = "project contributors"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
@@ -80,12 +82,13 @@ role = "Main Developer"
 texture = ExtResource("5_0ng60")
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "cherry"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="gorkil" type="Node2D" parent="list"]
 material = SubResource("ShaderMaterial_0ng60")
-position = Vector2(-480, 480.5)
+position = Vector2(-480, 481)
 script = ExtResource("4_wywfy")
 link = "https://github.com/Vortex2Oblivion"
 role = "Contributor"
@@ -93,6 +96,7 @@ texture = ExtResource("6_xc1f4")
 target_y = 1
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "gorkil"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
@@ -105,6 +109,7 @@ texture = ExtResource("7_jfhfx")
 target_y = 2
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "siwsi"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
@@ -117,6 +122,7 @@ texture = ExtResource("8_aave4")
 target_y = 3
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "nebula"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
@@ -125,21 +131,23 @@ position = Vector2(0, 984)
 script = ExtResource("3_xtkoc")
 target_y = 4
 use_x = false
+skin = ExtResource("4_0ng60")
 centered = true
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="special_thanks" type="Node2D" parent="list"]
-position = Vector2(-480, 1072.5)
+position = Vector2(-480, 1073)
 scale = Vector2(1.2, 1.2)
 script = ExtResource("3_xtkoc")
 target_y = 5
 use_x = false
 offset = Vector2(-480, -32)
+skin = ExtResource("4_0ng60")
 text = "special thanks"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="funkin_crew" type="Node2D" parent="list"]
-position = Vector2(-480, 1261)
+position = Vector2(-480, 1261.5)
 script = ExtResource("4_wywfy")
 link = "https://github.com/FunkinCrew"
 role = "Made original game"
@@ -147,11 +155,12 @@ texture = ExtResource("6_fq4y8")
 target_y = 6
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "the funkin crew"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="godot_devs" type="Node2D" parent="list"]
-position = Vector2(-480, 1416.5)
+position = Vector2(-480, 1417)
 script = ExtResource("4_wywfy")
 link = "https://github.com/godotengine/godot/graphs/contributors"
 role = "Made game engine"
@@ -159,11 +168,12 @@ texture = ExtResource("5_komaw")
 target_y = 7
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "godot developers"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="eir_team" type="Node2D" parent="list"]
-position = Vector2(-480, 1574)
+position = Vector2(-480, 1574.5)
 script = ExtResource("4_wywfy")
 link = "https://github.com/EIRTeam"
 role = "Made FFmpeg GDExtension"
@@ -171,12 +181,13 @@ texture = ExtResource("11_71dcr")
 target_y = 8
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "eir team"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="swordcube" type="Node2D" parent="list"]
 material = SubResource("ShaderMaterial_33ree")
-position = Vector2(-480, 1729)
+position = Vector2(-480, 1728.9995)
 script = ExtResource("13_aave4")
 link = "https://github.com/swordcube"
 role = "emotional support"
@@ -184,6 +195,7 @@ texture = ExtResource("14_71dcr")
 target_y = 9
 use_x = false
 offset = Vector2(-480, 0)
+skin = ExtResource("4_0ng60")
 text = "swordcube"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
