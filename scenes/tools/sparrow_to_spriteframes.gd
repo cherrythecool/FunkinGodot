@@ -28,10 +28,39 @@ func _set_file(value: String) -> void:
 
 
 func _import() -> Error:
+	status.text = 'Processing.'
+	var sprite_frames: SpriteFrames = parse_frames()
+	if not is_instance_valid(sprite_frames):
+		return ERR_PARSE_ERROR
+
+	var filename: StringName = &'%s.res' % [source_file.get_basename()]
+	status.text = 'Saved to %s' % [filename]
+	return ResourceSaver.save(sprite_frames, filename, ResourceSaver.FLAG_COMPRESS)
+
+
+func _get_frame_name_and_number(frame: SparrowFrame) -> Array:
+	var frame_number: StringName = frame.name.right(4)
+	var animation_name: StringName = frame.name.left(frame.name.length() - 4)
+
+	# By default we support animations with name0000, name0001, etc.
+	# We should still allow other sprites to be exported properly however.
+	if not frame_number.is_valid_int():
+		animation_name = frame.name
+
+	return [frame_number.to_int() if frame_number.is_valid_int() else -1, animation_name]
+
+
+func _sort_frames(a_frame: SparrowFrame, b_frame: SparrowFrame) -> bool:
+	var a: Array = _get_frame_name_and_number(a_frame)
+	var b: Array = _get_frame_name_and_number(b_frame)
+	return a[0] < b[0]
+
+
+func parse_frames() -> SpriteFrames:
 	if not FileAccess.file_exists(source_file):
-		print('File not found at path "%s"!' % source_file)
+		printerr('File not found at path "%s"!' % source_file)
 		status.text = 'File not found at path "%s"!' % source_file
-		return ERR_FILE_NOT_FOUND
+		return null
 
 	var xml: XMLParser = XMLParser.new()
 	xml.open(source_file)
@@ -53,7 +82,6 @@ func _import() -> Error:
 		'animation_framerate': animation_framerate,
 	}
 
-	status.text = 'Processing.'
 	while xml.read() == OK:
 		if xml.get_node_type() != XMLParser.NODE_ELEMENT:
 			continue
@@ -65,9 +93,9 @@ func _import() -> Error:
 			var image_path: String = '%s/%s' % [source_file.get_base_dir(), image_name]
 
 			if not FileAccess.file_exists(image_path):
-				print('Image not found at imagePath (%s)!' % image_name)
+				printerr('Image not found at imagePath (%s)!' % image_name)
 				status.text = 'Image not found at %s.' % [image_name]
-				return ERR_FILE_NOT_FOUND
+				return null
 
 			texture = ResourceLoader.load(image_path, 'CompressedTexture2D', ResourceLoader.CACHE_MODE_IGNORE)
 			continue
@@ -77,7 +105,8 @@ func _import() -> Error:
 
 		# Couldn't find texture from imagePath in TextureAtlas.
 		if texture == null:
-			return ERR_FILE_MISSING_DEPENDENCIES
+			printerr("Couldn't find texture from `imagePath` in TextureAtlas!")
+			return null
 
 		var frame: SparrowFrame = SparrowFrame.new()
 		frame.name = xml.get_named_attribute_value_safe('name')
@@ -182,25 +211,18 @@ func _import() -> Error:
 
 	for frame: SparrowFrame in sparrow_frames:
 		sprite_frames.add_frame(frame.animation, frame.atlas)
-
-	var filename: StringName = &'%s.res' % [source_file.get_basename()]
-	status.text = 'Saved to %s' % [filename]
-	return ResourceSaver.save(sprite_frames, filename, ResourceSaver.FLAG_COMPRESS)
+	
+	return sprite_frames
 
 
-func _get_frame_name_and_number(frame: SparrowFrame) -> Array:
-	var frame_number: StringName = frame.name.right(4)
-	var animation_name: StringName = frame.name.left(frame.name.length() - 4)
-
-	# By default we support animations with name0000, name0001, etc.
-	# We should still allow other sprites to be exported properly however.
-	if not frame_number.is_valid_int():
-		animation_name = frame.name
-
-	return [frame_number.to_int() if frame_number.is_valid_int() else -1, animation_name]
-
-
-func _sort_frames(a_frame: SparrowFrame, b_frame: SparrowFrame) -> bool:
-	var a: Array = _get_frame_name_and_number(a_frame)
-	var b: Array = _get_frame_name_and_number(b_frame)
-	return a[0] < b[0]
+func export_all_frames() -> void:
+	var sprite_frames: SpriteFrames = parse_frames()
+	if not is_instance_valid(sprite_frames):
+		return
+	
+	DirAccess.make_dir_recursive_absolute("%s/frames" % [source_file.get_base_dir()])
+	status.text = 'Exported to %s/frames !' % [source_file.get_base_dir()]
+	for anim: String in sprite_frames.get_animation_names():
+		for i: int in sprite_frames.get_frame_count(anim):
+			var texture: Texture2D = sprite_frames.get_frame_texture(anim, i)
+			texture.get_image().save_png("%s/frames/%s.%04d.png" % [source_file.get_base_dir(), anim, i])

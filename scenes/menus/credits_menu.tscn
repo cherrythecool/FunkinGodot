@@ -12,7 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dpcti4426mwej" path="res://assets/menus/credits/vortex.png" id="6_xc1f4"]
 [ext_resource type="Texture2D" uid="uid://sbaset6yggsb" path="res://assets/menus/credits/siwsi.png" id="7_jfhfx"]
 [ext_resource type="Texture2D" uid="uid://b4dt6w5nafr6p" path="res://assets/menus/credits/nebula.png" id="8_aave4"]
-[ext_resource type="Texture2D" uid="uid://n5kg83c7euef" path="res://assets/menus/credits/maru.jpg" id="10_0pp4y"]
+[ext_resource type="Texture2D" uid="uid://dvl1c52hghiew" path="res://assets/menus/credits/eir_team.png" id="11_71dcr"]
 [ext_resource type="Script" uid="uid://bk4kpu0r530gd" path="res://scenes/menus/credits/swordcube.gd" id="13_aave4"]
 [ext_resource type="AudioStream" uid="uid://cdx006xagoh7x" path="res://assets/menus/pause_menu/pico_theme.ogg" id="13_b34ng"]
 [ext_resource type="Texture2D" uid="uid://cdtbh4yrt24tn" path="res://assets/menus/credits/sword.png" id="14_71dcr"]
@@ -73,7 +73,7 @@ text = "project contributors"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="cherry" type="Node2D" parent="list"]
-position = Vector2(-480, 325.49997)
+position = Vector2(-480, 325.5)
 script = ExtResource("4_wywfy")
 link = "https://goddess.nekoweb.org"
 role = "Main Developer"
@@ -162,21 +162,21 @@ offset = Vector2(-480, 0)
 text = "godot developers"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
-[node name="maru" type="Node2D" parent="list"]
+[node name="eir_team" type="Node2D" parent="list"]
 position = Vector2(-480, 1574)
 script = ExtResource("4_wywfy")
-link = "https://github.com/MaybeMaru"
-role = "Improved alphabet font"
-texture = ExtResource("10_0pp4y")
+link = "https://github.com/EIRTeam"
+role = "Made FFmpeg GDExtension"
+texture = ExtResource("11_71dcr")
 target_y = 8
 use_x = false
 offset = Vector2(-480, 0)
-text = "maru"
+text = "eir team"
 metadata/_custom_type_script = "uid://bable6fjbwgrq"
 
 [node name="swordcube" type="Node2D" parent="list"]
 material = SubResource("ShaderMaterial_33ree")
-position = Vector2(-480, 1729.3271)
+position = Vector2(-480, 1729)
 script = ExtResource("13_aave4")
 link = "https://github.com/swordcube"
 role = "emotional support"

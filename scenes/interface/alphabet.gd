@@ -2,9 +2,15 @@
 class_name Alphabet extends Node2D
 
 
-@export var no_casing: bool = true
-@export var frames: SpriteFrames = null
+@export_enum("Inherit", "Force Upper", "Force Lower") var casing: String = "Inherit"
 @export var suffix: String = ' bold'
+@export var line_spacing: float = 70.0
+@export var skin: AlphabetSkin = null:
+	set(v):
+		skin = v
+		
+		if is_instance_valid(skin):
+			skin.bake_optimized_map()
 
 @export_multiline var text: String = '':
 	set(value):
@@ -29,9 +35,6 @@ class_name Alphabet extends Node2D
 		horizontal_alignment = value
 		_create_characters()
 
-const UNCHANGED_CHARACTERS: StringName = &'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-const MAGIC_OFFSET: float = 20.0
-
 var size: Vector2i = Vector2i.ZERO
 
 signal updated
@@ -42,6 +45,9 @@ func _ready() -> void:
 
 
 func _create_characters() -> void:
+	if not is_instance_valid(skin):
+		skin = load("uid://5kr5cxye6wyn")
+	
 	for child: AnimatedSprite2D in get_children():
 		child.queue_free()
 
@@ -60,11 +66,11 @@ func _create_characters() -> void:
 			})
 
 		if character == ' ':
-			x_position += 50.0
+			x_position += skin.space_width
 			continue
 		if character == '\n':
 			x_position = 0.0
-			y_position += 70.0
+			y_position += line_spacing
 			line_index += 1
 			continue
 
@@ -113,90 +119,48 @@ func _create_characters() -> void:
 
 
 func _create_character(x: float, y: float, character: String) -> Array:
-	var animation_data: AlphabetAnimationData = _character_to_animation(character)
+	match casing:
+		'Inherit':
+			pass
+		'Force Upper':
+			character = character.to_upper()
+		'Force Lower':
+			character = character.to_lower()
+	
+	var skin_char: AlphabetSkinCharacter = skin.optimized_map.get(character)
 	var node: AnimatedSprite2D = AnimatedSprite2D.new()
 	node.use_parent_material = true
 	node.centered = false
-	if is_instance_valid(frames):
-		node.sprite_frames = frames
-	else:
-		node.sprite_frames = load('uid://ca884uugnvt5t')
+	node.sprite_frames = skin.sprite_frames
 	node.position = Vector2(x, y)
-	node.animation = animation_data.name + suffix
-	node.offset = animation_data.offset
+	
+	if is_instance_valid(skin_char):
+		node.offset = skin_char.offset
+		
+		if node.sprite_frames.has_animation(skin_char.animation.to_upper() + suffix):
+			node.animation = skin_char.animation.to_upper() + suffix
+		elif node.sprite_frames.has_animation(skin_char.animation + suffix):
+			node.animation = skin_char.animation + suffix
+		else:
+			node.visible = false
+	else:
+		node.offset = Vector2.ZERO
+		
+		if node.sprite_frames.has_animation(character.to_upper() + suffix):
+			node.animation = character.to_upper() + suffix
+		elif node.sprite_frames.has_animation(character + suffix):
+			node.animation = character + suffix
+		else:
+			node.visible = false
+	
 	node.play()
 
 	var character_size: Vector2 = Vector2.ZERO
-	if node.sprite_frames.has_animation(node.animation):
+	if node.visible:
 		var frame_texture: Texture2D = node.sprite_frames.get_frame_texture(node.animation, 0)
 		character_size = frame_texture.get_size()
 	node.offset.y -= (character_size.y - 65.0) / 2.0
 	return [node, character_size]
-
-
-func _character_to_animation(character: String) -> AlphabetAnimationData:
-	var data: AlphabetAnimationData = AlphabetAnimationData.new()
-	if UNCHANGED_CHARACTERS.contains(character.to_upper()):
-		data.name = character.to_lower() if no_casing else character
-		data.offset = Vector2.ZERO
-		return data
-
-	# all used by bold.xml, not sure about default.xml support rn :3
-	match character:
-		'\'', '‘', '’':
-			data.name = 'apostrophe'
-			data.offset.y = -MAGIC_OFFSET
-		'\\':
-			data.name = 'back slash'
-		',':
-			data.name = 'apostrophe' # data.name = 'comma'
-			data.offset.y = MAGIC_OFFSET
-		'“', '"':
-			data.name = 'start quote'
-			data.offset.y = -MAGIC_OFFSET
-		'”':
-			data.name = 'end quote'
-			data.offset.y = -MAGIC_OFFSET
-		'!':
-			data.name = 'exclamation'
-		'¡':
-			data.name = 'inverted exclamation'
-		'¿':
-			data.name = 'inverted question'
-		'/':
-			data.name = 'forward slash'
-		'♥', '❤️':
-			data.name = 'heart'
-		'×':
-			data.name = 'multiply x'
-		'.':
-			data.name = 'period'
-			data.offset.y = MAGIC_OFFSET
-		'?':
-			data.name = 'question'
-		'←':
-			data.name = 'left arrow'
-		'↓':
-			data.name = 'down arrow'
-		'↑':
-			data.name = 'up arrow'
-		'→':
-			data.name = 'right arrow'
-		':':
-			data.name = character
-		'_':
-			data.name = '-'
-			data.offset.y = MAGIC_OFFSET * 1.5
-		'ñ':
-			data.name = character
-			data.offset.y = -MAGIC_OFFSET * 0.6
-		_:
-			data.name = character
-
-	if no_offset:
-		data.offset = Vector2.ZERO
-
-	return data
 
 
 static func keycode_to_character(input: Key) -> String:
@@ -219,24 +183,19 @@ static func string_to_character(input: String) -> String:
 			return '/'
 		'minus':
 			return '-'
-		'left':
-			return '<'
-		'down':
-			return 'v'
-		'up':
-			return 'î'
-		'right':
-			return '>'
 		'bracketright':
 			return ']'
 		'bracketleft':
 			return '['
 		'quoteleft':
 			return '~'
+		'left':
+			return '←'
+		'down':
+			return '↓'
+		'up':
+			return '↑'
+		'right':
+			return '→'
 
 	return input
-
-
-class AlphabetAnimationData extends RefCounted:
-	var name: StringName
-	var offset: Vector2

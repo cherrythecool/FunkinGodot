@@ -1,35 +1,18 @@
 # FunkinGodot
 
 [Friday Night Funkin'](https://github.com/FunkinCrew/Funkin) modding framework made
-in the [Godot Game Engine](https://godotengine.org) to be a useful tool in making
-whatever kind of mod you want, with more performance and easily accessible features
-thanks to Godot and its extensible Node and Resource systems.
+in the [Godot Game Engine](https://godotengine.org) to be a useful project in making
+whatever you want. It comes with stable, fast performance and easier creation thanks
+to building on and working with Godot's systems.
 
-## Features
+To get a feel for the gameplay as-is, try out one of the [precompiled releases](https://github.com/cherrythecool/FunkinGodot/releases/latest) with some
+songs from the base game.
 
-* High accuracy to the base game's look and feel (with some changes)
-* Different scriptable parts to songs such as
-	- Cutscenes
-	- Events
-	- Note Types
-	- General Scripts
-* Custom scenes used for characters and stages, allowing practically unlimited possibilities
-* Generally relies on being closer to Godot itself, allowing songs to load fast
- and efficiently most of the time
-* Adobe Texture Atlas support via [gdanimate](https://github.com/what-is-a-git/gdanimate)
-* More not mentioned and/or to come!
-
-## Godot Version
-
-This project is built for whatever the latest Godot 4.4.1 stable build is as of the latest changes (4.4.1 stable as of writing, 14 March 2025)
-
-## State of this branch
-
-The rewrite has been a major success and now I finally have a Godot FNF project
-I'm happy with again. There will be more improvements to come but major work
-will be more put into having the features to, and porting, the V-Slice version
-of the game itself.
+To make a mod just download [Godot](https://godotengine.org/download) and the source code from
+this repository. Then, import the project into Godot and get started! Documentation is
+currently scarce, but will be worked on in the future (and until then, you can always submit issues).
 
 ## Credits
 
-See [CREDITS.md](CREDITS.md) for the credits of different people and/or groups.
+See [CREDITS](CREDITS.md) (or in game) for the credits of different people/groups that
+have put a contribution into making this all possible!

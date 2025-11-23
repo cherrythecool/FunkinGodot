@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxk008iuw4n7u"]
+[gd_scene load_steps=22 format=3 uid="uid://cxk008iuw4n7u"]
 
 [ext_resource type="Script" uid="uid://dno3ea8v3s7gx" path="res://scenes/menus/title_screen.gd" id="1_0m8ln"]
 [ext_resource type="SpriteFrames" uid="uid://dkgusfub7fbij" path="res://assets/menus/title/gf.res" id="1_ii0wr"]
@@ -9,6 +9,7 @@
 [ext_resource type="SpriteFrames" uid="uid://diaqnypewr3ov" path="res://assets/menus/title/enter.res" id="6_hraot"]
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="7_al1xt"]
 [ext_resource type="Texture2D" uid="uid://d1ovx7oy0v4qy" path="res://assets/menus/title/newgrounds_logo.png" id="7_fhw6b"]
+[ext_resource type="Resource" uid="uid://5kr5cxye6wyn" path="res://assets/fonts/alphabet/skin.tres" id="10_30q4t"]
 
 [sub_resource type="Animation" id="Animation_6rots"]
 length = 0.001
@@ -423,6 +424,7 @@ texture = ExtResource("7_fhw6b")
 [node name="alphabet" type="Node2D" parent="intro_sequence"]
 unique_name_in_owner = true
 script = ExtResource("7_al1xt")
+skin = ExtResource("10_30q4t")
 centered = true
 horizontal_alignment = "Center"
 
