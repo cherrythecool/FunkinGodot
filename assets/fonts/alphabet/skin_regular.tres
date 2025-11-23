@@ -1,0 +1,235 @@
+[gd_resource type="Resource" script_class="AlphabetSkin" load_steps=40 format=3 uid="uid://br1jxqfifysrp"]
+
+[ext_resource type="Script" uid="uid://6tbbvcxey6ba" path="res://scripts/resources/alphabet_skin_character.gd" id="1_56bwc"]
+[ext_resource type="Script" uid="uid://iqrb44umgj2s" path="res://scripts/resources/alphabet_skin.gd" id="2_mcaus"]
+[ext_resource type="SpriteFrames" path="res://assets/fonts/alphabet/alphabet_regular.res" id="3_mcaus"]
+
+[sub_resource type="Resource" id="Resource_7kt6j"]
+script = ExtResource("1_56bwc")
+animation = &"heart"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_tykrd"]
+script = ExtResource("1_56bwc")
+animation = &"apostrophe"
+offset = Vector2(0, -20)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_na4oa"]
+script = ExtResource("1_56bwc")
+animation = &"backslash"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_mbonb"]
+script = ExtResource("1_56bwc")
+animation = &"comma"
+offset = Vector2(0, 20)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_afu4w"]
+script = ExtResource("1_56bwc")
+animation = &"start_double_quote"
+offset = Vector2(0, -20)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_dp00q"]
+script = ExtResource("1_56bwc")
+animation = &"end_double_quote"
+offset = Vector2(0, -20)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_2c7ol"]
+script = ExtResource("1_56bwc")
+animation = &"exclamation_mark"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_ipjxv"]
+script = ExtResource("1_56bwc")
+animation = &"slash"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_nfy3v"]
+script = ExtResource("1_56bwc")
+animation = &"multiplication_sign"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_md4if"]
+script = ExtResource("1_56bwc")
+animation = &"period"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_yrpry"]
+script = ExtResource("1_56bwc")
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_0f4id"]
+script = ExtResource("1_56bwc")
+animation = &"left_arrow"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_stwjt"]
+script = ExtResource("1_56bwc")
+animation = &"down_arrow"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_t11ht"]
+script = ExtResource("1_56bwc")
+animation = &"up_arrow"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_t4qcd"]
+script = ExtResource("1_56bwc")
+animation = &"right_arrow"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_pg15c"]
+script = ExtResource("1_56bwc")
+animation = &"colon"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_py1wh"]
+script = ExtResource("1_56bwc")
+animation = &"semicolon"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_li1j2"]
+script = ExtResource("1_56bwc")
+animation = &"underscore"
+offset = Vector2(0, 30)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_0xbgq"]
+script = ExtResource("1_56bwc")
+animation = &"dash"
+offset = Vector2(0, -16)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_nwm48"]
+script = ExtResource("1_56bwc")
+animation = &"greater_than"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_8gqfs"]
+script = ExtResource("1_56bwc")
+animation = &"less_than"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_rpojf"]
+script = ExtResource("1_56bwc")
+animation = &"hashtag"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_aeddx"]
+script = ExtResource("1_56bwc")
+animation = &"equals"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_2qwn1"]
+script = ExtResource("1_56bwc")
+animation = &"dollar_sign"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_x2lq3"]
+script = ExtResource("1_56bwc")
+animation = &"caret"
+offset = Vector2(0, -20)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_l5mmr"]
+script = ExtResource("1_56bwc")
+animation = &"left_parenthesis"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_gvnys"]
+script = ExtResource("1_56bwc")
+animation = &"right_parenthesis"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_txvqk"]
+script = ExtResource("1_56bwc")
+animation = &"left_bracket"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_6e1tw"]
+script = ExtResource("1_56bwc")
+animation = &"right_bracket"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_cb04q"]
+script = ExtResource("1_56bwc")
+animation = &"plus"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_3bq4r"]
+script = ExtResource("1_56bwc")
+animation = &"tilde"
+offset = Vector2(0, -16)
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_d5ieu"]
+script = ExtResource("1_56bwc")
+animation = &"vertical_bar"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_0ikoc"]
+script = ExtResource("1_56bwc")
+animation = &"percent_sign"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_12fqp"]
+script = ExtResource("1_56bwc")
+animation = &"ampersand"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_4agno"]
+script = ExtResource("1_56bwc")
+animation = &"at_sign"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[sub_resource type="Resource" id="Resource_fatfn"]
+script = ExtResource("1_56bwc")
+animation = &"asterisk"
+metadata/_custom_type_script = "uid://6tbbvcxey6ba"
+
+[resource]
+script = ExtResource("2_mcaus")
+sprite_frames = ExtResource("3_mcaus")
+character_map = Dictionary[PackedStringArray, ExtResource("1_56bwc")]({
+PackedStringArray("-"): SubResource("Resource_0xbgq"),
+PackedStringArray(">"): SubResource("Resource_nwm48"),
+PackedStringArray("<"): SubResource("Resource_8gqfs"),
+PackedStringArray("#"): SubResource("Resource_rpojf"),
+PackedStringArray("="): SubResource("Resource_aeddx"),
+PackedStringArray("$"): SubResource("Resource_2qwn1"),
+PackedStringArray("^"): SubResource("Resource_x2lq3"),
+PackedStringArray("("): SubResource("Resource_l5mmr"),
+PackedStringArray(")"): SubResource("Resource_gvnys"),
+PackedStringArray("["): SubResource("Resource_txvqk"),
+PackedStringArray("]"): SubResource("Resource_6e1tw"),
+PackedStringArray("+"): SubResource("Resource_cb04q"),
+PackedStringArray("~"): SubResource("Resource_3bq4r"),
+PackedStringArray("|"): SubResource("Resource_d5ieu"),
+PackedStringArray("%"): SubResource("Resource_0ikoc"),
+PackedStringArray("&"): SubResource("Resource_12fqp"),
+PackedStringArray("@"): SubResource("Resource_4agno"),
+PackedStringArray("*"): SubResource("Resource_fatfn"),
+PackedStringArray("♡", "♥", "❤"): SubResource("Resource_7kt6j"),
+PackedStringArray("\'", "ʼ", "ߴ", "՚"): SubResource("Resource_tykrd"),
+PackedStringArray("\\"): SubResource("Resource_na4oa"),
+PackedStringArray(","): SubResource("Resource_mbonb"),
+PackedStringArray("\"", "“"): SubResource("Resource_afu4w"),
+PackedStringArray("”"): SubResource("Resource_dp00q"),
+PackedStringArray("!"): SubResource("Resource_2c7ol"),
+PackedStringArray("/"): SubResource("Resource_ipjxv"),
+PackedStringArray("×"): SubResource("Resource_nfy3v"),
+PackedStringArray("."): SubResource("Resource_md4if"),
+PackedStringArray("?"): SubResource("Resource_yrpry"),
+PackedStringArray("←"): SubResource("Resource_0f4id"),
+PackedStringArray("↓"): SubResource("Resource_stwjt"),
+PackedStringArray("↑"): SubResource("Resource_t11ht"),
+PackedStringArray("→"): SubResource("Resource_t4qcd"),
+PackedStringArray(":"): SubResource("Resource_pg15c"),
+PackedStringArray(";"): SubResource("Resource_py1wh"),
+PackedStringArray("_"): SubResource("Resource_li1j2")
+})
+metadata/_custom_type_script = "uid://iqrb44umgj2s"

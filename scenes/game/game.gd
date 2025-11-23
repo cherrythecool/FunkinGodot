@@ -349,11 +349,15 @@ func load_from_assets() -> void:
 	# Set the NoteField characters.
 	if is_instance_valid(player_field):
 		player_field.target_character = player
-		player_field.skin = assets.player_skin
+		if is_instance_valid(assets.player_skin):
+			player_field.skin = assets.player_skin
+		
 		player_field.reload_skin()
 	if is_instance_valid(opponent_field):
 		opponent_field.target_character = opponent
-		opponent_field.skin = assets.opponent_skin
+		if is_instance_valid(assets.opponent_skin):
+			opponent_field.skin = assets.opponent_skin
+		
 		opponent_field.reload_skin()
 
 	if is_instance_valid(assets.get_hud_skin().pause_menu):

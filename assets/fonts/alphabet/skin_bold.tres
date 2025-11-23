@@ -1,199 +1,199 @@
 [gd_resource type="Resource" script_class="AlphabetSkin" load_steps=40 format=3 uid="uid://5kr5cxye6wyn"]
 
-[ext_resource type="Script" uid="uid://6tbbvcxey6ba" path="res://scripts/resources/alphabet_skin_character.gd" id="1_jcqpi"]
-[ext_resource type="Script" uid="uid://iqrb44umgj2s" path="res://scripts/resources/alphabet_skin.gd" id="2_7kt6j"]
-[ext_resource type="SpriteFrames" path="res://assets/fonts/alphabet/alphabet.res" id="3_7kt6j"]
+[ext_resource type="Script" uid="uid://6tbbvcxey6ba" path="res://scripts/resources/alphabet_skin_character.gd" id="1_3283i"]
+[ext_resource type="Script" uid="uid://iqrb44umgj2s" path="res://scripts/resources/alphabet_skin.gd" id="2_3m1ex"]
+[ext_resource type="SpriteFrames" path="res://assets/fonts/alphabet/alphabet_bold.res" id="3_e0ouc"]
 
 [sub_resource type="Resource" id="Resource_7kt6j"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"heart"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_tykrd"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"apostrophe"
 offset = Vector2(0, -20)
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_na4oa"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"backslash"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_mbonb"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"comma"
 offset = Vector2(0, 20)
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_afu4w"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"start_double_quote"
 offset = Vector2(0, -20)
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_dp00q"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"end_double_quote"
 offset = Vector2(0, -20)
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_2c7ol"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"exclamation_mark"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_ipjxv"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"slash"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_nfy3v"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"multiplication_sign"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_md4if"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"period"
 offset = Vector2(0, 20)
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_yrpry"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_0f4id"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"left_arrow"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_stwjt"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"down_arrow"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_t11ht"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"up_arrow"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_t4qcd"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"right_arrow"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_pg15c"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"colon"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_py1wh"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"semicolon"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_li1j2"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"underscore"
 offset = Vector2(0, 30)
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_0xbgq"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"dash"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_nwm48"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"greater_than"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_8gqfs"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"less_than"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_rpojf"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"hashtag"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_aeddx"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"equals"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_2qwn1"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"dollar_sign"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_x2lq3"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"caret"
 offset = Vector2(0, -20)
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_l5mmr"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"left_parenthesis"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_gvnys"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"right_parenthesis"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_txvqk"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"left_bracket"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_6e1tw"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"right_bracket"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_cb04q"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"plus"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_3bq4r"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"tilde"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_d5ieu"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"vertical_bar"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_0ikoc"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"percent_sign"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_12fqp"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"ampersand"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_4agno"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"at_sign"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [sub_resource type="Resource" id="Resource_fatfn"]
-script = ExtResource("1_jcqpi")
+script = ExtResource("1_3283i")
 animation = &"asterisk"
 metadata/_custom_type_script = "uid://6tbbvcxey6ba"
 
 [resource]
-script = ExtResource("2_7kt6j")
-sprite_frames = ExtResource("3_7kt6j")
-character_map = Dictionary[PackedStringArray, ExtResource("1_jcqpi")]({
+script = ExtResource("2_3m1ex")
+sprite_frames = ExtResource("3_e0ouc")
+character_map = Dictionary[PackedStringArray, ExtResource("1_3283i")]({
 PackedStringArray("-"): SubResource("Resource_0xbgq"),
 PackedStringArray(">"): SubResource("Resource_nwm48"),
 PackedStringArray("<"): SubResource("Resource_8gqfs"),

@@ -2,15 +2,36 @@
 class_name Alphabet extends Node2D
 
 
-@export_enum("Inherit", "Force Upper", "Force Lower") var casing: String = "Inherit"
-@export var suffix: String = ' bold'
-@export var line_spacing: float = 70.0
+@export_enum("Inherit", "Force Upper", "Force Lower") var casing: String = "Inherit":
+	set(v):
+		if casing == v:
+			return
+		casing = v
+		_create_characters()
+
+@export var suffix: String = ' bold':
+	set(v):
+		if suffix == v:
+			return
+		suffix = v
+		_create_characters()
+
+@export var line_spacing: float = 70.0:
+	set(v):
+		if line_spacing == v:
+			return
+		line_spacing = v
+		_create_characters()
+
 @export var skin: AlphabetSkin = null:
 	set(v):
+		if skin == v:
+			return
 		skin = v
-		
 		if is_instance_valid(skin):
 			skin.bake_optimized_map()
+		_create_characters()
+@export var overwrite_map: Dictionary[StringName, AlphabetSkinCharacter] = {}
 
 @export_multiline var text: String = '':
 	set(value):
@@ -33,6 +54,12 @@ class_name Alphabet extends Node2D
 		if horizontal_alignment == value:
 			return
 		horizontal_alignment = value
+		_create_characters()
+@export_enum('Top', 'Center', 'Bottom') var vertical_alignment: String = 'Center':
+	set(value):
+		if vertical_alignment == value:
+			return
+		vertical_alignment = value
 		_create_characters()
 
 var size: Vector2i = Vector2i.ZERO
@@ -120,14 +147,18 @@ func _create_characters() -> void:
 
 func _create_character(x: float, y: float, character: String) -> Array:
 	match casing:
-		'Inherit':
-			pass
 		'Force Upper':
 			character = character.to_upper()
 		'Force Lower':
 			character = character.to_lower()
+		'Inherit':
+			pass
 	
-	var skin_char: AlphabetSkinCharacter = skin.optimized_map.get(character)
+	var skin_char: AlphabetSkinCharacter = overwrite_map.get(
+		character,
+		skin.optimized_map.get(character)
+	)
+	
 	var node: AnimatedSprite2D = AnimatedSprite2D.new()
 	node.use_parent_material = true
 	node.centered = false
@@ -137,19 +168,19 @@ func _create_character(x: float, y: float, character: String) -> Array:
 	if is_instance_valid(skin_char):
 		node.offset = skin_char.offset
 		
-		if node.sprite_frames.has_animation(skin_char.animation.to_upper() + suffix):
-			node.animation = skin_char.animation.to_upper() + suffix
-		elif node.sprite_frames.has_animation(skin_char.animation + suffix):
+		if node.sprite_frames.has_animation(skin_char.animation + suffix):
 			node.animation = skin_char.animation + suffix
+		elif node.sprite_frames.has_animation(skin_char.animation.to_upper() + suffix):
+			node.animation = skin_char.animation.to_upper() + suffix
 		else:
 			node.visible = false
 	else:
 		node.offset = Vector2.ZERO
 		
-		if node.sprite_frames.has_animation(character.to_upper() + suffix):
-			node.animation = character.to_upper() + suffix
-		elif node.sprite_frames.has_animation(character + suffix):
+		if node.sprite_frames.has_animation(character + suffix):
 			node.animation = character + suffix
+		elif node.sprite_frames.has_animation(character.to_upper() + suffix):
+			node.animation = character.to_upper() + suffix
 		else:
 			node.visible = false
 	
@@ -159,7 +190,15 @@ func _create_character(x: float, y: float, character: String) -> Array:
 	if node.visible:
 		var frame_texture: Texture2D = node.sprite_frames.get_frame_texture(node.animation, 0)
 		character_size = frame_texture.get_size()
-	node.offset.y -= (character_size.y - 65.0) / 2.0
+	
+	match vertical_alignment:
+		'Bottom':
+			node.offset.y += 60.0 - character_size.y
+		'Top':
+			node.offset.y = node.offset.y
+		_:
+			node.offset.y -= (character_size.y - 65.0) / 2.0
+	
 	return [node, character_size]
 
 

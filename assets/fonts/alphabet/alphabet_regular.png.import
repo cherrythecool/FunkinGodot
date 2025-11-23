@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5817d0sf2sl"
-path="res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.ctex"
+uid="uid://cvvt8gfjmvgvd"
+path="res://.godot/imported/alphabet_regular.png-c9296448a81f5003fc1fa584dba1e5ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/fonts/alphabet/alphabet.png"
-dest_files=["res://.godot/imported/alphabet.png-24443136835ada0b90f7369297bb6779.ctex"]
+source_file="res://assets/fonts/alphabet/alphabet_regular.png"
+dest_files=["res://.godot/imported/alphabet_regular.png-c9296448a81f5003fc1fa584dba1e5ef.ctex"]
 
 [params]
 

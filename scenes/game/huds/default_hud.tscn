@@ -69,7 +69,6 @@ unique_name_in_owner = true
 
 [node name="opponent" parent="note_fields" instance=ExtResource("2_0rw2j")]
 position = Vector2(320, 100)
-default_note_splash = ExtResource("3_1ubyb")
 
 [node name="player" parent="note_fields" instance=ExtResource("2_0rw2j")]
 position = Vector2(960, 100)
