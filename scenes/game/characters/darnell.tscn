@@ -10,8 +10,6 @@
 script = ExtResource("2_cf3ry")
 texture = ExtResource("3_tc5gy")
 color = Color(0.447059, 0.368627, 0.690196, 1)
-frames = Vector2i(2, 1)
-filter = 0
 
 [sub_resource type="Animation" id="Animation_bgpi6"]
 length = 0.001

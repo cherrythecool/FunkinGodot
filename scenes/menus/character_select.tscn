@@ -144,7 +144,7 @@ scroll_scale = Vector2(0.3, 0.3)
 position = Vector2(-75, 209)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/crowd"
-frame = 3
+frame = 1
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -152,7 +152,7 @@ metadata/_custom_type_script = "uid://diqmdngjb60u2"
 position = Vector2(-40, 391)
 sprite_frames = ExtResource("7_5ydai")
 animation = &"stage full instance 1"
-frame_progress = 0.8157965
+frame_progress = 0.23911014
 centered = false
 script = ExtResource("4_xae3q")
 playing = true
@@ -331,7 +331,7 @@ position = Vector2(625, 323)
 texture = ExtResource("21_pwyd4")
 script = ExtResource("22_pwyd4")
 target = NodePath("../selector")
-speed = 8.0
+speed = 16.0
 
 [node name="selector_back" type="Sprite2D" parent="character_selector" node_paths=PackedStringArray("target")]
 modulate = Color(0.243137, 0.733333, 1, 1)
@@ -340,7 +340,7 @@ position = Vector2(625, 323)
 texture = ExtResource("21_pwyd4")
 script = ExtResource("22_pwyd4")
 target = NodePath("../selector")
-speed = 10.0
+speed = 20.0
 
 [node name="selector" type="AnimatedSprite2D" parent="character_selector"]
 unique_name_in_owner = true

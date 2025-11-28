@@ -13,6 +13,6 @@ func refresh(data: Dictionary) -> void:
 	rank_label.text = 'Rank: %s' % data.get('rank', 'N/A')
 
 	if data.has('accuracy') and data.get('accuracy') is not String:
-		accuracy_label.text = 'Accuracy: %.3f%%' % [data.get('accuracy')]
+		accuracy_label.text = 'Accuracy: %.3f%%' % [Global.truncate_float_to(data.get('accuracy'), 3)]
 	else:
 		accuracy_label.text = 'Accuracy: N/A'

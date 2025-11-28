@@ -6,6 +6,7 @@ class_name Character extends Node2D
 @export var starts_as_player: bool = false
 
 @export_category('Animations')
+@export var dances: bool = true
 @export var dance_steps: Array[StringName] = [&'idle']
 @export_range(0.0, 1024.0, 0.01) var sing_steps: float = 4.0
 var dance_step: int = 0
@@ -24,6 +25,7 @@ var sing_timer: float = 0.0
 var in_special_anim: bool = false
 var sprite: CanvasItem = null
 
+signal animation_played(animation: StringName)
 signal animation_finished(animation: StringName)
 
 
@@ -60,9 +62,11 @@ func play_anim(anim: StringName, force: bool = false, special: bool = false) -> 
 	if animation_player.current_animation == anim and force:
 		animation_player.seek(0.0)
 		animation_player.advance(0.0)
+		animation_played.emit(anim)
 		return
 
 	animation_player.play(anim)
+	animation_played.emit(anim)
 
 
 func has_anim(anim: StringName) -> bool:
@@ -100,12 +104,18 @@ func sing_miss(note: Note, force: bool = false) -> void:
 
 
 func dance(force: bool = false) -> void:
+	if not dances:
+		return
 	if singing and not force:
 		return
 	if dance_steps.is_empty():
 		return
 	if dance_steps.size() > 1:
-		dance_step = wrapi(dance_step + 1, 0, dance_steps.size())
+		var base: int = dance_step + 1
+		if is_instance_valid(Conductor.instance):
+			base = floori(Conductor.instance.beat)
+		
+		dance_step = wrapi(base, 0, dance_steps.size())
 		play_anim(dance_steps[dance_step], force)
 		return
 
@@ -120,12 +130,12 @@ func set_character_material(new_material: Material) -> void:
 func get_camera_position() -> Vector2:
 	if not is_instance_valid(camera_offset):
 		return Vector2.ZERO
-	
+
 	return camera_offset.global_position
 
 
 func offset_camera_position(added: Vector2) -> void:
 	if not is_instance_valid(camera_offset):
 		return
-	
+
 	camera_offset.position += added
