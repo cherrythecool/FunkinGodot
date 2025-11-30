@@ -107,7 +107,7 @@ script = ExtResource("9_t736h")
 character_path = "res://scenes/game/assets/characters/gf.tscn"
 
 [node name="camera_offset" type="Marker2D" parent="spectator"]
-position = Vector2(-5.0999756, -288)
+position = Vector2(-69.099976, -254)
 
 [node name="train_passes" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

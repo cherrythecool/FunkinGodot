@@ -1,0 +1,164 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6ejs2wvgt8fc"]
+
+[ext_resource type="Script" uid="uid://dbridha1ib24a" path="res://addons/funkin_tools/sparrow_importer.gd" id="1_wy6ij"]
+
+[node name="Sparrow Importer" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wy6ij")
+metadata/_tab_index = 0
+
+[node name="h_split_container" type="HSplitContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+theme_override_constants/minimum_grab_thickness = 8
+theme_override_constants/autohide = 0
+
+[node name="margin_container" type="MarginContainer" parent="h_split_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="v_box" type="VBoxContainer" parent="h_split_container/margin_container"]
+layout_mode = 2
+
+[node name="label" type="Label" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+text = "Use this tool to convert Sparrow Atlases to Godot's native SpriteFrames resources!"
+autowrap_mode = 3
+
+[node name="h_separator" type="HSeparator" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="import_label" type="Label" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+text = "Animation Import Settings"
+
+[node name="import_options" type="VBoxContainer" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="fps_box" type="SpinBox" parent="h_split_container/margin_container/v_box/import_options"]
+layout_mode = 2
+size_flags_horizontal = 0
+max_value = 1000.0
+value = 24.0
+rounded = true
+
+[node name="label" type="Label" parent="h_split_container/margin_container/v_box/import_options/fps_box"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+text = "FPS"
+vertical_alignment = 1
+
+[node name="looping" type="CheckBox" parent="h_split_container/margin_container/v_box/import_options"]
+layout_mode = 2
+text = "Looping"
+
+[node name="path_prefix" type="CheckBox" parent="h_split_container/margin_container/v_box/import_options"]
+layout_mode = 2
+text = "Use File Name as Prefix"
+
+[node name="import_spritesheets" type="Button" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Import Spritesheets"
+
+[node name="h_separator_2" type="HSeparator" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="export_to_spriteframes" type="Button" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Export All to SpriteFrames"
+
+[node name="export_to_pngs" type="Button" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Export All to PNGs"
+
+[node name="margin_container_2" type="MarginContainer" parent="h_split_container"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="h_box_container" type="HBoxContainer" parent="h_split_container/margin_container_2"]
+layout_mode = 2
+
+[node name="spritesheet_container" type="BoxContainer" parent="h_split_container/margin_container_2/h_box_container"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+vertical = true
+
+[node name="open_dialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+disable_3d = true
+oversampling_override = 1.0
+title = "Open File(s)"
+initial_position = 4
+size = Vector2i(640, 480)
+file_mode = 1
+filters = PackedStringArray("*.xml;Sparrow Atlases")
+use_native_dialog = true
+folder_creation_enabled = false
+favorites_enabled = false
+recent_list_enabled = false
+
+[node name="save_dialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+disable_3d = true
+oversampling_override = 1.0
+initial_position = 4
+size = Vector2i(640, 480)
+filters = PackedStringArray("*.res;SpriteFrames")
+use_native_dialog = true
+option_count = 1
+favorites_enabled = false
+recent_list_enabled = false
+option_0/name = "Compressed"
+option_0/default = 1
+
+[node name="save_pngs_dialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+disable_3d = true
+oversampling_override = 1.0
+title = "Open a Directory"
+initial_position = 4
+size = Vector2i(640, 480)
+file_mode = 2
+access = 2
+filters = PackedStringArray("*.res;SpriteFrames")
+use_native_dialog = true
+option_count = 1
+favorites_enabled = false
+recent_list_enabled = false
+option_0/name = "Compressed"
+option_0/default = 1
+
+[connection signal="value_changed" from="h_split_container/margin_container/v_box/import_options/fps_box" to="." method="_on_fps_box_value_changed"]
+[connection signal="toggled" from="h_split_container/margin_container/v_box/import_options/looping" to="." method="_on_looping_toggled"]
+[connection signal="toggled" from="h_split_container/margin_container/v_box/import_options/path_prefix" to="." method="_on_path_prefix_toggled"]
+[connection signal="pressed" from="h_split_container/margin_container/v_box/import_spritesheets" to="." method="_on_import_spritesheets_pressed"]
+[connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_spriteframes" to="." method="_on_export_to_spriteframes_pressed"]
+[connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_pngs" to="." method="_on_export_to_pngs_pressed"]
+[connection signal="files_selected" from="open_dialog" to="." method="_on_open_dialog_files_selected"]
+[connection signal="file_selected" from="save_dialog" to="." method="save_sprite_frames"]
+[connection signal="dir_selected" from="save_pngs_dialog" to="." method="save_to_pngs"]

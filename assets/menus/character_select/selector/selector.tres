@@ -1,8 +1,7 @@
-[gd_resource type="SpriteFrames" load_steps=18 format=3 uid="uid://cxstgenxhhdxm"]
+[gd_resource type="SpriteFrames" load_steps=17 format=3 uid="uid://cxstgenxhhdxm"]
 
 [ext_resource type="Texture2D" uid="uid://ddqxn0anexvqs" path="res://assets/menus/character_select/selector/confirm.png" id="1_lv4qt"]
 [ext_resource type="Texture2D" uid="uid://bmjua6maldayc" path="res://assets/menus/character_select/selector/denied.png" id="2_t6rim"]
-[ext_resource type="Texture2D" uid="uid://rhym0vi414ug" path="res://assets/menus/character_select/selector/selector.png" id="3_rcxlk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bnr1b"]
 atlas = ExtResource("1_lv4qt")
@@ -195,7 +194,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_rcxlk")
+"texture": SubResource("AtlasTexture_bnr1b")
 }],
 "loop": false,
 "name": &"idle",

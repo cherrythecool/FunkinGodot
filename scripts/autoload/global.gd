@@ -106,6 +106,12 @@ func _on_config_loaded() -> void:
 			Config.get_value('performance', 'vsync_mode'))
 
 
+# fix pesky 99.9999999999% accuracy or whatever with this simple trick
+func truncate_float_to(input: float, precision: int) -> float:
+	var multiplier: float = pow(10.0, float(precision))
+	return floori(input * multiplier) / multiplier
+
+
 func free_children_from(node: Node, immediate: bool = false) -> void:
 	for child: Node in node.get_children():
 		if immediate:
@@ -151,7 +157,8 @@ func convert_flixel_tween_trans(v: String) -> Tween.TransitionType:
 		'expoIn', 'expoOut', 'expoInOut', 'expoOutIn':
 			return Tween.TRANS_EXPO
 		'smoothStepIn', 'smoothStepOut', 'smoothStepInOut', 'smoothStepOutIn':
-			return Tween.TRANS_SPRING # i think?
+			## TODO: Maybe implement a custom smooth step function?
+			return Tween.TRANS_CUBIC
 		'elasticIn', 'elasticOut', 'elasticInOut', 'elasticOutIn':
 			return Tween.TRANS_ELASTIC
 		_: # default to linear

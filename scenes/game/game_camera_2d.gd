@@ -90,7 +90,8 @@ func _on_game_event_hit(event: EventData) -> void:
 				pan_tween.kill()
 			
 			var ease_string: String = event.data[1]
-			position_target = target.get_camera_position()
+			position_lerps = true
+			position_target = target.get_camera_position() + event.data[3]
 			if event.time <= 0.0 or ease_string == "INSTANT":
 				position = position_target
 			if ease_string == "CLASSIC" or ease_string == "INSTANT":
@@ -100,14 +101,12 @@ func _on_game_event_hit(event: EventData) -> void:
 			pan_tween = create_tween()
 			pan_tween.set_ease(Global.convert_flixel_tween_ease(ease_string))
 			pan_tween.set_trans(Global.convert_flixel_tween_trans(ease_string))
-			pan_lerped = position_lerps
-			if pan_lerped:
-				pan_tween.tween_property(
-					self,
-					^"position_lerps",
-					false,
-					0.0
-				)
+			pan_tween.tween_property(
+				self,
+				^"position_lerps",
+				false,
+				0.0
+			)
 			
 			pan_tween.tween_property(
 				self,
@@ -116,13 +115,12 @@ func _on_game_event_hit(event: EventData) -> void:
 				conductor.beat_delta / 4.0 * float(steps)
 			)
 			
-			if pan_lerped:
-				pan_tween.tween_property(
-					self,
-					^"position_lerps",
-					true,
-					0.0
-				)
+			pan_tween.tween_property(
+				self,
+				^"position_lerps",
+				true,
+				0.0
+			)
 		&"zoomcamera":
 			var data: Dictionary = event.data[0]
 			var steps: int = data.get("duration", 32)

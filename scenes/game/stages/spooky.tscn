@@ -37,4 +37,4 @@ script = ExtResource("5_m434m")
 character_path = "res://scenes/game/assets/characters/gf.tscn"
 
 [node name="camera_offset" type="Marker2D" parent="spectator"]
-position = Vector2(-27, -344)
+position = Vector2(47, -445)

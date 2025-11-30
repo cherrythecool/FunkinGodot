@@ -6,10 +6,6 @@ var events: Array[EventData] = []
 var scroll_speed: float = 1.0
 
 
-func _to_string() -> String:
-	return 'Chart(notes: %s, events: %s)' % [notes, events]
-
-
 static func load_song(name: StringName, difficulty: StringName) -> Chart:
 	var start: int = Time.get_ticks_usec()
 	name = name.to_lower()
