@@ -199,7 +199,7 @@ func hit_note(note: Note) -> void:
 	note.hit = true
 
 	if note.is_sustain:
-		note.sustain_offset = -(conductor.time - note.data.time)
+		note.sustain_offset = conductor.time - note.data.time
 		note.length -= conductor.time - note.data.time
 		note.data.length = note.length
 

@@ -18,7 +18,6 @@ func parse() -> Chart:
 
 	# If your chart is completely empty, you have issues.
 	if data.notes.is_empty():
-		push_warning('Why the fuck did you give a 100% empty legacy chart')
 		return
 
 	# section stuff
@@ -29,13 +28,13 @@ func parse() -> Chart:
 
 	chart.events.append_array(parse_events(data))
 
-	if not data.has('eventObjects'):
+	if not data.has("eventObjects"):
 		chart.events.push_back(BPMChange.new(time, bpm))
 	chart.events.push_back(CameraPan.new(time, int(not must_hit)))
 
 	for section: Dictionary in data.notes:
-		if section.get('changeBPM', false) and section.get('bpm', -1.0) != bpm:
-			bpm = section.get('bpm', -1.0)
+		if section.get("changeBPM", false) and section.get("bpm", -1.0) != bpm:
+			bpm = section.get("bpm", -1.0)
 			chart.events.push_back(BPMChange.new(time, bpm))
 		if section.mustHitSection != must_hit:
 			must_hit = section.mustHitSection
@@ -58,7 +57,7 @@ func parse() -> Chart:
 			if note.size() > 3 and note[3] is String:
 				note_data.type = note[3]
 			else:
-				note_data.type = &'default'
+				note_data.type = &"default"
 
 			chart.notes.push_back(note_data)
 
@@ -68,7 +67,7 @@ func parse() -> Chart:
 	Chart.sort_chart_notes(chart)
 
 	var stacked_notes: int = Chart.remove_stacked_notes(chart)
-	print('Loaded FunkinChart(%s) with %s stacked notes detected.' % [
+	print("Loaded FunkinChart(%s) with %s stacked notes detected." % [
 		data.song, stacked_notes
 	])
 
@@ -81,19 +80,19 @@ static func parse_kade_events(data: Dictionary) -> Array[EventData]:
 	var beat: float = 0.0
 	var time: float = 0.0
 
-	var event_objects: Array = data.get('eventObjects', [])
+	var event_objects: Array = data.get("eventObjects", [])
 	if not event_objects.is_empty():
 		# disclaimer: this does NOT help the camera pans, but at least
 		# everything else is accurate for now :]
 		for object: Dictionary in event_objects:
-			if object.get('type', '').to_lower() != 'bpm change':
+			if object.get("type", "").to_lower() != "bpm change":
 				continue
 
 			var beat_delta: float = 60.0 / bpm
 			var last_beat: float = beat
-			beat = object.get('position', -1.0)
+			beat = object.get("position", -1.0)
 			time += (beat - last_beat) * beat_delta
-			bpm = object.get('value', -1.0)
+			bpm = object.get("value", -1.0)
 			events.push_back(BPMChange.new(time, bpm))
 	else:
 		events.push_back(BPMChange.new(time, bpm))
@@ -104,7 +103,7 @@ static func parse_kade_events(data: Dictionary) -> Array[EventData]:
 static func parse_psych_events(data: Dictionary) -> Array[EventData]:
 	var events: Array[EventData] = []
 
-	var event_data: Array = data.get('events', [])
+	var event_data: Array = data.get("events", [])
 	if event_data.is_empty():
 		return events
 
@@ -124,10 +123,10 @@ static func parse_psych_events(data: Dictionary) -> Array[EventData]:
 
 static func parse_events(data: Dictionary) -> Array[EventData]:
 	var events: Array[EventData] = []
-	if data.has('eventObjects'):
+	if data.has("eventObjects"):
 		events.append_array(parse_kade_events(data))
 
-	if data.has('events'):
+	if data.has("events"):
 		events.append_array(parse_psych_events(data))
 
 	return events

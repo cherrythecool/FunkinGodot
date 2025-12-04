@@ -72,8 +72,7 @@ static func try_legacy(base_path: String, difficulty: StringName) -> Chart:
 
 	var path: String = '%s/charts/%s.json' % [base_path, difficulty]
 	var funkin: FunkinLegacyChart = FunkinLegacyChart.new()
-	var json: String = FileAccess.get_file_as_string(path)
-	funkin.json = JSON.parse_string(json)
+	funkin.json = load(path).data
 	if 'codenameChart' in funkin.json and funkin.json.codenameChart == true:
 		return CodenameChart.parse(base_path, funkin.json)
 
@@ -107,8 +106,7 @@ static func try_fnfc(base_path: String, difficulty: StringName) -> Chart:
 	var fnfc: FNFCChart = FNFCChart.new()
 
 	var chart_path: String = '%s/charts/chart.json' % [base_path]
-	var chart_data: String = FileAccess.get_file_as_string(chart_path)
-	fnfc.json_chart = JSON.parse_string(chart_data)
+	fnfc.json_chart = load(chart_path).data
 
 	var meta_path: String = '%s/charts/meta.json' % [base_path]
 	if not ResourceLoader.exists(meta_path):

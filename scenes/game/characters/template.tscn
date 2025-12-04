@@ -1,15 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://cdlt4jc7j8122"]
+[gd_scene load_steps=14 format=3 uid="uid://cnhy0um3uxcjm"]
 
-[ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/characters/character.gd" id="1_6r3o0"]
-[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_2fkqd"]
-[ext_resource type="Texture2D" uid="uid://c8gwllfuq3f1a" path="res://assets/game/characters/dad/icon.png" id="3_sy3hy"]
-[ext_resource type="SpriteFrames" uid="uid://cg0jqphtja7sl" path="res://assets/game/characters/dad/sprites.res" id="4_24ktn"]
-[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_r6lww"]
+[ext_resource type="Script" uid="uid://dmoepm00llloi" path="res://scenes/game/characters/character.gd" id="1_5b3un"]
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="2_vx3xc"]
+[ext_resource type="Texture2D" uid="uid://c8gwllfuq3f1a" path="res://assets/game/characters/dad/icon.png" id="3_5b3un"]
+[ext_resource type="SpriteFrames" uid="uid://cg0jqphtja7sl" path="res://assets/game/characters/dad/sprites.res" id="4_5b3un"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="5_laq0d"]
 
-[sub_resource type="Resource" id="Resource_4ohel"]
-script = ExtResource("2_2fkqd")
-texture = ExtResource("3_sy3hy")
-color = Color(0.686366, 0.400092, 0.808011, 1)
+[sub_resource type="Resource" id="Resource_cf3ry"]
+script = ExtResource("2_vx3xc")
+texture = ExtResource("3_5b3un")
+color = Color(0.6862745, 0.4, 0.80784315, 1)
 frames = Vector2i(1, 1)
 
 [sub_resource type="Animation" id="Animation_bgpi6"]
@@ -410,17 +410,16 @@ _data = {
 &"sing_up": SubResource("Animation_m87l6")
 }
 
-[node name="dad" type="Node2D"]
-script = ExtResource("1_6r3o0")
-icon = SubResource("Resource_4ohel")
-sing_steps = 6.1
+[node name="template" type="Node2D"]
+script = ExtResource("1_5b3un")
+icon = SubResource("Resource_cf3ry")
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
 position = Vector2(-177, -756)
-sprite_frames = ExtResource("4_24ktn")
+sprite_frames = ExtResource("4_5b3un")
 animation = &"idle"
 centered = false
-script = ExtResource("5_r6lww")
+script = ExtResource("5_laq0d")
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 libraries = {

@@ -128,7 +128,7 @@ func update_sustain() -> void:
 			clip_rect.position.y = 0.0
 			sustain.position.y = 0.0
 
-	sustain.position.y += (sustain_offset / scale.y) * 1000.0 * 0.45 * \
+	sustain.position.y += ((sustain_offset * field.scroll_speed_modifier) / scale.y) * 1000.0 * 0.45 * \
 			(field.scroll_speed * absf(field.scroll_speed_modifier))
 
 

@@ -41,9 +41,9 @@ script = ExtResource("5_wl1cv")
 [node name="opponent" type="Marker2D" parent="."]
 position = Vector2(256, 800)
 script = ExtResource("5_wl1cv")
-character_path = "res://scenes/game/assets/characters/dad.tscn"
+character_path = "uid://cdlt4jc7j8122"
 
 [node name="spectator" type="Marker2D" parent="."]
 position = Vector2(625, 750)
 script = ExtResource("5_wl1cv")
-character_path = "res://scenes/game/assets/characters/gf.tscn"
+character_path = "uid://bragoy3tisav2"
