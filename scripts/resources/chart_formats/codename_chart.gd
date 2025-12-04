@@ -59,7 +59,7 @@ static func parse(base_path: String, data: Dictionary) -> Chart:
 
 
 static func parse_events(chart: Chart,
-						events: Array[Dictionary],
+						events: Array,
 						sides: Array) -> void:
 	for event: Dictionary in events:
 		var name: String = event.name
