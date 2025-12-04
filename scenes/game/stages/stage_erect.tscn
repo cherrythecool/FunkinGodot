@@ -54,7 +54,7 @@ z_index = 5
 position = Vector2(560, 290)
 sprite_frames = ExtResource("3_iarc1")
 animation = &"bop"
-frame_progress = 0.7704616
+frame_progress = 0.8570134
 centered = false
 script = ExtResource("4_dtqj5")
 playing = true
@@ -100,6 +100,15 @@ position = Vector2(773, -117)
 texture = ExtResource("11_i0awy")
 centered = false
 
+[node name="spectator" type="Marker2D" parent="."]
+z_index = 100
+position = Vector2(541, 827)
+script = ExtResource("5_gyln2")
+character_path = "uid://bragoy3tisav2"
+
+[node name="camera_offset" type="Marker2D" parent="spectator"]
+position = Vector2(91, -264)
+
 [node name="player" type="Marker2D" parent="."]
 z_index = 300
 position = Vector2(960, 861)
@@ -111,12 +120,3 @@ z_index = 200
 position = Vector2(51, 852)
 script = ExtResource("5_gyln2")
 character_path = "res://scenes/game/assets/characters/dad.tscn"
-
-[node name="spectator" type="Marker2D" parent="."]
-z_index = 100
-position = Vector2(541, 827)
-script = ExtResource("5_gyln2")
-character_path = "uid://bragoy3tisav2"
-
-[node name="camera_offset" type="Marker2D" parent="spectator"]
-position = Vector2(91, -264)

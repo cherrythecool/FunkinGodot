@@ -14,6 +14,11 @@ offset_right = 1600.0
 offset_bottom = 900.0
 color = Color(0.5078125, 0.5078125, 0.5078125, 1)
 
+[node name="spectator" type="Marker2D" parent="."]
+position = Vector2(625, 750)
+script = ExtResource("5_1l8vu")
+character_path = "uid://bragoy3tisav2"
+
 [node name="player" type="Marker2D" parent="."]
 position = Vector2(1000, 800)
 script = ExtResource("5_1l8vu")
@@ -22,8 +27,3 @@ script = ExtResource("5_1l8vu")
 position = Vector2(256, 800)
 script = ExtResource("5_1l8vu")
 character_path = "uid://cdlt4jc7j8122"
-
-[node name="spectator" type="Marker2D" parent="."]
-position = Vector2(625, 750)
-script = ExtResource("5_1l8vu")
-character_path = "uid://bragoy3tisav2"

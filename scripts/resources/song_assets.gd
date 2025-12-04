@@ -14,8 +14,8 @@ class_name SongAssets extends Resource
 @export var hud: PackedScene = null
 @export var hud_skin: HUDSkin = null
 
-@export var player_skin: NoteSkin = null
-@export var opponent_skin: NoteSkin = null
+@export var player_note_skin: NoteSkin = null
+@export var opponent_note_skin: NoteSkin = null
 
 @export_category('Misc')
 

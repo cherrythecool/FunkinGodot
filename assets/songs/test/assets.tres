@@ -9,4 +9,4 @@
 script = ExtResource("3_x8t8d")
 spectator = ExtResource("4_lvgbr")
 opponent = ExtResource("1_qw5sw")
-opponent_skin = ExtResource("2_qw5sw")
+opponent_note_skin = ExtResource("2_qw5sw")

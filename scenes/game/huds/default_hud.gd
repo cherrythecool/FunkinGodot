@@ -135,7 +135,7 @@ func _on_note_hit(note: Note) -> void:
 		var splash: AnimatedSprite = note.splash.instantiate()
 		splash.note = note
 		var player_skin: NoteSkin = player_field.skin
-		if splash.use_skin and is_instance_valid(player_skin):
+		if splash.use_default_shader and is_instance_valid(player_skin):
 			splash.sprite_frames = player_skin.splash_frames
 			splash.scale = player_skin.splash_scale
 			splash.texture_filter = player_skin.splash_filter

@@ -71,7 +71,7 @@ func _input(event: InputEvent) -> void:
 					SceneManager.switch_to(load('res://scenes/menus/options_menu.tscn'))
 				&'quit':
 					_close()
-					Game.instance._song_finished(true)
+					Game.instance.finish_song(true)
 				_:
 					printerr('Pause Option %s unimplemented.' % type)
 

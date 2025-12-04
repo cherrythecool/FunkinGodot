@@ -7,11 +7,23 @@ class_name CharacterPlacement extends Node2D
 		character_path = value
 		if Engine.is_editor_hint():
 			queue_redraw()
+
 @export var flipped: bool = false:
 	set(value):
 		flipped = value
 		if Engine.is_editor_hint():
 			queue_redraw()
+
+@export_range(0.0, 1.0, 0.01) var alpha: float = 0.5:
+	set(value):
+		alpha = value
+		
+		if Engine.is_editor_hint():
+			if is_instance_valid(character):
+				character.modulate.a = alpha
+
+@export_tool_button("Reload Character", "Reload") var reload_character_editor: Callable = queue_redraw
+@export_tool_button("Add Camera Offset Marker", "Marker2D") var make_camera_offset_node_editor: Callable = make_camera_offset_node
 
 var character: Node = null
 
@@ -31,7 +43,7 @@ func _draw() -> void:
 
 	var scene: PackedScene = load(character_path)
 	character = scene.instantiate()
-	character.modulate.a = 0.5
+	character.modulate.a = alpha
 	if flipped:
 		character.scale.x *= -1.0
 	add_child(character)
@@ -77,3 +89,19 @@ func instance_character(player: bool = false, insert: bool = true) -> Character:
 		instanced.camera_offset = get_node(^"camera_offset")
 	
 	return instanced
+
+
+func make_camera_offset_node() -> void:
+	if has_node(^"camera_offset"):
+		return
+	
+	var offset: Marker2D = Marker2D.new()
+	offset.name = &"camera_offset"
+	add_child(offset)
+	offset.owner = get_parent()
+	
+	if not is_instance_valid(character):
+		return
+	if not character.has_node(^"camera_offset"):
+		return
+	offset.global_position = character.get_node(^"camera_offset").global_position

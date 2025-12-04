@@ -34,6 +34,11 @@ scale = Vector2(0.9, 0.9)
 texture = ExtResource("5_lk1og")
 centered = false
 
+[node name="spectator" type="Marker2D" parent="."]
+position = Vector2(625, 750)
+script = ExtResource("5_wl1cv")
+character_path = "uid://bragoy3tisav2"
+
 [node name="player" type="Marker2D" parent="."]
 position = Vector2(1000, 800)
 script = ExtResource("5_wl1cv")
@@ -42,8 +47,3 @@ script = ExtResource("5_wl1cv")
 position = Vector2(256, 800)
 script = ExtResource("5_wl1cv")
 character_path = "uid://cdlt4jc7j8122"
-
-[node name="spectator" type="Marker2D" parent="."]
-position = Vector2(625, 750)
-script = ExtResource("5_wl1cv")
-character_path = "uid://bragoy3tisav2"

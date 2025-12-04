@@ -1,11 +1,11 @@
 class_name Game extends Node
 
 
-static var song: StringName = &'bopeebo'
-static var difficulty: StringName = &'hard'
+static var song: StringName = &"bopeebo"
+static var difficulty: StringName = &"hard"
 static var chart: Chart = null
 static var mode: PlayMode = PlayMode.FREEPLAY
-static var exit_scene: String = ''
+static var exit_scene: String = ""
 
 static var instance: Game = null
 static var playlist: Array[GamePlaylistEntry] = []
@@ -63,12 +63,9 @@ var rank: StringName:
 		if is_instance_valid(rating_calculator):
 			return rating_calculator.rank
 
-		return &'N/A'
+		return &"N/A"
 
 var skin: HUDSkin
-
-# Used for fixing lerping delta issues when restarting songs :p
-var first_frame: bool = true
 
 signal hud_setup
 signal ready_post
@@ -81,7 +78,7 @@ signal song_exited
 signal scroll_speed_changed
 signal died
 signal botplay_changed(botplay: bool)
-@warning_ignore('unused_signal') signal unpaused
+@warning_ignore("unused_signal") signal unpaused
 
 
 func _ready() -> void:
@@ -92,7 +89,7 @@ func _ready() -> void:
 	Input.use_accumulated_input = false
 	GlobalAudio.music.stop()
 	tracks.load_tracks(song)
-	tracks.finished.connect(_song_finished.bind(false, false))
+	tracks.finished.connect(finish_song.bind(false, false))
 
 	load_chart()
 	reset_conductor()
@@ -124,7 +121,7 @@ func _process(delta: float) -> void:
 		died.emit()
 		Gameover.character_path = player.death_character
 		Gameover.character_position = player.global_position
-		SceneManager.switch_to(load('uid://c05dah5aarqg8'), false)
+		SceneManager.switch_to(load("uid://c05dah5aarqg8"), false)
 		return
 
 	if is_instance_valid(tracks) and not song_started:
@@ -140,10 +137,6 @@ func _process(delta: float) -> void:
 		event_hit.emit(event)
 		events_index += 1
 
-	if first_frame:
-		first_frame = false
-		return
-
 
 func _process_post(delta: float) -> void:
 	process_post.emit(delta)
@@ -156,14 +149,15 @@ func _input(event: InputEvent) -> void:
 		return
 	if not playing:
 		return
-	if event.is_action(&'ui_cancel'):
-		_song_finished(true)
-	if event.is_action(&'pause_game'):
+	if event.is_action(&"ui_cancel"):
+		finish_song(true)
+	if event.is_action(&"pause_game"):
 		var menu: CanvasLayer = pause_menu.instantiate()
 		add_child(menu)
 		process_mode = Node.PROCESS_MODE_DISABLED
 		conductor.active = false
-	if event.is_action(&'toggle_botplay') and is_instance_valid(player_field):
+	
+	if event.is_action(&"toggle_botplay") and is_instance_valid(player_field):
 		save_score = false
 		player_field.takes_input = not player_field.takes_input
 
@@ -171,6 +165,15 @@ func _input(event: InputEvent) -> void:
 			receptor.takes_input = player_field.takes_input
 			receptor.automatically_play_static = not player_field.takes_input
 		botplay_changed.emit(not player_field.takes_input)
+	
+	if not OS.is_debug_build():
+		return
+	if event.is_action(&"skip_time"):
+		save_score = false
+		tracks.set_playback_position(conductor.raw_time + 10.0)
+		conductor.raw_time += 10.0
+		player_field.try_spawning(true)
+		opponent_field.try_spawning(true)
 
 
 func _on_beat_hit(_beat: int) -> void:
@@ -194,7 +197,7 @@ func _on_note_hit(_note: Note) -> void:
 	combo += 1
 
 
-func _song_finished(force: bool = false, sound: bool = true) -> void:
+func finish_song(force: bool = false, sound: bool = true) -> void:
 	if not playing:
 		return
 	song_finished.emit()
@@ -204,12 +207,12 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 	playing = false
 	if save_score:
 		var current_score: Dictionary = Scores.get_score(song, difficulty)
-		if str(current_score.get('score', 'N/A')) == 'N/A' or score > current_score.get('score'):
+		if str(current_score.get("score", "N/A")) == "N/A" or score > current_score.get("score"):
 			Scores.set_score(song, difficulty, {
-				'score': score,
-				'misses': misses,
-				'accuracy': accuracy,
-				'rank': rank
+				"score": score,
+				"misses": misses,
+				"accuracy": accuracy,
+				"rank": rank
 			})
 
 	if not (playlist.is_empty() or force):
@@ -219,13 +222,13 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 
 		if not is_instance_valid(chart):
 			var json_path: String = (
-				'res://assets/songs/%s/charts/%s.json'
+				"res://assets/songs/%s/charts/%s.json"
 				% [new_song, new_difficulty.to_lower()]
 			)
-			printerr('Song at path %s doesn\'t exist!' % json_path)
-			GlobalAudio.get_player('MENU/CANCEL').play()
+			printerr("Song at path %s doesn\'t exist!" % json_path)
+			GlobalAudio.get_player("MENU/CANCEL").play()
 			song_exited.emit()
-			SceneManager.switch_to(load('uid://b7fwxsepnt38j'))
+			SceneManager.switch_to(load("uid://b7fwxsepnt38j"))
 			playlist.clear()
 			return
 
@@ -238,37 +241,37 @@ func _song_finished(force: bool = false, sound: bool = true) -> void:
 	chart = null
 	playlist.clear()
 	if sound:
-		GlobalAudio.get_player('MENU/CANCEL').play()
+		GlobalAudio.get_player("MENU/CANCEL").play()
 
 	song_exited.emit()
 	if not exit_scene.is_empty():
 		SceneManager.switch_to(load(exit_scene))
-		exit_scene = ''
+		exit_scene = ""
 		return
 	match mode:
 		PlayMode.STORY:
-			SceneManager.switch_to(load('uid://dcf86iwg6mn3d'))
+			SceneManager.switch_to(load("uid://dcf86iwg6mn3d"))
 		PlayMode.FREEPLAY:
 			SceneManager.switch_to(load(MainMenu.freeplay_scene))
 		_:
-			SceneManager.switch_to(load('uid://cxk008iuw4n7u'))
+			SceneManager.switch_to(load("uid://cxk008iuw4n7u"))
 
 
 func load_chart() -> void:
 	if not is_instance_valid(chart):
 		chart = Chart.load_song(song, difficulty)
 	
-	var custom_speed: float = Config.get_value('gameplay', 'custom_scroll_speed')
-	match Config.get_value('gameplay', 'scroll_speed_method'):
-		'chart':
+	var custom_speed: float = Config.get_value("gameplay", "custom_scroll_speed")
+	match Config.get_value("gameplay", "scroll_speed_method"):
+		"chart":
 			scroll_speed = chart.scroll_speed * custom_speed
-		'constant':
+		"constant":
 			scroll_speed = custom_speed
 
 	Chart.sort_chart_notes(chart)
 	Chart.sort_chart_events(chart)
 
-	note_types[&'default'] = load(Note.DEFAULT_PATH)
+	note_types[&"default"] = load(Note.DEFAULT_PATH)
 
 	# loading external types :3
 	for note: NoteData in chart.notes:
@@ -278,10 +281,10 @@ func load_chart() -> void:
 			continue
 
 		# check both full name and snake_case version
-		var path: String = 'res://scenes/game/notes/%s.tscn' % [type]
+		var path: String = "res://scenes/game/notes/%s.tscn" % [type]
 		if not ResourceLoader.exists(path):
 			type = type.to_snake_case()
-			path = 'res://scenes/game/notes/%s.tscn' % [type]
+			path = "res://scenes/game/notes/%s.tscn" % [type]
 			if not ResourceLoader.exists(path):
 				continue
 
@@ -289,14 +292,14 @@ func load_chart() -> void:
 
 
 func load_assets() -> void:
-	if ResourceLoader.exists('res://assets/songs/%s/meta.tres' % song):
-		metadata = load('res://assets/songs/%s/meta.tres' % song)
+	if ResourceLoader.exists("res://assets/songs/%s/meta.tres" % song):
+		metadata = load("res://assets/songs/%s/meta.tres" % song)
 	else:
 		metadata = SongMetadata.new()
 		metadata.display_name = song.to_pascal_case()
 	
-	if ResourceLoader.exists('res://assets/songs/%s/assets.tres' % song):
-		assets = load('res://assets/songs/%s/assets.tres' % song)
+	if ResourceLoader.exists("res://assets/songs/%s/assets.tres" % song):
+		assets = load("res://assets/songs/%s/assets.tres" % song)
 	else:
 		assets = SongAssets.new()
 
@@ -337,26 +340,26 @@ func load_from_assets() -> void:
 
 	## HUD Assets
 	hud = assets.get_hud().instantiate()
-	if 'hud_skin' in hud:
+	if "hud_skin" in hud:
 		hud.hud_skin = assets.get_hud_skin()
 	hud_layer.add_child(hud)
 	
-	if 'player_field' in hud:
+	if "player_field" in hud:
 		player_field = hud.player_field
-	if 'opponent_field' in hud:
+	if "opponent_field" in hud:
 		opponent_field = hud.opponent_field
 
 	# Set the NoteField characters.
 	if is_instance_valid(player_field):
 		player_field.target_character = player
-		if is_instance_valid(assets.player_skin):
-			player_field.skin = assets.player_skin
+		if is_instance_valid(assets.player_note_skin):
+			player_field.skin = assets.player_note_skin
 		
 		player_field.reload_skin()
 	if is_instance_valid(opponent_field):
 		opponent_field.target_character = opponent
-		if is_instance_valid(assets.opponent_skin):
-			opponent_field.skin = assets.opponent_skin
+		if is_instance_valid(assets.opponent_note_skin):
+			opponent_field.skin = assets.opponent_note_skin
 		
 		opponent_field.reload_skin()
 
@@ -370,7 +373,7 @@ func load_from_assets() -> void:
 		if is_instance_valid(scene):
 			note_types[key] = scene
 
-	# we're done using assets so not point keeping
+	# we"re done using assets so not point keeping
 	# the references around
 	assets = null
 
@@ -403,7 +406,7 @@ func load_events() -> void:
 		# Note: this means all custom events just act as normal scripts
 		# which should be fine for 99.9% of use cases.
 		# it also means you have to manually check for event names
-		# but it's fine :p
+		# but it"s fine :p
 		var exceptions: Array[StringName] = []
 		for event: EventData in chart.events:
 			var event_name: StringName = event.name.to_lower()
@@ -411,7 +414,7 @@ func load_events() -> void:
 				continue
 			exceptions.push_back(event_name)
 
-			var path: String = 'res://scenes/game/events/%s.tscn' % [event_name]
+			var path: String = "res://scenes/game/events/%s.tscn" % [event_name]
 			if not ResourceLoader.exists(path):
 				continue
 
@@ -422,8 +425,8 @@ func load_events() -> void:
 		for event: EventData in chart.events:
 			event_prepare.emit(event)
 
-		# we do int(time * 1000.0) because if it's less than 1 ms
-		# after the start of a song (i've seen this in base game charts before)
+		# we do int(time * 1000.0) because if it"s less than 1 ms
+		# after the start of a song (i"ve seen this in base game charts before)
 		# then we should still call it lmfao (like camera pans)
 		while (not chart.events.is_empty()) and events_index < chart.events.size() \
 				and int(chart.events[events_index].time * 1000.0) <= 0.0:
