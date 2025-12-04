@@ -219,7 +219,7 @@ func import_sparrow_atlas(path: String) -> SpriteFrames:
 				if ResourceLoader.exists(texture_path):
 					source_texture = load(texture_path)
 				else:
-					source_texture = load("%s.png" % [texture_path.get_basename()])
+					source_texture = load("%s.png" % [path.get_basename()])
 			"subtexture":
 				assert(xml_parser.has_attribute("name"), "SubTexture needs \"name\" attribute to be parsed as a frame.")
 				assert(xml_parser.has_attribute("x"), "SubTexture needs \"x\" attribute to be parsed as a frame.")
