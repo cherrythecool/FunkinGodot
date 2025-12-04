@@ -294,13 +294,13 @@ func load_chart() -> void:
 func load_assets() -> void:
 	if ResourceLoader.exists("res://assets/songs/%s/meta.tres" % song):
 		metadata = load("res://assets/songs/%s/meta.tres" % song)
-	else:
+	if not is_instance_valid(metadata):
 		metadata = SongMetadata.new()
 		metadata.display_name = song.to_pascal_case()
 	
 	if ResourceLoader.exists("res://assets/songs/%s/assets.tres" % song):
 		assets = load("res://assets/songs/%s/assets.tres" % song)
-	else:
+	if not is_instance_valid(assets):
 		assets = SongAssets.new()
 
 

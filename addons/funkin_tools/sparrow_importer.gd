@@ -210,16 +210,16 @@ func import_sparrow_atlas(path: String) -> SpriteFrames:
 		var node_name: String = xml_parser.get_node_name().to_lower()
 		match node_name:
 			"textureatlas":
-				#assert(xml_parser.has_attribute("imagePath"), "TextureAtlas needs \"imagePath\" attribute to load texture!")
 				var texture_path: String = "%s/%s" % [
 					path.get_base_dir(),
 					xml_parser.get_named_attribute_value_safe("imagePath"),
 				]
 				
+				if not ResourceLoader.exists(texture_path):
+					texture_path = "%s.png" % [path.get_basename()]
+				
 				if ResourceLoader.exists(texture_path):
-					source_texture = load(texture_path)
-				else:
-					source_texture = load("%s.png" % [path.get_basename()])
+					source_texture = load(ResourceUID.path_to_uid(texture_path))
 			"subtexture":
 				assert(xml_parser.has_attribute("name"), "SubTexture needs \"name\" attribute to be parsed as a frame.")
 				assert(xml_parser.has_attribute("x"), "SubTexture needs \"x\" attribute to be parsed as a frame.")
