@@ -1,7 +1,8 @@
-class_name SongAssets extends Resource
+extends Resource
+class_name SongAssets
 
 
-@export_category("Art")
+@export_group("Art")
 
 @export var player: PackedScene = null
 @export var spectator: PackedScene = null
@@ -9,15 +10,16 @@ class_name SongAssets extends Resource
 
 @export var stage: PackedScene = null
 
-@export_category("HUD")
+@export_group("HUD")
 
 @export var hud: PackedScene = null
 @export var hud_skin: HUDSkin = null
 
+@export_subgroup("Note Skins")
 @export var player_note_skin: NoteSkin = null
 @export var opponent_note_skin: NoteSkin = null
 
-@export_category("Misc")
+@export_group("Miscellaneous")
 
 @export var scripts: Array[PackedScene] = []
 @export var note_types: Dictionary[StringName, PackedScene] = {}
