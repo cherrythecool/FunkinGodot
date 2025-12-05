@@ -12,4 +12,5 @@ note_frames = ExtResource("1_dt0y4")
 note_filter = 1
 note_scale = Vector2(6, 6)
 splash_filter = 1
+splash_colors = Array[Color]([Color(0.8862745, 0.4627451, 1, 1), Color(0.23921569, 0.7921569, 1, 1), Color(0.44313726, 0.8901961, 0, 1), Color(1, 0.53333336, 0.30588236, 1)])
 metadata/_custom_type_script = "uid://dfdr435gif8gk"

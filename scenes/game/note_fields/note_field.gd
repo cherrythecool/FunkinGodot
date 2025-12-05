@@ -319,7 +319,7 @@ func reload_skin() -> void:
 		return
 
 	for receptor: Receptor in receptors:
-		receptor.sprite.sprite_frames = skin.strum_frames
+		receptor.sprite.sprite_frames = skin.get_strum_frames()
 		receptor.sprite.scale = skin.strum_scale
 		receptor.sprite.texture_filter = skin.strum_filter
 		receptor.play_anim(receptor.last_anim)
@@ -335,7 +335,7 @@ func apply_skin_to_note(note: Note) -> void:
 		return
 
 	var animation: StringName = note.sprite.animation
-	note.sprite.sprite_frames = skin.note_frames
+	note.sprite.sprite_frames = skin.get_note_frames()
 	note.scale = skin.note_scale
 	note.sprite.texture_filter = skin.note_filter
 	note.sprite.play(animation)

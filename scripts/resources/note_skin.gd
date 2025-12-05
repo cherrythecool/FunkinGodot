@@ -26,3 +26,27 @@ class_name NoteSkin
 @export var splash_frames: SpriteFrames = null
 @export var splash_filter: CanvasItem.TextureFilter = CanvasItem.TextureFilter.TEXTURE_FILTER_PARENT_NODE
 @export var splash_scale: Vector2 = Vector2.ONE
+@export var splash_colors: Array[Color] = [
+	Color("c14b99"),
+	Color("00ffff"),
+	Color("12fa04"),
+	Color("f9393f"),
+]
+
+
+func get_strum_frames() -> SpriteFrames:
+	if is_instance_valid(strum_frames):
+		return strum_frames
+	return load("uid://y8en4nx7mbuw")
+
+
+func get_note_frames() -> SpriteFrames:
+	if is_instance_valid(note_frames):
+		return note_frames
+	return load("uid://b3r2xop0whqyf")
+
+
+func get_splash_frames() -> SpriteFrames:
+	if is_instance_valid(splash_frames):
+		return splash_frames
+	return load("uid://bw4etux81oui3")

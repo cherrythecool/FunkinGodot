@@ -28,7 +28,9 @@ func _ready() -> void:
 		return
 
 	speed_scale = randf_range(0.9, 1.1)
-	play(&"splash %d" % [randi_range(1, sprite_frames.get_animation_names().size())])
+	
+	if is_instance_valid(sprite_frames):
+		play(&"splash %d" % [randi_range(1, sprite_frames.get_animation_names().size())])
 
 	if not use_default_shader:
 		return
