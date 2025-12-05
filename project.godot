@@ -24,6 +24,8 @@ config/macos_native_icon="res://assets/apple_icon.icns"
 [audio]
 
 buses/default_bus_layout="res://assets/resources/default_bus_layout.tres"
+general/ios/session_category=3
+general/ios/mix_with_others=true
 
 [autoload]
 
@@ -48,6 +50,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
+window/handheld/orientation=4
 window/vsync/vsync_mode=0
 
 [dotnet]

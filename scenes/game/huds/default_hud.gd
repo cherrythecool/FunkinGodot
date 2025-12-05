@@ -168,12 +168,12 @@ func _on_note_hit(note: Note) -> void:
 		else:
 			number.visible = false
 
-	note_hit.emit(note)
+	note_hit.emit.call_deferred(note)
 
 
 func _on_note_miss(note: Note) -> void:
 	rating_container.visible = false
-	note_miss.emit(note)
+	note_miss.emit.call_deferred(note)
 
 
 func _opponent_note_hit(note: Note) -> void:

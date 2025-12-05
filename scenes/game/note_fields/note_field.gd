@@ -201,6 +201,7 @@ func hit_note(note: Note) -> void:
 	
 	note.note_hit()
 	note.hit = true
+	note._process(0.0)
 
 
 func miss_note(note: Note) -> void:

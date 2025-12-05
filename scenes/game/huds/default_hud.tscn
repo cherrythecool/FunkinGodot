@@ -178,5 +178,5 @@ hud = NodePath("..")
 [connection signal="on_setup" from="." to="song_label" method="_on_hud_on_setup"]
 [connection signal="on_setup" from="." to="countdown_container" method="setup"]
 [connection signal="note_hit" from="note_fields/opponent" to="." method="_opponent_note_hit"]
-[connection signal="note_hit" from="note_fields/player" to="." method="_on_note_hit"]
-[connection signal="note_miss" from="note_fields/player" to="." method="_on_note_miss"]
+[connection signal="note_hit" from="note_fields/player" to="." method="_on_note_hit" flags=3]
+[connection signal="note_miss" from="note_fields/player" to="." method="_on_note_miss" flags=3]

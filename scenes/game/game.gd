@@ -101,6 +101,8 @@ func _ready() -> void:
 	scripts.load_scripts(song)
 	load_events()
 	ready_post.emit()
+	
+	stage.notification(NOTIFICATION_PROCESS)
 
 
 func _exit_tree() -> void:
@@ -180,11 +182,11 @@ func _on_beat_hit(_beat: int) -> void:
 
 
 func _on_note_miss(note: Note) -> void:
-	rating_calculator.add_hit(note.hit_window, note.hit_window)
-	health = clampf(health - 2.0, 0.0, 100.0)
 	misses += 1
 	score -= 10
 	combo = 0
+	rating_calculator.add_hit(note.hit_window, note.hit_window)
+	health = clampf(health - 2.0, 0.0, 100.0)
 
 
 func _on_note_hit(_note: Note) -> void:
