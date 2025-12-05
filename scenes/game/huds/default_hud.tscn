@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cuh3v6jw2ti70" path="res://scenes/game/huds/default_hud.gd" id="1_hv0yb"]
 [ext_resource type="PackedScene" uid="uid://3diy2p3nknpi" path="res://scenes/game/note_fields/4_lanes.tscn" id="2_0rw2j"]
 [ext_resource type="PackedScene" uid="uid://bx6f5ldidoswy" path="res://scenes/game/notes/note_splash.tscn" id="3_1ubyb"]
-[ext_resource type="Script" uid="uid://nb701n0rtr0l" path="res://scenes/game/health_bar.gd" id="4_spp67"]
+[ext_resource type="Script" uid="uid://nb701n0rtr0l" path="res://scenes/game/huds/default_hud/health_bar.gd" id="4_spp67"]
 [ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="5_gpwne"]
 [ext_resource type="Texture2D" uid="uid://cn6fmp8et8ktw" path="res://assets/game/skins/default/ratings/marvelous.png" id="6_mktee"]
 [ext_resource type="Texture2D" uid="uid://ds3g63uwcq4jw" path="res://assets/game/skins/default/combo.png" id="7_7svf3"]
@@ -122,7 +122,6 @@ text = "Score:0 • Misses:0 • Accuracy:N/A (N/A)
 "
 label_settings = SubResource("LabelSettings_ku58i")
 horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="song_label" type="Label" parent="."]
 unique_name_in_owner = true

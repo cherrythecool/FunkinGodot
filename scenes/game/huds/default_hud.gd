@@ -210,6 +210,7 @@ func spawn_splash(note: Note, skin: NoteSkin, target: Node2D) -> void:
 		splash.scale = skin.splash_scale
 		splash.texture_filter = skin.splash_filter
 		splash.colors = skin.splash_colors
+		splash.use_default_shader = skin.splash_use_default_shader
 	note_fields.add_child(splash)
 
 	splash.global_position = target.global_position

@@ -42,6 +42,7 @@ offset_bottom = 1280.0
 grow_horizontal = 2
 texture = SubResource("AtlasTexture_q8m8o")
 expand_mode = 1
+stretch_mode = 1
 
 [node name="tail" type="TextureRect" parent="clip_rect/sustain"]
 layout_mode = 1

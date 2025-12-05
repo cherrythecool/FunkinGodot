@@ -14,18 +14,21 @@ class_name NoteSkin
 
 @export_group("Sustains", "sustain_")
 @export_range(0.0, 1.0, 0.001) var sustain_alpha: float = 0.7
-@export_range(0.0, 100.0, 1.0, "or_greater") var sustain_size: float = 50.0
-@export var sustain_texture_offset: Rect2 = Rect2(0.0, 1.0, 0.0, -2.0)
+@export_range(0.0, 100.0, 1.0, "or_greater") var sustain_size: float = 35.0
+@export var sustain_texture_offset: Rect2 = Rect2(0.0, 0.0, 0.0, -2.0)
+@export var sustain_tile_texture: bool = false
+@export var sustain_tile_mirroring: bool = false
 
 @export_subgroup("Sustain Tails", "sustain_tail_")
-@export var sustain_tail_texture_offset: Rect2 = Rect2(0.0, 1.0, 0.0, -1.0)
-@export_range(0.0, 100.0, 1.0, "or_greater") var sustain_tail_size: float = 50.0
+@export var sustain_tail_texture_offset: Rect2 = Rect2(0.0, 0.0, 0.0, 0.0)
+@export_range(0.0, 100.0, 1.0, "or_greater") var sustain_tail_size: float = 35.0
 @export var sustain_tail_offset: float = 0.0
 
 @export_group("Note Splashes", "splash_")
 @export var splash_frames: SpriteFrames = null
 @export var splash_filter: CanvasItem.TextureFilter = CanvasItem.TextureFilter.TEXTURE_FILTER_PARENT_NODE
 @export var splash_scale: Vector2 = Vector2.ONE
+@export var splash_use_default_shader: bool = true
 @export var splash_colors: Array[Color] = [
 	Color("c14b99"),
 	Color("00ffff"),

@@ -13,6 +13,9 @@ var import_framerate: float = 24.0
 var import_looping: bool = false
 var import_path_prefix: bool = false
 
+var export_clear_automatically: bool = false
+var export_filter_edges: bool = true
+
 var imported_list: Dictionary[String, SpriteFrames] = {}
 
 
@@ -49,6 +52,14 @@ func _on_looping_toggled(toggled_on: bool) -> void:
 
 func _on_path_prefix_toggled(toggled_on: bool) -> void:
 	import_path_prefix = toggled_on
+
+
+func _on_clear_on_export_toggled(toggled_on: bool) -> void:
+	export_clear_automatically = toggled_on
+
+
+func _on_filter_clips_toggled(toggled_on: bool) -> void:
+	export_filter_edges = toggled_on
 
 
 func get_path_prefix(path: String) -> String:
@@ -155,6 +166,8 @@ func parse_all_sparrows() -> SpriteFrames:
 					index,
 				)
 				
+				if texture is AtlasTexture:
+					texture.filter_clip = export_filter_edges
 				if texture.has_meta(&"original_frame"):
 					var frame: int = texture.get_meta(&"original_frame")
 					if frame < sprite_frames.get_frame_count(export_name) - 1:
@@ -177,6 +190,11 @@ func parse_all_sparrows() -> SpriteFrames:
 						index,
 					),
 				)
+	
+	if export_clear_automatically:
+		imported_list.clear()
+		for child: Node in spritesheet_container.get_children():
+			child.queue_free()
 	
 	if sprite_frames.get_animation_names().size() == 1:
 		if sprite_frames.has_animation(&"default"):
@@ -240,40 +258,40 @@ func import_sparrow_atlas(path: String) -> SpriteFrames:
 				var frame_width: String = xml_parser.get_named_attribute_value("width")
 				var frame_height: String = xml_parser.get_named_attribute_value("height")
 				
-				assert(frame_x.is_valid_int(), "SubTextures must have a valid \"x\" coordinate to be parsed correctly.")
-				assert(frame_y.is_valid_int(), "SubTextures must have a valid \"y\" coordinate to be parsed correctly.")
-				assert(frame_width.is_valid_int(), "SubTextures must have a valid \"width\" coordinate to be parsed correctly.")
-				assert(frame_height.is_valid_int(), "SubTextures must have a valid \"height\" coordinate to be parsed correctly.")
+				assert(frame_x.is_valid_float(), "SubTextures must have a valid \"x\" coordinate to be parsed correctly.")
+				assert(frame_y.is_valid_float(), "SubTextures must have a valid \"y\" coordinate to be parsed correctly.")
+				assert(frame_width.is_valid_float(), "SubTextures must have a valid \"width\" coordinate to be parsed correctly.")
+				assert(frame_height.is_valid_float(), "SubTextures must have a valid \"height\" coordinate to be parsed correctly.")
 				
-				var source_rect: Rect2i = Rect2i(
-					Vector2i(
-						int(frame_x),
-						int(frame_y),
+				var source_rect: Rect2 = Rect2(
+					Vector2(
+						float(frame_x),
+						float(frame_y),
 					),
-					Vector2i(
-						int(frame_width),
-						int(frame_height),
+					Vector2(
+						float(frame_width),
+						float(frame_height),
 					),
 				)
 				
 				if rotated:
-					source_rect.size = Vector2i(source_rect.size.y, source_rect.size.x)
+					source_rect.size = Vector2(source_rect.size.y, source_rect.size.x)
 				
-				var offset_rect: Rect2i = Rect2i(
-					Vector2i.ZERO,
-					Vector2i.ZERO,
+				var offset_rect: Rect2 = Rect2(
+					Vector2.ZERO,
+					Vector2.ZERO,
 				)
 				
 				var offset_x: String = xml_parser.get_named_attribute_value_safe("frameX")
 				var offset_y: String = xml_parser.get_named_attribute_value_safe("frameY")
 				var bounds_width: String = xml_parser.get_named_attribute_value_safe("frameWidth")
 				var bounds_height: String = xml_parser.get_named_attribute_value_safe("frameHeight")
-				if offset_x.is_valid_int() and bounds_width.is_valid_int():
-					offset_rect.position.x = absi(int(offset_x))
+				if offset_x.is_valid_float() and bounds_width.is_valid_float():
+					offset_rect.position.x = absf(float(offset_x))
 					offset_rect.size.x = int(bounds_width) - source_rect.size.x
-				if offset_y.is_valid_int() and bounds_height.is_valid_int():
-					offset_rect.position.y = absi(int(offset_y))
-					offset_rect.size.y = int(bounds_height) - source_rect.size.y
+				if offset_y.is_valid_float() and bounds_height.is_valid_float():
+					offset_rect.position.y = absf(float(offset_y))
+					offset_rect.size.y = float(bounds_height) - source_rect.size.y
 				
 				var texture: Texture2D = null
 				for pair: Array in cached_frames.keys():
@@ -290,7 +308,7 @@ func import_sparrow_atlas(path: String) -> SpriteFrames:
 						
 						var image: Image = source_image.get_region(Rect2i(
 							source_rect.position,
-							Vector2i(
+							Vector2(
 								source_rect.size.y,
 								source_rect.size.x,
 							),
@@ -299,8 +317,8 @@ func import_sparrow_atlas(path: String) -> SpriteFrames:
 						
 						texture = AtlasTexture.new()
 						texture.atlas = ImageTexture.create_from_image(image)
-						texture.region = Rect2i(
-							Vector2i.ZERO,
+						texture.region = Rect2(
+							Vector2.ZERO,
 							source_rect.size,
 						)
 						texture.margin = offset_rect

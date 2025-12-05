@@ -12,9 +12,12 @@ const DEFAULT_PATH: String = "uid://f75xq2p53bpl"
 var data: NoteData
 var lane: int = 0
 var length: float = 0.0:
-	set(v):
-		length = v
-		update_sustain()
+	set(value):
+		var update: bool = length != value
+		length = value
+		
+		if update:
+			update_sustain()
 var is_sustain: bool = false
 
 const directions: PackedStringArray = ["left", "down", "up", "right"]
@@ -37,6 +40,7 @@ var sustain_timer: float = 0.0:
 		
 		sustain_timer = v
 		sustain.modulate.a = clampf(v / sustain_release_when_hit, 0.0, 1.0)
+var sustain_length_offset: float = 0.0
 var sustain_tail_offset: float = 0.0
 
 
@@ -103,8 +107,9 @@ func update_sustain() -> void:
 	if not is_sustain:
 		return
 
-	sustain.size.y = data.length * 1000.0 * 0.45 * absf(field.get_scroll_speed()) \
+	var time_factor: float = 1000.0 * 0.45 * absf(field.get_scroll_speed()) \
 			/ scale.y - tail.size.y
+	sustain.size.y = (data.length + sustain_length_offset) * time_factor
 	clip_rect.size.y = sustain.size.y + (tail.size.y * tail.scale.y) + 256.0
 
 	var clip_target: float = field.receptors[lane].position.y
@@ -136,30 +141,50 @@ func update_sustain() -> void:
 			clip_rect.position.y = 0.0
 			sustain.position.y = 0.0
 
+	sustain.position.y += sustain_length_offset * time_factor
 	tail.position.x = sustain_tail_offset
 
 
-func reload_sustain_sprites(sustain_texture_offset: Rect2 = Rect2(0.0, 1.0, 0.0, -2.0),
-							sustain_tail_texture_offset: Rect2 = Rect2(0.0, 1.0, 0.0, -1.0)) -> void:
+func reload_sustain_sprites(skin: NoteSkin = null) -> void:
 	if not is_sustain:
 		return
+	if not use_skin:
+		return
+	if not is_instance_valid(skin):
+		skin = NoteSkin.new()
 
 	var sustain_anim: StringName = &"%s sustain" % [directions[lane],]
 	if sprite.sprite_frames.has_animation(sustain_anim):
 		var sustain_texture: AtlasTexture = sprite.sprite_frames.get_frame_texture(sustain_anim, 0).duplicate()
-		sustain_texture.region.position += sustain_texture_offset.position
-		sustain_texture.region.size += sustain_texture_offset.size
+		sustain_texture.region.position += skin.sustain_texture_offset.position
+		sustain_texture.region.size += skin.sustain_texture_offset.size
 		sustain.texture = sustain_texture
 
 	var tail_anim: StringName = &"%s sustain end" % [directions[lane],]
 	if sprite.sprite_frames.has_animation(tail_anim):
 		var tail_texture: AtlasTexture = sprite.sprite_frames.get_frame_texture(tail_anim, 0).duplicate()
-		tail_texture.region.position += sustain_tail_texture_offset.position
-		tail_texture.region.size += sustain_tail_texture_offset.size
+		tail_texture.region.position += skin.sustain_tail_texture_offset.position
+		tail_texture.region.size += skin.sustain_tail_texture_offset.size
 		tail.texture = tail_texture
 		tail.size.y = tail.texture.get_height()
 
+	clip_rect.scale.x = 1.0 / scale.x
+	sustain.texture_filter = sprite.texture_filter
+	sustain.modulate.a = skin.sustain_alpha
+	sustain.size.x = skin.sustain_size
+	tail.size.x = skin.sustain_tail_size
+	sustain_tail_offset = skin.sustain_tail_offset
+	
+	clip_rect.size.x = maxf(sustain.size.x, tail.size.x) + 78.0
+	clip_rect.position.x = -clip_rect.size.x / 2.0
 	clip_rect.pivot_offset.x = clip_rect.size.x / 2.0
+	sustain.position.x = (clip_rect.size.x - sustain.size.x) / 2.0
+	
+	if skin.sustain_tile_texture:
+		sustain.set_script(load("uid://bwf4k5hxjoqaw"))
+		sustain.mirror_every_other = skin.sustain_tile_mirroring
+	elif sustain is AtlasTextureRect:
+		sustain.set_script(null)
 
 
 func note_hit() -> void:

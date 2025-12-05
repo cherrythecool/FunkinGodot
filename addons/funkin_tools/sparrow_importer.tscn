@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b6ejs2wvgt8fc"]
+[gd_scene load_steps=3 format=3 uid="uid://b6ejs2wvgt8fc"]
 
 [ext_resource type="Script" uid="uid://dbridha1ib24a" path="res://addons/funkin_tools/sparrow_importer.gd" id="1_wy6ij"]
+[ext_resource type="Script" uid="uid://stecdjsveru4" path="res://addons/funkin_tools/sparrow_importer/import_spritesheets.gd" id="2_g586u"]
 
 [node name="Sparrow Importer" type="ScrollContainer"]
 anchors_preset = 15
@@ -50,6 +51,7 @@ size_flags_horizontal = 0
 [node name="fps_box" type="SpinBox" parent="h_split_container/margin_container/v_box/import_options"]
 layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "Default framerate of all animations imported"
 max_value = 1000.0
 value = 24.0
 rounded = true
@@ -66,22 +68,47 @@ vertical_alignment = 1
 
 [node name="looping" type="CheckBox" parent="h_split_container/margin_container/v_box/import_options"]
 layout_mode = 2
+tooltip_text = "Default looping value of all animations imported"
 text = "Looping"
 
 [node name="path_prefix" type="CheckBox" parent="h_split_container/margin_container/v_box/import_options"]
 layout_mode = 2
+tooltip_text = "Adds the name of the spritesheet (without file extension) to the start of each animation name
+
+Useful for multiple files with colliding names"
 text = "Use File Name as Prefix"
 
 [node name="import_spritesheets" type="Button" parent="h_split_container/margin_container/v_box"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Import Spritesheets"
+script = ExtResource("2_g586u")
 
 [node name="h_separator_2" type="HSeparator" parent="h_split_container/margin_container/v_box"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="export_to_spriteframes" type="Button" parent="h_split_container/margin_container/v_box"]
+[node name="clear_on_export" type="CheckBox" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+tooltip_text = "Removes all imported spritesheeets automatically after exporting your sprites
+
+Useful if you're exporting a lot of individual sprites in a row"
+text = "Clear Imports After Export"
+
+[node name="filter_clips" type="CheckBox" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+tooltip_text = "Exports all frames with the region around them being clipped to avoid bleeding from pixels around them (disable if it somehow causes issues with your sprites)"
+button_pressed = true
+text = "Filter Edges of Frames"
+
+[node name="merge_animations" type="CheckBox" parent="h_split_container/margin_container/v_box"]
+layout_mode = 2
+tooltip_text = "Merges all imported animations into one single file or folder (depending on the way you export)
+
+Useful for easily combining sprites into one resource"
+text = "Merge All Animations"
+
+[node name="export_to_spriteframes_merged" type="Button" parent="h_split_container/margin_container/v_box"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Export All to SpriteFrames"
@@ -157,7 +184,10 @@ option_0/default = 1
 [connection signal="toggled" from="h_split_container/margin_container/v_box/import_options/looping" to="." method="_on_looping_toggled"]
 [connection signal="toggled" from="h_split_container/margin_container/v_box/import_options/path_prefix" to="." method="_on_path_prefix_toggled"]
 [connection signal="pressed" from="h_split_container/margin_container/v_box/import_spritesheets" to="." method="_on_import_spritesheets_pressed"]
-[connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_spriteframes" to="." method="_on_export_to_spriteframes_pressed"]
+[connection signal="toggled" from="h_split_container/margin_container/v_box/clear_on_export" to="." method="_on_clear_on_export_toggled"]
+[connection signal="toggled" from="h_split_container/margin_container/v_box/filter_clips" to="." method="_on_filter_clips_toggled"]
+[connection signal="toggled" from="h_split_container/margin_container/v_box/merge_animations" to="." method="_on_filter_clips_toggled"]
+[connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_spriteframes_merged" to="." method="_on_export_to_spriteframes_pressed"]
 [connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_pngs" to="." method="_on_export_to_pngs_pressed"]
 [connection signal="files_selected" from="open_dialog" to="." method="_on_open_dialog_files_selected"]
 [connection signal="file_selected" from="save_dialog" to="." method="save_sprite_frames"]

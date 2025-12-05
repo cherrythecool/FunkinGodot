@@ -195,11 +195,12 @@ func hit_note(note: Note) -> void:
 		return
 
 	note_hit.emit(note)
+	if note.is_sustain:
+		note.sustain_end_time = note.data.time + note.data.length
+		note.sustain_length_offset = note.data.time - conductor.time
+	
 	note.note_hit()
 	note.hit = true
-
-	if note.is_sustain:
-		note.sustain_end_time = conductor.time + note.length
 
 
 func miss_note(note: Note) -> void:
@@ -339,14 +340,7 @@ func apply_skin_to_note(note: Note) -> void:
 	note.sprite.frame = 0
 
 	if note.is_sustain:
-		note.clip_rect.scale.x = 1.0 / note.scale.x
-		note.sustain.texture_filter = note.sprite.texture_filter
-		note.sustain.modulate.a = skin.sustain_alpha
-		note.sustain.size.x = skin.sustain_size
-		note.tail.size.x = skin.sustain_tail_size
-		note.sustain_tail_offset = skin.sustain_tail_offset
-		
-		note.reload_sustain_sprites(skin.sustain_texture_offset, skin.sustain_tail_texture_offset)
+		note.reload_sustain_sprites(skin)
 		note.update_sustain()
 
 
