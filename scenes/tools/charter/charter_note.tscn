@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0qhyxlpd3kr2"]
+
+[ext_resource type="SpriteFrames" path="res://assets/game/skins/default/notes.res" id="1_ht4he"]
+[ext_resource type="Script" uid="uid://bh221xvm2cb8b" path="res://scenes/tools/charter/charter_note.gd" id="2_ht4he"]
+[ext_resource type="Texture2D" uid="uid://bbc06fsifnyro" path="res://assets/game/skins/default/notes.png" id="3_i1tih"]
+[ext_resource type="Texture2D" uid="uid://cwbsiifitpfty" path="res://assets/tools/charter/events/default.png" id="3_y7qq5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y7qq5"]
+atlas = ExtResource("3_i1tih")
+region = Rect2(207, 312, 50, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbqlk"]
+atlas = ExtResource("3_i1tih")
+region = Rect2(314, 197, 50, 63)
+
+[node name="charter_note" type="AnimatedSprite2D"]
+scale = Vector2(0.26, 0.26)
+sprite_frames = ExtResource("1_ht4he")
+animation = &"down note"
+script = ExtResource("2_ht4he")
+metadata/_custom_type_script = "uid://xcwf8fppek0h"
+
+[node name="event" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("3_y7qq5")
+
+[node name="rect" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -61.538464
+offset_top = -61.538464
+offset_right = 61.538464
+offset_bottom = 61.538464
+
+[node name="sustain" type="TextureRect" parent="."]
+unique_name_in_owner = true
+visible = false
+show_behind_parent = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -101.57695
+offset_right = -51.57695
+grow_horizontal = 2
+texture = SubResource("AtlasTexture_y7qq5")
+expand_mode = 1
+
+[node name="tail" type="TextureRect" parent="sustain"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -25.0
+offset_top = -2.1536255
+offset_right = 25.0
+offset_bottom = 60.846375
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("AtlasTexture_rbqlk")
+expand_mode = 1

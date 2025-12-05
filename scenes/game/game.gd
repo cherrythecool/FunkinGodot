@@ -13,6 +13,8 @@ static var playlist: Array[GamePlaylistEntry] = []
 var persistent_camera_position: bool = true
 var events_index: int = 0
 
+static var initial_song_time: float = 0
+
 var pause_menu: PackedScene
 
 @onready var rating_calculator: RatingCalculator = %rating_calculator
@@ -130,6 +132,10 @@ func _process(delta: float) -> void:
 			conductor.target_audio = tracks.player
 			song_start.emit()
 			song_started = true
+			
+			if initial_song_time > 0:
+				skip_to(initial_song_time)
+				initial_song_time = 0
 
 	while events_index < chart.events.size() and \
 			conductor.time >= chart.events[events_index].time:
@@ -253,6 +259,8 @@ func finish_song(force: bool = false, sound: bool = true) -> void:
 			SceneManager.switch_to(load("uid://dcf86iwg6mn3d"))
 		PlayMode.FREEPLAY:
 			SceneManager.switch_to(load(MainMenu.freeplay_scene))
+		PlayMode.CHARTER:
+			SceneManager.switch_to(load('uid://csnprcxwpw805'))
 		_:
 			SceneManager.switch_to(load("uid://cxk008iuw4n7u"))
 
@@ -454,5 +462,6 @@ func skip_to(seconds: float) -> void:
 enum PlayMode {
 	FREEPLAY = 0,
 	STORY = 1,
-	OTHER = 2,
+	CHARTER = 2,
+	OTHER = 3
 }

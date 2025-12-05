@@ -165,6 +165,22 @@ func _on_config_value_changed(section: String, key: String, value: Variant) -> v
 	if section == 'gameplay' and key == 'manual_offset':
 		manual_offset = value / 1000.0
 
-
 func _on_scene_changed() -> void:
 	reset_offset()
+
+func get_time_in_step(ms:float) -> float:
+	if tempo_changes.is_empty():
+		return ms / step_delta
+		
+	var result_step: float = 0
+	var last_change: BPMChange = tempo_changes[0]
+	for change in tempo_changes:
+		if ms >= change.time:
+			result_step = change.time / step_delta
+			last_change = change
+		else: break
+	
+	var last_step_ms: float = ((60 / last_change.data[0]) * 1000) / 4
+	var fractional_step: float = (ms - last_change.time) / last_step_ms
+	
+	return result_step + fractional_step
