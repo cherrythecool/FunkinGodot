@@ -1,9 +1,7 @@
-[gd_resource type="Resource" script_class="HUDSkin" load_steps=15 format=3 uid="uid://b50qb5a7wlrmn"]
+[gd_resource type="Resource" script_class="HUDSkin" load_steps=10 format=3 uid="uid://b50qb5a7wlrmn"]
 
 [ext_resource type="AudioStream" uid="uid://cdx006xagoh7x" path="res://assets/menus/pause_menu/pico_theme.ogg" id="1_jafyk"]
 [ext_resource type="Script" uid="uid://bwjjpqxupvxcc" path="res://scripts/resources/hud_skin.gd" id="1_tmgmm"]
-[ext_resource type="Texture2D" uid="uid://bfte1efl00hqd" path="res://assets/game/skins/default/ratings/bad.png" id="1_w2p5k"]
-[ext_resource type="Texture2D" uid="uid://ds3g63uwcq4jw" path="res://assets/game/skins/default/combo.png" id="2_svgdi"]
 [ext_resource type="AudioStream" uid="uid://vusu7c2ire01" path="res://assets/game/skins/default/countdown/3.ogg" id="3_hmnrq"]
 [ext_resource type="AudioStream" uid="uid://dj08aj6avwys5" path="res://assets/game/skins/default/countdown/2.ogg" id="4_qgq13"]
 [ext_resource type="AudioStream" uid="uid://cvne10g6br5tx" path="res://assets/game/skins/default/countdown/1.ogg" id="5_02xq5"]
@@ -11,26 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://cd4erocsrgekg" path="res://assets/game/skins/default/countdown/ready.png" id="7_xiy2o"]
 [ext_resource type="Texture2D" uid="uid://c70k6xe0qbuac" path="res://assets/game/skins/default/countdown/set.png" id="8_sm4mk"]
 [ext_resource type="Texture2D" uid="uid://cgkt2ctlovm34" path="res://assets/game/skins/default/countdown/go.png" id="9_q4gaf"]
-[ext_resource type="Texture2D" uid="uid://gn12nu6v7fgf" path="res://assets/game/skins/default/ratings/sick.png" id="10_wf755"]
-[ext_resource type="Texture2D" uid="uid://cn6fmp8et8ktw" path="res://assets/game/skins/default/ratings/marvelous.png" id="11_yjk6q"]
-[ext_resource type="Texture2D" uid="uid://ccnsbyha7asga" path="res://assets/game/skins/default/ratings/shit.png" id="14_57pj7"]
 
 [resource]
 script = ExtResource("1_tmgmm")
-marvelous = ExtResource("11_yjk6q")
-sick = ExtResource("10_wf755")
-good = ExtResource("10_wf755")
-bad = ExtResource("1_w2p5k")
-shit = ExtResource("14_57pj7")
-rating_scale = Vector2(0.7, 0.7)
-rating_filter = 0
-combo_atlas = ExtResource("2_svgdi")
-combo_scale = Vector2(0.5, 0.5)
-combo_spacing = 90.0
-combo_filter = 0
 countdown_textures = Array[Texture2D]([null, ExtResource("7_xiy2o"), ExtResource("8_sm4mk"), ExtResource("9_q4gaf")])
 countdown_sounds = Array[AudioStream]([ExtResource("3_hmnrq"), ExtResource("4_qgq13"), ExtResource("5_02xq5"), ExtResource("6_2bn8x")])
-countdown_scale = Vector2(0.7, 0.7)
-countdown_filter = 0
 pause_music = ExtResource("1_jafyk")
 metadata/_custom_type_script = "uid://bwjjpqxupvxcc"

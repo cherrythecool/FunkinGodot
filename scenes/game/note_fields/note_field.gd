@@ -84,8 +84,7 @@ func _process(delta: float) -> void:
 func update_note(note: Note, delta: float = 0.0) -> void:
 	var receptor: Receptor = get_receptor_from_lane(note.lane)
 	note.position.y = receptor.position.y
-	note.position.y -= (conductor.time - note.data.time) * 1000.0 * 0.45 \
-			* scroll_speed * scroll_speed_modifier
+	note.position.y -= (conductor.time - note.data.time) * 1000.0 * 0.45 * get_scroll_speed()
 
 	if note.is_sustain and note.hit:
 		if not is_receptor_held(note.lane):
@@ -200,9 +199,7 @@ func hit_note(note: Note) -> void:
 	note.hit = true
 
 	if note.is_sustain:
-		note.sustain_offset = conductor.time - note.data.time
-		note.length -= conductor.time - note.data.time
-		note.data.length = note.length
+		note.sustain_end_time = conductor.time + note.length
 
 
 func miss_note(note: Note) -> void:
@@ -280,7 +277,7 @@ func try_spawning(skip: bool = false) -> void:
 	if note_data_index > note_data.size() - 1:
 		return
 
-	var speed_modifier: float = scroll_speed * absf(scroll_speed_modifier)
+	var speed_modifier: float = absf(get_scroll_speed())
 	var spawn_time: float = 800.0 / (450.0 * speed_modifier)
 	while true:
 		if note_data_index > note_data.size() - 1:
@@ -353,7 +350,11 @@ func apply_skin_to_note(note: Note) -> void:
 		note.update_sustain()
 
 
-func _on_scroll_speed_changed() -> void:
+func get_scroll_speed() -> float:
+	return (scroll_speed * scroll_speed_modifier) / conductor.rate
+
+
+func _on_scroll_speed_changed(value: float) -> void:
 	if ignore_speed_changes:
 		return
-	scroll_speed = game.scroll_speed
+	scroll_speed = value

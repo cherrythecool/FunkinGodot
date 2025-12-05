@@ -25,11 +25,11 @@ const directions: PackedStringArray = ["left", "down", "up", "right"]
 @onready var tail: TextureRect = sustain.get_node(^"tail")
 
 var hit: bool = false
-var sustain_offset: float = 0.0
 var field: NoteField = null
 var character: Character = null
 var previous_step: int = -128
 var sustain_release_when_hit: float = 0.0
+var sustain_end_time: float = 0.0
 var sustain_timer: float = 0.0:
 	set(v):
 		if not is_sustain:
@@ -63,17 +63,25 @@ func _ready() -> void:
 		clip_rect.queue_free()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if not hit:
 		return
-
+	if not is_instance_valid(Conductor.instance):
+		return
+	if not is_sustain:
+		if is_instance_valid(field):
+			field.remove_note(self)
+		return
+	
+	sprite.visible = false
+	
+	if sustain_end_time == 0.0:
+		sustain_end_time = data.time + length
+	length = sustain_end_time - Conductor.instance.time
 	if length <= 0.0:
 		if is_instance_valid(field):
 			field.remove_note(self)
 		return
-
-	sprite.visible = false
-	length -= delta
 
 	var step: int = floori(Conductor.instance.step)
 	if step > previous_step:
@@ -95,7 +103,7 @@ func update_sustain() -> void:
 	if not is_sustain:
 		return
 
-	sustain.size.y = data.length * 1000.0 * 0.45 * (field.scroll_speed * absf(field.scroll_speed_modifier)) \
+	sustain.size.y = data.length * 1000.0 * 0.45 * absf(field.get_scroll_speed()) \
 			/ scale.y - tail.size.y
 	clip_rect.size.y = sustain.size.y + (tail.size.y * tail.scale.y) + 256.0
 
@@ -112,7 +120,6 @@ func update_sustain() -> void:
 
 		clip_rect.position.y = -clip_rect.size.y
 		sustain.position.y = clip_rect.size.y - sustain.size.y
-
 		if hit:
 			clip_rect.position.y += clip_target - (position.y / scale.y)
 			sustain.position.y += position.y / scale.y
@@ -130,16 +137,6 @@ func update_sustain() -> void:
 			sustain.position.y = 0.0
 
 	tail.position.x = sustain_tail_offset
-	sustain.position.y += ((sustain_offset * field.scroll_speed_modifier) / scale.y) * 1000.0 * 0.45 * \
-			(field.scroll_speed * absf(field.scroll_speed_modifier))
-
-
-func note_hit() -> void:
-	pass
-
-
-func note_miss() -> void:
-	pass
 
 
 func reload_sustain_sprites(sustain_texture_offset: Rect2 = Rect2(0.0, 1.0, 0.0, -2.0),
@@ -163,3 +160,11 @@ func reload_sustain_sprites(sustain_texture_offset: Rect2 = Rect2(0.0, 1.0, 0.0,
 		tail.size.y = tail.texture.get_height()
 
 	clip_rect.pivot_offset.x = clip_rect.size.x / 2.0
+
+
+func note_hit() -> void:
+	pass
+
+
+func note_miss() -> void:
+	pass

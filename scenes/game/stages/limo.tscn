@@ -40,7 +40,7 @@ z_index = 20
 position = Vector2(-200, 480)
 sprite_frames = ExtResource("3_8o2p2")
 animation = &"background limo pink"
-frame_progress = 0.047760617
+frame_progress = 0.7899787
 centered = false
 script = ExtResource("4_xtsds")
 playing = true
@@ -51,7 +51,7 @@ z_index = 150
 position = Vector2(-120, 550)
 sprite_frames = ExtResource("5_axglq")
 animation = &"Limo stage"
-frame_progress = 0.54824805
+frame_progress = 0.29046646
 centered = false
 script = ExtResource("4_xtsds")
 playing = true
@@ -121,18 +121,18 @@ centered = false
 script = ExtResource("4_xtsds")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
-[node name="player" type="Marker2D" parent="."]
-unique_name_in_owner = true
-z_index = 300
-position = Vector2(1274, 595)
-script = ExtResource("5_8o2p2")
-
 [node name="spectator" type="Marker2D" parent="."]
 unique_name_in_owner = true
 z_index = 100
 position = Vector2(755, 790)
 script = ExtResource("5_8o2p2")
 character_path = "uid://cfd0vee7ua8k7"
+
+[node name="player" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 300
+position = Vector2(1274, 595)
+script = ExtResource("5_8o2p2")
 
 [node name="opponent" type="Marker2D" parent="."]
 unique_name_in_owner = true

@@ -281,6 +281,12 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
+[node name="spectator" type="Marker2D" parent="."]
+z_index = 300
+position = Vector2(1531, 1089)
+script = ExtResource("17_hydkt")
+character_path = "uid://bragoy3tisav2"
+
 [node name="player" type="Marker2D" parent="."]
 z_index = 400
 position = Vector2(2138, 1216)
@@ -290,10 +296,4 @@ script = ExtResource("17_hydkt")
 z_index = 350
 position = Vector2(826, 1175)
 script = ExtResource("17_hydkt")
-character_path = "res://scenes/game/assets/characters/darnell.tscn"
-
-[node name="spectator" type="Marker2D" parent="."]
-z_index = 300
-position = Vector2(1531, 1089)
-script = ExtResource("17_hydkt")
-character_path = "res://scenes/game/assets/characters/gf.tscn"
+character_path = "uid://dx13k6w54if1l"

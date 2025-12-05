@@ -63,7 +63,7 @@ movie_writer/mjpeg_quality=1.0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/funkin_tools/plugin.cfg", "res://addons/gdanimate/plugin.cfg")
+enabled=PackedStringArray("res://addons/funkin_tools/plugin.cfg", "res://addons/gdanimate/plugin.cfg", "res://addons/parallax2d_preview/plugin.cfg")
 
 [file_customization]
 

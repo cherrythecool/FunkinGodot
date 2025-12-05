@@ -75,6 +75,12 @@ position = Vector2(-40, 50)
 texture = ExtResource("7_vfoc4")
 centered = false
 
+[node name="spectator" type="Marker2D" parent="."]
+z_index = 100
+position = Vector2(751.1, 787)
+script = ExtResource("5_r13m0")
+character_path = "uid://bragoy3tisav2"
+
 [node name="player" type="Marker2D" parent="."]
 z_index = 300
 position = Vector2(989.5, 885)
@@ -86,12 +92,6 @@ position = Vector2(468, 885)
 script = ExtResource("5_r13m0")
 character_path = "uid://dr24tjg5bcvow"
 flipped = true
-
-[node name="spectator" type="Marker2D" parent="."]
-z_index = 100
-position = Vector2(751.1, 787)
-script = ExtResource("5_r13m0")
-character_path = "res://scenes/game/assets/characters/gf.tscn"
 
 [node name="train_passes" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

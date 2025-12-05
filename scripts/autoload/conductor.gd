@@ -13,7 +13,21 @@ var time: float:
 	get:
 		return raw_time + offset
 
-@export var rate: float = 1.0
+# We need this internal variable to let you
+# properly modify rate in editor export at runtime
+var internal_rate: float = 1.0
+@export var rate: float = 1.0:
+	set(value):
+		Engine.time_scale = maxf(value, 0.0)
+		if is_instance_valid(target_audio):
+			target_audio.pitch_scale = value
+		internal_rate = value
+		rate_changed.emit(value)
+	get:
+		if is_instance_valid(target_audio):
+			return target_audio.pitch_scale
+		
+		return internal_rate
 @export var active: bool = true
 
 var raw_time: float = 0.0
@@ -59,10 +73,12 @@ var target_length: float:
 signal step_hit(step: int)
 signal beat_hit(beat: int)
 signal measure_hit(measure: int)
+signal rate_changed(rate: float)
 
 
 func _exit_tree() -> void:
 	if instance == self:
+		rate = 1.0
 		instance = null
 
 
@@ -87,7 +103,7 @@ func _process(delta: float) -> void:
 	if is_instance_valid(target_audio):
 		sync_to_target(delta)
 	else:
-		raw_time += delta * rate
+		raw_time += delta
 
 	calculate_beat()
 

@@ -1,4 +1,5 @@
 extends Marker2D
+class_name CountdownContainer
 
 
 @export var do_countdown: bool = true
@@ -21,6 +22,8 @@ var game: Game
 
 func setup() -> void:
 	game = Game.instance
+	if game.metadata.skip_countdown:
+		do_countdown = false
 	
 	game.ready_post.connect(_ready_post)
 	game.unpaused.connect(countdown_resume)

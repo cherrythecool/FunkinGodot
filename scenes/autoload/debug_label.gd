@@ -86,11 +86,12 @@ func display() -> void:
 		]
 		
 		if is_instance_valid(Conductor.instance):
-			text_output += '\n\n[Music]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM' % [
+			text_output += '\n\n[Music]\n%.2fms AudioServer Offset (raw)\n%.2fms Offset (%.2fms manual)\n%.3fs Time (%.2fx Speed)\n%.2f Beat, %.2f Step, %.2f Measure\n%.2f BPM' % [
 				-AudioServer.get_output_latency() * 1000.0,
 				Conductor.instance.offset * 1000.0,
 				Conductor.instance.manual_offset * 1000.0,
-				Conductor.instance.time, Conductor.instance.beat, Conductor.instance.step, Conductor.instance.measure,
+				Conductor.instance.time, Conductor.instance.rate,
+				Conductor.instance.beat, Conductor.instance.step, Conductor.instance.measure,
 				Conductor.instance.tempo,
 			]
 

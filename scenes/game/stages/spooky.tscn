@@ -22,6 +22,14 @@ centered = false
 script = ExtResource("3_jds1s")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
+[node name="spectator" type="Marker2D" parent="."]
+position = Vector2(625, 750)
+script = ExtResource("5_m434m")
+character_path = "uid://bragoy3tisav2"
+
+[node name="camera_offset" type="Marker2D" parent="spectator"]
+position = Vector2(47, -445)
+
 [node name="player" type="Marker2D" parent="."]
 position = Vector2(1000, 800)
 script = ExtResource("5_m434m")
@@ -30,11 +38,3 @@ script = ExtResource("5_m434m")
 position = Vector2(256, 800)
 script = ExtResource("5_m434m")
 character_path = "uid://d4dbyolh86dgm"
-
-[node name="spectator" type="Marker2D" parent="."]
-position = Vector2(625, 750)
-script = ExtResource("5_m434m")
-character_path = "res://scenes/game/assets/characters/gf.tscn"
-
-[node name="camera_offset" type="Marker2D" parent="spectator"]
-position = Vector2(47, -445)

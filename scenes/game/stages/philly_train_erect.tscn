@@ -84,6 +84,16 @@ position = Vector2(-40, 50)
 texture = ExtResource("8_4ryuo")
 centered = false
 
+[node name="spectator" type="Marker2D" parent="."]
+z_index = 100
+material = SubResource("ShaderMaterial_vd8c5")
+position = Vector2(751.1, 787)
+script = ExtResource("9_t736h")
+character_path = "uid://bragoy3tisav2"
+
+[node name="camera_offset" type="Marker2D" parent="spectator"]
+position = Vector2(-69.099976, -254)
+
 [node name="player" type="Marker2D" parent="."]
 z_index = 300
 material = SubResource("ShaderMaterial_vd8c5")
@@ -98,16 +108,6 @@ position = Vector2(468, 885)
 script = ExtResource("9_t736h")
 character_path = "uid://dr24tjg5bcvow"
 flipped = true
-
-[node name="spectator" type="Marker2D" parent="."]
-z_index = 100
-material = SubResource("ShaderMaterial_vd8c5")
-position = Vector2(751.1, 787)
-script = ExtResource("9_t736h")
-character_path = "res://scenes/game/assets/characters/gf.tscn"
-
-[node name="camera_offset" type="Marker2D" parent="spectator"]
-position = Vector2(-69.099976, -254)
 
 [node name="train_passes" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

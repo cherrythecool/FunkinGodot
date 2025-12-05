@@ -22,6 +22,7 @@ var centered_receptors: bool = false:
 
 @onready var note_fields: Node2D = %note_fields
 @onready var health_bar: HealthBar = %health_bar
+@onready var countdown_container: CountdownContainer = %countdown_container
 
 @onready var rating_calculator: RatingCalculator:
 	get:
@@ -159,7 +160,7 @@ func _on_note_hit(note: Note) -> void:
 	for i: int in combo_node.get_child_count():
 		var number: Sprite2D = combo_node.get_child(i)
 		if i < num_count and is_instance_valid(hud_skin):
-			number.texture = hud_skin.combo_atlas
+			number.texture = hud_skin.get_combo_atlas()
 			number.texture_filter = hud_skin.combo_filter
 			number.frame = int(combo_str[i])
 			number.position.x = combo_spacing * i
