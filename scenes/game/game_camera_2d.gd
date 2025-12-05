@@ -129,6 +129,12 @@ func _on_game_event_hit(event: EventData) -> void:
 			if is_instance_valid(zoom_tween):
 				zoom_tween.kill()
 
+			match data.get("mode", "direct"):
+				"stage":
+					data_zoom *= game.stage.default_zoom
+				"direct":
+					pass
+
 			if ease_string == "INSTANT" or event.time <= 0.0:
 				zoom_target = Vector2.ONE * data_zoom
 				zoom = Vector2.ONE * data_zoom

@@ -36,7 +36,7 @@ font_size = 10
 
 [node name="freeplay_menu_pico" type="Node2D"]
 script = ExtResource("1_qs7yu")
-list = Array[String](["bopeebo_pico", "fresh_pico", "dad_battle_pico", "pico_pico", "philly_nice_pico", "blammed_pico"])
+list = Array[String](["bopeebo_pico", "fresh_pico", "dad_battle_pico", "pico_pico", "philly_nice_pico", "blammed_pico", "darnell_erect"])
 
 [node name="track_timer" type="Timer" parent="."]
 unique_name_in_owner = true

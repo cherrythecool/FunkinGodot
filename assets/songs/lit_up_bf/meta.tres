@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://b4v1y25c1t1uo"]
+
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_0r1ye"]
+[ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="1_83goj"]
+[ext_resource type="Texture2D" uid="uid://dnw888uux6bmj" path="res://assets/game/characters/darnell/icon.png" id="2_x788m"]
+
+[sub_resource type="Resource" id="Resource_konk2"]
+script = ExtResource("1_0r1ye")
+texture = ExtResource("2_x788m")
+color = Color(0.44705883, 0.3647059, 0.6862745, 1)
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
+
+[resource]
+script = ExtResource("1_83goj")
+display_name = &"Lit Up"
+mix = &"BF"
+icon = SubResource("Resource_konk2")
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"
