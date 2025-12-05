@@ -1,21 +1,21 @@
 [gd_scene load_steps=7 format=3 uid="uid://ct1tgudr3ft86"]
 
-[ext_resource type="Script" uid="uid://dj0ps70uiqehu" path="res://scenes/game/notes/note.gd" id="1_eg7q0"]
-[ext_resource type="Texture2D" uid="uid://bbc06fsifnyro" path="res://assets/game/skins/default/notes.png" id="2_qwt2x"]
-[ext_resource type="SpriteFrames" path="res://assets/game/skins/default/notes.res" id="3_73yby"]
-[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_k0dnl"]
+[ext_resource type="Script" uid="uid://dj0ps70uiqehu" path="res://scenes/game/notes/note.gd" id="1_5077g"]
+[ext_resource type="Texture2D" uid="uid://bbc06fsifnyro" path="res://assets/game/skins/default/notes.png" id="2_qge85"]
+[ext_resource type="SpriteFrames" uid="uid://b3r2xop0whqyf" path="res://assets/game/skins/default/notes.res" id="3_5601r"]
+[ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_i2jgu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8m8o"]
-atlas = ExtResource("2_qwt2x")
+atlas = ExtResource("2_qge85")
 region = Rect2(207, 312, 50, 41)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qgo8q"]
-atlas = ExtResource("2_qwt2x")
+atlas = ExtResource("2_qge85")
 region = Rect2(314, 197, 50, 63)
 
 [node name="note" type="Node2D"]
 scale = Vector2(0.7, 0.7)
-script = ExtResource("1_eg7q0")
+script = ExtResource("1_5077g")
 sing_suffix = &"_alt"
 
 [node name="clip_rect" type="Control" parent="."]
@@ -63,6 +63,6 @@ flip_h = true
 flip_v = true
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = ExtResource("3_73yby")
+sprite_frames = ExtResource("3_5601r")
 animation = &"left note"
-script = ExtResource("4_k0dnl")
+script = ExtResource("4_i2jgu")
