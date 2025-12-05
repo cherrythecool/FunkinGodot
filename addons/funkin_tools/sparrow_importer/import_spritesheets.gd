@@ -2,13 +2,32 @@
 extends Control
 
 
-# Returns a boolean by examining the data being dragged to see if it's valid
-# to drop here.
+signal dropped_spritesheet(path: String)
+
+
 func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
-	return data is Dictionary and data.has("files") and data["files"] is Array
+	if not data.has("files"):
+		return false
+	
+	var texture_extensions: PackedStringArray = ResourceLoader.get_recognized_extensions_for_type("Texture2D")
+	var has_any: bool = false
+	for file: String in data.get("files"):
+		if texture_extensions.has(file.get_extension()) or file.get_extension() == "xml":
+			has_any = true
+			break
+	
+	return has_any
 
 
-# Takes the data being dragged and processes it. In this case, we are
-# assigning a new color to the target color picker button.
 func _drop_data(_at_position: Vector2, data: Variant) -> void:
-	print(data)
+	var files: PackedStringArray = data.get("files")
+	for file: String in files:
+		if file.get_extension() == "xml":
+			dropped_spritesheet.emit(file)
+			continue
+		
+		var resource: Resource = load(file)
+		if resource is not Texture2D:
+			continue
+		
+		dropped_spritesheet.emit("%s.xml" % [file.get_basename()])

@@ -141,7 +141,11 @@ func update_sustain() -> void:
 			clip_rect.position.y = 0.0
 			sustain.position.y = 0.0
 
-	sustain.position.y += sustain_length_offset * time_factor
+	var offset_modifier: float = -1.0
+	if field.scroll_speed_modifier < 0.0:
+		offset_modifier = 1.0
+	
+	sustain.position.y += sustain_length_offset * time_factor * offset_modifier
 	tail.position.x = sustain_tail_offset
 
 

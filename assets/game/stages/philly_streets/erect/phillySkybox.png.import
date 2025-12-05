@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/phillySkybox.png-1489a669f723d347633b7fc7bf58
 
 [params]
 
-compress/mode=4
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

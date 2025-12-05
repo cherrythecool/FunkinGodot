@@ -15,8 +15,10 @@ var import_path_prefix: bool = false
 
 var export_clear_automatically: bool = false
 var export_filter_edges: bool = true
+var export_merge_spritesheets: bool = false
 
 var imported_list: Dictionary[String, SpriteFrames] = {}
+var export_index: int = 0
 
 
 func _on_import_spritesheets_pressed() -> void:
@@ -25,21 +27,53 @@ func _on_import_spritesheets_pressed() -> void:
 	open_dialog.popup_centered()
 
 
-func _on_export_to_pngs_pressed() -> void:
+func _on_export_to_pngs_pressed(recursive: bool = false) -> void:
+	if not recursive:
+		export_index = 0
+	
 	if imported_list.is_empty():
 		return
 	
-	save_pngs_dialog.current_dir = imported_list.keys()[0].get_base_dir()
+	var key: String = imported_list.keys()[export_index]
+	save_pngs_dialog.title = "Saving PNGs of %s" % [key.get_file(),]
+	save_pngs_dialog.current_dir = key.get_base_dir()
 	save_pngs_dialog.popup_centered()
 
 
-func _on_export_to_spriteframes_pressed() -> void:
+func _on_save_pngs_dialog_dir_selected(dir: String) -> void:
+	if export_merge_spritesheets:
+		save_to_pngs(dir, parse_all_sparrows())
+	else:
+		save_to_pngs(dir, imported_list[imported_list.keys()[export_index]])
+		
+		export_index += 1
+		if export_index < imported_list.keys().size() - 1:
+			_on_export_to_pngs_pressed(true)
+
+
+func _on_export_to_spriteframes_pressed(recursive: bool = false) -> void:
+	if not recursive:
+		export_index = 0
+	
 	if imported_list.is_empty():
 		return
 	
-	save_dialog.current_dir = imported_list.keys()[0].get_base_dir()
-	save_dialog.current_file = "%s.res" % [imported_list.keys()[0].get_basename().get_file()]
+	var key: String = imported_list.keys()[export_index]
+	save_dialog.title = "Saving SpriteFrames of %s" % [key.get_file(),]
+	save_dialog.current_dir = key.get_base_dir()
+	save_dialog.current_file = "%s.res" % [key.get_basename().get_file()]
 	save_dialog.popup_centered()
+
+
+func _on_save_dialog_file_selected(path: String) -> void:
+	if export_merge_spritesheets:
+		save_sprite_frames(path, parse_all_sparrows())
+	else:
+		save_sprite_frames(path, imported_list[imported_list.keys()[export_index]])
+		
+		export_index += 1
+		if export_index < imported_list.keys().size() - 1:
+			_on_export_to_spriteframes_pressed(true)
 
 
 func _on_fps_box_value_changed(value: float) -> void:
@@ -62,53 +96,63 @@ func _on_filter_clips_toggled(toggled_on: bool) -> void:
 	export_filter_edges = toggled_on
 
 
+func _on_merge_spritesheets_toggled(toggled_on: bool) -> void:
+	export_merge_spritesheets = toggled_on
+
+
 func get_path_prefix(path: String) -> String:
 	return path.get_basename().get_file()
 
 
 func _on_open_dialog_files_selected(paths: PackedStringArray) -> void:
 	for path: String in paths:
-		if imported_list.has(path):
-			continue
-		
-		var imported_frames: SpriteFrames = import_sparrow_atlas(path)
-		imported_list.set(path, imported_frames)
-		
-		var panel: PanelContainer = SPARROW_IMPORTER_SPRITESHEET.instantiate()
-		var spritesheet_label: Label = panel.get_node(^"%spritesheet_label")
-		spritesheet_label.text = path.replace("res://", "")
-		
-		var fps_box: SpinBox = panel.get_node(^"%fps_box")
-		fps_box.value = import_framerate
-		fps_box.value_changed.connect(func(value: float) -> void:
-			for animation: String in imported_frames.get_animation_names():
-				imported_frames.set_animation_speed(animation, value)
-		)
-		
-		var looping_checkbox: CheckBox = panel.get_node(^"%looping_checkbox")
-		looping_checkbox.button_pressed = import_looping
-		looping_checkbox.toggled.connect(func(value: bool) -> void:
-			for animation: String in imported_frames.get_animation_names():
-				imported_frames.set_animation_loop(animation, value)
-		)
-		
-		var path_prefix: CheckBox = panel.get_node(^"%path_prefix")
-		path_prefix.button_pressed = import_path_prefix
-		path_prefix.toggled.connect(func(value: bool) -> void:
-			imported_frames.set_meta(&"path_prefix", value)
-		)
-
-		var remove_button: Button = panel.get_node(^"%remove_button")
-		remove_button.pressed.connect(func() -> void:
-			panel.queue_free()
-			imported_list.erase(path)
-		)
-		
-		spritesheet_container.add_child(panel)
+		import_spritesheet(path)
 
 
-func save_to_pngs(dir: String) -> void:
-	var sprite_frames: SpriteFrames = parse_all_sparrows()
+func import_spritesheet(path: String) -> void:
+	if imported_list.has(path):
+		return
+	
+	var imported_frames: SpriteFrames = import_sparrow_atlas(path)
+	if not is_instance_valid(imported_frames):
+		return
+	
+	imported_list.set(path, imported_frames)
+	
+	var panel: PanelContainer = SPARROW_IMPORTER_SPRITESHEET.instantiate()
+	var spritesheet_label: Label = panel.get_node(^"%spritesheet_label")
+	spritesheet_label.text = path.replace("res://", "")
+	
+	var fps_box: SpinBox = panel.get_node(^"%fps_box")
+	fps_box.value = import_framerate
+	fps_box.value_changed.connect(func(value: float) -> void:
+		for animation: String in imported_frames.get_animation_names():
+			imported_frames.set_animation_speed(animation, value)
+	)
+	
+	var looping_checkbox: CheckBox = panel.get_node(^"%looping_checkbox")
+	looping_checkbox.button_pressed = import_looping
+	looping_checkbox.toggled.connect(func(value: bool) -> void:
+		for animation: String in imported_frames.get_animation_names():
+			imported_frames.set_animation_loop(animation, value)
+	)
+	
+	var path_prefix: CheckBox = panel.get_node(^"%path_prefix")
+	path_prefix.button_pressed = import_path_prefix
+	path_prefix.toggled.connect(func(value: bool) -> void:
+		imported_frames.set_meta(&"path_prefix", value)
+	)
+
+	var remove_button: Button = panel.get_node(^"%remove_button")
+	remove_button.pressed.connect(func() -> void:
+		panel.queue_free()
+		imported_list.erase(path)
+	)
+	
+	spritesheet_container.add_child(panel)
+
+
+func save_to_pngs(dir: String, sprite_frames: SpriteFrames) -> void:
 	if not is_instance_valid(sprite_frames):
 		return
 	
@@ -118,21 +162,24 @@ func save_to_pngs(dir: String) -> void:
 			texture.get_image().save_png("%s/%s%04d.png" % [dir, animation, index])
 
 
-func save_sprite_frames(path: String) -> void:
-	var sprite_frames: SpriteFrames = parse_all_sparrows()
-	if not is_instance_valid(sprite_frames):
-		return
-	
+func save_sprite_frames(path: String, sprite_frames: SpriteFrames) -> void:
 	var import_options: Dictionary = save_dialog.get_selected_options()
 	var save_flags: int = ResourceSaver.FLAG_COMPRESS + ResourceSaver.FLAG_REPLACE_SUBRESOURCE_PATHS
 	if not import_options.get("Compressed", true):
 		save_flags = ResourceSaver.FLAG_REPLACE_SUBRESOURCE_PATHS
+	
+	if not is_instance_valid(sprite_frames):
+		return
+	
 	sprite_frames.take_over_path(path)
 	ResourceSaver.save(sprite_frames, path, save_flags)
 
 
 func parse_all_sparrows() -> SpriteFrames:
 	var sprite_frames: SpriteFrames = SpriteFrames.new()
+	if sprite_frames.has_animation(&"default"):
+		sprite_frames.remove_animation(&"default")
+	
 	for import_path: String in imported_list.keys():
 		assert(import_path != null, "Imported Sparrow Atlas needs valid path")
 		
@@ -196,12 +243,9 @@ func parse_all_sparrows() -> SpriteFrames:
 		for child: Node in spritesheet_container.get_children():
 			child.queue_free()
 	
-	if sprite_frames.get_animation_names().size() == 1:
-		if sprite_frames.has_animation(&"default"):
-			printerr("Will not export blank SpriteFrames. Try importing some spritesheets.")
-			return null
-	if sprite_frames.has_animation(&"default"):
-		sprite_frames.remove_animation(&"default")
+	if sprite_frames.get_animation_names().size() == 0:
+		printerr("Will not export blank SpriteFrames. Try importing some functional spritesheets.")
+		return null
 	
 	return sprite_frames
 
@@ -211,6 +255,9 @@ func import_sparrow_atlas(path: String) -> SpriteFrames:
 	assert(path.get_extension() == "xml", "File needs to have .xml extension to be a Sparrow Atlas!")
 	
 	var sprite_frames: SpriteFrames = SpriteFrames.new()
+	if sprite_frames.has_animation(&"default"):
+		sprite_frames.remove_animation(&"default")
+	
 	var xml_parser: XMLParser = XMLParser.new()
 	xml_parser.open(path)
 	

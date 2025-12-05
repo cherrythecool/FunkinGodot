@@ -101,14 +101,14 @@ tooltip_text = "Exports all frames with the region around them being clipped to 
 button_pressed = true
 text = "Filter Edges of Frames"
 
-[node name="merge_animations" type="CheckBox" parent="h_split_container/margin_container/v_box"]
+[node name="merge_spritesheets" type="CheckBox" parent="h_split_container/margin_container/v_box"]
 layout_mode = 2
-tooltip_text = "Merges all imported animations into one single file or folder (depending on the way you export)
+tooltip_text = "Merges all imported spritesheets into one single file or folder (depending on the way you export)
 
-Useful for easily combining sprites into one resource"
-text = "Merge All Animations"
+Useful for easily combining animations into one resource"
+text = "Merge All Spritesheets"
 
-[node name="export_to_spriteframes_merged" type="Button" parent="h_split_container/margin_container/v_box"]
+[node name="export_to_spriteframes" type="Button" parent="h_split_container/margin_container/v_box"]
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Export All to SpriteFrames"
@@ -172,23 +172,20 @@ initial_position = 4
 size = Vector2i(640, 480)
 file_mode = 2
 access = 2
-filters = PackedStringArray("*.res;SpriteFrames")
 use_native_dialog = true
-option_count = 1
 favorites_enabled = false
 recent_list_enabled = false
-option_0/name = "Compressed"
-option_0/default = 1
 
 [connection signal="value_changed" from="h_split_container/margin_container/v_box/import_options/fps_box" to="." method="_on_fps_box_value_changed"]
 [connection signal="toggled" from="h_split_container/margin_container/v_box/import_options/looping" to="." method="_on_looping_toggled"]
 [connection signal="toggled" from="h_split_container/margin_container/v_box/import_options/path_prefix" to="." method="_on_path_prefix_toggled"]
+[connection signal="dropped_spritesheet" from="h_split_container/margin_container/v_box/import_spritesheets" to="." method="import_spritesheet"]
 [connection signal="pressed" from="h_split_container/margin_container/v_box/import_spritesheets" to="." method="_on_import_spritesheets_pressed"]
 [connection signal="toggled" from="h_split_container/margin_container/v_box/clear_on_export" to="." method="_on_clear_on_export_toggled"]
 [connection signal="toggled" from="h_split_container/margin_container/v_box/filter_clips" to="." method="_on_filter_clips_toggled"]
-[connection signal="toggled" from="h_split_container/margin_container/v_box/merge_animations" to="." method="_on_filter_clips_toggled"]
-[connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_spriteframes_merged" to="." method="_on_export_to_spriteframes_pressed"]
+[connection signal="toggled" from="h_split_container/margin_container/v_box/merge_spritesheets" to="." method="_on_merge_spritesheets_toggled"]
+[connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_spriteframes" to="." method="_on_export_to_spriteframes_pressed"]
 [connection signal="pressed" from="h_split_container/margin_container/v_box/export_to_pngs" to="." method="_on_export_to_pngs_pressed"]
 [connection signal="files_selected" from="open_dialog" to="." method="_on_open_dialog_files_selected"]
-[connection signal="file_selected" from="save_dialog" to="." method="save_sprite_frames"]
-[connection signal="dir_selected" from="save_pngs_dialog" to="." method="save_to_pngs"]
+[connection signal="file_selected" from="save_dialog" to="." method="_on_save_dialog_file_selected"]
+[connection signal="dir_selected" from="save_pngs_dialog" to="." method="_on_save_pngs_dialog_dir_selected"]
