@@ -10,6 +10,7 @@ class_name NoteSplash extends AnimatedSprite
 ]
 
 @export var use_default_shader: bool = true
+@export var use_skin: bool = true
 
 var note: Note
 

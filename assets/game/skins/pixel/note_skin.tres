@@ -11,7 +11,5 @@ strum_scale = Vector2(6, 6)
 note_frames = ExtResource("1_dt0y4")
 note_filter = 1
 note_scale = Vector2(6, 6)
-sustain_alpha = 0.7
 splash_filter = 1
-splash_scale = Vector2(1, 1)
 metadata/_custom_type_script = "uid://dfdr435gif8gk"

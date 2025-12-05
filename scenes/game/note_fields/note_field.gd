@@ -8,6 +8,7 @@ class_name NoteField extends Node2D
 @export var conductor: Conductor = null
 
 @export_category('Visuals')
+@export var use_note_splashes: bool = true
 @export var default_note_splash: PackedScene = null
 @export var scroll_speed: float = 1.0
 @export var ignore_speed_changes: bool = false
@@ -264,6 +265,8 @@ func spawn_note(data: NoteData) -> void:
 	note.position.y = -100000.0
 	if not is_instance_valid(note.splash):
 		note.splash = default_note_splash
+	if not use_note_splashes:
+		note.splash = null
 
 	note_container.add_child(note)
 	notes.append(note)
@@ -340,10 +343,13 @@ func apply_skin_to_note(note: Note) -> void:
 
 	if note.is_sustain:
 		note.clip_rect.scale.x = 1.0 / note.scale.x
-		note.sustain.modulate.a = skin.sustain_alpha
 		note.sustain.texture_filter = note.sprite.texture_filter
-		note.tail.texture_filter = note.sprite.texture_filter
-		note.reload_sustain_sprites()
+		note.sustain.modulate.a = skin.sustain_alpha
+		note.sustain.size.x = skin.sustain_size
+		note.tail.size.x = skin.sustain_tail_size
+		note.sustain_tail_offset = skin.sustain_tail_offset
+		
+		note.reload_sustain_sprites(skin.sustain_texture_offset, skin.sustain_tail_texture_offset)
 		note.update_sustain()
 
 

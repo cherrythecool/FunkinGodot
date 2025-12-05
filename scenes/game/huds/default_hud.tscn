@@ -38,15 +38,15 @@ font = ExtResource("5_gpwne")
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_odcbh"]
+font = ExtResource("5_gpwne")
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_6egcm"]
 font = ExtResource("8_in2av")
 font_size = 64
 outline_size = 16
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_odcbh"]
-font = ExtResource("5_gpwne")
-outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [node name="hud" type="Control"]
@@ -66,6 +66,8 @@ unique_name_in_owner = true
 
 [node name="opponent" parent="note_fields" instance=ExtResource("2_0rw2j")]
 position = Vector2(320, 100)
+use_note_splashes = false
+default_note_splash = ExtResource("3_1ubyb")
 
 [node name="player" parent="note_fields" instance=ExtResource("2_0rw2j")]
 position = Vector2(960, 100)
@@ -122,6 +124,20 @@ label_settings = SubResource("LabelSettings_ku58i")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="song_label" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 0
+offset_top = 16.0
+offset_right = 1280.0
+offset_bottom = 32.0
+pivot_offset = Vector2(640, 8)
+text = "Test • [NORMAL]"
+label_settings = SubResource("LabelSettings_odcbh")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("9_mucs8")
+
 [node name="rating_container" type="Node2D" parent="."]
 unique_name_in_owner = true
 position = Vector2(640, 328)
@@ -155,20 +171,6 @@ position = Vector2(640, 360)
 script = ExtResource("9_6w54d")
 hud = NodePath("..")
 
-[node name="song_label" type="Label" parent="."]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.74902)
-layout_mode = 0
-offset_top = 16.0
-offset_right = 1280.0
-offset_bottom = 32.0
-pivot_offset = Vector2(640, 8)
-text = "Test • [NORMAL]"
-label_settings = SubResource("LabelSettings_odcbh")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("9_mucs8")
-
 [connection signal="downscroll_changed" from="." to="health_bar" method="_on_hud_downscroll_changed"]
 [connection signal="downscroll_changed" from="." to="song_label" method="_on_hud_downscroll_changed"]
 [connection signal="note_hit" from="." to="health_bar" method="_on_hud_note_hit"]
@@ -176,5 +178,6 @@ script = ExtResource("9_mucs8")
 [connection signal="on_setup" from="." to="health_bar" method="reload_icons"]
 [connection signal="on_setup" from="." to="countdown_container" method="setup"]
 [connection signal="on_setup" from="." to="song_label" method="_on_hud_on_setup"]
+[connection signal="note_hit" from="note_fields/opponent" to="." method="_opponent_note_hit"]
 [connection signal="note_hit" from="note_fields/player" to="." method="_on_note_hit"]
 [connection signal="note_miss" from="note_fields/player" to="." method="_on_note_miss"]

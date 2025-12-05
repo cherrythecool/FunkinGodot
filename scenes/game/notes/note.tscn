@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bbc06fsifnyro" path="res://assets/game/skins/default/notes.png" id="1_0svdn"]
 [ext_resource type="Script" uid="uid://dj0ps70uiqehu" path="res://scenes/game/notes/note.gd" id="1_dpa0s"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="2_uegtt"]
-[ext_resource type="SpriteFrames" path="res://assets/game/skins/default/notes.res" id="3_wnwtv"]
+[ext_resource type="SpriteFrames" uid="uid://b3r2xop0whqyf" path="res://assets/game/skins/default/notes.res" id="3_wnwtv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q8m8o"]
 atlas = ExtResource("1_0svdn")
@@ -53,7 +53,7 @@ anchor_bottom = 1.0
 offset_left = -25.0
 offset_top = -319.0
 offset_right = 25.0
-offset_bottom = -256.0
+offset_bottom = -256.00006
 grow_horizontal = 2
 grow_vertical = 0
 texture = SubResource("AtlasTexture_qgo8q")
