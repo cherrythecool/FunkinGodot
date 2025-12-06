@@ -8,6 +8,7 @@ class_name NoteField extends Node2D
 @export var conductor: Conductor = null
 
 @export_category('Visuals')
+@export var use_note_splashes: bool = true
 @export var default_note_splash: PackedScene = null
 @export var scroll_speed: float = 1.0
 @export var ignore_speed_changes: bool = false
@@ -83,8 +84,7 @@ func _process(delta: float) -> void:
 func update_note(note: Note, delta: float = 0.0) -> void:
 	var receptor: Receptor = get_receptor_from_lane(note.lane)
 	note.position.y = receptor.position.y
-	note.position.y -= (conductor.time - note.data.time) * 1000.0 * 0.45 \
-			* scroll_speed * scroll_speed_modifier
+	note.position.y -= (conductor.time - note.data.time) * 1000.0 * 0.45 * get_scroll_speed()
 
 	if note.is_sustain and note.hit:
 		if not is_receptor_held(note.lane):
@@ -195,13 +195,13 @@ func hit_note(note: Note) -> void:
 		return
 
 	note_hit.emit(note)
+	if note.is_sustain:
+		note.sustain_end_time = note.data.time + note.data.length
+		note.sustain_length_offset = note.data.time - conductor.time
+	
 	note.note_hit()
 	note.hit = true
-
-	if note.is_sustain:
-		note.sustain_offset = conductor.time - note.data.time
-		note.length -= conductor.time - note.data.time
-		note.data.length = note.length
+	note._process(0.0)
 
 
 func miss_note(note: Note) -> void:
@@ -264,6 +264,8 @@ func spawn_note(data: NoteData) -> void:
 	note.position.y = -100000.0
 	if not is_instance_valid(note.splash):
 		note.splash = default_note_splash
+	if not use_note_splashes:
+		note.splash = null
 
 	note_container.add_child(note)
 	notes.append(note)
@@ -277,7 +279,7 @@ func try_spawning(skip: bool = false) -> void:
 	if note_data_index > note_data.size() - 1:
 		return
 
-	var speed_modifier: float = scroll_speed * absf(scroll_speed_modifier)
+	var speed_modifier: float = absf(get_scroll_speed())
 	var spawn_time: float = 800.0 / (450.0 * speed_modifier)
 	while true:
 		if note_data_index > note_data.size() - 1:
@@ -316,7 +318,7 @@ func reload_skin() -> void:
 		return
 
 	for receptor: Receptor in receptors:
-		receptor.sprite.sprite_frames = skin.strum_frames
+		receptor.sprite.sprite_frames = skin.get_strum_frames()
 		receptor.sprite.scale = skin.strum_scale
 		receptor.sprite.texture_filter = skin.strum_filter
 		receptor.play_anim(receptor.last_anim)
@@ -332,22 +334,22 @@ func apply_skin_to_note(note: Note) -> void:
 		return
 
 	var animation: StringName = note.sprite.animation
-	note.sprite.sprite_frames = skin.note_frames
+	note.sprite.sprite_frames = skin.get_note_frames()
 	note.scale = skin.note_scale
 	note.sprite.texture_filter = skin.note_filter
 	note.sprite.play(animation)
 	note.sprite.frame = 0
 
 	if note.is_sustain:
-		note.clip_rect.scale.x = 1.0 / note.scale.x
-		note.sustain.modulate.a = skin.sustain_alpha
-		note.sustain.texture_filter = note.sprite.texture_filter
-		note.tail.texture_filter = note.sprite.texture_filter
-		note.reload_sustain_sprites()
+		note.reload_sustain_sprites(skin)
 		note.update_sustain()
 
 
-func _on_scroll_speed_changed() -> void:
+func get_scroll_speed() -> float:
+	return (scroll_speed * scroll_speed_modifier) / conductor.rate
+
+
+func _on_scroll_speed_changed(value: float) -> void:
 	if ignore_speed_changes:
 		return
-	scroll_speed = game.scroll_speed
+	scroll_speed = value

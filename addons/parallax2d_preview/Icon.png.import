@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmo3jk1h7fpxl"
-path="res://.godot/imported/sustains.png-96c40b6932cc384b2884f57e6c740712.ctex"
+uid="uid://bnsop3opetuxu"
+path="res://.godot/imported/Icon.png-20b505ba01fb3476f1a25969572ae30c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/game/skins/pixel/sustains.png"
-dest_files=["res://.godot/imported/sustains.png-96c40b6932cc384b2884f57e6c740712.ctex"]
+source_file="res://addons/parallax2d_preview/Icon.png"
+dest_files=["res://.godot/imported/Icon.png-20b505ba01fb3476f1a25969572ae30c.ctex"]
 
 [params]
 

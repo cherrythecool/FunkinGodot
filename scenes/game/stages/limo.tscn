@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://b6pvuwsnfdwtj" path="res://scenes/game/stages/limo.gd" id="1_11vc5"]
 [ext_resource type="AudioStream" uid="uid://d3dsst4t3xlnc" path="res://assets/game/stages/limo/car_0.ogg" id="2_8o2p2"]
 [ext_resource type="Texture2D" uid="uid://dgyy58asxhwwl" path="res://assets/game/stages/limo/limoSunset.png" id="2_potqh"]
-[ext_resource type="SpriteFrames" path="res://assets/game/stages/limo/bgLimo.res" id="3_8o2p2"]
+[ext_resource type="SpriteFrames" uid="uid://bcxsxnwrkpfpt" path="res://assets/game/stages/limo/bgLimo.res" id="3_8o2p2"]
 [ext_resource type="AudioStream" uid="uid://c4uwi5d31prdc" path="res://assets/game/stages/limo/car_1.ogg" id="3_xtsds"]
 [ext_resource type="Shader" uid="uid://5wjcw14c4ehl" path="res://assets/shaders/overlay_shader.gdshader" id="4_2gosj"]
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_xtsds"]
@@ -40,7 +40,7 @@ z_index = 20
 position = Vector2(-200, 480)
 sprite_frames = ExtResource("3_8o2p2")
 animation = &"background limo pink"
-frame_progress = 0.047760617
+frame_progress = 0.6600554
 centered = false
 script = ExtResource("4_xtsds")
 playing = true
@@ -51,7 +51,7 @@ z_index = 150
 position = Vector2(-120, 550)
 sprite_frames = ExtResource("5_axglq")
 animation = &"Limo stage"
-frame_progress = 0.54824805
+frame_progress = 0.16054265
 centered = false
 script = ExtResource("4_xtsds")
 playing = true
@@ -80,7 +80,7 @@ scroll_scale = Vector2(0.4, 0.4)
 z_index = 30
 position = Vector2(100, 100)
 sprite_frames = ExtResource("9_xtsds")
-animation = &"right"
+animation = &"left"
 centered = false
 script = ExtResource("4_xtsds")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
@@ -89,7 +89,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 z_index = 30
 position = Vector2(400, 100)
 sprite_frames = ExtResource("9_xtsds")
-animation = &"hench dancing"
+animation = &"left"
 centered = false
 script = ExtResource("4_xtsds")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
@@ -98,7 +98,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 z_index = 30
 position = Vector2(700, 100)
 sprite_frames = ExtResource("9_xtsds")
-animation = &"hench dancing"
+animation = &"left"
 centered = false
 script = ExtResource("4_xtsds")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
@@ -107,7 +107,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 z_index = 30
 position = Vector2(1000, 100)
 sprite_frames = ExtResource("9_xtsds")
-animation = &"hench dancing"
+animation = &"left"
 centered = false
 script = ExtResource("4_xtsds")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
@@ -121,18 +121,18 @@ centered = false
 script = ExtResource("4_xtsds")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
-[node name="player" type="Marker2D" parent="."]
-unique_name_in_owner = true
-z_index = 300
-position = Vector2(1274, 595)
-script = ExtResource("5_8o2p2")
-
 [node name="spectator" type="Marker2D" parent="."]
 unique_name_in_owner = true
 z_index = 100
 position = Vector2(755, 790)
 script = ExtResource("5_8o2p2")
 character_path = "uid://cfd0vee7ua8k7"
+
+[node name="player" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 300
+position = Vector2(1274, 595)
+script = ExtResource("5_8o2p2")
 
 [node name="opponent" type="Marker2D" parent="."]
 unique_name_in_owner = true

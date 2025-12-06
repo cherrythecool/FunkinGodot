@@ -10,6 +10,7 @@ class_name NoteSplash extends AnimatedSprite
 ]
 
 @export var use_default_shader: bool = true
+@export var use_skin: bool = true
 
 var note: Note
 
@@ -27,7 +28,21 @@ func _ready() -> void:
 		return
 
 	speed_scale = randf_range(0.9, 1.1)
-	play(&"splash %d" % [randi_range(1, sprite_frames.get_animation_names().size())])
+	
+	if is_instance_valid(sprite_frames):
+		var number: int = randi_range(1, sprite_frames.get_animation_names().size())
+		if sprite_frames.has_animation(&"splash %d" % [number,]):
+			play(&"splash %d" % [number,])
+		else:
+			var direction: StringName = note.directions[note.lane]
+			var count: int = 0
+			for anim: StringName in sprite_frames.get_animation_names():
+				if anim.begins_with("%s splash " % [direction,]):
+					count += 1
+			
+			if count > 0:
+				number = randi_range(1, count)
+				play(&"%s splash %d" % [direction, number,])
 
 	if not use_default_shader:
 		return

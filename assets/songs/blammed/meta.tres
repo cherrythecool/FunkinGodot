@@ -8,14 +8,11 @@
 script = ExtResource("1_0xn73")
 texture = ExtResource("2_rph1x")
 color = Color(0.717647, 0.847059, 0.333333, 1)
-frames = Vector2i(2, 1)
-filter = 0
 metadata/_custom_type_script = "uid://b7lu04jsahckp"
 
 [resource]
 script = ExtResource("2_0xn73")
 display_name = &"Blammed"
-mix = &"Default"
 icon = SubResource("Resource_oonoi")
 difficulties = ["easy", "normal", "hard", "erect", "nightmare"]
 difficulty_song_overrides = Dictionary[String, StringName]({

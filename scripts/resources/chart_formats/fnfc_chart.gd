@@ -21,22 +21,22 @@ func parse(difficulty: StringName) -> Chart:
 					var values: Dictionary = event.get("v", {})
 					chart.events.push_back(
 						CameraPan.new(
-							event.get("t") / 1000.0,
+							float(event.get("t") / 1000.0),
 							int(values.get("char", 0)),
 							values.get("ease", "CLASSIC"),
-							values.get("duration", 32.0),
+							float(values.get("duration", 32.0)),
 							Vector2(
-								values.get("x", 0.0),
-								values.get("y", 0.0),
+								float(values.get("x", 0.0)),
+								float(values.get("y", 0.0)),
 							)
 						)
 					)
 				else:
-					chart.events.push_back(CameraPan.new(event.get("t") / 1000.0,
+					chart.events.push_back(CameraPan.new(float(event.get("t") / 1000.0),
 							int(event.get("v"))))
 			else:
 				chart.events.push_back(DynamicEvent.new(event.get("e"),
-						event.get("t") / 1000.0, event.get("v")))
+						float(event.get("t") / 1000.0), event.get("v")))
 
 	# sucky fix but this happens more than once so
 	if not chart.events.is_empty() and chart.events[0] is CameraPan:

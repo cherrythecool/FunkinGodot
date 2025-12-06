@@ -22,6 +22,7 @@ var centered_receptors: bool = false:
 
 @onready var note_fields: Node2D = %note_fields
 @onready var health_bar: HealthBar = %health_bar
+@onready var countdown_container: CountdownContainer = %countdown_container
 
 @onready var rating_calculator: RatingCalculator:
 	get:
@@ -129,19 +130,8 @@ func _on_note_hit(note: Note) -> void:
 	if rating_textures.has(rating.name):
 		rating_sprite.texture = rating_textures[rating.name]
 
-	if (is_instance_valid(note.splash) and 
-		(rating.name == &'marvelous' or rating.name == &'sick')
-	):
-		var splash: AnimatedSprite = note.splash.instantiate()
-		splash.note = note
-		var player_skin: NoteSkin = player_field.skin
-		if splash.use_default_shader and is_instance_valid(player_skin):
-			splash.sprite_frames = player_skin.splash_frames
-			splash.scale = player_skin.splash_scale
-			splash.texture_filter = player_skin.splash_filter
-		add_child(splash)
-
-		splash.global_position = note.field.receptors[note.lane].global_position
+	if rating.name == &'marvelous' or rating.name == &'sick':
+		spawn_splash(note, player_field.skin, note.field.receptors[note.lane])
 
 	rating_container.visible = true
 	rating_container.modulate.a = 1.0
@@ -162,7 +152,6 @@ func _on_note_hit(note: Note) -> void:
 		combo_spacing = hud_skin.combo_spacing
 	
 	combo_node.position.x = (-combo_spacing / 4.0) * (num_count - 1)
-
 	while combo_node.get_child_count() < num_count:
 		var node: Node = combo_node.get_child(0).duplicate()
 		node.name = str(combo_node.get_child_count()+1)
@@ -171,7 +160,7 @@ func _on_note_hit(note: Note) -> void:
 	for i: int in combo_node.get_child_count():
 		var number: Sprite2D = combo_node.get_child(i)
 		if i < num_count and is_instance_valid(hud_skin):
-			number.texture = hud_skin.combo_atlas
+			number.texture = hud_skin.get_combo_atlas()
 			number.texture_filter = hud_skin.combo_filter
 			number.frame = int(combo_str[i])
 			number.position.x = combo_spacing * i
@@ -179,12 +168,16 @@ func _on_note_hit(note: Note) -> void:
 		else:
 			number.visible = false
 
-	note_hit.emit(note)
+	note_hit.emit.call_deferred(note)
 
 
 func _on_note_miss(note: Note) -> void:
 	rating_container.visible = false
-	note_miss.emit(note)
+	note_miss.emit.call_deferred(note)
+
+
+func _opponent_note_hit(note: Note) -> void:
+	spawn_splash(note, opponent_field.skin, note.field.receptors[note.lane])
 
 
 func set_downscroll(value: bool) -> void:
@@ -204,3 +197,20 @@ func set_centered_receptors(value: bool) -> void:
 		opponent_field.position.x = 320.0
 	if is_instance_valid(player_field):
 		player_field.position.x = 640.0 if value else 960.0
+
+
+func spawn_splash(note: Note, skin: NoteSkin, target: Node2D) -> void:
+	if not is_instance_valid(note.splash):
+		return
+	
+	var splash: NoteSplash = note.splash.instantiate()
+	splash.note = note
+	if splash.use_skin and is_instance_valid(skin):
+		splash.sprite_frames = skin.get_splash_frames()
+		splash.scale = skin.splash_scale
+		splash.texture_filter = skin.splash_filter
+		splash.colors = skin.splash_colors
+		splash.use_default_shader = skin.splash_use_default_shader
+	note_fields.add_child(splash)
+
+	splash.global_position = target.global_position

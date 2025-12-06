@@ -40,16 +40,16 @@ signal difficulty_changed(difficulty: StringName)
 
 func _ready() -> void:
 	randomize()
-	assert(not list.is_empty(), 'You need a list to have freeplay work correctly.')
+	assert(not list.is_empty(), "You need a list to have freeplay work correctly.")
 
 	for i: int in list.size():
 		load_song(i)
 
 	if song_nodes.is_empty():
 		active = false
-		GlobalAudio.get_player('MENU/CANCEL').play()
-		SceneManager.switch_to(load('res://scenes/menus/main_menu.tscn'))
-		printerr('Freeplay has no songs, returning.')
+		GlobalAudio.get_player("MENU/CANCEL").play()
+		SceneManager.switch_to(load("res://scenes/menus/main_menu.tscn"))
+		printerr("Freeplay has no songs, returning.")
 		return
 
 	tracks.finished.connect(_on_finished)
@@ -69,32 +69,35 @@ func _input(event: InputEvent) -> void:
 	if not event.is_pressed():
 		return
 
-	if event.is_action('ui_cancel'):
+	if event.is_action("ui_cancel"):
 		active = false
-		GlobalAudio.get_player('MENU/CANCEL').play()
-		SceneManager.switch_to(load('res://scenes/menus/main_menu.tscn'))
-	if event.is_action('ui_accept'):
+		GlobalAudio.get_player("MENU/CANCEL").play()
+		SceneManager.switch_to(load("res://scenes/menus/main_menu.tscn"))
+	if event.is_action("ui_accept"):
 		active = false
-		call_deferred('select_song')
-	if event.is_action(&'freeplay_open_characters'):
+		call_deferred("select_song")
+	if event.is_action(&"freeplay_open_characters"):
 		active = false
-		GlobalAudio.get_player('MENU/CANCEL').play()
-		SceneManager.switch_to(load('uid://62vvv8x8t7nm'))
+		GlobalAudio.get_player("MENU/CANCEL").play()
+		SceneManager.switch_to(load("uid://62vvv8x8t7nm"))
 
-	if event.is_action('ui_up') or event.is_action('ui_down'):
-		change_selection(roundi(Input.get_axis('ui_up', 'ui_down')))
-	if event.is_action('ui_left') or event.is_action('ui_right'):
-		change_difficulty(roundi(Input.get_axis('ui_left', 'ui_right')))
+	if event.is_action("ui_up") or event.is_action("ui_down"):
+		change_selection(roundi(Input.get_axis("ui_up", "ui_down")))
+	if event.is_action("ui_left") or event.is_action("ui_right"):
+		change_difficulty(roundi(Input.get_axis("ui_left", "ui_right")))
 
-	if event.is_action('freeplay_random'):
+	if event.is_action("freeplay_random"):
 		change_selection(randi_range(-song_nodes.size() + 1, song_nodes.size() - 1))
 
 
 func get_song_name(song: String, diff: String) -> String:
-	if not ResourceLoader.exists('res://assets/songs/%s/meta.tres' % [song]):
+	if not ResourceLoader.exists("res://assets/songs/%s/meta.tres" % [song]):
 		return song.to_lower()
 
-	var meta: SongMetadata =  load('res://assets/songs/%s/meta.tres' % [song])
+	var meta: SongMetadata =  load("res://assets/songs/%s/meta.tres" % [song])
+	if not is_instance_valid(meta):
+		return song.to_lower()
+	
 	if meta.difficulty_song_overrides.has(diff):
 		return meta.difficulty_song_overrides.get(diff).to_lower()
 
@@ -102,10 +105,14 @@ func get_song_name(song: String, diff: String) -> String:
 
 
 func get_song_difficulties(song: String) -> PackedStringArray:
-	if not ResourceLoader.exists('res://assets/songs/%s/meta.tres' % [song]):
-		return ['easy', 'normal', 'hard']
+	if not ResourceLoader.exists("res://assets/songs/%s/meta.tres" % [song]):
+		return ["easy", "normal", "hard"]
 
-	return load('res://assets/songs/%s/meta.tres' % [song]).difficulties
+	var meta: SongMetadata = load("res://assets/songs/%s/meta.tres" % [song])
+	if not is_instance_valid(meta):
+		return ["easy", "normal", "hard"]
+
+	return meta.difficulties
 
 
 func change_selection(amount: int = 0) -> void:
@@ -117,7 +124,7 @@ func change_selection(amount: int = 0) -> void:
 	track_timer.start(0.0)
 
 	if amount != 0:
-		GlobalAudio.get_player('MENU/SCROLL').play()
+		GlobalAudio.get_player("MENU/SCROLL").play()
 	for i: int in song_nodes.size():
 		var node: FreeplaySongNode = song_nodes[i]
 		node.target_y = i - index
@@ -126,14 +133,14 @@ func change_selection(amount: int = 0) -> void:
 	if is_instance_valid(song_nodes[index].meta):
 		target_background_color = song_nodes[index].meta.icon.color
 	else:
-		target_background_color = Color('a1a1a1')
+		target_background_color = Color("a1a1a1")
 
 
 func change_difficulty(amount: int = 0) -> void:
 	difficulty_index = wrapi(difficulty_index + amount, 0, difficulties.size())
 	info_panel.difficulty_count = difficulties.size()
 	if difficulties.is_empty():
-		difficulty_changed.emit(&'N/A')
+		difficulty_changed.emit(&"N/A")
 	else:
 		difficulty_changed.emit(difficulties[difficulty_index])
 
@@ -150,31 +157,32 @@ func select_song() -> void:
 
 	Game.chart = Chart.load_song(current_song, difficulty)
 	if not is_instance_valid(Game.chart):
-		var json_path: String = 'res://assets/songs/%s/charts/%s.json' % [current_song, difficulty.to_lower()]
+		var json_path: String = "res://assets/songs/%s/charts/%s.json" % [current_song, difficulty.to_lower()]
 		active = true
-		printerr('Song at path %s doesn\'t exist!' % json_path)
+		printerr("Song at path %s doesn\"t exist!" % json_path)
 		return
 
 	Game.song = current_song
 	Game.difficulty = difficulty.to_lower()
 	Game.mode = Game.PlayMode.FREEPLAY
 	Game.playlist.clear()
-	SceneManager.switch_to(load('res://scenes/game/game.tscn'))
+	SceneManager.switch_to(load("res://scenes/game/game.tscn"))
 
 
 func load_song(i: int) -> void:
 	var song: String = list[i]
 	if get_song_difficulties(song).is_empty():
-		printerr('Song is missing any difficulties!')
+		printerr("Song is missing any difficulties!")
 		return
 
-	var song_name: String = get_song_name(song, '')
-	var meta_path: String = 'res://assets/songs/%s/meta.tres' % song_name
+	var song_name: String = get_song_name(song, "")
+	var meta_path: String = "res://assets/songs/%s/meta.tres" % song_name
 	var meta_exists: bool = ResourceLoader.exists(meta_path)
 	var meta: SongMetadata
 	if meta_exists:
 		meta = load(meta_path)
-	else:
+	
+	if not is_instance_valid(meta):
 		meta = SongMetadata.new()
 		meta.display_name = song_name.to_pascal_case()
 	
@@ -196,11 +204,11 @@ func load_song(i: int) -> void:
 
 
 func _load_tracks() -> void:
-	if not Tracks.tracks_exist(current_song, 'res://assets/songs'):
+	if not Tracks.tracks_exist(current_song, "res://assets/songs"):
 		return
 
 	GlobalAudio.music.stop()
-	tracks.load_tracks(current_song, 'res://assets/songs')
+	tracks.load_tracks(current_song, "res://assets/songs")
 	tracks.play()
 
 

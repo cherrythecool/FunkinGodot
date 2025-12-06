@@ -12,7 +12,7 @@ func _on_event_hit(event: EventData) -> void:
 	match target:
 		"bf", "boyfriend":
 			character = player
-		"gf":
+		"gf", "girlfriend":
 			character = spectator
 		"dad":
 			character = opponent

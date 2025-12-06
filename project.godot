@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Friday Night Funkin'"
 config/description="Friday Night Funkin' remade in Godot for performance and stability."
-config/version="2.0.0"
+config/version="2.1.0-dev"
 config/tags=PackedStringArray("2d", "modding", "rhythm")
 run/main_scene="uid://cxk008iuw4n7u"
 config/features=PackedStringArray("4.5", "Forward Plus")
@@ -24,6 +24,8 @@ config/macos_native_icon="res://assets/apple_icon.icns"
 [audio]
 
 buses/default_bus_layout="res://assets/resources/default_bus_layout.tres"
+general/ios/session_category=3
+general/ios/mix_with_others=true
 
 [autoload]
 
@@ -48,6 +50,7 @@ window/size/viewport_width=1280
 window/size/viewport_height=720
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
+window/handheld/orientation=4
 window/vsync/vsync_mode=0
 
 [dotnet]
@@ -63,7 +66,7 @@ movie_writer/mjpeg_quality=1.0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/funkin_tools/plugin.cfg", "res://addons/gdanimate/plugin.cfg")
+enabled=PackedStringArray("res://addons/funkin_tools/plugin.cfg", "res://addons/gdanimate/plugin.cfg", "res://addons/parallax2d_preview/plugin.cfg")
 
 [file_customization]
 

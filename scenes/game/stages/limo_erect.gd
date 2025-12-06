@@ -46,6 +46,7 @@ func _ready() -> void:
 	game.spectator.set_character_material(fast_car.material)
 
 	reset_fast_car()
+	_process(0.0)
 
 
 func _process(delta: float) -> void:

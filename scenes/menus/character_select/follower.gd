@@ -9,4 +9,4 @@ func _process(delta: float) -> void:
 	if not is_instance_valid(target):
 		return
 	
-	global_position = global_position.lerp(target.global_position, delta * speed)
+	global_position = global_position.lerp(target.global_position, minf(delta * speed, 1.0))

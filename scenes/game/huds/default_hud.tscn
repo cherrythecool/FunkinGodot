@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cuh3v6jw2ti70" path="res://scenes/game/huds/default_hud.gd" id="1_hv0yb"]
 [ext_resource type="PackedScene" uid="uid://3diy2p3nknpi" path="res://scenes/game/note_fields/4_lanes.tscn" id="2_0rw2j"]
 [ext_resource type="PackedScene" uid="uid://bx6f5ldidoswy" path="res://scenes/game/notes/note_splash.tscn" id="3_1ubyb"]
-[ext_resource type="Script" uid="uid://nb701n0rtr0l" path="res://scenes/game/health_bar.gd" id="4_spp67"]
+[ext_resource type="Script" uid="uid://nb701n0rtr0l" path="res://scenes/game/huds/default_hud/health_bar.gd" id="4_spp67"]
 [ext_resource type="FontFile" uid="uid://dipxuxqymub2c" path="res://assets/fonts/vcr-jp.ttf" id="5_gpwne"]
 [ext_resource type="Texture2D" uid="uid://cn6fmp8et8ktw" path="res://assets/game/skins/default/ratings/marvelous.png" id="6_mktee"]
 [ext_resource type="Texture2D" uid="uid://ds3g63uwcq4jw" path="res://assets/game/skins/default/combo.png" id="7_7svf3"]
@@ -38,15 +38,15 @@ font = ExtResource("5_gpwne")
 outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_odcbh"]
+font = ExtResource("5_gpwne")
+outline_size = 6
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_6egcm"]
 font = ExtResource("8_in2av")
 font_size = 64
 outline_size = 16
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_odcbh"]
-font = ExtResource("5_gpwne")
-outline_size = 6
 outline_color = Color(0, 0, 0, 1)
 
 [node name="hud" type="Control"]
@@ -66,6 +66,8 @@ unique_name_in_owner = true
 
 [node name="opponent" parent="note_fields" instance=ExtResource("2_0rw2j")]
 position = Vector2(320, 100)
+use_note_splashes = false
+default_note_splash = ExtResource("3_1ubyb")
 
 [node name="player" parent="note_fields" instance=ExtResource("2_0rw2j")]
 position = Vector2(960, 100)
@@ -120,7 +122,20 @@ text = "Score:0 • Misses:0 • Accuracy:N/A (N/A)
 "
 label_settings = SubResource("LabelSettings_ku58i")
 horizontal_alignment = 1
+
+[node name="song_label" type="Label" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.74902)
+layout_mode = 0
+offset_top = 16.0
+offset_right = 1280.0
+offset_bottom = 32.0
+pivot_offset = Vector2(640, 8)
+text = "Test • [NORMAL]"
+label_settings = SubResource("LabelSettings_odcbh")
+horizontal_alignment = 1
 vertical_alignment = 1
+script = ExtResource("9_mucs8")
 
 [node name="rating_container" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -155,26 +170,13 @@ position = Vector2(640, 360)
 script = ExtResource("9_6w54d")
 hud = NodePath("..")
 
-[node name="song_label" type="Label" parent="."]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.74902)
-layout_mode = 0
-offset_top = 16.0
-offset_right = 1280.0
-offset_bottom = 32.0
-pivot_offset = Vector2(640, 8)
-text = "Test • [NORMAL]"
-label_settings = SubResource("LabelSettings_odcbh")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("9_mucs8")
-
 [connection signal="downscroll_changed" from="." to="health_bar" method="_on_hud_downscroll_changed"]
 [connection signal="downscroll_changed" from="." to="song_label" method="_on_hud_downscroll_changed"]
 [connection signal="note_hit" from="." to="health_bar" method="_on_hud_note_hit"]
 [connection signal="note_miss" from="." to="health_bar" method="_on_hud_note_miss"]
 [connection signal="on_setup" from="." to="health_bar" method="reload_icons"]
-[connection signal="on_setup" from="." to="countdown_container" method="setup"]
 [connection signal="on_setup" from="." to="song_label" method="_on_hud_on_setup"]
-[connection signal="note_hit" from="note_fields/player" to="." method="_on_note_hit"]
-[connection signal="note_miss" from="note_fields/player" to="." method="_on_note_miss"]
+[connection signal="on_setup" from="." to="countdown_container" method="setup"]
+[connection signal="note_hit" from="note_fields/opponent" to="." method="_opponent_note_hit"]
+[connection signal="note_hit" from="note_fields/player" to="." method="_on_note_hit" flags=3]
+[connection signal="note_miss" from="note_fields/player" to="." method="_on_note_miss" flags=3]

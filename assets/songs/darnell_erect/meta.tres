@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="SongMetadata" load_steps=5 format=3 uid="uid://df3wg6epv2c3g"]
+
+[ext_resource type="Script" uid="uid://b7lu04jsahckp" path="res://scripts/resources/icon.gd" id="1_2w1bp"]
+[ext_resource type="Script" uid="uid://3bi6wwv6us1w" path="res://scripts/resources/song_metadata.gd" id="1_lqv4v"]
+[ext_resource type="Texture2D" uid="uid://dnw888uux6bmj" path="res://assets/game/characters/darnell/icon.png" id="2_t8rqf"]
+
+[sub_resource type="Resource" id="Resource_i20ry"]
+script = ExtResource("1_2w1bp")
+texture = ExtResource("2_t8rqf")
+color = Color(0.4509804, 0.36862746, 0.6901961, 1)
+metadata/_custom_type_script = "uid://b7lu04jsahckp"
+
+[resource]
+script = ExtResource("1_lqv4v")
+display_name = &"Darnell"
+mix = &"Erect"
+icon = SubResource("Resource_i20ry")
+difficulties = ["erect", "nightmare"]
+metadata/_custom_type_script = "uid://3bi6wwv6us1w"

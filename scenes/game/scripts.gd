@@ -27,6 +27,9 @@ func load_scripts(song: StringName, song_path: String = '') -> void:
 		return
 	
 	var assets: SongAssets = load('%s/%s/assets.tres' % [song_path, song])
+	if not is_instance_valid(assets):
+		return
+	
 	if assets.scripts.is_empty():
 		return
 

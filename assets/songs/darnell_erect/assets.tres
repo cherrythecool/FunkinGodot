@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="SongAssets" load_steps=6 format=3 uid="uid://c3gsp1lbmttaj"]
+
+[ext_resource type="PackedScene" uid="uid://dx13k6w54if1l" path="res://scenes/game/characters/darnell.tscn" id="1_4hg7s"]
+[ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_jxcbt"]
+[ext_resource type="PackedScene" uid="uid://bh5vnsmdwoatu" path="res://scenes/game/characters/pico_player.tscn" id="2_tkyhn"]
+[ext_resource type="PackedScene" uid="uid://s7la6mup6cwb" path="res://scenes/game/characters/nene.tscn" id="4_c0sjc"]
+[ext_resource type="PackedScene" uid="uid://dhtct6lrdao7r" path="res://scenes/game/stages/philly_streets_erect.tscn" id="5_e7upq"]
+
+[resource]
+script = ExtResource("1_jxcbt")
+player = ExtResource("2_tkyhn")
+spectator = ExtResource("4_c0sjc")
+opponent = ExtResource("1_4hg7s")
+stage = ExtResource("5_e7upq")
+metadata/_custom_type_script = "uid://dk2lxfhv5lvf4"

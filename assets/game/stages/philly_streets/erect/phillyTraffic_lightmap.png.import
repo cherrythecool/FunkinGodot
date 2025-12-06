@@ -15,7 +15,7 @@ dest_files=["res://.godot/imported/phillyTraffic_lightmap.png-8a68707a2cd041d37b
 
 [params]
 
-compress/mode=4
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/uastc_level=0

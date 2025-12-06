@@ -36,9 +36,9 @@ var note_types: Dictionary[StringName, PackedScene] = {}
 
 var playing: bool = true
 var scroll_speed: float = 3.3:
-	set(v):
-		scroll_speed = v
-		scroll_speed_changed.emit()
+	set(value):
+		scroll_speed = value
+		scroll_speed_changed.emit(value)
 
 var assets: SongAssets
 var metadata: SongMetadata
@@ -75,7 +75,7 @@ signal event_prepare(event: EventData)
 signal event_hit(event: EventData)
 signal song_finished
 signal song_exited
-signal scroll_speed_changed
+signal scroll_speed_changed(value: float)
 signal died
 signal botplay_changed(botplay: bool)
 @warning_ignore("unused_signal") signal unpaused
@@ -126,10 +126,7 @@ func _process(delta: float) -> void:
 
 	if is_instance_valid(tracks) and not song_started:
 		if conductor.raw_time >= 0.0 and conductor.active and not tracks.playing:
-			tracks.play()
-			conductor.target_audio = tracks.player
-			song_start.emit()
-			song_started = true
+			start_song()
 
 	while events_index < chart.events.size() and \
 			conductor.time >= chart.events[events_index].time:
@@ -170,10 +167,7 @@ func _input(event: InputEvent) -> void:
 		return
 	if event.is_action(&"skip_time"):
 		save_score = false
-		tracks.set_playback_position(conductor.raw_time + 10.0)
-		conductor.raw_time += 10.0
-		player_field.try_spawning(true)
-		opponent_field.try_spawning(true)
+		skip_to(conductor.raw_time + 10.0)
 
 
 func _on_beat_hit(_beat: int) -> void:
@@ -186,15 +180,25 @@ func _on_beat_hit(_beat: int) -> void:
 
 
 func _on_note_miss(note: Note) -> void:
-	rating_calculator.add_hit(note.hit_window, note.hit_window)
-	health = clampf(health - 2.0, 0.0, 100.0)
 	misses += 1
 	score -= 10
 	combo = 0
+	rating_calculator.add_hit(note.hit_window, note.hit_window)
+	health = clampf(health - 2.0, 0.0, 100.0)
 
 
 func _on_note_hit(_note: Note) -> void:
 	combo += 1
+
+
+func start_song(from_position: float = 0.0) -> void:
+	tracks.play(from_position)
+	conductor.target_audio = tracks.player
+	conductor.sync_to_target(0.0)
+	conductor.rate = conductor.internal_rate
+	
+	song_start.emit()
+	song_started = true
 
 
 func finish_song(force: bool = false, sound: bool = true) -> void:
@@ -294,13 +298,13 @@ func load_chart() -> void:
 func load_assets() -> void:
 	if ResourceLoader.exists("res://assets/songs/%s/meta.tres" % song):
 		metadata = load("res://assets/songs/%s/meta.tres" % song)
-	else:
+	if not is_instance_valid(metadata):
 		metadata = SongMetadata.new()
 		metadata.display_name = song.to_pascal_case()
 	
 	if ResourceLoader.exists("res://assets/songs/%s/assets.tres" % song):
 		assets = load("res://assets/songs/%s/assets.tres" % song)
-	else:
+	if not is_instance_valid(assets):
 		assets = SongAssets.new()
 
 
@@ -435,11 +439,18 @@ func load_events() -> void:
 
 
 func skip_to(seconds: float) -> void:
-	if not is_instance_valid(conductor.target_audio):
-		conductor.raw_time = seconds
+	if not song_started:
+		start_song(seconds)
 	else:
-		conductor.target_audio.seek(seconds)
-		conductor.sync_to_target(0.0)
+		if not is_instance_valid(conductor.target_audio):
+			conductor.raw_time = seconds
+		else:
+			if not conductor.target_audio.playing:
+				conductor.target_audio.play(seconds)
+			else:
+				conductor.target_audio.seek(seconds)
+			conductor.sync_to_target(0.0)
+	
 	conductor.calculate_beat()
 
 	if is_instance_valid(opponent_field):

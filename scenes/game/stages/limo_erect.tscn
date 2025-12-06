@@ -108,7 +108,7 @@ z_index = 20
 position = Vector2(-200, 480)
 sprite_frames = ExtResource("7_dqopq")
 animation = &"background limo blue"
-frame_progress = 0.79060227
+frame_progress = 0.38216606
 centered = false
 script = ExtResource("8_gyo08")
 playing = true
@@ -119,7 +119,7 @@ z_index = 150
 position = Vector2(-120, 550)
 sprite_frames = ExtResource("8_dqopq")
 animation = &"Limo stage"
-frame_progress = 0.61252064
+frame_progress = 0.2040826
 centered = false
 script = ExtResource("8_gyo08")
 playing = true
@@ -160,7 +160,7 @@ z_index = 30
 material = SubResource("ShaderMaterial_6bf0j")
 position = Vector2(400, 100)
 sprite_frames = ExtResource("11_g8tp8")
-animation = &"hench dancing"
+animation = &"left"
 centered = false
 script = ExtResource("8_gyo08")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
@@ -170,7 +170,7 @@ z_index = 30
 material = SubResource("ShaderMaterial_afjqi")
 position = Vector2(700, 100)
 sprite_frames = ExtResource("11_g8tp8")
-animation = &"hench dancing"
+animation = &"left"
 centered = false
 script = ExtResource("8_gyo08")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
@@ -180,7 +180,7 @@ z_index = 30
 material = SubResource("ShaderMaterial_gyo08")
 position = Vector2(1000, 100)
 sprite_frames = ExtResource("11_g8tp8")
-animation = &"hench dancing"
+animation = &"left"
 centered = false
 script = ExtResource("8_gyo08")
 metadata/_custom_type_script = "uid://xcwf8fppek0h"
@@ -225,18 +225,18 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("12_bfmtg")
 centered = false
 
-[node name="player" type="Marker2D" parent="."]
-unique_name_in_owner = true
-z_index = 300
-position = Vector2(1274, 595)
-script = ExtResource("12_re7xl")
-
 [node name="spectator" type="Marker2D" parent="."]
 unique_name_in_owner = true
 z_index = 100
 position = Vector2(755, 790)
 script = ExtResource("12_re7xl")
 character_path = "uid://cfd0vee7ua8k7"
+
+[node name="player" type="Marker2D" parent="."]
+unique_name_in_owner = true
+z_index = 300
+position = Vector2(1274, 595)
+script = ExtResource("12_re7xl")
 
 [node name="opponent" type="Marker2D" parent="."]
 unique_name_in_owner = true

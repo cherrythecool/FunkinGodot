@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="SongAssets" load_steps=3 format=3 uid="uid://dfmtwdecde37o"]
+[gd_resource type="Resource" script_class="SongAssets" load_steps=4 format=3 uid="uid://dfmtwdecde37o"]
 
 [ext_resource type="PackedScene" uid="uid://bm0fb28jg0uki" path="res://scenes/game/characters/parents_christmas.tscn" id="1_0yxr3"]
+[ext_resource type="PackedScene" uid="uid://ct1tgudr3ft86" path="res://scenes/game/notes/alt_note.tscn" id="1_amgjv"]
 [ext_resource type="Script" uid="uid://dk2lxfhv5lvf4" path="res://scripts/resources/song_assets.gd" id="1_cgg62"]
 
 [resource]
 script = ExtResource("1_cgg62")
 opponent = ExtResource("1_0yxr3")
-scripts = Array[PackedScene]([])
+note_types = Dictionary[StringName, PackedScene]({
+&"mom": ExtResource("1_amgjv")
+})
 metadata/_custom_type_script = "uid://dk2lxfhv5lvf4"

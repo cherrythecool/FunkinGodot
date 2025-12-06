@@ -10,19 +10,18 @@ extends CanvasLayer
 
 var active: bool = true
 var selected: int = 0
-var tree: SceneTree:
-	get: return get_tree()
 
 
 func _ready() -> void:
+	Engine.time_scale = 1.0
 	_change_selection()
 
 	root.modulate.a = 0.5
 	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT)\
 			.set_trans(Tween.TRANS_SINE)
-	tween.tween_property(root, ^'modulate:a', 1.0, 0.5)
+	tween.tween_property(root, ^"modulate:a", 1.0, 0.5)
 
-	create_tween().tween_property(music, ^'volume_linear', 0.9, 2.0).set_delay(0.5)
+	create_tween().tween_property(music, ^"volume_linear", 0.9, 2.0).set_delay(0.5)
 	if not is_instance_valid(Game.instance):
 		return
 	if is_instance_valid(Game.instance.skin) and \
@@ -31,7 +30,7 @@ func _ready() -> void:
 		music.play()
 
 	var keys: Array = Game.PlayMode.keys()
-	song_name.text = '%s\n(%s)' % [Game.instance.metadata.get_full_name(),
+	song_name.text = "%s\n(%s)" % [Game.instance.metadata.get_full_name(),
 			Game.difficulty.to_upper(),]
 	if song_name.size.x > Global.game_size.x:
 		song_name.scale = Vector2.ONE * (Global.game_size.x / song_name.size.x * 0.9)
@@ -52,35 +51,35 @@ func _input(event: InputEvent) -> void:
 	if event.is_echo():
 		return
 
-	if event.is_action(&'ui_down') or event.is_action(&'ui_up'):
-		_change_selection(roundi(Input.get_axis('ui_up', 'ui_down')))
-	if event.is_action(&'ui_accept'):
+	if event.is_action(&"ui_down") or event.is_action(&"ui_up"):
+		_change_selection(roundi(Input.get_axis("ui_up", "ui_down")))
+	if event.is_action(&"ui_accept"):
 		for option: ListedAlphabet in options.get_children():
 			if option.target_y != 0:
 				continue
 			var type: StringName = option.name.to_lower()
 			match type:
-				&'resume':
+				&"resume":
 					_close()
-				&'restart':
+				&"restart":
 					_close()
 					get_tree().reload_current_scene()
-				&'options':
-					OptionsMenu.target_scene = 'res://scenes/game/game.tscn'
+				&"options":
+					OptionsMenu.target_scene = "res://scenes/game/game.tscn"
 					_close()
-					SceneManager.switch_to(load('res://scenes/menus/options_menu.tscn'))
-				&'quit':
+					SceneManager.switch_to(load("res://scenes/menus/options_menu.tscn"))
+				&"quit":
 					_close()
 					Game.instance.finish_song(true)
 				_:
-					printerr('Pause Option %s unimplemented.' % type)
+					printerr("Pause Option %s unimplemented." % type)
 
 
 func _change_selection(amount: int = 0) -> void:
 	selected = wrapi(selected + amount, 0, options.get_child_count())
 
 	if amount != 0:
-		GlobalAudio.get_player('MENU/SCROLL').play()
+		GlobalAudio.get_player("MENU/SCROLL").play()
 	for i: int in options.get_child_count():
 		var option: ListedAlphabet = options.get_child(i)
 		option.target_y = i - selected
@@ -92,8 +91,10 @@ func _close() -> void:
 	get_viewport().set_input_as_handled()
 	active = false
 	visible = false
-	tree.current_scene.process_mode = Node.PROCESS_MODE_INHERIT
+	get_tree().current_scene.process_mode = Node.PROCESS_MODE_INHERIT
 	
+	if is_instance_valid(Conductor.instance):
+		Engine.time_scale = Conductor.instance.rate
 	if is_instance_valid(Game.instance):
 		Game.instance.conductor.active = true
 		Game.instance.unpaused.emit()
