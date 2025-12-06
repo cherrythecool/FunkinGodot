@@ -51,6 +51,7 @@ func _ready() -> void:
 	game.spectator.set_character_material(color_material)
 	game.opponent.set_character_material(color_material)
 	reset_cars(true, true)
+	_process(0.0)
 
 
 func _on_beat_hit(beat: int) -> void:

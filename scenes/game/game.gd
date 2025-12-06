@@ -101,8 +101,6 @@ func _ready() -> void:
 	scripts.load_scripts(song)
 	load_events()
 	ready_post.emit()
-	
-	stage.notification(NOTIFICATION_PROCESS)
 
 
 func _exit_tree() -> void:
