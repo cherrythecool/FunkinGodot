@@ -1,4 +1,5 @@
-class_name StoryMenuProp extends Node2D
+extends Node2D
+class_name StoryMenuProp
 
 
 @export var dance_steps: PackedStringArray = ['idle']
@@ -8,11 +9,22 @@ class_name StoryMenuProp extends Node2D
 var dance_step: int = 0
 var last_animation: StringName
 
+signal animation_finished(animation: StringName)
+
+
+func _ready() -> void:
+	animation_player.animation_finished.connect(animation_finished.emit)
+
+
+func has_anim(animation: StringName) -> bool:
+	if not is_instance_valid(animation_player):
+		return false
+	
+	return animation_player.has_animation(animation)
+
 
 func play_anim(animation: StringName, force: bool = false) -> void:
-	if not is_instance_valid(animation_player):
-		return
-	if not animation_player.has_animation(animation):
+	if not has_anim(animation):
 		return
 	if animation_player.current_animation == animation and not force:
 		return

@@ -37,7 +37,11 @@ func _ready() -> void:
 			mist.free()
 		mists.clear()
 	
-	game.player.offset_camera_position(Vector2(-250.0, -35.0))
+	if not game.player.name.contains("pico"):
+		game.player.offset_camera_position(Vector2(-250.0, -20.0))
+	else:
+		game.player.offset_camera_position(Vector2(-250.0, 35.0))
+	
 	game.opponent.offset_camera_position(Vector2(230.0, 75.0))
 
 	var color_material: ShaderMaterial = ShaderMaterial.new()

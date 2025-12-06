@@ -61,7 +61,6 @@ func beat_hit() -> void:
 func add_prop_to(parent: Node, prop: PackedScene) -> void:
 	var prop_node: StoryMenuProp = prop.instantiate()
 	parent.add_child(prop_node)
-	props.push_back(prop_node)
 
 
 func update_props_array(node: Node, index: int) -> void:
@@ -82,6 +81,29 @@ func tween_prop_in(index: int) -> void:
 			parent = right
 	parent.position.y = 400.0
 	
+	if is_instance_valid(prop_tweens[index]) and prop_tweens[index].is_running():
+		prop_tweens[index].kill()
+	
 	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
 	tween.tween_property(parent, ^"position:y", 200.0, 0.5)
+	prop_tweens[index] = tween
+
+
+func tween_prop_out(index: int) -> void:
+	var parent: Node2D
+	match index:
+		0:
+			parent = backdrop
+		1:
+			parent = left
+		2:
+			parent = center
+		3:
+			parent = right
+	
+	if is_instance_valid(prop_tweens[index]) and prop_tweens[index].is_running():
+		prop_tweens[index].kill()
+	
+	var tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(parent, ^"position:y", 720.0, 1.5)
 	prop_tweens[index] = tween

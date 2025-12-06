@@ -64,7 +64,7 @@ func parse(difficulty: StringName) -> Chart:
 		chart.notes.push_back(note_data)
 
 	for change: Dictionary in json_meta.get("timeChanges", []):
-		chart.events.push_back(BPMChange.new(change.get("t") / 1000.0,
+		chart.events.push_back(BPMChange.new(maxf(change.get("t") / 1000.0, 0.0),
 				float(change.get("bpm"))))
 
 	Chart.sort_chart_notes(chart)

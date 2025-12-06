@@ -66,7 +66,10 @@ func _input(event: InputEvent) -> void:
 		if _load_first_song():
 			GlobalAudio.get_player('MENU/CONFIRM').play()
 			if is_instance_valid(props.props[2]):
+				props.tween_prop_out(1)
+				props.tween_prop_out(3)
 				props.props[2].play_anim('confirm', true)
+				await props.props[2].animation_finished
 
 			SceneManager.switch_to(load('res://scenes/game/game.tscn'))
 		else:
