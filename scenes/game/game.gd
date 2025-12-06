@@ -35,7 +35,7 @@ var save_score: bool = true
 var note_types: Dictionary[StringName, PackedScene] = {}
 
 var playing: bool = true
-var scroll_speed: float = 3.3:
+var scroll_speed: float:
 	set(value):
 		scroll_speed = value
 		scroll_speed_changed.emit(value)
@@ -64,7 +64,6 @@ var rank: StringName:
 			return rating_calculator.rank
 
 		return &"N/A"
-
 var skin: HUDSkin
 
 signal hud_setup
@@ -187,9 +186,21 @@ func _on_note_miss(note: Note) -> void:
 	health = clampf(health - 2.0, 0.0, 100.0)
 
 
-func _on_note_hit(_note: Note) -> void:
+func _on_note_hit(note: Note) -> void:
 	combo += 1
 
+	if not is_instance_valid(rating_calculator):
+		return
+
+	var difference: float = conductor.time - note.data.time
+	if is_instance_valid(player_field):
+		if not player_field.takes_input:
+			difference = 0.0
+	rating_calculator.add_hit(absf(difference), note.hit_window)
+
+	var rating: Rating = rating_calculator.get_rating(absf(difference))
+	health = clampf(health + rating.health, 0.0, 100.0)
+	score += rating.score
 
 func start_song(from_position: float = 0.0) -> void:
 	tracks.play(from_position)
@@ -223,7 +234,6 @@ func finish_song(force: bool = false, sound: bool = true) -> void:
 		var new_song: StringName = playlist[0].name
 		var new_difficulty: StringName = playlist[0].difficulty
 		chart = Chart.load_song(new_song, new_difficulty)
-
 		if not is_instance_valid(chart):
 			var json_path: String = (
 				"res://assets/songs/%s/charts/%s.json"
@@ -385,13 +395,11 @@ func load_from_assets() -> void:
 func setup_hud() -> void:
 	if is_instance_valid(player_field):
 		player_field.note_types = note_types
-		player_field.scroll_speed = scroll_speed
 		player_field.append_chart(chart)
 		player_field.note_miss.connect(_on_note_miss)
 		player_field.note_hit.connect(_on_note_hit)
 	if is_instance_valid(opponent_field):
 		opponent_field.note_types = note_types
-		opponent_field.scroll_speed = scroll_speed
 		opponent_field.append_chart(chart)
 
 	hud_setup.emit()
@@ -402,7 +410,8 @@ func reset_conductor() -> void:
 	conductor.beat_hit.connect(_on_beat_hit)
 	conductor.get_bpm_changes(chart.events)
 	conductor.calculate_beat()
-	conductor.raw_time = -5.0 * conductor.beat_delta
+	conductor.raw_time = -4.0 * conductor.beat_delta
+	conductor.beat_hit.emit.call_deferred(-4)
 
 
 func load_events() -> void:
@@ -445,6 +454,9 @@ func skip_to(seconds: float) -> void:
 		if not is_instance_valid(conductor.target_audio):
 			conductor.raw_time = seconds
 		else:
+			if is_instance_valid(conductor.target_audio.stream):
+				seconds = minf(seconds, conductor.target_audio.stream.get_length())
+			
 			if not conductor.target_audio.playing:
 				conductor.target_audio.play(seconds)
 			else:
@@ -456,7 +468,6 @@ func skip_to(seconds: float) -> void:
 	if is_instance_valid(opponent_field):
 		opponent_field.try_spawning(true)
 		opponent_field.clear_notes()
-
 	if is_instance_valid(player_field):
 		player_field.try_spawning(true)
 		player_field.clear_notes()

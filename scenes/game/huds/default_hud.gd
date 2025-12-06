@@ -82,6 +82,10 @@ func setup() -> void:
 			_on_first_opponent_note,
 			CONNECT_ONE_SHOT
 		)
+		opponent_field.note_hit.connect(_on_opponent_note_hit)
+	if is_instance_valid(player_field):
+		player_field.note_hit.connect(_on_note_hit)
+		player_field.note_miss.connect(_on_note_miss)
 
 
 func _on_beat_hit(beat: int) -> void:
@@ -106,12 +110,9 @@ func _on_first_opponent_note(_note: Note) -> void:
 
 
 func _on_note_hit(note: Note) -> void:
-	var health: float = game.health
 	var difference: float = game.conductor.time - note.data.time
 	if not player_field.takes_input:
 		difference = 0.0
-
-	game.rating_calculator.add_hit(absf(difference), note.hit_window)
 
 	if player_field.takes_input:
 		difference_label.text = '%.2fms' % [difference * 1000.0]
@@ -142,9 +143,6 @@ func _on_note_hit(note: Note) -> void:
 	rating_tween.tween_callback(func() -> void:
 		rating_container.visible = false).set_delay(0.5)
 
-	game.health = clampf(health + rating.health, 0.0, 100.0)
-	game.score += rating.score
-
 	var combo_str: String = str(game.combo).pad_zeros(3)
 	var num_count: int = combo_str.length()
 	var combo_spacing: float = 90.0
@@ -168,15 +166,15 @@ func _on_note_hit(note: Note) -> void:
 		else:
 			number.visible = false
 
-	note_hit.emit.call_deferred(note)
+	note_hit.emit(note)
 
 
 func _on_note_miss(note: Note) -> void:
 	rating_container.visible = false
-	note_miss.emit.call_deferred(note)
+	note_miss.emit(note)
 
 
-func _opponent_note_hit(note: Note) -> void:
+func _on_opponent_note_hit(note: Note) -> void:
 	spawn_splash(note, opponent_field.skin, note.field.receptors[note.lane])
 
 

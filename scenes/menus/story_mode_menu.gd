@@ -4,14 +4,18 @@ extends Control
 @onready var conductor: Conductor = %conductor
 
 @onready var songs: Control = %songs
-@onready var songs_label: Label = songs.get_node('songs_label')
+@onready var songs_label: Label = songs.get_node(^'songs_label')
 
 @onready var difficulties: Control = %difficulties
 @onready var weeks: Control = %weeks
-@onready var props: Node2D = %props
+@onready var props: StoryModePropsContainer = %props
 
 @onready var high_score: Label = %high_score
 @onready var week_name: Label = %week_name
+var week_name_tween: Tween
+
+@onready var week_color: ColorRect = %week_color
+@onready var week_gradient: TextureRect = %week_gradient
 
 var active: bool = true
 
@@ -38,6 +42,10 @@ func _on_beat_hit(_beat: int) -> void:
 func _process(delta: float) -> void:
 	var target_y: float = 86.0 - weeks.get_child(weeks.selected).position.y
 	weeks.position.y = lerpf(weeks.position.y, target_y, minf(delta * 6.0, 1.0))
+	
+	var selected_week: StoryWeekNode = weeks.get_child(weeks.selected)
+	week_color.color = week_color.color.lerp(selected_week.background_color, minf(delta * 6.0, 1.0))
+	week_gradient.modulate = week_color.color
 
 
 func _input(event: InputEvent) -> void:
@@ -66,9 +74,6 @@ func _input(event: InputEvent) -> void:
 	if event.is_action('ui_up') or event.is_action('ui_down'):
 		var movement: int = int(Input.get_axis('ui_up', 'ui_down'))
 		change_selection(movement)
-	if event.is_action('ui_left') or event.is_action('ui_right'):
-		var movement: int = int(Input.get_axis('ui_left', 'ui_right'))
-		difficulties.change_selection(movement)
 
 
 func _load_active_playlist() -> void:
@@ -107,10 +112,19 @@ func _load_first_song() -> bool:
 
 
 func change_selection(amount: int = 0) -> void:
+	var previous_week: StoryWeekNode = weeks.get_child(weeks.selected)
 	weeks.selected = wrapi(weeks.selected + amount, 0, weeks.get_child_count())
 
 	var selected_week: StoryWeekNode = weeks.get_child(weeks.selected)
 	props.update_props(selected_week.props)
+	
+	if previous_week.props.left != selected_week.props.left:
+		props.tween_prop_in(1)
+	if previous_week.props.center != selected_week.props.center:
+		props.tween_prop_in(2)
+	if previous_week.props.right != selected_week.props.right:
+		props.tween_prop_in(3)
+	
 	week_name.text = selected_week.display_name
 	difficulties.difficulties = selected_week.difficulties
 	difficulties.change_selection()
@@ -126,6 +140,13 @@ func change_selection(amount: int = 0) -> void:
 			song_names.push_back(path)
 
 	songs_label.text = '\n'.join(song_names)
+	
+	if is_instance_valid(week_name_tween) and week_name_tween.is_running():
+		week_name_tween.kill()
+	
+	week_name.visible_ratio = 0.0
+	week_name_tween = create_tween()
+	week_name_tween.tween_property(week_name, ^"visible_ratio", 1.0, 1.0)
 
 	if amount != 0:
 		GlobalAudio.get_player('MENU/SCROLL').play()

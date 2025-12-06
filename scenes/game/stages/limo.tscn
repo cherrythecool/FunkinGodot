@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://xcwf8fppek0h" path="res://scripts/animated_sprite.gd" id="4_xtsds"]
 [ext_resource type="Texture2D" uid="uid://beyfiss15cjmj" path="res://assets/game/stages/limo/limoOverlay.png" id="5_1nyvw"]
 [ext_resource type="Script" uid="uid://dvnwbtnvi747m" path="res://scenes/game/stages/character_preview.gd" id="5_8o2p2"]
-[ext_resource type="SpriteFrames" path="res://assets/game/stages/limo/limoDrive.res" id="5_axglq"]
+[ext_resource type="SpriteFrames" uid="uid://d1vhwrlofvmka" path="res://assets/game/stages/limo/limoDrive.res" id="5_axglq"]
 [ext_resource type="Texture2D" uid="uid://2vt2m2655uu" path="res://assets/game/stages/limo/fastCarLol.png" id="7_2gosj"]
 [ext_resource type="SpriteFrames" uid="uid://co1ft38yoprcq" path="res://assets/game/stages/limo/henchmen.res" id="9_xtsds"]
 
@@ -40,7 +40,7 @@ z_index = 20
 position = Vector2(-200, 480)
 sprite_frames = ExtResource("3_8o2p2")
 animation = &"background limo pink"
-frame_progress = 0.6600554
+frame_progress = 0.5170594
 centered = false
 script = ExtResource("4_xtsds")
 playing = true
@@ -51,7 +51,7 @@ z_index = 150
 position = Vector2(-120, 550)
 sprite_frames = ExtResource("5_axglq")
 animation = &"Limo stage"
-frame_progress = 0.16054265
+frame_progress = 0.017546307
 centered = false
 script = ExtResource("4_xtsds")
 playing = true

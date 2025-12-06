@@ -51,39 +51,39 @@ point_count = 4
 [node name="game" type="Node2D"]
 script = ExtResource("1_tneyb")
 
-[node name="camera_2d" type="Camera2D" parent="."]
-position = Vector2(640, 360)
-limit_enabled = false
-script = ExtResource("2_bdhmt")
-bumps = false
-
-[node name="conductor" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("2_5i0tg")
-metadata/_custom_type_script = "uid://djsxumpddydxq"
-
 [node name="tracks" type="Node" parent="."]
 unique_name_in_owner = true
 editor_description = "Node to contain all audio tracks for the given song that is playing."
 script = ExtResource("2_j74rm")
 stop_on_finish = true
 
-[node name="scripts" type="Node" parent="."]
+[node name="conductor" type="Node" parent="."]
 unique_name_in_owner = true
-script = ExtResource("2_oquto")
-
-[node name="hud_layer" type="CanvasLayer" parent="."]
-unique_name_in_owner = true
-
-[node name="stage" type="Node2D" parent="."]
-
-[node name="characters" type="Node2D" parent="."]
+script = ExtResource("2_5i0tg")
+metadata/_custom_type_script = "uid://djsxumpddydxq"
 
 [node name="rating_calculator" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("6_ur1sh")
 ratings = Array[ExtResource("5_lfrn8")]([SubResource("Resource_5i0tg"), SubResource("Resource_bdhmt"), SubResource("Resource_87uf6"), SubResource("Resource_2a8rs"), SubResource("Resource_4j704")])
 accuracy_curve = SubResource("Curve_5selw")
+
+[node name="scripts" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2_oquto")
+
+[node name="stage" type="Node2D" parent="."]
+
+[node name="characters" type="Node2D" parent="."]
+
+[node name="camera_2d" type="Camera2D" parent="."]
+position = Vector2(640, 360)
+limit_enabled = false
+script = ExtResource("2_bdhmt")
+bumps = false
+
+[node name="hud_layer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
 
 [connection signal="event_hit" from="." to="camera_2d" method="_on_game_event_hit"]
 [connection signal="ready_post" from="." to="camera_2d" method="_on_game_ready_post"]

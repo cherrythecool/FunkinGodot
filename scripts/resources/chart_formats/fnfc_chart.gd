@@ -69,7 +69,6 @@ func parse(difficulty: StringName) -> Chart:
 
 	Chart.sort_chart_notes(chart)
 	var stacked_notes: int = Chart.remove_stacked_notes(chart)
-
 	print("Loaded FNFCChart(%s) with %s stacked notes detected." % [
 		"%s/%s" % [json_meta.get("songName", "Unknown"), difficulty], stacked_notes
 	])

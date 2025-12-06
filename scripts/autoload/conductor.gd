@@ -124,7 +124,7 @@ func sync_to_target(delta: float) -> void:
 	if audio_time > raw_time or desync >= MAX_DESYNC:
 		raw_time = audio_time
 	else:
-		raw_time += delta * target_audio.pitch_scale
+		raw_time += delta
 
 
 func calculate_beat() -> void:

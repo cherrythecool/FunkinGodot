@@ -17,5 +17,5 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	sprite.modulate.a = lerpf(sprite.modulate.a, target_alpha, delta * 6.0)
-	sprite.scale = sprite.scale.lerp(Vector2(target_scale, target_scale), delta * 6.0)
+	sprite.modulate.a = lerpf(sprite.modulate.a, target_alpha, delta * 9.0)
+	sprite.scale = sprite.scale.lerp(Vector2(target_scale, target_scale), delta * 10.0)

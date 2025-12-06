@@ -58,9 +58,9 @@ func change_selection(amount: int = 0) -> void:
 
 	if is_instance_valid(section_tween) and section_tween.is_running():
 		section_tween.kill()
-	section_tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT).set_parallel()
+	section_tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).set_parallel()
 	section_tween.tween_property(section_label, ^'position:y', 48.0, 0.5)
-	section_tween.tween_property(section_label, ^'modulate:a', 1.0, 0.5)
+	section_tween.tween_property(section_label, ^'modulate:a', 1.0, 0.5).set_trans(Tween.TRANS_CUBIC)
 
 	for i: int in categories.get_child_count():
 		var child: Category = categories.get_child(i)
@@ -79,10 +79,8 @@ func deselect_current() -> void:
 			.set_ease(Tween.EASE_OUT).set_parallel()
 	tween.tween_property(interface, ^'position:x', 0.0, 0.5)
 	tween.tween_property(section, ^'position:x', 1920.0, 0.5)
-
 	var children: Array[Node] = section.get_children()
-	await get_tree().create_timer(0.5).timeout
-	Global.free_from_array(children)
+	tween.tween_callback(Global.free_from_array.bind(children)).set_delay(0.5)
 
 
 func select_current() -> void:

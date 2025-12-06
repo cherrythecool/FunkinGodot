@@ -104,7 +104,6 @@ static func try_fnfc(base_path: String, difficulty: StringName) -> Chart:
 		return null
 
 	var fnfc: FNFCChart = FNFCChart.new()
-
 	var chart_path: String = '%s/charts/chart.json' % [base_path]
 	fnfc.json_chart = load(chart_path).data
 
@@ -114,7 +113,7 @@ static func try_fnfc(base_path: String, difficulty: StringName) -> Chart:
 	var meta_data: String = FileAccess.get_file_as_string(meta_path)
 	fnfc.json_meta = JSON.parse_string(meta_data)
 
-	if 'scrollSpeed' in fnfc.json_chart:
+	if "scrollSpeed" in fnfc.json_chart:
 		if fnfc.json_chart.scrollSpeed is float:
 			fnfc.scroll_speed = fnfc.json_chart.scrollSpeed
 		else:

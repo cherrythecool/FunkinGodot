@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://62vvv8x8t7nm"]
+[gd_scene load_steps=44 format=3 uid="uid://62vvv8x8t7nm"]
 
 [ext_resource type="Texture2D" uid="uid://uy8oihb6pd4m" path="res://assets/menus/character_select/stage/bg.png" id="1_oablf"]
 [ext_resource type="Script" uid="uid://p52omju8wqak" path="res://scenes/menus/character_select.gd" id="1_tjis5"]
@@ -30,6 +30,7 @@
 [ext_resource type="Script" uid="uid://crsaxs3qogjfq" path="res://scenes/menus/character_select/follower.gd" id="22_pwyd4"]
 [ext_resource type="SpriteFrames" path="res://assets/menus/character_select/bf/icon.res" id="22_twrlh"]
 [ext_resource type="SpriteFrames" uid="uid://cxstgenxhhdxm" path="res://assets/menus/character_select/selector/selector.tres" id="26_twrlh"]
+[ext_resource type="Script" uid="uid://dn2m283whavha" path="res://scenes/menus/character_select/camera_2d.gd" id="31_4fbts"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_xae3q"]
 blend_mode = 3
@@ -144,7 +145,7 @@ scroll_scale = Vector2(0.3, 0.3)
 position = Vector2(-75, 209)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/crowd"
-frame = 10
+frame = 6
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -152,7 +153,7 @@ metadata/_custom_type_script = "uid://diqmdngjb60u2"
 position = Vector2(-40, 391)
 sprite_frames = ExtResource("7_5ydai")
 animation = &"stage full instance 1"
-frame_progress = 0.87019515
+frame_progress = 0.94879055
 centered = false
 script = ExtResource("4_xae3q")
 playing = true
@@ -167,14 +168,14 @@ texture = ExtResource("5_xae3q")
 centered = false
 
 [node name="bar" type="Parallax2D" parent="."]
-scroll_scale = Vector2(0, 0)
+scroll_scale = Vector2(0, 0.7)
 
 [node name="sprite" type="Node2D" parent="bar"]
 material = SubResource("CanvasItemMaterial_xae3q")
 position = Vector2(0, 55)
 script = ExtResource("2_rptr7")
 atlas = "res://assets/menus/character_select/stage/bar"
-frame = 3
+frame = 1
 playing = true
 metadata/_custom_type_script = "uid://diqmdngjb60u2"
 
@@ -215,16 +216,17 @@ centered = false
 
 [node name="character_selector" type="Node2D" parent="."]
 unique_name_in_owner = true
+position = Vector2(640, 0)
 
 [node name="dipshit_back" type="Sprite2D" parent="character_selector"]
 modulate = Color(1, 1, 1, 0.5)
-position = Vector2(624, 296)
+position = Vector2(-3, 296)
 texture = ExtResource("12_rgimu")
 
 [node name="dipshit_blur" type="AnimatedSprite2D" parent="character_selector"]
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_cggar")
-position = Vector2(419, -65)
+position = Vector2(-208, -65)
 sprite_frames = ExtResource("16_twrlh")
 animation = &"CHOOSE vertical offset instance 1"
 autoplay = "CHOOSE vertical offset instance 1"
@@ -235,7 +237,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 [node name="dipshit_backing" type="AnimatedSprite2D" parent="character_selector"]
 unique_name_in_owner = true
 material = SubResource("CanvasItemMaterial_cggar")
-position = Vector2(423, -17)
+position = Vector2(-204, -17)
 sprite_frames = ExtResource("17_0awtx")
 animation = &"CHOOSE horizontal offset instance 1"
 autoplay = "CHOOSE horizontal offset instance 1"
@@ -245,7 +247,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="choose_dipshit" type="Sprite2D" parent="character_selector"]
 unique_name_in_owner = true
-position = Vector2(426, -13)
+position = Vector2(-201, -13)
 texture = ExtResource("13_3wfvo")
 centered = false
 
@@ -254,7 +256,7 @@ unique_name_in_owner = true
 
 [node name="1" type="AnimatedSprite2D" parent="character_selector/characters"]
 material = SubResource("ShaderMaterial_q65u0")
-position = Vector2(504, 198)
+position = Vector2(-120.5, 198)
 sprite_frames = SubResource("SpriteFrames_sayuy")
 animation = &"lock"
 script = ExtResource("4_xae3q")
@@ -262,7 +264,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="2" type="AnimatedSprite2D" parent="character_selector/characters"]
 material = SubResource("ShaderMaterial_apdom")
-position = Vector2(613, 198)
+position = Vector2(-11.5, 198)
 sprite_frames = SubResource("SpriteFrames_sayuy")
 animation = &"lock"
 script = ExtResource("4_xae3q")
@@ -270,7 +272,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="3" type="AnimatedSprite2D" parent="character_selector/characters"]
 material = SubResource("ShaderMaterial_8pn6j")
-position = Vector2(733, 198)
+position = Vector2(108.5, 198)
 sprite_frames = SubResource("SpriteFrames_sayuy")
 animation = &"lock"
 script = ExtResource("4_xae3q")
@@ -278,7 +280,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="4" type="AnimatedSprite2D" parent="character_selector/characters"]
 editor_description = "pico"
-position = Vector2(516, 322)
+position = Vector2(-108.5, 322)
 sprite_frames = ExtResource("18_q65u0")
 animation = &"PICO ICON"
 script = ExtResource("4_xae3q")
@@ -286,7 +288,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="5" type="AnimatedSprite2D" parent="character_selector/characters"]
 editor_description = "bf"
-position = Vector2(627, 322)
+position = Vector2(0, 322)
 sprite_frames = ExtResource("22_twrlh")
 animation = &"BF ICON"
 script = ExtResource("4_xae3q")
@@ -294,7 +296,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="6" type="AnimatedSprite2D" parent="character_selector/characters"]
 material = SubResource("ShaderMaterial_pwyd4")
-position = Vector2(733, 321)
+position = Vector2(108.5, 321)
 sprite_frames = SubResource("SpriteFrames_sayuy")
 animation = &"lock"
 script = ExtResource("4_xae3q")
@@ -302,7 +304,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="7" type="AnimatedSprite2D" parent="character_selector/characters"]
 material = SubResource("ShaderMaterial_7ptoq")
-position = Vector2(510, 428)
+position = Vector2(-114.5, 428)
 sprite_frames = SubResource("SpriteFrames_sayuy")
 animation = &"lock"
 script = ExtResource("4_xae3q")
@@ -310,7 +312,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="8" type="AnimatedSprite2D" parent="character_selector/characters"]
 material = SubResource("ShaderMaterial_5ydai")
-position = Vector2(621, 428)
+position = Vector2(-3.5, 428)
 sprite_frames = SubResource("SpriteFrames_sayuy")
 animation = &"lock"
 script = ExtResource("4_xae3q")
@@ -318,7 +320,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 
 [node name="9" type="AnimatedSprite2D" parent="character_selector/characters"]
 material = SubResource("ShaderMaterial_twrlh")
-position = Vector2(739, 428)
+position = Vector2(114.5, 428)
 sprite_frames = SubResource("SpriteFrames_sayuy")
 animation = &"lock"
 script = ExtResource("4_xae3q")
@@ -327,7 +329,7 @@ metadata/_custom_type_script = "uid://xcwf8fppek0h"
 [node name="selector_far_back" type="Sprite2D" parent="character_selector" node_paths=PackedStringArray("target")]
 modulate = Color(0.235294, 0.454902, 0.968627, 1)
 material = ExtResource("20_8pn6j")
-position = Vector2(625, 323)
+position = Vector2(-2, 323)
 texture = ExtResource("21_pwyd4")
 script = ExtResource("22_pwyd4")
 target = NodePath("../selector")
@@ -336,7 +338,7 @@ speed = 16.0
 [node name="selector_back" type="Sprite2D" parent="character_selector" node_paths=PackedStringArray("target")]
 modulate = Color(0.243137, 0.733333, 1, 1)
 material = ExtResource("20_8pn6j")
-position = Vector2(625, 323)
+position = Vector2(-2, 323)
 texture = ExtResource("21_pwyd4")
 script = ExtResource("22_pwyd4")
 target = NodePath("../selector")
@@ -344,7 +346,7 @@ speed = 20.0
 
 [node name="selector" type="AnimatedSprite2D" parent="character_selector"]
 unique_name_in_owner = true
-position = Vector2(625, 323)
+position = Vector2(-2, 323)
 sprite_frames = ExtResource("26_twrlh")
 animation = &"idle"
 script = ExtResource("4_xae3q")
@@ -356,3 +358,23 @@ material = SubResource("ShaderMaterial_5akvo")
 position = Vector2(1008, 100)
 scale = Vector2(0.77, 0.77)
 texture = ExtResource("16_3ax17")
+
+[node name="camera_2d" type="Camera2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(640, 360)
+limit_left = -100
+limit_top = -100
+limit_right = 1380
+limit_bottom = 720
+position_smoothing_enabled = true
+script = ExtResource("31_4fbts")
+
+[node name="fade_rect" type="ColorRect" parent="."]
+unique_name_in_owner = true
+offset_left = -217.0
+offset_top = -232.0
+offset_right = 1554.0
+offset_bottom = 937.0
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_lock_ = true

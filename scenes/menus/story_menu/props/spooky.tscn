@@ -173,7 +173,7 @@ script = ExtResource("1_jsyts")
 dance_steps = ["dance_left", "dance_right"]
 
 [node name="sprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(-96, 0)
+position = Vector2(-96, 56)
 sprite_frames = ExtResource("2_jsyts")
 animation = &"idle"
 frame = 13

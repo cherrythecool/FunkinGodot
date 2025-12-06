@@ -4,6 +4,9 @@ extends Node2D
 static var selected_x: int = 1
 static var selected_y: int = 1
 
+@onready var camera_2d: Camera2D = %camera_2d
+@onready var fade_rect: ColorRect = %fade_rect
+
 @onready var character_selector: Node2D = %character_selector
 @onready var dipshit_blur: AnimatedSprite = %dipshit_blur
 @onready var dipshit_backing: AnimatedSprite = %dipshit_backing
@@ -25,6 +28,8 @@ var player_anim: AnimationPlayer
 
 @onready var characters: Node2D = %characters
 @onready var title: Sprite2D = %title
+var title_tween: Tween
+
 @onready var atlas_characters: Node2D = %atlas_characters
 
 @onready var selector: AnimatedSprite = %selector
@@ -72,6 +77,12 @@ func _process(delta: float) -> void:
 			icon.scale = icon.scale.lerp(Vector2.ONE * 1.15, delta * 9.0)
 		else:
 			icon.scale = icon.scale.lerp(Vector2.ONE, delta * 9.0)
+	
+	if "smoothed_offset" in camera_2d:
+		camera_2d.smoothed_offset = Vector2(
+			10.0 * float(selected_x - 1),
+			8.0 * float(selected_y - 1),
+		)
 
 
 func _input(event: InputEvent) -> void:
@@ -108,29 +119,9 @@ func _input(event: InputEvent) -> void:
 		var icon: AnimatedSprite = characters.get_child(index)
 		match icon.editor_description:
 			'bf':
-				confirm.play()
-				selector.play(&'confirm')
-				player_anim.play(&'confirm')
-				spectator_anim.play(&'confirm')
-
-				icon.playing = true
-				await confirm.finished
-				FreeplayMenu.index = 0
-				FreeplayMenu.difficulty_index = 0
-				MainMenu.freeplay_scene = 'res://scenes/menus/freeplay_menu.tscn'
-				SceneManager.switch_to(load(MainMenu.freeplay_scene))
+				finish_selection(icon, "uid://3rua2gpac5p8")
 			'pico':
-				confirm.play()
-				player_anim.play(&'confirm')
-				spectator_anim.play(&'confirm')
-				selector.play(&'confirm')
-
-				icon.playing = true
-				await confirm.finished
-				FreeplayMenu.index = 0
-				FreeplayMenu.difficulty_index = 0
-				MainMenu.freeplay_scene = 'res://scenes/menus/freeplay_menu_pico.tscn'
-				SceneManager.switch_to(load(MainMenu.freeplay_scene))
+				finish_selection(icon, "uid://cbp5qie32cehq")
 			_:
 				locked = false
 				selector.play(&'denied')
@@ -170,8 +161,47 @@ func _update_selection(sound: bool = true) -> void:
 			_load_characters('uid://bydgpm6a02kid', 'uid://bydgpm6a02kid', load('uid://ncq3u01qhoh8'))
 
 
+func finish_selection(icon: AnimatedSprite, scene_path: String) -> void:
+	confirm.play()
+	player_anim.play(&'confirm')
+	spectator_anim.play(&'confirm')
+	selector.play(&'confirm')
+
+	icon.playing = true
+	await confirm.finished
+	
+	camera_2d.set_script(null)
+	camera_2d.limit_enabled = false
+	
+	var alpha_tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	alpha_tween.tween_property(fade_rect, ^"color:a", 1.0, 0.5).set_delay(0.7)
+	
+	var camera_tween: Tween = create_tween().set_ease(Tween.EASE_IN_OUT)
+	camera_tween.tween_property(camera_2d, ^"offset:y", 30.0, 0.5).set_trans(Tween.TRANS_SINE)
+	camera_tween.tween_property(camera_2d, ^"offset:y", -150.0, 0.7).set_trans(Tween.TRANS_QUAD)
+	await camera_tween.finished
+	
+	FreeplayMenu.index = 0
+	FreeplayMenu.difficulty_index = 0
+	
+	MainMenu.freeplay_scene = scene_path
+	SceneManager.switch_to(load(MainMenu.freeplay_scene))
+
+
 func _load_characters(player_path: String, spectator_path: String, logo: Texture2D) -> void:
 	title.texture = logo
+	if is_instance_valid(title_tween) and title_tween.is_running():
+		title_tween.kill()
+	
+	title.offset.y = -60.0
+	title.scale.x = 0.77 * 0.9
+	title.scale.y = 0.77 * 1.1
+	title.material.set_shader_parameter("block_size", Vector2.ONE * 4.0)
+	title_tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE).set_parallel()
+	title_tween.tween_property(title, ^"offset:y", 0.0, 0.4)
+	title_tween.tween_property(title, ^"scale", Vector2.ONE * 0.77, 0.5)
+	title_tween.tween_property(title.material, ^"shader_parameter/block_size", Vector2.ONE, 0.5)
+	
 	spectator.queue_free()
 	player.queue_free()
 

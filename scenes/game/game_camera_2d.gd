@@ -184,6 +184,8 @@ func _on_game_ready_post() -> void:
 
 
 func _on_game_song_exited() -> void:
+	persistent_position = false
+	persistent_zoom = false
 	reset_persistent_values()
 
 

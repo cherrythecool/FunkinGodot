@@ -1,4 +1,5 @@
-extends Node2D
+extends Node
+class_name StoryModePropsContainer
 
 
 @onready var backdrop: Node2D = $backdrop
@@ -8,6 +9,7 @@ extends Node2D
 
 var last_props: StoryWeekProps = null
 var props: Array[Node] = []
+var prop_tweens: Array[Tween] = []
 
 
 func update_props(assets: StoryWeekProps) -> void:
@@ -15,28 +17,34 @@ func update_props(assets: StoryWeekProps) -> void:
 	if force_reload or last_props.backdrop != assets.backdrop:
 		Global.free_children_from(backdrop)
 		if is_instance_valid(assets.backdrop):
-			_add_prop_to(backdrop, assets.backdrop)
+			add_prop_to(backdrop, assets.backdrop)
 
 	if force_reload or last_props.left != assets.left:
 		Global.free_children_from(left)
 		if is_instance_valid(assets.left):
-			_add_prop_to(left, assets.left)
+			add_prop_to(left, assets.left)
 
 	if force_reload or last_props.center != assets.center:
 		Global.free_children_from(center)
 		if is_instance_valid(assets.center):
-			_add_prop_to(center, assets.center)
+			add_prop_to(center, assets.center)
 
 	if force_reload or last_props.right != assets.right:
 		Global.free_children_from(right)
 		if is_instance_valid(assets.right):
-			_add_prop_to(right, assets.right)
+			add_prop_to(right, assets.right)
 
 	props = [null, null, null, null]
-	_update_props_array(backdrop, 0)
-	_update_props_array(left, 1)
-	_update_props_array(center, 2)
-	_update_props_array(right, 3)
+	
+	for tween: Tween in prop_tweens:
+		if is_instance_valid(tween) and tween.is_running():
+			tween.kill()
+	prop_tweens = [null, null, null, null]
+
+	update_props_array(backdrop, 0)
+	update_props_array(left, 1)
+	update_props_array(center, 2)
+	update_props_array(right, 3)
 
 	last_props = assets
 
@@ -50,12 +58,30 @@ func beat_hit() -> void:
 		child.dance()
 
 
-func _add_prop_to(parent: Node, prop: PackedScene) -> void:
+func add_prop_to(parent: Node, prop: PackedScene) -> void:
 	var prop_node: StoryMenuProp = prop.instantiate()
 	parent.add_child(prop_node)
 	props.push_back(prop_node)
 
 
-func _update_props_array(node: Node, index: int) -> void:
+func update_props_array(node: Node, index: int) -> void:
 	if node.get_child_count() > 0:
 		props[index] = node.get_child(0)
+
+
+func tween_prop_in(index: int) -> void:
+	var parent: Node2D
+	match index:
+		0:
+			parent = backdrop
+		1:
+			parent = left
+		2:
+			parent = center
+		3:
+			parent = right
+	parent.position.y = 400.0
+	
+	var tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_EXPO)
+	tween.tween_property(parent, ^"position:y", 200.0, 0.5)
+	prop_tweens[index] = tween

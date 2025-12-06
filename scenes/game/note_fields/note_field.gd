@@ -38,6 +38,7 @@ func _ready() -> void:
 	if is_instance_valid(Game.instance):
 		game = Game.instance
 		game.scroll_speed_changed.connect(_on_scroll_speed_changed)
+		scroll_speed = game.scroll_speed
 	if is_instance_valid(Conductor.instance):
 		conductor = Conductor.instance
 	

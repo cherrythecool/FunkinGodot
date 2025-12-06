@@ -47,8 +47,13 @@ func _on_save_pngs_dialog_dir_selected(dir: String) -> void:
 		save_to_pngs(dir, imported_list[imported_list.keys()[export_index]])
 		
 		export_index += 1
-		if export_index < imported_list.keys().size() - 1:
+		if export_index <= imported_list.keys().size() - 1:
 			_on_export_to_pngs_pressed(true)
+		else:
+			if export_clear_automatically:
+				imported_list.clear()
+				for child: Node in spritesheet_container.get_children():
+					child.queue_free()
 
 
 func _on_export_to_spriteframes_pressed(recursive: bool = false) -> void:
@@ -72,8 +77,13 @@ func _on_save_dialog_file_selected(path: String) -> void:
 		save_sprite_frames(path, imported_list[imported_list.keys()[export_index]])
 		
 		export_index += 1
-		if export_index < imported_list.keys().size() - 1:
+		if export_index <= imported_list.keys().size() - 1:
 			_on_export_to_spriteframes_pressed(true)
+		else:
+			if export_clear_automatically:
+				imported_list.clear()
+				for child: Node in spritesheet_container.get_children():
+					child.queue_free()
 
 
 func _on_fps_box_value_changed(value: float) -> void:
