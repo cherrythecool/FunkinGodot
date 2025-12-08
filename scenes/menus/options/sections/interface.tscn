@@ -11,11 +11,11 @@
 [node name="interface" type="Node2D" node_paths=PackedStringArray("options")]
 position = Vector2(-320, 0)
 script = ExtResource("1_6p62e")
-options = [NodePath("underlay_alpha"), NodePath("splash_alpha"), NodePath("sustain_layer"), NodePath("cpu_strums_press"), NodePath("scene_transitions"), NodePath("countdown_on_resume")]
+options = [NodePath("underlay_alpha"), NodePath("splash_alpha"), NodePath("song_label_show"), NodePath("sustain_layer"), NodePath("cpu_strums_press"), NodePath("scene_transitions"), NodePath("countdown_on_resume")]
 max_distance = 90.0
 
 [node name="underlay_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(222, -173)
+position = Vector2(222, -141)
 script = ExtResource("6_1836p")
 section = &"interface"
 key = &"underlay_alpha"
@@ -40,7 +40,7 @@ skin = ExtResource("4_fkvco")
 text = "0%"
 
 [node name="splash_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(170, -87)
+position = Vector2(170, -55)
 script = ExtResource("6_1836p")
 section = &"interface"
 key = &"note_splash_alpha"
@@ -64,8 +64,28 @@ script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "0%"
 
+[node name="song_label_show" type="Node2D" parent="."]
+position = Vector2(88, 57)
+script = ExtResource("2_422dy")
+section = &"interface"
+key = &"song_label_show"
+
+[node name="alphabet" type="Node2D" parent="song_label_show"]
+script = ExtResource("3_ih51s")
+skin = ExtResource("4_fkvco")
+text = "Show Song Label"
+centered = true
+
+[node name="checkbox" type="AnimatedSprite2D" parent="song_label_show"]
+position = Vector2(421, 0)
+scale = Vector2(0.8, 0.8)
+sprite_frames = ExtResource("4_abqtr")
+animation = &"selected"
+offset = Vector2(-5, -35)
+script = ExtResource("5_fu6tn")
+
 [node name="sustain_layer" type="Node2D" parent="."]
-position = Vector2(227, 6)
+position = Vector2(227, 166)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"sustain_layer"
@@ -86,7 +106,7 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="cpu_strums_press" type="Node2D" parent="."]
-position = Vector2(72, 172)
+position = Vector2(72, 316)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"cpu_strums_press"
@@ -106,7 +126,7 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="scene_transitions" type="Node2D" parent="."]
-position = Vector2(126, 272)
+position = Vector2(126, 416)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"scene_transitions"
@@ -126,7 +146,7 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="countdown_on_resume" type="Node2D" parent="."]
-position = Vector2(186, 372)
+position = Vector2(186, 516)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"countdown_on_resume"
@@ -145,6 +165,7 @@ animation = &"selected"
 offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
+[connection signal="animation_finished" from="song_label_show/checkbox" to="song_label_show" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="sustain_layer/checkbox" to="sustain_layer" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="cpu_strums_press/checkbox" to="cpu_strums_press" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="scene_transitions/checkbox" to="scene_transitions" method="_on_checkbox_animation_finished"]

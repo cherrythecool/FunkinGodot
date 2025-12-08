@@ -91,6 +91,7 @@ var default_configuration: Dictionary = {
 	"interface": {
 		"underlay_alpha": 0.0,
 		"sustain_layer": "below",
+		"song_label_show": true,
 		"cpu_strums_press": true,
 		"note_splash_alpha": 100.0,
 		"countdown_on_resume": false,
