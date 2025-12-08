@@ -30,7 +30,7 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
-	bar.value = game.health
+	bar.value = lerpf(bar.value, game.health + 1, _delta * 5)
 	icons.scale = Vector2(1.2, 1.2).lerp(Vector2.ONE, icon_lerp())
 	position_icons(game.health)
 
@@ -89,7 +89,7 @@ func icon_lerp() -> float:
 
 
 func position_icons(health: float) -> void:
-	icons.position.x = 320.0 - (health * 6.4)
+	icons.position.x = 320.0 - (bar.value * 6.4)
 
 
 func _on_hud_downscroll_changed(downscroll: bool) -> void:

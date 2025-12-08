@@ -4,6 +4,7 @@ extends Label
 func _on_hud_on_setup() -> void:
 	update_label()
 	Game.instance.botplay_changed.connect(_on_botplay_changed)
+	self.visible = Config.get_value("interface", "song_label_show")
 
 
 func _on_botplay_changed(botplay: bool) -> void:
