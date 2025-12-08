@@ -92,7 +92,7 @@ script = ExtResource("9_t736h")
 character_path = "uid://bragoy3tisav2"
 
 [node name="camera_offset" type="Marker2D" parent="spectator"]
-position = Vector2(-69.099976, -254)
+position = Vector2(-9.099976, -303)
 
 [node name="player" type="Marker2D" parent="."]
 z_index = 300

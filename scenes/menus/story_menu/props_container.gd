@@ -9,7 +9,7 @@ class_name StoryModePropsContainer
 
 var last_props: StoryWeekProps = null
 var props: Array[Node] = []
-var prop_tweens: Array[Tween] = []
+var prop_tweens: Array[Tween] = [null, null, null, null]
 
 
 func update_props(assets: StoryWeekProps) -> void:
@@ -35,11 +35,6 @@ func update_props(assets: StoryWeekProps) -> void:
 			add_prop_to(right, assets.right)
 
 	props = [null, null, null, null]
-	
-	for tween: Tween in prop_tweens:
-		if is_instance_valid(tween) and tween.is_running():
-			tween.kill()
-	prop_tweens = [null, null, null, null]
 
 	update_props_array(backdrop, 0)
 	update_props_array(left, 1)
