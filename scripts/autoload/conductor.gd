@@ -157,9 +157,12 @@ func reset() -> void:
 
 
 static func reset_offset() -> void:
-	## NOTE: If Godot adds proper device latency
-	## on other platforms, this code should be changed.
-	if OS.get_name() == 'Linux':
+	const SUPPORTED_PLATFORMS: PackedStringArray = [
+		"Linux",
+		"Web",
+	]
+	
+	if SUPPORTED_PLATFORMS.has(OS.get_name()):
 		offset = audio_offset - manual_offset
 	else:
 		offset = -manual_offset
