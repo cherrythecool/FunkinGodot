@@ -27,9 +27,8 @@ static var instance: GameCamera2D = null
 var game: Game:
 	get:
 		return Game.instance
-var zoom_tween: Tween
-var pan_tween: Tween
-var pan_lerped: bool
+var zoom_event_tween: Tween
+var pan_event_tween: Tween
 
 
 func _ready() -> void:
@@ -86,8 +85,8 @@ func _on_game_event_hit(event: EventData) -> void:
 			if not is_instance_valid(target):
 				return
 			
-			if is_instance_valid(pan_tween) and pan_tween.is_running():
-				pan_tween.kill()
+			if is_instance_valid(pan_event_tween) and pan_event_tween.is_running():
+				pan_event_tween.kill()
 			
 			var ease_string: String = event.data[1]
 			position_lerps = true
@@ -98,24 +97,24 @@ func _on_game_event_hit(event: EventData) -> void:
 				return
 			
 			var steps: float = event.data[2]
-			pan_tween = create_tween()
-			pan_tween.set_ease(Global.convert_flixel_tween_ease(ease_string))
-			pan_tween.set_trans(Global.convert_flixel_tween_trans(ease_string))
-			pan_tween.tween_property(
+			pan_event_tween = create_tween()
+			pan_event_tween.set_ease(Global.convert_flixel_tween_ease(ease_string))
+			pan_event_tween.set_trans(Global.convert_flixel_tween_trans(ease_string))
+			pan_event_tween.tween_property(
 				self,
 				^"position_lerps",
 				false,
 				0.0
 			)
 			
-			pan_tween.tween_property(
+			pan_event_tween.tween_property(
 				self,
 				^"position",
 				position_target,
 				conductor.beat_delta / 4.0 * float(steps)
 			)
 			
-			pan_tween.tween_property(
+			pan_event_tween.tween_property(
 				self,
 				^"position_lerps",
 				true,
@@ -126,8 +125,8 @@ func _on_game_event_hit(event: EventData) -> void:
 			var steps: int = data.get("duration", 32)
 			var ease_string: String = data.get("ease", "expoOut")
 			var data_zoom: float = data.get("zoom", 1.05)
-			if is_instance_valid(zoom_tween):
-				zoom_tween.kill()
+			if is_instance_valid(zoom_event_tween):
+				zoom_event_tween.kill()
 
 			match data.get("mode", "direct"):
 				"stage":
@@ -144,16 +143,16 @@ func _on_game_event_hit(event: EventData) -> void:
 			if not is_instance_valid(conductor):
 				return
 			
-			zoom_tween = create_tween().set_parallel()
-			zoom_tween.set_ease(Global.convert_flixel_tween_ease(ease_string))
-			zoom_tween.set_trans(Global.convert_flixel_tween_trans(ease_string))
-			zoom_tween.tween_property(
+			zoom_event_tween = create_tween().set_parallel()
+			zoom_event_tween.set_ease(Global.convert_flixel_tween_ease(ease_string))
+			zoom_event_tween.set_trans(Global.convert_flixel_tween_trans(ease_string))
+			zoom_event_tween.tween_property(
 				self,
 				^"zoom_target",
 				Vector2.ONE * data_zoom,
 				conductor.beat_delta / 4.0 * float(steps)
 			)
-			zoom_tween.tween_property(
+			zoom_event_tween.tween_property(
 				self,
 				^"zoom",
 				Vector2.ONE * data_zoom,
