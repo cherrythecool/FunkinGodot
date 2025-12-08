@@ -32,7 +32,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	bar.value = lerpf(bar.value, game.health + 1, _delta * 5)
 	icons.scale = Vector2(1.2, 1.2).lerp(Vector2.ONE, icon_lerp())
-	position_icons(game.health)
+	position_icons(bar.value)
 
 	var player_frames: int = player_icon.hframes * player_icon.vframes
 	var opponent_frames: int = opponent_icon.hframes * opponent_icon.vframes
@@ -89,7 +89,7 @@ func icon_lerp() -> float:
 
 
 func position_icons(health: float) -> void:
-	icons.position.x = 320.0 - (bar.value * 6.4)
+	icons.position.x = 320.0 - (health * 6.4)
 
 
 func _on_hud_downscroll_changed(downscroll: bool) -> void:
@@ -102,3 +102,7 @@ func _on_hud_note_hit(_note: Note) -> void:
 
 func _on_hud_note_miss(_note: Note) -> void:
 	update_score_label()
+
+
+func _on_hud_setup() -> void:
+	reload_icons()

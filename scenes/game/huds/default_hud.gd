@@ -43,7 +43,7 @@ var hud_skin: HUDSkin:
 
 var rating_textures: Dictionary[StringName, Texture2D] = {}
 
-signal on_setup
+signal setup
 signal note_hit(note: Note)
 signal note_miss(note: Note)
 signal downscroll_changed(downscroll: bool)
@@ -52,7 +52,7 @@ signal downscroll_changed(downscroll: bool)
 func _ready() -> void:
 	if is_instance_valid(Game.instance):
 		game = Game.instance
-		game.hud_setup.connect(setup)
+		game.hud_setup.connect(_on_setup)
 	else:
 		process_mode = Node.PROCESS_MODE_DISABLED
 		return
@@ -69,9 +69,7 @@ func _ready() -> void:
 	centered_receptors = Config.get_value('gameplay', 'centered_receptors')
 
 
-func setup() -> void:
-	on_setup.emit()
-	
+func _on_setup() -> void:
 	if is_instance_valid(hud_skin):
 		combo_node.scale = hud_skin.combo_scale
 		combo_node.texture_filter = hud_skin.combo_filter
@@ -86,6 +84,8 @@ func setup() -> void:
 	if is_instance_valid(player_field):
 		player_field.note_hit.connect(_on_note_hit)
 		player_field.note_miss.connect(_on_note_miss)
+	
+	setup.emit()
 
 
 func _on_beat_hit(beat: int) -> void:

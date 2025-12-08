@@ -20,7 +20,7 @@ var countdown_sounds: Array[AudioStream] = []
 var game: Game
 
 
-func setup() -> void:
+func _on_hud_setup() -> void:
 	game = Game.instance
 	if game.metadata.skip_countdown:
 		do_countdown = false
