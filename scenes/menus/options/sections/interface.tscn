@@ -11,11 +11,11 @@
 [node name="interface" type="Node2D" node_paths=PackedStringArray("options")]
 position = Vector2(-320, 0)
 script = ExtResource("1_6p62e")
-options = [NodePath("underlay_alpha"), NodePath("splash_alpha"), NodePath("song_label_show"), NodePath("sustain_layer"), NodePath("cpu_strums_press"), NodePath("scene_transitions"), NodePath("countdown_on_resume")]
-max_distance = 90.0
+options = [NodePath("underlay_alpha"), NodePath("splash_alpha"), NodePath("cpu_strums_press"), NodePath("sustain_layer"), NodePath("song_label_show"), NodePath("scene_transitions"), NodePath("countdown_on_resume")]
+max_distance = 240.0
 
 [node name="underlay_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(222, -141)
+position = Vector2(6, -146)
 script = ExtResource("6_1836p")
 section = &"interface"
 key = &"underlay_alpha"
@@ -27,20 +27,19 @@ root = NodePath("..")
 PREVIEW = ""
 
 [node name="label" type="Node2D" parent="underlay_alpha"]
-position = Vector2(-237, 0)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "LANE ALPHA:"
 centered = true
 
 [node name="value" type="Node2D" parent="underlay_alpha"]
-position = Vector2(35, -34)
+position = Vector2(272, -34)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "0%"
 
 [node name="splash_alpha" type="Node2D" parent="." node_paths=PackedStringArray("root")]
-position = Vector2(170, -55)
+position = Vector2(6, -60)
 script = ExtResource("6_1836p")
 section = &"interface"
 key = &"note_splash_alpha"
@@ -52,32 +51,33 @@ root = NodePath("..")
 PREVIEW = ""
 
 [node name="label" type="Node2D" parent="splash_alpha"]
-position = Vector2(-140, 0)
+position = Vector2(47, 0)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "SPLASH ALPHA:"
 centered = true
 
 [node name="value" type="Node2D" parent="splash_alpha"]
-position = Vector2(179, -34)
+position = Vector2(366, -34)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "0%"
 
-[node name="song_label_show" type="Node2D" parent="."]
-position = Vector2(88, 57)
+[node name="cpu_strums_press" type="Node2D" parent="."]
+position = Vector2(6, 72)
 script = ExtResource("2_422dy")
 section = &"interface"
-key = &"song_label_show"
+key = &"cpu_strums_press"
 
-[node name="alphabet" type="Node2D" parent="song_label_show"]
+[node name="alphabet" type="Node2D" parent="cpu_strums_press"]
+position = Vector2(85, 0)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
-text = "Show Song Label"
+text = "cpu strum glow"
 centered = true
 
-[node name="checkbox" type="AnimatedSprite2D" parent="song_label_show"]
-position = Vector2(421, 0)
+[node name="checkbox" type="AnimatedSprite2D" parent="cpu_strums_press"]
+position = Vector2(506, 0)
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("4_abqtr")
 animation = &"selected"
@@ -85,40 +85,42 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="sustain_layer" type="Node2D" parent="."]
-position = Vector2(227, 166)
+position = Vector2(6, 171)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"sustain_layer"
 strings = Array[String](["above", "below"])
 
 [node name="alphabet" type="Node2D" parent="sustain_layer"]
+position = Vector2(243, 0)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "sustains below strums"
 centered = true
 
 [node name="checkbox" type="AnimatedSprite2D" parent="sustain_layer"]
-position = Vector2(569, 0)
+position = Vector2(812, 0)
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("4_abqtr")
 animation = &"selected"
 offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
-[node name="cpu_strums_press" type="Node2D" parent="."]
-position = Vector2(72, 316)
+[node name="song_label_show" type="Node2D" parent="."]
+position = Vector2(6, 324)
 script = ExtResource("2_422dy")
 section = &"interface"
-key = &"cpu_strums_press"
+key = &"song_label_show"
 
-[node name="alphabet" type="Node2D" parent="cpu_strums_press"]
+[node name="alphabet" type="Node2D" parent="song_label_show"]
+position = Vector2(99, 0)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
-text = "cpu strum glow"
+text = "Show Song Label"
 centered = true
 
-[node name="checkbox" type="AnimatedSprite2D" parent="cpu_strums_press"]
-position = Vector2(421, 0)
+[node name="checkbox" type="AnimatedSprite2D" parent="song_label_show"]
+position = Vector2(520, 0)
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("4_abqtr")
 animation = &"selected"
@@ -126,19 +128,20 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="scene_transitions" type="Node2D" parent="."]
-position = Vector2(126, 416)
+position = Vector2(6, 411)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"scene_transitions"
 
 [node name="alphabet" type="Node2D" parent="scene_transitions"]
+position = Vector2(140, 0)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "scene transitions"
 centered = true
 
 [node name="checkbox" type="AnimatedSprite2D" parent="scene_transitions"]
-position = Vector2(469, 0)
+position = Vector2(609, 0)
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("4_abqtr")
 animation = &"selected"
@@ -146,27 +149,28 @@ offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
 [node name="countdown_on_resume" type="Node2D" parent="."]
-position = Vector2(186, 516)
+position = Vector2(6, 510)
 script = ExtResource("2_422dy")
 section = &"interface"
 key = &"countdown_on_resume"
 
 [node name="alphabet" type="Node2D" parent="countdown_on_resume"]
+position = Vector2(187, -11.399994)
 script = ExtResource("3_ih51s")
 skin = ExtResource("4_fkvco")
 text = "countdown on resume"
 centered = true
 
 [node name="checkbox" type="AnimatedSprite2D" parent="countdown_on_resume"]
-position = Vector2(531, 0)
+position = Vector2(718, -11.399993)
 scale = Vector2(0.8, 0.8)
 sprite_frames = ExtResource("4_abqtr")
 animation = &"selected"
 offset = Vector2(-5, -35)
 script = ExtResource("5_fu6tn")
 
-[connection signal="animation_finished" from="song_label_show/checkbox" to="song_label_show" method="_on_checkbox_animation_finished"]
-[connection signal="animation_finished" from="sustain_layer/checkbox" to="sustain_layer" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="cpu_strums_press/checkbox" to="cpu_strums_press" method="_on_checkbox_animation_finished"]
+[connection signal="animation_finished" from="sustain_layer/checkbox" to="sustain_layer" method="_on_checkbox_animation_finished"]
+[connection signal="animation_finished" from="song_label_show/checkbox" to="song_label_show" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="scene_transitions/checkbox" to="scene_transitions" method="_on_checkbox_animation_finished"]
 [connection signal="animation_finished" from="countdown_on_resume/checkbox" to="countdown_on_resume" method="_on_checkbox_animation_finished"]

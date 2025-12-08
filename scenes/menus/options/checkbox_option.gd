@@ -34,6 +34,7 @@ func _ready() -> void:
 	else:
 		checkbox.position.x = alphabet.size.x + 64.0
 		checkbox.position.y = alphabet.size.y * 0.5
+	checkbox.position.x += alphabet.position.x
 
 	update_animation()
 
