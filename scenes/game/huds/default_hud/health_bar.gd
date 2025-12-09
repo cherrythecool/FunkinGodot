@@ -30,7 +30,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	bar.value = lerpf(bar.value, game.health, maxf(delta * 5.0, 1.0))
+	bar.value = lerpf(bar.value, game.health, minf(delta * 5.0, 1.0))
 	icons.scale = Vector2(1.2, 1.2).lerp(Vector2.ONE, icon_lerp())
 	position_icons(bar.value)
 
