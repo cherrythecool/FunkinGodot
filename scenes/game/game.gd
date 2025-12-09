@@ -321,7 +321,6 @@ func load_assets() -> void:
 func load_from_assets() -> void:
 	## Gameplay assets
 	player = assets.get_player().instantiate()
-	player.is_player = true
 	opponent = assets.get_opponent().instantiate()
 	spectator = assets.get_spectator().instantiate()
 	characters_container.add_child(spectator)
@@ -334,7 +333,7 @@ func load_from_assets() -> void:
 	if stage.has_node(^"player"):
 		var player_point: CharacterPlacement = stage.get_node(^"player")
 		if is_instance_valid(player_point):
-			player_point.adjust_character(player)
+			player_point.adjust_character(player, true)
 	if not player.starts_as_player:
 		player.scale *= Vector2(-1.0, 1.0)
 	

@@ -49,10 +49,9 @@ func _draw() -> void:
 	add_child(character)
 
 
-func adjust_character(input: Character, set_player: bool = false) -> void:
+func adjust_character(input: Character, is_player: bool = false) -> void:
 	input.global_position = global_position
-	if set_player:
-		input.is_player = set_player
+	input.swap_sing_animations = is_player != input.starts_as_player
 	input.scale *= scale
 	input.z_index += z_index
 	

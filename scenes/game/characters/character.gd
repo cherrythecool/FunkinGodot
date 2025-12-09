@@ -1,37 +1,42 @@
 class_name Character extends Node2D
 
 
-@export_category('Visuals')
+@export_category("Visuals")
 @export var icon: Icon = Icon.new()
 @export var starts_as_player: bool = false
 
-@export_category('Animations')
+@export_category("Animations")
 @export var dances: bool = true
-@export var dance_steps: Array[StringName] = [&'idle']
+@export var dance_steps: Array[StringName] = [&"idle"]
 @export_range(0.0, 1024.0, 0.01) var sing_steps: float = 4.0
 var dance_step: int = 0
 
-@export_category('Death')
-@export_file('*.tscn') var death_character: String = 'uid://w4v0gymuehdt'
+@export_category("Death")
+@export_file("*.tscn") var death_character: String = "uid://w4v0gymuehdt"
 @export var gameover_assets: GameoverAssets
 
 @onready var camera_offset: Node2D = $camera_offset
 @onready var animation_player: AnimationPlayer = $animation_player
 
-var is_player: bool = false
-var animation: StringName = &''
+var swap_sing_animations: bool = false
+var animation: StringName = &""
 var singing: bool = false
 var sing_timer: float = 0.0
 var in_special_anim: bool = false
 var sprite: CanvasItem = null
+
+var swapped_directions: Dictionary[StringName, StringName] = {
+	&"left": &"right",
+	&"right": &"left",
+}
 
 signal animation_played(animation: StringName)
 signal animation_finished(animation: StringName)
 
 
 func _ready() -> void:
-	if has_node(^'sprite'):
-		sprite = get_node(^'sprite')
+	if has_node(^"sprite"):
+		sprite = get_node(^"sprite")
 
 	dance(true)
 	animation_player.animation_finished.connect(func(anim_name: StringName) -> void:
@@ -57,7 +62,7 @@ func play_anim(anim: StringName, force: bool = false, special: bool = false) -> 
 
 	in_special_anim = special
 	animation = anim
-	singing = animation.begins_with(&'sing_')
+	singing = animation.begins_with(&"sing_")
 
 	if animation_player.current_animation == anim and force:
 		animation_player.seek(0.0)
@@ -76,31 +81,25 @@ func has_anim(anim: StringName) -> bool:
 func sing(note: Note, force: bool = false) -> void:
 	sing_timer = 0.0
 
-	const swapped: PackedStringArray = [&'left', &'right']
 	var direction: StringName = Note.directions[note.lane]
+	if swap_sing_animations and swapped_directions.has(direction):
+		direction = swapped_directions.get(direction)
 
-	if is_player != starts_as_player and swapped.has(direction):
-		direction = swapped[wrapi(swapped.find(direction) + 1, 0, swapped.size())]
-
-	var suffixed_name: StringName = &'sing_%s%s' % [direction.to_lower(), note.sing_suffix]
+	var suffixed_name: StringName = &"sing_%s%s" % [direction.to_lower(), note.sing_suffix]
 	if (not note.sing_suffix.is_empty()) and has_anim(suffixed_name):
-		play_anim(&'sing_%s%s' % [direction.to_lower(), note.sing_suffix], force)
+		play_anim(&"sing_%s%s" % [direction.to_lower(), note.sing_suffix], force)
 	else:
-		if not has_anim(suffixed_name):
-			push_warning('Can\'t play sing animation "%s"! Defaulting back.' % [suffixed_name])
-		play_anim(&'sing_%s' % direction.to_lower(), force)
+		play_anim(&"sing_%s" % direction.to_lower(), force)
 
 
 func sing_miss(note: Note, force: bool = false) -> void:
 	sing_timer = 0.0
 
-	const swapped: PackedStringArray = [&'left', &'right']
 	var direction: StringName = Note.directions[note.lane]
+	if swap_sing_animations and swapped_directions.has(direction):
+			direction = swapped_directions.get(direction)
 
-	if is_player != starts_as_player and swapped.has(direction):
-		direction = swapped[wrapi(swapped.find(direction) + 1, 0, swapped.size())]
-
-	play_anim(&'sing_%s_miss' % direction.to_lower(), force)
+	play_anim(&"sing_%s_miss" % direction.to_lower(), force)
 
 
 func dance(force: bool = false) -> void:
