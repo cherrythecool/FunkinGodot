@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl2ws5fsuesd1"]
+[gd_scene load_steps=11 format=3 uid="uid://dl2ws5fsuesd1"]
 
 [ext_resource type="Script" uid="uid://w34ri4ohkbor" path="res://scenes/menus/options/gameplay_section.gd" id="1_dvmij"]
 [ext_resource type="Script" uid="uid://b6ydf4mbyjiwc" path="res://scenes/interface/alphabet.gd" id="2_getyr"]
+[ext_resource type="Resource" uid="uid://5kr5cxye6wyn" path="res://assets/fonts/alphabet/skin_bold.tres" id="3_r0pnr"]
 [ext_resource type="Script" uid="uid://baxbvvuf4ol2f" path="res://scenes/menus/options/preview_option.gd" id="3_uqgqk"]
 [ext_resource type="Script" uid="uid://1xupndy1w5yk" path="res://scenes/menus/options/checkbox_option.gd" id="4_2w5sj"]
 [ext_resource type="SpriteFrames" uid="uid://oksqh74ocs1w" path="res://assets/menus/options/checkbox.res" id="5_pu18o"]
@@ -20,6 +21,7 @@ position = Vector2(0, -184)
 [node name="scroll_speed" type="Node2D" parent="the_list"]
 position = Vector2(-4, 429)
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "scroll speed"
 centered = true
 
@@ -32,6 +34,7 @@ current_preview = NodePath("../../../preview_bg/preview_marker")
 
 [node name="label" type="Node2D" parent="the_list/options/keybinds"]
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "keybinds"
 centered = true
 
@@ -43,6 +46,7 @@ strings = Array[String](["up", "down"])
 
 [node name="alphabet" type="Node2D" parent="the_list/options/downscroll"]
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "downscroll"
 centered = true
 
@@ -60,6 +64,7 @@ script = ExtResource("4_2w5sj")
 
 [node name="alphabet" type="Node2D" parent="the_list/options/middlescroll"]
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "middlescroll"
 centered = true
 
@@ -81,12 +86,14 @@ current_preview = NodePath("../../../preview_bg/preview_marker")
 [node name="label" type="Node2D" parent="the_list/options/offset"]
 position = Vector2(-140, 0)
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "offset:"
 centered = true
 
 [node name="value" type="Node2D" parent="the_list/options/offset"]
 position = Vector2(32, -34)
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "< 0 >"
 
 [node name="method" type="Node2D" parent="the_list/options"]
@@ -98,12 +105,14 @@ display_raw = false
 [node name="label" type="Node2D" parent="the_list/options/method"]
 position = Vector2(-135, 0)
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "method:"
 centered = true
 
 [node name="value" type="Node2D" parent="the_list/options/method"]
 position = Vector2(48, -34)
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "chart"
 
 [node name="value" type="Node2D" parent="the_list/options" node_paths=PackedStringArray("root", "current_preview")]
@@ -121,12 +130,14 @@ current_preview = NodePath("../../../preview_bg/preview_marker")
 [node name="label" type="Node2D" parent="the_list/options/value"]
 position = Vector2(-140, 0)
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "value:"
 centered = true
 
 [node name="value" type="Node2D" parent="the_list/options/value"]
 position = Vector2(16, -34)
 script = ExtResource("2_getyr")
+skin = ExtResource("3_r0pnr")
 text = "0"
 
 [node name="preview_bg" type="ColorRect" parent="."]
