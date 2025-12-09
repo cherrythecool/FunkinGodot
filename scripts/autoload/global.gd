@@ -167,3 +167,7 @@ func convert_flixel_tween_trans(v: String) -> Tween.TransitionType:
 
 func get_accurate_time(player: AudioStreamPlayer) -> float:
 	return player.get_playback_position() + (AudioServer.get_time_since_last_mix() * player.pitch_scale)
+
+
+func lerp_weight(delta: float, constant: float) -> float:
+	return minf(1.0 - exp(-constant * delta), 1.0)

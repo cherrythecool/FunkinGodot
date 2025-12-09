@@ -72,7 +72,7 @@ var default_configuration: Dictionary = {
 		"scroll_direction": "up",
 		"centered_receptors": false,
 		"manual_offset": 0.0,
-		"scroll_speed_method": "chart_based",
+		"scroll_speed_method": "chart",
 		"custom_scroll_speed": 1.0,
 		"binds": {
 			"left": KEY_D,

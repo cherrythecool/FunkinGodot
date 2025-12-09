@@ -277,7 +277,7 @@ func load_chart() -> void:
 	
 	var custom_speed: float = Config.get_value("gameplay", "custom_scroll_speed")
 	match Config.get_value("gameplay", "scroll_speed_method"):
-		"chart":
+		"chart", "chart_based":
 			scroll_speed = chart.scroll_speed * custom_speed
 		"constant":
 			scroll_speed = custom_speed
