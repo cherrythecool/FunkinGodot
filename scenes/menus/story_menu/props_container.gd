@@ -15,22 +15,22 @@ var prop_tweens: Array[Tween] = [null, null, null, null]
 func update_props(assets: StoryWeekProps) -> void:
 	var force_reload: bool = (not is_instance_valid(last_props))
 	if force_reload or last_props.backdrop != assets.backdrop:
-		Global.free_children_from(backdrop)
+		GameUtils.free_children_from(backdrop)
 		if is_instance_valid(assets.backdrop):
 			add_prop_to(backdrop, assets.backdrop)
 
 	if force_reload or last_props.left != assets.left:
-		Global.free_children_from(left)
+		GameUtils.free_children_from(left)
 		if is_instance_valid(assets.left):
 			add_prop_to(left, assets.left)
 
 	if force_reload or last_props.center != assets.center:
-		Global.free_children_from(center)
+		GameUtils.free_children_from(center)
 		if is_instance_valid(assets.center):
 			add_prop_to(center, assets.center)
 
 	if force_reload or last_props.right != assets.right:
-		Global.free_children_from(right)
+		GameUtils.free_children_from(right)
 		if is_instance_valid(assets.right):
 			add_prop_to(right, assets.right)
 

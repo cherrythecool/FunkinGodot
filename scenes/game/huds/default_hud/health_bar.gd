@@ -30,7 +30,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	bar.value = lerpf(bar.value, game.health, Global.lerp_weight(delta, 5.0))
+	bar.value = lerpf(bar.value, game.health, GameUtils.lerp_weight(delta, 5.0))
 	icons.scale = Vector2(1.2, 1.2).lerp(Vector2.ONE, icon_lerp())
 	position_icons(bar.value)
 
@@ -52,7 +52,7 @@ func update_score_label() -> void:
 	score_label.text = 'Score:%d • Misses:%d • Accuracy:%.3f%% (%s)' % [
 		game.score,
 		game.misses,
-		Global.truncate_float_to(game.accuracy, 3),
+		GameUtils.truncate_float_to(game.accuracy, 3),
 		game.rank,
 	]
 

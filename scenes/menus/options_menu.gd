@@ -80,7 +80,7 @@ func deselect_current() -> void:
 	tween.tween_property(interface, ^'position:x', 0.0, 0.5)
 	tween.tween_property(section, ^'position:x', 1920.0, 0.5)
 	var children: Array[Node] = section.get_children()
-	tween.tween_callback(Global.free_from_array.bind(children)).set_delay(0.5)
+	tween.tween_callback(GameUtils.free_from_array.bind(children)).set_delay(0.5)
 
 
 func select_current() -> void:

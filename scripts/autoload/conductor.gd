@@ -119,7 +119,7 @@ func _process(delta: float) -> void:
 
 
 func sync_to_target(delta: float) -> void:
-	var audio_time: float = Global.get_accurate_time(target_audio)
+	var audio_time: float = GameUtils.get_accurate_time(target_audio)
 	var desync: float = absf(raw_time - audio_time)
 	if audio_time > raw_time or desync >= MAX_DESYNC:
 		raw_time = audio_time

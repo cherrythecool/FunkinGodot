@@ -73,10 +73,10 @@ func _process(delta: float) -> void:
 	for i: int in characters.get_child_count():
 		var icon: Node2D = characters.get_child(i)
 		if i == selected_x + (selected_y * 3):
-			selector.global_position = selector.global_position.lerp(icon.global_position, Global.lerp_weight(delta, 12.0))
-			icon.scale = icon.scale.lerp(Vector2.ONE * 1.15, Global.lerp_weight(delta, 9.0))
+			selector.global_position = selector.global_position.lerp(icon.global_position, GameUtils.lerp_weight(delta, 12.0))
+			icon.scale = icon.scale.lerp(Vector2.ONE * 1.15, GameUtils.lerp_weight(delta, 9.0))
 		else:
-			icon.scale = icon.scale.lerp(Vector2.ONE, Global.lerp_weight(delta, 9.0))
+			icon.scale = icon.scale.lerp(Vector2.ONE, GameUtils.lerp_weight(delta, 9.0))
 	
 	if "smoothed_offset" in camera_2d:
 		camera_2d.smoothed_offset = Vector2(

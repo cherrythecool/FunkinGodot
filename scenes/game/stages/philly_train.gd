@@ -86,7 +86,7 @@ func reset_train() -> void:
 
 
 func update_train_position() -> void:
-	if Global.get_accurate_time(train_passes) >= 4.7 and not train_moving:
+	if GameUtils.get_accurate_time(train_passes) >= 4.7 and not train_moving:
 		train_moving = true
 		game.spectator.play_anim(&'hair_blow', false, true)
 

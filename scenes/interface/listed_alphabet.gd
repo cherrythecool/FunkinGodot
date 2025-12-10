@@ -13,4 +13,4 @@ func _process(delta: float) -> void:
 		(target_y * 20.0 + 90.0) * float(use_x),
 		# 156 = 120 * 1.3
 		target_y * 156.0 + 360.0 - size.y * 0.5
-	) + offset, Global.lerp_weight(delta, rate))
+	) + offset, GameUtils.lerp_weight(delta, rate))
